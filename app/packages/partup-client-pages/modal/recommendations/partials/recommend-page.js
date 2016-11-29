@@ -96,6 +96,7 @@ Template.app_recommend_page.onRendered(function () {
                 template.partupsXMLHttpRequest = _request;
             }
         }, function (error, response) {
+            console.log(response)
             template.partupsXMLHttpRequest = null;
 
             if (error || !response.data.partups || response.data.partups.length === 0) {

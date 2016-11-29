@@ -69,6 +69,22 @@ Router.route('/discover/partups', {
     }
 });
 
+Router.route('/discover/recommendations', {
+    name: 'discover-recommendations',
+    where: 'client',
+    yieldRegions: {
+        'app':                          {to: 'main'},
+        'app_discover':                 {to: 'app'},
+        'app_discover_recommendations': {to: 'app_discover'},
+        // 'modal_recommendations': {to: 'modal'},
+
+    },
+    onBeforeAction: function() {
+        Partup.client.windowTitle.setContextName('Discover Recommendations');
+        this.next();
+    }
+});
+
 /*************************************************************/
 /* Profile */
 /*************************************************************/
@@ -206,23 +222,6 @@ Router.route('/profile/:_id/settings/email', {
         return {
             profileId: this.params._id
         };
-    }
-});
-
-
-/*************************************************************/
-/* Recommendations */
-/*************************************************************/
-Router.route('/recommendations', {
-    name: 'recommendations',
-    where: 'client',
-    yieldRegions: {
-        'modal':              {to: 'main'},
-        'modal_recommendations': {to: 'modal'}
-    },
-    onBeforeAction: function() {
-        Partup.client.windowTitle.setContextName("Recommendations");
-        this.next();
     }
 });
 

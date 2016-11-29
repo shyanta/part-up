@@ -1,0 +1,38 @@
+<template name="app_discover_recommendations">
+    <section class="pu-composition pu-composition-discover">
+
+        <!-- Header -->
+        <header class="pu-sub-header">
+            <form class="pu-form pu-flexible-center" novalidate data-nosubmit>
+                <div>
+                    <span>
+                        <h2 class="pu-title">
+                            {{_ 'pages-app-discover-heading' }}
+
+                            {{# if countLoading }}
+                                {{> Spinner type='small' }}
+                            {{ else }}
+                                <span class="pu-sub-countlabel">
+                                    {{#if count}}
+                                        {{_ 'pages-app-discover-xpartups' count=count }}
+                                    {{else}}
+                                        {{_ 'pages-app-discover-nopartups' }}
+                                    {{/if}}
+                                </span>
+                            {{/ if }}
+
+                        </h2>
+                    </span>
+                </div>
+            </form>
+
+        </header>
+
+        <!-- Content (partup-tiles) -->
+        <div class="pu-discoverlayout">
+            {{> app_recommend_page }}
+        </div>
+
+    </section>
+
+</template>

@@ -60,6 +60,8 @@ Package.onUse(function(api) {
             'app/discover/tabs/discover-partups.js',
             'app/discover/tabs/discover-tribes.html',
             'app/discover/tabs/discover-tribes.js',
+            'app/discover/tabs/discover-recommendations.html',
+            'app/discover/tabs/discover-recommendations.js',
             'app/discover/partials/discover-tribes-filter.html',
             'app/discover/partials/discover-tribes-filter.js',
             'app/discover/partials/discover-partups-filter.html',
