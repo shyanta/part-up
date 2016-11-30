@@ -274,12 +274,6 @@ Package.onUse(function(api) {
             'modal/network_settings/about/about.html',
             'modal/network_settings/access/access.html',
 
-            // Modal:recommendations
-            'modal/recommendations/recommendations.html',
-            'modal/recommendations/recommendations.js',
-            'modal/recommendations/partials/recommend-page.html',
-            'modal/recommendations/partials/recommend-page.js',
-
             // Modal:create
             'modal/create/create.html',
             'modal/create/create.js',
