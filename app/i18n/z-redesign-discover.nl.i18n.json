@@ -1,5 +1,16 @@
 {
     "pages-app-discover-tribes-heading": "Discover",
     "pages-app-discover-xtribes": "__count__ tribes",
-    "pages-app-discover-notribes": "geen tribes gevonden, pas je filter aan"
+    "pages-app-discover-notribes": "geen tribes gevonden, pas je filter aan",
+    "pages-app-discover-partups-filter-intro-text": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Provident autem ut commodi iste corporis! At ad quidem, facere error nostrum.",
+    "pages-app-discover-tribes-filter-intro-text": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus modi, et dolor eius amet tempore illo minus odit labore ex.",
+    "pages-app-discover-partups-filter-textsearch-label": "Laat mij zien",
+    "pages-app-discover-partups-filter-networkfilter-label": "Deel van",
+    "pages-app-discover-partups-filter-locationfilter-label": "Locatie",
+    "pages-app-discover-partups-filter-language-label": "Taal",
+    "pages-app-discover-tribes-filter-textsearch-label'": "Laat mij zien",
+    "pages-app-discover-tribes-filter-sector-label": "Sector",
+    "pages-app-discover-tribes-filter-type-label": "Type",
+    "pages-app-discover-tribes-filter-location-label": "Locatie",
+    "pages-app-discover-tribes-filter-language-label": "Taal"
 }
