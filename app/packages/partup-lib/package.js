@@ -58,6 +58,7 @@ Package.onUse(function(api) {
         'collections/contentblock.js',
         'collections/chats.js',
         'collections/chatmessages.js',
+        'collections/sectors.js',
         'schemas/activity.js',
         'schemas/update.js',
         'schemas/contribution.js',
