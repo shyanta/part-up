@@ -660,7 +660,8 @@ Networks.guardedMetaFind = function(selector, options) {
         'label_colleagues_custom_b',
         'collegues',
         'collegues_custom_a',
-        'collegues_custom_b'
+        'collegues_custom_b',
+        'sector'
     ];
 
     unguardedFields.forEach(function(unguardedField) {
@@ -692,6 +693,7 @@ Networks.findForDiscover = function(userId, options, parameters) {
     var textSearch = parameters.textSearch || undefined;
     var locationId = parameters.locationId || undefined;
     var language = parameters.language || undefined;
+    var sector = parameters.sector || undefined;
     var notArchived = parameters.notArchived || undefined;
 
     if (sort) {
@@ -728,6 +730,11 @@ Networks.findForDiscover = function(userId, options, parameters) {
     // Filter the networks that are in a given location
     if (locationId) {
         selector['location.place_id'] = locationId;
+    }
+
+    // Filter the networks on sector
+    if (sector) {
+        selector['sector'] = sector;
     }
 
     if (notArchived) {
