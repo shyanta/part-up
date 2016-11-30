@@ -10,7 +10,7 @@ Template.app_profile_about.onCreated(function() {
     template.columnTilesLayout = new Partup.client.constructors.ColumnTilesLayout({
 
         // Initial amount of columns
-        columns: getAmountOfColumns(Partup.client.screen.size.get('width')),
+        columnMinWidth: 500,
 
         // This function will be called for each tile
         calculateApproximateTileHeight: function(tileData, columnWidth) {
