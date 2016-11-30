@@ -143,6 +143,7 @@ Package.onUse(function(api) {
     api.export('Chats');
     api.export('ChatMessages');
     api.export('FileUploader');
+    api.export('Sectors');
 
     // Globals
     api.export('get');
