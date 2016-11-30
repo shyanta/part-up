@@ -171,6 +171,7 @@ Package.onUse(function(api) {
         'publications/swarms.js',
         'publications/contentblocks.js',
         'publications/chats.js',
+        'publications/sectors.js',
         'routes/hooks.js',
         'routes/middleware.js',
         'routes/csv/csv_routes.js',
