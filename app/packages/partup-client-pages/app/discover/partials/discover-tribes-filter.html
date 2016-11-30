@@ -3,7 +3,7 @@
         <form class="pu-form" data-form>
             <div class="pu-formfield">
                 <span class="pu-label">Show me</span>
-                <input type="text" class="pu-input" data-search-query>
+                <input type="text" class="pu-input" data-search-query placeholder="Zoekwoord">
             </div>
             <!-- SECTOR INPUT: Needs implementation -->
             <!-- <div class="pu-formfield">
@@ -29,7 +29,7 @@
             </div>
             <div class="pu-formfield">
                 <span class="pu-label">Language</span>
-                {{> DiscoverPartupsLanguageSelector reactiveVar=state.selectedLanguageReactiveVar }}
+                {{> DiscoverLanguageSelector reactiveVar=state.selectedLanguageReactiveVar }}
             </div>
         </form>
     </div>
