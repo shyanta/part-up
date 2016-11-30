@@ -3,6 +3,8 @@ Template.app_discover_tribes.onCreated(function() {
     var PAGING_INCREMENT = 32;
 
     template.networks = new ReactiveVar([]);
+     // Current query placeholder
+    template.query;
 
     // States such as loading states
     template.states = {
@@ -14,14 +16,15 @@ Template.app_discover_tribes.onCreated(function() {
     // Partup result count
     template.count = new ReactiveVar();
 
+    template.tribesXMLHttpRequest = null;
     template.page = new ReactiveVar(undefined, function(previousPage, page) {
 
         template.query = Partup.client.discover.composeTribeQueryObject();
 
         // Cancel possibly ongoing request
-        if (template.partupsXMLHttpRequest) {
-            template.partupsXMLHttpRequest.abort();
-            template.partupsXMLHttpRequest = null;
+        if (template.tribesXMLHttpRequest) {
+            template.tribesXMLHttpRequest.abort();
+            template.tribesXMLHttpRequest = null;
         }
 
         var query = mout.object.deepFillIn({}, template.query);
@@ -30,13 +33,13 @@ Template.app_discover_tribes.onCreated(function() {
         query.userId = Meteor.userId();
         query.token = Accounts._storedLoginToken();
 
-        template.partupsXMLHttpRequest = null;
+        template.tribesXMLHttpRequest = null;
         HTTP.get('/tribes/discover' + mout.queryString.encode(query), {
             beforeSend: function(_request) {
-                template.partupsXMLHttpRequest = _request;
+                template.tribesXMLHttpRequest = _request;
             }
         }, function(error, response) {
-            template.partupsXMLHttpRequest = null;
+            template.tribesXMLHttpRequest = null;
 
             if (error || !response.data.networks || response.data.networks.length === 0) {
                 template.states.loading_infinite_scroll = false;
@@ -56,11 +59,36 @@ Template.app_discover_tribes.onCreated(function() {
         });
     });
 
+    template.countXMLHttpRequest = null;
     template.autorun(function() {
-        template.states.paging_end_reached.set(false);
+        if (template.countXMLHttpRequest) {
+            template.countXMLHttpRequest.abort();
+            template.countXMLHttpRequest = null;
+        }
+
         template.query = Partup.client.discover.composeTribeQueryObject();
+
+        var query = mout.object.deepFillIn({}, template.query);
+        query.userId = Meteor.userId();
+        query.token = Accounts._storedLoginToken();
+
+        template.states.paging_end_reached.set(false);
         template.page.set(0);
         template.networks.set([]);
+
+        template.states.count_loading.set(true);
+        HTTP.get('/tribes/discover/count' + mout.queryString.encode(query), {
+            beforeSend: function(request) {
+                template.countXMLHttpRequest = request;
+            }
+        }, function(error, response) {
+            template.countXMLHttpRequest = null;
+            template.states.count_loading.set(false);
+            if (error || !response || !mout.lang.isString(response.content)) { return; }
+
+            var content = JSON.parse(response.content);
+            template.count.set(content.count);
+        });
     });
 });
 
@@ -77,5 +105,14 @@ Template.app_discover_tribes.helpers({
                 return template.networks.get();
             }
         };
-    }
+    },
+    endReached: function() {
+        return Template.instance().states.paging_end_reached.get();
+    },
+    count: function() {
+        return Template.instance().count.get();
+    },
+    countLoading: function() {
+        return Template.instance().states.count_loading.get();
+    },
 });

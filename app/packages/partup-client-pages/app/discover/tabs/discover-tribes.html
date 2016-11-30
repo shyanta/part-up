@@ -14,20 +14,14 @@
                             {{ else }}
                                 <span class="pu-sub-countlabel">
                                     {{#if count}}
-                                        {{_ 'pages-app-discover-xpartups' count=count }}
+                                        {{_ 'pages-app-discover-xtribes' count=count }}
                                     {{else}}
-                                        {{_ 'pages-app-discover-nopartups' }}
+                                        {{_ 'pages-app-discover-notribes' }}
                                     {{/if}}
                                 </span>
                             {{/ if }}
 
                         </h2>
-
-                        {{# if showRecommendationsBtn }}
-                            <button id="recommendationsBtn" class="pu-button pu-button-large pu-sub-right">
-                              {{_ 'pages-app-discover-btn-recommendations' }}
-                            </button>
-                        {{/ if }}
                     </span>
                 </div>
                 <div class="pu-sub-center">
@@ -52,6 +46,12 @@
                     </li>
                 {{/each}}
             </ul>
+
+            {{# unless endReached }}
+                <div class="pu-sub-loading-infinite-scroll">
+                    {{> Spinner }}
+                </div>
+            {{/ unless }}
         </div>
 
     </section>
