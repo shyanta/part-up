@@ -2,8 +2,19 @@ Template.app_discover_tribes.onCreated(function() {
     var template = this;
     var PAGING_INCREMENT = 32;
 
+    template.sorting = new ReactiveVar(undefined, function(a, b) {
+        console.log(a,b);
+        Partup.client.discover.current_tribe_query.sort = (b && b.value) || undefined;
+        for (key in Partup.client.discover.DEFAULT_TRIBE_QUERY) {
+            var fieldValue          = Partup.client.discover.current_tribe_query[key];
+            var defaultFieldValue   = Partup.client.discover.DEFAULT_TRIBE_QUERY[key];
+
+            Partup.client.discover.tribe_query.set(key, fieldValue || defaultFieldValue);
+        }
+    });
+
     template.networks = new ReactiveVar([]);
-     // Current query placeholder
+    // Current query placeholder
     template.query;
 
     // States such as loading states
@@ -61,6 +72,7 @@ Template.app_discover_tribes.onCreated(function() {
 
     template.countXMLHttpRequest = null;
     template.autorun(function() {
+        console.log('run')
         if (template.countXMLHttpRequest) {
             template.countXMLHttpRequest.abort();
             template.countXMLHttpRequest = null;
@@ -84,10 +96,10 @@ Template.app_discover_tribes.onCreated(function() {
         }, function(error, response) {
             template.countXMLHttpRequest = null;
             template.states.count_loading.set(false);
-            if (error || !response || !mout.lang.isString(response.content)) { return; }
+            // if (error || !response || !mout.lang.isString(response.content)) { return; }
 
-            var content = JSON.parse(response.content);
-            template.count.set(content.count);
+            // var content = JSON.parse(response.content);
+            // template.count.set(content.count);
         });
     });
 });
@@ -115,4 +127,7 @@ Template.app_discover_tribes.helpers({
     countLoading: function() {
         return Template.instance().states.count_loading.get();
     },
+    sortReactiveVar: function() {
+        return Template.instance().sorting;
+    }
 });

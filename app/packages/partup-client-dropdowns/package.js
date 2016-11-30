@@ -87,11 +87,11 @@ Package.onUse(function(api) {
 
         'partials/discover/language-selector.html',
         'partials/discover/language-selector.js',
+        'partials/discover/sort-selector.html',
+        'partials/discover/sort-selector.js',
 
         'partials/discover/partups/tribe-selector.html',
-        'partials/discover/partups/tribe-selector.js',
-        'partials/discover/partups/sort-selector.html',
-        'partials/discover/partups/sort-selector.js'
+        'partials/discover/partups/tribe-selector.js'
     ], 'client');
 
 });

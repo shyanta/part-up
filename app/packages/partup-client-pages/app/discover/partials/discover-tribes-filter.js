@@ -15,7 +15,6 @@ Template.app_discover_tribes_filter.onCreated(function() {
         }
     };
     template.searchQuery = new ReactiveVar(undefined, function(a, b) {
-        console.log('jaja')
         Partup.client.discover.current_tribe_query.textSearch = b || undefined;
         updateQuery();
     });

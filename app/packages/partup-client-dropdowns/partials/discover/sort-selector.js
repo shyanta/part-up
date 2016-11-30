@@ -1,4 +1,4 @@
-Template.DiscoverPartupsSortSelector.onCreated(function() {
+Template.DiscoverSortSelector.onCreated(function() {
     var template = this;
     template.dropdownToggleBool = 'partial-dropdowns-networks-actions-sort.opened';
     template.dropdownOpen = new ReactiveVar(false);
@@ -9,17 +9,17 @@ Template.DiscoverPartupsSortSelector.onCreated(function() {
     });
 });
 
-Template.DiscoverPartupsSortSelector.onRendered(function() {
+Template.DiscoverSortSelector.onRendered(function() {
     var template = this;
     ClientDropdowns.addOutsideDropdownClickHandler(template, '[data-clickoutside-close]', '[data-toggle-menu]');
 });
 
-Template.DiscoverPartupsSortSelector.onDestroyed(function() {
+Template.DiscoverSortSelector.onDestroyed(function() {
     var tpl = this;
     ClientDropdowns.removeOutsideDropdownClickHandler(tpl);
 });
 
-Template.DiscoverPartupsSortSelector.events({
+Template.DiscoverSortSelector.events({
     'click [data-toggle-menu]': ClientDropdowns.dropdownClickHandler,
     'click [data-select-option]': function eventSelectOption(event, template) {
         event.preventDefault();
@@ -28,7 +28,7 @@ Template.DiscoverPartupsSortSelector.events({
     }
 });
 
-Template.DiscoverPartupsSortSelector.helpers({
+Template.DiscoverSortSelector.helpers({
     menuOpen: function() {
         return Template.instance().dropdownOpen.get();
     },

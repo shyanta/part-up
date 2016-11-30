@@ -10,7 +10,7 @@ Template.app_discover_partups.onCreated(function() {
     var template = this;
 
     template.sorting = new ReactiveVar(undefined, function(a, b) {
-        Partup.client.discover.current_query.sort = b.value || undefined;
+        Partup.client.discover.current_query.sort = (b && b.value) || undefined;
         for (key in Partup.client.discover.DEFAULT_QUERY) {
             var fieldValue          = Partup.client.discover.current_query[key];
             var defaultFieldValue   = Partup.client.discover.DEFAULT_QUERY[key];
