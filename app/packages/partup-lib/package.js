@@ -80,6 +80,7 @@ Package.onUse(function(api) {
         'schemas/contentblock.js',
         'schemas/chat.js',
         'schemas/chatmessage.js',
+        'schemas/sector.js',
         'transformers/activity.js',
         'transformers/partup.js',
         'transformers/user.js',
