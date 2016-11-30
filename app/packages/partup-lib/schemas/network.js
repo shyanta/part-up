@@ -114,6 +114,10 @@ Partup.schemas.entities.network = new SimpleSchema([networkBaseSchema, {
         type: String,
         regEx: SimpleSchema.RegEx.Id
     },
+    sector: {
+        type: String,
+        optional: true
+    },
     stats: {
         type: Object
     },
