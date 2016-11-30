@@ -3,7 +3,8 @@ var PAGING_INCREMENT = 32;
 var getAmountOfColumns = function(screenwidth) {
     screenwidth -= 294;
     var minWidth = 300;
-    return Math.min(Math.floor(screenwidth / minWidth), 3);
+    var columnCount = Math.max(Math.min(Math.floor(screenwidth / minWidth), 3), 1);
+    return columnCount;
 };
 
 Template.app_discover_partups.onCreated(function() {
@@ -60,23 +61,13 @@ Template.app_discover_partups.onCreated(function() {
 
             return BASE_HEIGHT + MARGIN + name + description + tribe;
         },
-        columns: getAmountOfColumns(Partup.client.screen.size.get('width'))
+        columnMinWidth: 277
 
     });
 });
 
 Template.app_discover_partups.onRendered(function() {
     var template = this;
-
-    // When the screen size alters
-    template.autorun(function() {
-        var screenWidth = Partup.client.screen.size.get('width');
-        var columns = getAmountOfColumns(screenWidth);
-
-        if (columns !== template.columnTilesLayout.columns.curValue.length) {
-            template.columnTilesLayout.setColumns(columns);
-        }
-    });
 
     // Current query placeholder
     template.query;

@@ -77,6 +77,7 @@ Package.onUse(function (api) {
         'client/sort.js',
         'client/message.js',
         'client/element.js',
+        'client/columnsLayout.js',
 
         'helpers/sanitize.js',
         'helpers/log.js',
