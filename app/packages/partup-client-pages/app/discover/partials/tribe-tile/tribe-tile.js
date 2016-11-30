@@ -26,6 +26,17 @@ Template.TribeTile.helpers({
     }
 });
 
+Template.TribeTile.events({
+    'click [data-open-network]': function(event, template) {
+        var preventOpen = Partup.client.element.hasAttr(event.target, 'data-prevent-open');
+        if (!preventOpen) {
+            event.preventDefault();
+            var networkSlug = $(event.currentTarget).data('open-network');
+            Router.go('network-detail', {slug: networkSlug});
+        }
+    }
+});
+
 Template.MostActivePartups.onCreated(function() {
     var template = this;
     var partupId = (template.data.partups.ids || [])[0];
@@ -66,6 +77,9 @@ Template.MostActiveUppers.helpers({
             remainingUppers: function() {
                 var remaining = upperCount > template.MAX_UPPERS ? upperCount - template.MAX_UPPERS : 0;
                 return remaining;
+            },
+            networkSlug: function() {
+                return template.data.networkSlug;
             }
         };
     }
