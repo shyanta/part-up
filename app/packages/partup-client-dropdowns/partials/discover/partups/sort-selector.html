@@ -1,7 +1,7 @@
 <template name='DiscoverPartupsSortSelector'>
     <div class="pu-formdropdown {{#if menuOpen}}pu-formdropdown-active{{/if}}">
         <div class="pu-sub-container" data-container>
-            <button class="pu-button pu-button-input pu-button-input-keepbuttonheight" data-toggle-menu>
+            <button type="button" class="pu-button pu-button-input pu-button-input-keepbuttonheight" data-toggle-menu>
                 {{ selectedOption.name }}
                 <i class="{{#if menuOpen}} picon-caret-up {{else}} picon-caret-down {{/if}}"></i>
             </button>
