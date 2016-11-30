@@ -1,4 +1,4 @@
-Template.DiscoverPartupsLanguageSelector.onCreated(function() {
+Template.DiscoverLanguageSelector.onCreated(function() {
     var template = this;
     template.dropdownToggleBool = 'partial-dropdowns-networks-actions.opened';
     template.dropdownOpen = new ReactiveVar(false);
@@ -10,17 +10,17 @@ Template.DiscoverPartupsLanguageSelector.onCreated(function() {
     template.subscribe('languages.all');
 });
 
-Template.DiscoverPartupsLanguageSelector.onRendered(function() {
+Template.DiscoverLanguageSelector.onRendered(function() {
     var template = this;
     ClientDropdowns.addOutsideDropdownClickHandler(template, '[data-clickoutside-close]', '[data-toggle-menu]');
 });
 
-Template.DiscoverPartupsLanguageSelector.onDestroyed(function() {
+Template.DiscoverLanguageSelector.onDestroyed(function() {
     var tpl = this;
     ClientDropdowns.removeOutsideDropdownClickHandler(tpl);
 });
 
-Template.DiscoverPartupsLanguageSelector.events({
+Template.DiscoverLanguageSelector.events({
     'click [data-toggle-menu]': ClientDropdowns.dropdownClickHandler,
     'click [data-select-option]': function eventSelectOption(event, template) {
         event.preventDefault();
@@ -29,7 +29,7 @@ Template.DiscoverPartupsLanguageSelector.events({
     }
 });
 
-Template.DiscoverPartupsLanguageSelector.helpers({
+Template.DiscoverLanguageSelector.helpers({
     menuOpen: function() {
         return Template.instance().dropdownOpen.get();
     },

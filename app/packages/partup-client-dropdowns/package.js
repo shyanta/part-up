@@ -85,10 +85,11 @@ Package.onUse(function(api) {
         'partials/profile/supporter-actions.html',
         'partials/profile/supporter-actions.js',
 
+        'partials/discover/language-selector.html',
+        'partials/discover/language-selector.js',
+
         'partials/discover/partups/tribe-selector.html',
         'partials/discover/partups/tribe-selector.js',
-        'partials/discover/partups/language-selector.html',
-        'partials/discover/partups/language-selector.js',
         'partials/discover/partups/sort-selector.html',
         'partials/discover/partups/sort-selector.js'
     ], 'client');
