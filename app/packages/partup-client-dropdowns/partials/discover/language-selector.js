@@ -3,7 +3,7 @@ Template.DiscoverLanguageSelector.onCreated(function() {
     template.dropdownToggleBool = 'partial-dropdowns-networks-actions.opened';
     template.dropdownOpen = new ReactiveVar(false);
     template.emptyOption = {
-        native_name: 'All'
+        native_name: TAPi18n.__('pages-app-discover-filter-language-sector-all')
     };
     template.selectedOption = template.data.reactiveVar;
     template.selectedOption.set(template.emptyOption);
