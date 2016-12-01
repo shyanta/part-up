@@ -40,11 +40,6 @@ Template.TribeTile.events({
     }
 });
 
-Template.TribeTile_Metadata.onCreated(function() {
-    var template = this;
-    var partupId = (template.data.partups.ids || [])[0];
-});
-
 Template.TribeTile_Metadata.helpers({
     data: function() {
         var template = Template.instance();
@@ -70,15 +65,9 @@ Template.TribeTile_Metadata.helpers({
     }
 });
 
-Template.MostActiveUppers.onCreated(function() {
-    var template = this;
-    template.MAX_UPPERS = 7;
-    // var upperIds = template.data.uppers.ids || [];
-    // template.subscribe('users.by_ids', upperIds);
-});
-
 Template.MostActiveUppers.helpers({
     data: function() {
+        var MAX_UPPERS = 7;
         var template = Template.instance();
         var uppers = template.data.uppers.all || [];
         var upperCount = template.data.uppers.count;
@@ -87,8 +76,7 @@ Template.MostActiveUppers.helpers({
                 return uppers;
             },
             remainingUppers: function() {
-                var remaining = upperCount > template.MAX_UPPERS ? upperCount - template.MAX_UPPERS : 0;
-                return remaining;
+                return upperCount > MAX_UPPERS ? (upperCount - MAX_UPPERS) : 0;
             },
             networkSlug: function() {
                 return template.data.networkSlug;
