@@ -59,7 +59,7 @@ Partup.transformers.network = {
         var newLocation = Partup.services.location.locationInputToLocation(fields.location_input);
         if (newLocation) network.location = newLocation;
 
-        var validSector = Sectors.findOne(fields.sector).fetch();
+        var validSector = Sectors.findOne(fields.sector);
         if (validSector) network.sector = fields.sector;
 
         return network;

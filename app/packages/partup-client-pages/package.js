@@ -262,6 +262,7 @@ Package.onUse(function(api) {
             'modal/admin/featured_networks/featured_networks.html',
             'modal/admin/createtribe/createtribe.html',
             'modal/admin/createswarm/createswarm.html',
+            'modal/admin/sectors/sectors.html',
 
             // Modal:network_settings
             'modal/network_settings/network_settings.html',

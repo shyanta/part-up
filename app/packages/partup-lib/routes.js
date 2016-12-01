@@ -555,6 +555,16 @@ Router.route('/admin/swarms', {
     }
 });
 
+Router.route('/admin/sectors', {
+    name: 'admin-sectors',
+    where: 'client',
+    yieldRegions: {
+        'modal':                 {to: 'main'},
+        'modal_admin':           {to: 'modal'},
+        'modal_sectors':    {to: 'modal_admin'}
+    }
+});
+
 /*************************************************************/
 /* Content pages */
 /*************************************************************/

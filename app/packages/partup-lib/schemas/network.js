@@ -189,6 +189,10 @@ Partup.schemas.forms.network = new SimpleSchema([networkBaseSchema, {
             type: 'tags',
             afFieldInput: tagsConfiguration
         }
+    },
+    sector: {
+        type: String,
+        optional: true
     }
 }]);
 

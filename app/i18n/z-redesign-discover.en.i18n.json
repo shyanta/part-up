@@ -17,6 +17,9 @@
     "pages-modal-recommendations-no-recommendations-button-discover": "Discover part-ups",
     "pages-app-discover-tribes-filter-type-all": "All",
     "pages-app-discover-tribes-filter-type-public": "Public",
-    "pages-app-discover-tribes-filter-type-invite": "Invite"
+    "pages-app-discover-tribes-filter-type-invite": "Invite",
+    "pages-modal-admin-sectors": "Sectors",
+    "network-settings-form-sector-label": "Sector",
+    "network-settings-form-sector-placeholder": "Select sector"
 
 }
