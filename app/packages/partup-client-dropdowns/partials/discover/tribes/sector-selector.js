@@ -1,25 +1,27 @@
-Template.DiscoverTribesTypeSelector.onCreated(function() {
+Template.DiscoverTribesSectorSelector.onCreated(function() {
     var template = this;
-    template.dropdownToggleBool = 'partial-dropdowns-networks-actions-type.opened';
+    template.subscribe('sectors.all');
+
+    template.dropdownToggleBool = 'partial-dropdowns-networks-actions-sector.opened';
     template.dropdownOpen = new ReactiveVar(false);
     template.selectedOption = template.data.reactiveVar;
     template.selectedOption.set({
-        name: TAPi18n.__('pages-app-discover-tribes-filter-type-all'),
+        name: TAPi18n.__('pages-app-discover-tribes-filter-sector-all'),
         value: undefined
     });
 });
 
-Template.DiscoverTribesTypeSelector.onRendered(function() {
+Template.DiscoverTribesSectorSelector.onRendered(function() {
     var template = this;
     ClientDropdowns.addOutsideDropdownClickHandler(template, '[data-clickoutside-close]', '[data-toggle-menu]');
 });
 
-Template.DiscoverTribesTypeSelector.onDestroyed(function() {
+Template.DiscoverTribesSectorSelector.onDestroyed(function() {
     var tpl = this;
     ClientDropdowns.removeOutsideDropdownClickHandler(tpl);
 });
 
-Template.DiscoverTribesTypeSelector.events({
+Template.DiscoverTribesSectorSelector.events({
     'click [data-toggle-menu]': ClientDropdowns.dropdownClickHandler,
     'click [data-select-option]': function eventSelectOption(event, template) {
         event.preventDefault();
@@ -28,7 +30,7 @@ Template.DiscoverTribesTypeSelector.events({
     }
 });
 
-Template.DiscoverTribesTypeSelector.helpers({
+Template.DiscoverTribesSectorSelector.helpers({
     menuOpen: function() {
         return Template.instance().dropdownOpen.get();
     },
@@ -36,20 +38,19 @@ Template.DiscoverTribesTypeSelector.helpers({
         return Template.instance().selectedOption.get();
     },
     options: function() {
-        return [
-            {
-                name: TAPi18n.__('pages-app-discover-tribes-filter-type-all'),
-                value: undefined
-            },
-            {
-                name: TAPi18n.__('pages-app-discover-tribes-filter-type-public'),
-                value: 'public'
-            },
-            {
-                name: TAPi18n.__('pages-app-discover-tribes-filter-type-invite'),
-                value: 'invite'
-            }
-        ];
+        var sectors = Sectors.find().fetch();
+
+        var selectableSectors = (sectors || []).map(function(sector, index) {
+            return {
+                name: sector._id,
+                value: sector._id
+            };
+        });
+
+        return [{
+            name: TAPi18n.__('pages-app-discover-tribes-filter-sector-all'),
+            value: undefined
+        }].concat(selectableSectors);
     },
     selected: function(input) {
         var template = Template.instance();

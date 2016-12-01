@@ -92,6 +92,8 @@ Package.onUse(function(api) {
 
         'partials/discover/tribes/type-selector.html',
         'partials/discover/tribes/type-selector.js',
+        'partials/discover/tribes/sector-selector.html',
+        'partials/discover/tribes/sector-selector.js',
 
         'partials/discover/partups/tribe-selector.html',
         'partials/discover/partups/tribe-selector.js'

@@ -18,6 +18,10 @@ Template.app_discover_tribes_filter.onCreated(function() {
         Partup.client.discover.current_tribe_query.type = (b && b.value) || undefined;
         updateQuery();
     });
+    template.selectedSector = new ReactiveVar(undefined, function(a, b) {
+        Partup.client.discover.current_tribe_query.sector = (b && b.value) || undefined;
+        updateQuery();
+    });
     template.searchQuery = new ReactiveVar(undefined, function(a, b) {
         Partup.client.discover.current_tribe_query.textSearch = b || undefined;
         updateQuery();
@@ -51,6 +55,9 @@ Template.app_discover_tribes_filter.helpers({
             },
             selectedTypeReactiveVar: function() {
                 return template.selectedType;
+            },
+            selectedSectorReactiveVar: function() {
+                return template.selectedSector;
             },
             locationHasValueVar: function() {
                 return template.locationHasValueVar;

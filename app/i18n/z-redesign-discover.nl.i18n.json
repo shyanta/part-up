@@ -19,5 +19,6 @@
     "pages-app-discover-tribes-filter-type-public": "Publiek",
     "pages-app-discover-tribes-filter-type-invite": "Uitnodiging",
     "pages-modal-admin-sectors": "Sectoren",
-    "network-settings-form-sector-placeholder": "Selecteer sector"
+    "network-settings-form-sector-placeholder": "Selecteer sector",
+    "pages-app-discover-tribes-filter-sector-all": "Alle"
 }

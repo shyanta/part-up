@@ -7,10 +7,10 @@
                 <input type="text" class="pu-input" data-search-query placeholder="Zoekwoord">
             </div>
             <!-- SECTOR INPUT: Needs implementation -->
-            <!-- <div class="pu-formfield">
+            <div class="pu-formfield">
                 <span class="pu-label">{{_ 'pages-app-discover-tribes-filter-sector-label'}}</span>
-                <input type="text" class="pu-input">
-            </div> -->
+                {{> DiscoverTribesSectorSelector reactiveVar=state.selectedSectorReactiveVar }}
+            </div>
             <!-- TYPE INPUT: Needs implementation -->
             <div class="pu-formfield">
                 <span class="pu-label">{{_ 'pages-app-discover-tribes-filter-type-label'}}</span>
