@@ -693,6 +693,7 @@ Networks.findForDiscover = function(userId, options, parameters) {
     var textSearch = parameters.textSearch || undefined;
     var locationId = parameters.locationId || undefined;
     var language = parameters.language || undefined;
+    var type = parameters.type || undefined;
     var sector = parameters.sector || undefined;
     var notArchived = parameters.notArchived || undefined;
 
