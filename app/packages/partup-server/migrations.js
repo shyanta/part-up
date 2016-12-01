@@ -902,6 +902,23 @@ Migrations.add({
     }
 });
 
+Migrations.add({
+    version: 37,
+    name: 'Remove IDs from invite list if already upper',
+    up: function() {
+        Partups.find().fetch().forEach(function(partup) {
+            var invited_partners = lodash.intersection(partup.invites, partup.uppers);
+            if (invited_partners.length > 0) {
+                Log.debug('Partner IDs found in invite list in partup ' + partup.name);
+                Partups.update(partup._id, {$pull: {invites: {$in: invited_partners}}});
+            }
+        });
+    },
+    down: function() {
+        //
+    }
+});
+
 Meteor.startup(function() {
-    Migrations.migrateTo(36);
+    Migrations.migrateTo(37);
 });
