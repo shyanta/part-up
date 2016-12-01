@@ -29,6 +29,7 @@ Event.on('invites.inserted.network', function(inviter, network, invitee, searchQ
     // Set the email details
     var emailOptions = {
         type: 'invite_upper_to_network',
+        fromAddress: Partup.constants.EMAIL_FROM.replace(/Part-up/, inviter.profile.name),
         toAddress: User(invitee).getEmail(),
         subject: TAPi18n.__('emails-invite_upper_to_network-subject', {inviter: inviter.profile.name, uppernetwork: network.name}, User(invitee).getLocale()),
         locale: User(invitee).getLocale(),
@@ -72,6 +73,7 @@ Event.on('invites.inserted.network.by_email', function(inviter, network, email, 
     // Set the email details
     var emailOptions = {
         type: 'invite_email_address_to_network',
+        fromAddress: Partup.constants.EMAIL_FROM.replace(/Part-up/, inviter.profile.name),
         toAddress: email,
         subject: TAPi18n.__('emails-invite_upper_to_network-subject', {inviter: inviter.profile.name, network: network.name}, User(inviter).getLocale()),
         locale: User(inviter).getLocale(),

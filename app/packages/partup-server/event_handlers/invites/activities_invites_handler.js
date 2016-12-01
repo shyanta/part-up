@@ -56,6 +56,7 @@ Event.on('invites.inserted.activity', function(inviter, partup, activity, invite
     // Set the email details
     var emailOptions = {
         type: 'invite_upper_to_partup_activity',
+        fromAddress: Partup.constants.EMAIL_FROM.replace(/Part-up/, inviter.profile.name),
         toAddress: User(invitee).getEmail(),
         subject: TAPi18n.__('emails-invite_upper_to_partup_activity-subject', {inviter: inviter.profile.name, activity: activity.name, partup: partup.name}, User(invitee).getLocale()),
         locale: User(invitee).getLocale(),
@@ -104,6 +105,7 @@ Event.on('invites.inserted.activity.by_email', function(inviter, partup, activit
     // Set the email details
     var emailOptions = {
         type: 'invite_email_address_to_partup_activity',
+        fromAddress: Partup.constants.EMAIL_FROM.replace(/Part-up/, inviter.profile.name),
         toAddress: email,
         subject: TAPi18n.__('emails-invite_upper_to_partup_activity-subject', {inviter: inviter.profile.name, activity: activity.name, partup: partup.name}, User(inviter).getLocale()),
         locale: User(inviter).getLocale(),
