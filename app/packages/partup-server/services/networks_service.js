@@ -182,5 +182,31 @@ Partup.server.services.networks = {
                 updated_at: new Date()
             }
         });
+    },
+
+    /**
+     * Update the updated_at of a network if needed, based on partup Updates and network ChatMessages
+     *
+     * @param {Object} network
+     */
+    setUpdatedAt: function(network) {
+        // Get the latest updated Update and ChatMessage of the network
+        var networkPartupIds = Partups.find({network_id: network._id}, {_id: 1}).map(function(partup) {
+            return partup._id;
+        });
+        var latestUpdatedUpdate = Updates.find({partup_id: {$in: networkPartupIds}}, {fields: {updated_at: 1}, sort: {updated_at: -1}, limit: 1});
+        var latestChatMessage = ChatMessages.find({network_id: network._id}, {fields: {updated_at: 1}, sort: {updated_at: -1}, limit: 1});
+
+        console.log('last update');
+        console.log(latestUpdatedUpdate);
+        console.log('latest msg');
+        console.log(latestChatMessage);
+
+        var updatedAt = null;
+
+        if (updatedAt > network.updated_at) {
+            // Update the network
+            Networks.update(network._id, {$set: {updated_at: updatedAt}});
+        }
     }
 };
