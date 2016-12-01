@@ -22,5 +22,6 @@
     "pages-modal-admin-sectors": "Sectoren",
     "network-settings-form-sector-label": "Sector",
     "network-settings-form-sector-placeholder": "Selecteer sector",
-    "pages-app-discover-tribes-filter-sector-all": "Alle"
+    "pages-app-discover-tribes-filter-sector-all": "Alle",
+    "pages-modal-admin-createsector-error-sector_already_exists": "Deze sector bestaat al"
 }

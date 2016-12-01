@@ -16,11 +16,14 @@ Meteor.methods({
         try {
             if (!Sectors.findOne({_id: fields._id})) {
                 Sectors.insert({_id: fields._id});
+            } else {
+                throw new Meteor.Error('sector_already_exists');
             }
 
             return true;
         } catch (error) {
             Log.error(error);
+            if (error.message == '[sector_already_exists]') throw new Meteor.Error(400, 'sector_already_exists');
             throw new Meteor.Error(400, 'sector_could_not_be_inserted');
         }
     },

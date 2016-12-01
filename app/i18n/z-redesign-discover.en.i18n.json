@@ -21,6 +21,6 @@
     "pages-modal-admin-sectors": "Sectors",
     "network-settings-form-sector-label": "Sector",
     "network-settings-form-sector-placeholder": "Select sector",
-    "pages-app-discover-tribes-filter-sector-all": "All"
-
+    "pages-app-discover-tribes-filter-sector-all": "All",
+    "pages-modal-admin-createsector-error-sector_already_exists": "This sector already exists"
 }
