@@ -12,6 +12,8 @@
     "pages-app-discover-tribes-filter-sector-label": "Sector",
     "pages-app-discover-tribes-filter-type-label": "Type",
     "pages-app-discover-tribes-filter-location-label": "Location",
-    "pages-app-discover-tribes-filter-language-label": "Language"
+    "pages-app-discover-tribes-filter-language-label": "Language",
+    "pages-modal-recommendations-generating-recommendations-title": "We are searching selected part-ups for you to discover",
+    "pages-modal-recommendations-no-recommendations-button-discover": "Discover part-ups"
 
 }

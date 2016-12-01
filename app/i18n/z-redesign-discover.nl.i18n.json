@@ -12,5 +12,7 @@
     "pages-app-discover-tribes-filter-sector-label": "Sector",
     "pages-app-discover-tribes-filter-type-label": "Type",
     "pages-app-discover-tribes-filter-location-label": "Locatie",
-    "pages-app-discover-tribes-filter-language-label": "Taal"
+    "pages-app-discover-tribes-filter-language-label": "Taal",
+    "pages-modal-recommendations-generating-recommendations-title": "We zoeken naar geselecteerde part-ups voor jou",
+    "pages-modal-recommendations-no-recommendations-button-discover": "Part-ups ontdekken"
 }

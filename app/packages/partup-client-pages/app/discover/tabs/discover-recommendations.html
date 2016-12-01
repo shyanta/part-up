@@ -2,22 +2,20 @@
     <section class="pu-composition pu-composition-discover">
 
         <!-- Header -->
-        <header class="pu-sub-header">
-            <form class="pu-form pu-flexible-center" novalidate data-nosubmit>
-                <div>
-                    <span>
-                        <h2 class="pu-title">
-                            {{#if haveRecommendations }}
+        {{#if haveRecommendations }}
+            <header class="pu-sub-header">
+                <form class="pu-form pu-flexible-center" novalidate data-nosubmit>
+                    <div>
+                        <span>
+                            <h2 class="pu-title">
                                 {{_ 'pages-modal-recommendations-title' }}
-                            {{else}}
-                                {{_ 'pages-modal-recommendations-no-recommendations-title' }}
-                            {{/if}}
-                        </h2>
-                    </span>
-                </div>
-            </form>
+                            </h2>
+                        </span>
+                    </div>
+                </form>
 
-        </header>
+            </header>
+        {{/if}}
 
         <!-- Content (partup-tiles) -->
         <div class="pu-discoverlayout">
@@ -27,11 +25,19 @@
                 </div>
             {{/ ColumnTilesLayout }}
 
-            {{# unless loaded }}
+            {{#if loading }}
                 <div class="pu-sub-loading-infinite-scroll">
+                    <h2 class="pu-title">{{_ 'pages-modal-recommendations-generating-recommendations-title' }}</h2>
                     {{> Spinner }}
                 </div>
-            {{/ unless }}
+            {{else}}
+                {{#unless haveRecommendations}}
+                    <div class="pu-sub-loading-infinite-scroll">
+                        <h2 class="pu-title">{{_ 'pages-modal-recommendations-no-recommendations-title' }}</h2>
+                        <a href="{{ pathFor route='discover-partups' }}" class="pu-button">{{_ 'pages-modal-recommendations-no-recommendations-button-discover'}}</a>
+                    </div>
+                {{/unless}}
+            {{/if}}
         </div>
 
     </section>
