@@ -793,9 +793,8 @@ Networks.guardedFind = function(userId, selector, options) {
             guardedCriterias.push({'privacy_type': {'$in': [Networks.privacy_types.NETWORK_PUBLIC, Networks.privacy_types.NETWORK_INVITE]}});
         }
 
-        // Remove type from selector array
-        var i = selector.indexOf('type');
-        if (i > -1) selector.splice(i, 1);
+        // Remove type from selector
+        delete selector.type;
     } else {
         // Only return open networks
         guardedCriterias.push({'privacy_type': {'$in': [Networks.privacy_types.NETWORK_PUBLIC]}});
