@@ -25,5 +25,7 @@
     "pages-modal-admin-createsector-error-sector_already_exists": "This sector already exists",
     "pages-modal-admin-sectors": "Sectors",
     "pages-modal-recommendations-generating-recommendations-title": "We are searching selected part-ups for you to discover",
-    "pages-modal-recommendations-no-recommendations-button-discover": "Discover part-ups"
+    "pages-modal-recommendations-no-recommendations-button-discover": "Discover part-ups",
+    "pages-modal-recommendations-no-recommendations-subtext": "Please try again later. In the meantime you could discover all part-ups",
+    "pages-modal-recommendations-no-recommendations-title": "Sorry, your selected part-ups can’t be loaded at this time"
 }

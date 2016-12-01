@@ -95,10 +95,10 @@ Template.app_discover_tribes.onCreated(function() {
         }, function(error, response) {
             template.countXMLHttpRequest = null;
             template.states.count_loading.set(false);
-            // if (error || !response || !mout.lang.isString(response.content)) { return; }
+            if (error || !response || !mout.lang.isString(response.content)) { return; }
 
-            // var content = JSON.parse(response.content);
-            // template.count.set(content.count);
+            var content = JSON.parse(response.content);
+            template.count.set(content.count);
         });
     });
 });

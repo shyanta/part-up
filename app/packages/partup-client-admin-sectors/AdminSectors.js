@@ -59,7 +59,7 @@ AutoForm.hooks({
                 }
                 Partup.client.notify.success('Sector inserted correctly');
                 self.done();
-                AutoForm.resetForm('createSectorForm')
+                AutoForm.resetForm('createSectorForm');
             });
 
             return false;

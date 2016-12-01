@@ -34,6 +34,7 @@
                 {{#unless haveRecommendations}}
                     <div class="pu-sub-loading-infinite-scroll">
                         <h2 class="pu-title">{{_ 'pages-modal-recommendations-no-recommendations-title' }}</h2>
+                        <p>{{_ 'pages-modal-recommendations-no-recommendations-subtext' }}</p>
                         <a href="{{ pathFor route='discover-partups' }}" class="pu-button">{{_ 'pages-modal-recommendations-no-recommendations-button-discover'}}</a>
                     </div>
                 {{/unless}}
