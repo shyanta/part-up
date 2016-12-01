@@ -733,6 +733,11 @@ Networks.findForDiscover = function(userId, options, parameters) {
         selector['location.place_id'] = locationId;
     }
 
+    // Filter on type
+    if (type) {
+        selector['type'] = type;
+    }
+
     // Filter the networks on sector
     if (sector) {
         selector['sector'] = sector;
@@ -776,10 +781,25 @@ Networks.guardedFind = function(userId, selector, options) {
         });
     }
 
-    var guardedCriterias = [
-        // The network is open, which means everyone can access it
-        {'privacy_type': {'$in': [Networks.privacy_types.NETWORK_PUBLIC]}}
-    ];
+    var guardedCriterias = [];
+
+    if (selector['type']) {
+        if (selector['type'] == 'public') {
+            guardedCriterias.push({'privacy_type': {'$in': [Networks.privacy_types.NETWORK_PUBLIC]}});
+        } else if (selector['type'] == 'invite') {
+            guardedCriterias.push({'privacy_type': {'$in': [Networks.privacy_types.NETWORK_INVITE]}});
+        } else {
+            // Default to both types
+            guardedCriterias.push({'privacy_type': {'$in': [Networks.privacy_types.NETWORK_PUBLIC, Networks.privacy_types.NETWORK_INVITE]}});
+        }
+
+        // Remove type from selector array
+        var i = selector.indexOf('type');
+        if (i > -1) selector.splice(i, 1);
+    } else {
+        // Only return open networks
+        guardedCriterias.push({'privacy_type': {'$in': [Networks.privacy_types.NETWORK_PUBLIC]}});
+    }
 
     // Some extra rules that are only applicable to users that are logged in
     if (userId) {
