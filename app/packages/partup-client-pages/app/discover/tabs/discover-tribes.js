@@ -44,7 +44,7 @@ Template.app_discover_tribes.onCreated(function() {
         query.token = Accounts._storedLoginToken();
 
         template.tribesXMLHttpRequest = null;
-        HTTP.get('/tribes/discover' + mout.queryString.encode(query), {
+        HTTP.get('/networks/discover' + mout.queryString.encode(query), {
             beforeSend: function(_request) {
                 template.tribesXMLHttpRequest = _request;
             }
@@ -88,7 +88,7 @@ Template.app_discover_tribes.onCreated(function() {
         template.networks.set([]);
 
         template.states.count_loading.set(true);
-        HTTP.get('/tribes/discover/count' + mout.queryString.encode(query), {
+        HTTP.get('/networks/discover/count' + mout.queryString.encode(query), {
             beforeSend: function(request) {
                 template.countXMLHttpRequest = request;
             }

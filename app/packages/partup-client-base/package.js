@@ -78,6 +78,7 @@ Package.onUse(function (api) {
         'client/message.js',
         'client/element.js',
         'client/columnsLayout.js',
+        'client/network.js',
 
         'helpers/sanitize.js',
         'helpers/log.js',

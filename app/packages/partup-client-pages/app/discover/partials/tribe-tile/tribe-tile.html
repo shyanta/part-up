@@ -9,9 +9,11 @@
             <p>{{ data.tribe.description }}<a href="{{ pathFor route='network-about' slug=data.tribe.slug }}" data-prevent-open>Read more</a></p>
             <ul class="pu-list pu-list-horizontal pu-list-tags">
                 <!-- TODO use displayTags (partup-based) -->
-                {{#each data.tribe.tags}}
-                    <li class="pu-tag pu-tag-dark pu-tag-disable">{{ . }}</li>
-                {{/each}}
+                {{#with data.displayTags}}
+                    {{#each .}}
+                        <li class="pu-tag pu-tag-dark pu-tag-disable">{{ tag }}</li>
+                    {{/each}}
+                {{/with}}
             </ul>
         </div>
         <div class="pu-networktile__extra">
@@ -41,7 +43,7 @@
         {{#each data.uppers}}
             <li>
                 <a data-prevent-open href="{{ pathFor route='network-uppers' slug=data.networkSlug }}">
-                    <figure data-prevent-open class="pu-avatar pu-avatar-middle" data-hovercontainer="HoverContainer_upper" data-hovercontainer-context="{{ _id }}" style="{{#with profile.image}}background-image: url('{{ partupImageUrl id=. store='80x80' }}'){{/with}}"></figure>
+                    <figure data-prevent-open class="pu-avatar pu-avatar-middle" data-hovercontainer="HoverContainer_upper" data-hovercontainer-context="{{ _id }}" style="{{#with partupImageObjectUrl object=profile.imageObject store='80x80'}}background-image: url('{{ . }}'){{/with}}"></figure>
                 </a>
             </li>
         {{/each}}

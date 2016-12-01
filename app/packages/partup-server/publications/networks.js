@@ -9,7 +9,7 @@
  * @param {number} parameters.limit
  * @param {number} parameters.skip
  */
-Meteor.routeComposite('/tribes/discover', function(request, parameters) {
+Meteor.routeComposite('/networks/discover', function(request, parameters) {
     check(parameters.query, {
         textSearch: Match.Optional(String),
         locationId: Match.Optional(String),

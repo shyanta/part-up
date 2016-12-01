@@ -38,6 +38,17 @@ Partup.client.embed = {
     network: function(network, images, users) {
         var embed = this;
 
+        if (network.most_active_uppers) {
+            network.mostActiveUpperObjects = network.most_active_uppers.map(function(userId) {
+                var upper = mout.object.find(users, {_id: userId});
+                if (!upper) return {};
+
+                embed.user(upper, images);
+
+                return upper;
+            });
+        }
+
         // Add network iconObject
         if (network.background_image) {
             network.backgroundImageObject = mout.object.find(images, {_id: network.background_image});
