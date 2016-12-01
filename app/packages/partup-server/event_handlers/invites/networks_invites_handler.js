@@ -30,7 +30,7 @@ Event.on('invites.inserted.network', function(inviter, network, invitee, searchQ
     var emailOptions = {
         type: 'invite_upper_to_network',
         toAddress: User(invitee).getEmail(),
-        subject: TAPi18n.__('emails-invite_upper_to_network-subject', {network: network.name}, User(invitee).getLocale()),
+        subject: TAPi18n.__('emails-invite_upper_to_network-subject', {inviter: inviter.profile.name, uppernetwork: network.name}, User(invitee).getLocale()),
         locale: User(invitee).getLocale(),
         typeData: {
             name: User(invitee).getFirstname(),
@@ -73,7 +73,7 @@ Event.on('invites.inserted.network.by_email', function(inviter, network, email, 
     var emailOptions = {
         type: 'invite_email_address_to_network',
         toAddress: email,
-        subject: TAPi18n.__('emails-invite_upper_to_network-subject', {network: network.name}, User(inviter).getLocale()),
+        subject: TAPi18n.__('emails-invite_upper_to_network-subject', {inviter: inviter.profile.name, network: network.name}, User(inviter).getLocale()),
         locale: User(inviter).getLocale(),
         typeData: {
             paragraphs: toParagraphs(interpolate(message))

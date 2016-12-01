@@ -57,7 +57,7 @@ Event.on('invites.inserted.activity', function(inviter, partup, activity, invite
     var emailOptions = {
         type: 'invite_upper_to_partup_activity',
         toAddress: User(invitee).getEmail(),
-        subject: TAPi18n.__('emails-invite_upper_to_partup_activity-subject', {activity: activity.name, partup: partup.name}, User(invitee).getLocale()),
+        subject: TAPi18n.__('emails-invite_upper_to_partup_activity-subject', {inviter: inviter.profile.name, activity: activity.name, partup: partup.name}, User(invitee).getLocale()),
         locale: User(invitee).getLocale(),
         typeData: {
             name: User(invitee).getFirstname(),
@@ -105,7 +105,7 @@ Event.on('invites.inserted.activity.by_email', function(inviter, partup, activit
     var emailOptions = {
         type: 'invite_email_address_to_partup_activity',
         toAddress: email,
-        subject: TAPi18n.__('emails-invite_upper_to_partup_activity-subject', {activity: activity.name, partup: partup.name}, User(inviter).getLocale()),
+        subject: TAPi18n.__('emails-invite_upper_to_partup_activity-subject', {inviter: inviter.profile.name, activity: activity.name, partup: partup.name}, User(inviter).getLocale()),
         locale: User(inviter).getLocale(),
         typeData: {
             paragraphs: toParagraphs(interpolate(message)),

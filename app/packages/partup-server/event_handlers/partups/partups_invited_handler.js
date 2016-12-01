@@ -50,7 +50,7 @@ Event.on('invites.inserted.partup', function(inviter, partup, invitee, searchQue
     var emailOptions = {
         type: 'invite_upper_to_partup',
         toAddress: User(invitee).getEmail(),
-        subject: TAPi18n.__('emails-invite_upper_to_partup-subject', {partup: partup.name}, User(invitee).getLocale()),
+        subject: TAPi18n.__('emails-invite_upper_to_partup-subject', {inviter: inviter.profile.name, partup: partup.name}, User(invitee).getLocale()),
         locale: User(invitee).getLocale(),
         typeData: {
             name: User(invitee).getFirstname(),
@@ -95,7 +95,7 @@ Event.on('invites.inserted.partup.by_email', function(inviter, partup, email, na
     var emailOptions = {
         type: 'invite_email_address_to_partup',
         toAddress: email,
-        subject: TAPi18n.__('emails-invite_upper_to_partup-subject', {partup: partup.name}, User(inviter).getLocale()),
+        subject: TAPi18n.__('emails-invite_upper_to_partup-subject', {inviter: inviter.profile.name, partup: partup.name}, User(inviter).getLocale()),
         locale: User(inviter).getLocale(),
         typeData: {
             paragraphs: toParagraphs(interpolate(message)),
