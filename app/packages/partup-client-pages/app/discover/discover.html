@@ -9,20 +9,20 @@
                             <li>
                                 <a href="{{pathFor 'discover'}}"
                                     class="pu-button pu-button-nav pu-button-nav-secondary {{ isActiveRoute name='discover' class='pu-state-active'}}">
-                                    Discover by tribe
+                                    {{_ 'pages-app-discover-nav-tribes'}}
                                 </a>
                             </li>
                             <li>
                                 <a href="{{pathFor 'discover-partups'}}"
                                     class="pu-button pu-button-nav pu-button-nav-secondary {{ isActiveRoute name='discover-partups' class='pu-state-active'}}">
-                                    Discover by partup
+                                    {{_ 'pages-app-discover-nav-partups'}}
                                 </a>
                             </li>
                             {{# if showRecommendationsBtn }}
                                 <li>
                                     <a href="{{pathFor 'discover-recommendations'}}"
                                         class="pu-button pu-button-nav pu-button-nav-secondary {{ isActiveRoute name='discover-recommendations' class='pu-state-active'}}">
-                                        {{_ 'pages-app-discover-btn-recommendations' }}
+                                        {{_ 'pages-app-discover-nav-recommendations'}}
                                     </a>
                                 </li>
                             {{/ if }}

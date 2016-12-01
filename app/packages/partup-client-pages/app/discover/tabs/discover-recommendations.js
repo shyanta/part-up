@@ -73,7 +73,6 @@ Template.app_discover_recommendations.onRendered(function() {
             template.partupsXMLHttpRequest = _request;
         }
     }, function(error, response) {
-        console.log('RECOMMENDATIONS RESPONSE:', response);
         template.states.loading.set(false);
         template.partupsXMLHttpRequest = null;
         if (error || !response.data.partups || response.data.partups.length === 0) return;

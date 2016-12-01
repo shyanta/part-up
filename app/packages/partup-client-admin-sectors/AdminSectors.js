@@ -2,12 +2,6 @@ Template.AdminSectors.onCreated(function() {
     this.subscribe('sectors.all');
 });
 
-var placeholders = {
-    'name': function() {
-        return TAPi18n.__('pages-modal-create-details-form-name-placeholder');
-    }
-};
-
 Template.AdminSectors.helpers({
     sectors: function() {
         return Sectors.find();
@@ -64,6 +58,8 @@ AutoForm.hooks({
                     return;
                 }
                 Partup.client.notify.success('Sector inserted correctly');
+                self.done();
+                AutoForm.resetForm('createSectorForm')
             });
 
             return false;
