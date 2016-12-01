@@ -1,10 +1,4 @@
 var PAGING_INCREMENT = 32;
-
-var getAmountOfColumns = function(screenwidth) {
-    var minWidth = 300;
-    return Math.min(Math.floor(screenwidth / minWidth), 4);
-};
-
 Template.app_profile_upper_partups.onCreated(function() {
     var template = this;
     template.getArchivedPartups = false;

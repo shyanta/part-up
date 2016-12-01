@@ -12,6 +12,7 @@ Partup.client.constructors.ColumnTilesLayout = function(options) {
     }
 
     var _columnMinWidth = options.columnMinWidth || 300;
+    var _maxColumns = options.maxColumns || 4;
     var C = this;
     var _options = {
         calculateApproximateTileHeight: options.calculateApproximateTileHeight
@@ -25,7 +26,7 @@ Partup.client.constructors.ColumnTilesLayout = function(options) {
 
         C._template = template;
 
-        _options.columns = Partup.client.columnsLayout.getAmountOfColumnsThatFitInElement('[data-this-is-the-columns-layout]', _columnMinWidth);
+        _options.columns = getAmountOfColumnsThatFitInElement('[data-this-is-the-columns-layout]', _columnMinWidth, _maxColumns);
 
         _.times(_options.columns, function() {
             initialColumns.push([]);
@@ -35,7 +36,7 @@ Partup.client.constructors.ColumnTilesLayout = function(options) {
 
         C._template.autorun(function() {
             var screenWidth = Partup.client.screen.size.get('width');
-            var columns = Partup.client.columnsLayout.getAmountOfColumnsThatFitInElement('[data-this-is-the-columns-layout]', _columnMinWidth);
+            var columns = getAmountOfColumnsThatFitInElement('[data-this-is-the-columns-layout]', _columnMinWidth, _maxColumns);
 
             if (columns !== C.columns.curValue.length) {
                 C.setColumns(columns);
@@ -114,4 +115,12 @@ Partup.client.constructors.ColumnTilesLayout = function(options) {
             }
         });
     };
+};
+
+function getAmountOfColumnsThatFitInElement(selector, minWidth, maxColumns) {
+    var maxColumns = maxColumns || 4;
+    var element = $(selector)[0];
+    var offsetWidth = element ? element.offsetWidth : 0;
+    var layoutWidth = Math.min(window.innerWidth, offsetWidth);
+    return Math.max(Math.min(Math.floor(layoutWidth / minWidth), maxColumns), 1);
 };

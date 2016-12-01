@@ -1,12 +1,4 @@
-var PAGING_INCREMENT = 32;
-
-var getAmountOfColumns = function(screenwidth) {
-    screenwidth -= 294;
-    var minWidth = 300;
-    var columnCount = Math.max(Math.min(Math.floor(screenwidth / minWidth), 3), 1);
-    return columnCount;
-};
-
+var PAGING_INCREMENT = 25;
 Template.app_discover_partups.onCreated(function() {
     var template = this;
 
@@ -33,6 +25,8 @@ Template.app_discover_partups.onCreated(function() {
     // Column layout
     template.columnTilesLayout = new Partup.client.constructors.ColumnTilesLayout({
 
+        columnMinWidth: 277,
+        maxColumns: 3,
         // This function will be called for each tile
         calculateApproximateTileHeight: function(tileData, columnWidth) {
 
@@ -60,8 +54,7 @@ Template.app_discover_partups.onCreated(function() {
             var tribe = _partup.network ? 47 : 0;
 
             return BASE_HEIGHT + MARGIN + name + description + tribe;
-        },
-        columnMinWidth: 277
+        }
 
     });
 });

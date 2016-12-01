@@ -1,9 +1,8 @@
 Template.app_discover_tribes.onCreated(function() {
     var template = this;
-    var PAGING_INCREMENT = 32;
+    var PAGING_INCREMENT = 10;
 
     template.sorting = new ReactiveVar(undefined, function(a, b) {
-        console.log(a,b);
         Partup.client.discover.current_tribe_query.sort = (b && b.value) || undefined;
         for (key in Partup.client.discover.DEFAULT_TRIBE_QUERY) {
             var fieldValue          = Partup.client.discover.current_tribe_query[key];
@@ -65,14 +64,14 @@ Template.app_discover_tribes.onCreated(function() {
                 Partup.client.embed.network(network, result['cfs.images.filerecord'], result.users);
                 return network;
             });
-
-            template.networks.set(tiles);
+            var curNetworks = template.networks.get();
+            var newNetworks = curNetworks.concat(tiles);
+            template.networks.set(newNetworks);
         });
     });
 
     template.countXMLHttpRequest = null;
     template.autorun(function() {
-        console.log('run')
         if (template.countXMLHttpRequest) {
             template.countXMLHttpRequest.abort();
             template.countXMLHttpRequest = null;
@@ -107,6 +106,16 @@ Template.app_discover_tribes.onCreated(function() {
 Template.app_discover_tribes.onRendered(function() {
     var template = this;
     template.page.set(0);
+
+    Partup.client.scroll.infinite({
+        template: template,
+        element: $('[data-infinitescroll-container ]')[0],
+        offset: 200
+    }, function() {
+        if (template.states.loading_infinite_scroll || template.states.paging_end_reached.curValue) { return; }
+        var nextPage = template.page.get() + 1;
+        template.page.set(nextPage);
+    });
 });
 
 Template.app_discover_tribes.helpers({

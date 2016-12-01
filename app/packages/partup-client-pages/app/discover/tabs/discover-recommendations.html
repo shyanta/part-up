@@ -22,12 +22,12 @@
         <!-- Content (partup-tiles) -->
         <div class="pu-discoverlayout">
             {{# ColumnTilesLayout instance=columnTilesLayout }}
-                <div class="pu-tile">
+                <div class="pu-tile pu-tile-partup">
                     {{> PartupTile }}
                 </div>
             {{/ ColumnTilesLayout }}
 
-            {{# unless endReached }}
+            {{# unless loaded }}
                 <div class="pu-sub-loading-infinite-scroll">
                     {{> Spinner }}
                 </div>

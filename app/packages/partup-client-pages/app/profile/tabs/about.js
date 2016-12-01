@@ -1,8 +1,3 @@
-var getAmountOfColumns = function(screenwidth) {
-    var minWidth = 300;
-    return Math.min(Math.floor(screenwidth / minWidth), 2);
-};
-
 Template.app_profile_about.onCreated(function() {
     var template = this;
 
@@ -10,7 +5,8 @@ Template.app_profile_about.onCreated(function() {
     template.columnTilesLayout = new Partup.client.constructors.ColumnTilesLayout({
 
         // Initial amount of columns
-        columnMinWidth: 500,
+        columnMinWidth: 400,
+        maxColumns: 2,
 
         // This function will be called for each tile
         calculateApproximateTileHeight: function(tileData, columnWidth) {
