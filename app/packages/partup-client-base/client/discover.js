@@ -32,6 +32,8 @@ Partup.client.discover = {
         textSearch: undefined,
         locationId: undefined,
         sort: 'new',
+        type: undefined,
+        sector: undefined,
         language: undefined
     },
 
@@ -39,6 +41,8 @@ Partup.client.discover = {
         textSearch: undefined,
         locationId: undefined,
         sort: 'new',
+        type: undefined,
+        sector: undefined,
         language: undefined
     },
 

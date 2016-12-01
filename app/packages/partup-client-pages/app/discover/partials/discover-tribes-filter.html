@@ -12,10 +12,10 @@
                 <input type="text" class="pu-input">
             </div> -->
             <!-- TYPE INPUT: Needs implementation -->
-            <!-- <div class="pu-formfield">
+            <div class="pu-formfield">
                 <span class="pu-label">{{_ 'pages-app-discover-tribes-filter-type-label'}}</span>
-                <input type="text" class="pu-input">
-            </div> -->
+                {{> DiscoverTribesTypeSelector reactiveVar=state.selectedTypeReactiveVar }}
+            </div>
             <div class="pu-formfield">
                 <span class="pu-label">{{_ 'pages-app-discover-tribes-filter-location-label'}}</span>
                 {{# AutocompleteAdvanced

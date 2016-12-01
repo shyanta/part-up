@@ -14,6 +14,9 @@
     "pages-app-discover-tribes-filter-location-label": "Location",
     "pages-app-discover-tribes-filter-language-label": "Language",
     "pages-modal-recommendations-generating-recommendations-title": "We are searching selected part-ups for you to discover",
-    "pages-modal-recommendations-no-recommendations-button-discover": "Discover part-ups"
+    "pages-modal-recommendations-no-recommendations-button-discover": "Discover part-ups",
+    "pages-app-discover-tribes-filter-type-all": "All",
+    "pages-app-discover-tribes-filter-type-public": "Public",
+    "pages-app-discover-tribes-filter-type-invite": "Invite"
 
 }

@@ -90,6 +90,9 @@ Package.onUse(function(api) {
         'partials/discover/sort-selector.html',
         'partials/discover/sort-selector.js',
 
+        'partials/discover/tribes/type-selector.html',
+        'partials/discover/tribes/type-selector.js',
+
         'partials/discover/partups/tribe-selector.html',
         'partials/discover/partups/tribe-selector.js'
     ], 'client');

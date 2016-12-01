@@ -37,12 +37,12 @@ Template.TribeTile.events({
     }
 });
 
-Template.MostActivePartups.onCreated(function() {
+Template.TribeTile_Metadata.onCreated(function() {
     var template = this;
     var partupId = (template.data.partups.ids || [])[0];
 });
 
-Template.MostActivePartups.helpers({
+Template.TribeTile_Metadata.helpers({
     data: function() {
         var template = Template.instance();
         var partupId = (template.data.partups.ids || [])[0];
@@ -53,6 +53,15 @@ Template.MostActivePartups.helpers({
             },
             totalActivePartupCount: function() {
                 return partups.count;
+            }
+        };
+    },
+    state: function() {
+        var template = Template.instance();
+
+        return {
+            lock: function() {
+                return template.data.privacyType > 1;
             }
         };
     }
