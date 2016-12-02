@@ -2,6 +2,8 @@ var PAGING_INCREMENT = 25;
 Template.app_discover_partups.onCreated(function() {
     var template = this;
 
+    template.dropdownActive = new ReactiveVar(false);
+
     template.sorting = new ReactiveVar(undefined, function(a, b) {
         Partup.client.discover.current_query.sort = (b && b.value) || undefined;
         for (key in Partup.client.discover.DEFAULT_QUERY) {
@@ -163,7 +165,24 @@ Template.app_discover_partups.onRendered(function() {
 
 });
 
+Template.app_discover_partups.events({
+    'click [data-toggle-discover-menu]': function(event, template) {
+        event.preventDefault();
+
+        template.dropdownActive.set(!template.dropdownActive.curValue);
+    }
+});
+
 Template.app_discover_partups.helpers({
+    state: function() {
+        var template = Template.instance();
+
+        return {
+            dropdownActiveReactiveVar: function() {
+                return template.dropdownActive;
+            }
+        };
+    },
     columnTilesLayout: function() {
         return Template.instance().columnTilesLayout;
     },

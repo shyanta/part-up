@@ -62,6 +62,9 @@ Template.app_discover_partups_filter.helpers({
             },
             locationLabel: function() {
                 return Partup.client.strings.locationToDescription;
+            },
+            active: function() {
+                return template.data.isActiveReactiveVar.get();
             }
         };
     },

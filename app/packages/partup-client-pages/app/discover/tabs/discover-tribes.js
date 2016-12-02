@@ -2,6 +2,8 @@ Template.app_discover_tribes.onCreated(function() {
     var template = this;
     var PAGING_INCREMENT = 10;
 
+    template.dropdownActive = new ReactiveVar(false);
+
     template.sorting = new ReactiveVar(undefined, function(a, b) {
         Partup.client.discover.current_tribe_query.sort = (b && b.value) || undefined;
         for (key in Partup.client.discover.DEFAULT_TRIBE_QUERY) {
@@ -118,12 +120,29 @@ Template.app_discover_tribes.onRendered(function() {
     });
 });
 
+Template.app_discover_tribes.events({
+    'click [data-toggle-discover-menu]': function(event, template) {
+        event.preventDefault();
+
+        template.dropdownActive.set(!template.dropdownActive.curValue);
+    }
+});
+
 Template.app_discover_tribes.helpers({
     data: function() {
         var template = Template.instance();
         return {
             networks: function() {
                 return template.networks.get();
+            }
+        };
+    },
+    state: function() {
+        var template = Template.instance();
+
+        return {
+            dropdownActiveReactiveVar: function() {
+                return template.dropdownActive;
             }
         };
     },

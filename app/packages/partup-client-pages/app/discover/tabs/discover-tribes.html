@@ -32,13 +32,18 @@
                         {{> DiscoverSortSelector reactiveVar=sortReactiveVar}}
                     </span>
                 </div>
+                <div class="pu-sub-responsive-button">
+                    <span>
+                        <button type="button" class="pu-button pu-button-secondary" data-toggle-discover-menu>Filter</button>
+                    </span>
+                </div>
             </form>
 
         </header>
 
         <!-- Content (partup-tiles) -->
         <div data-infinitescroll-container class="pu-discoverlayout">
-            {{> app_discover_tribes_filter }}
+            {{> app_discover_tribes_filter  isActiveReactiveVar=state.dropdownActiveReactiveVar }}
             <ul class="pu-list pu-discover-list">
                 {{#each data.networks}}
                     <li>

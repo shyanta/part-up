@@ -1,5 +1,5 @@
 <template name="app_discover_partups_filter">
-    <div class="pu-discovermenu">
+    <div class="pu-discovermenu {{#if state.active}}pu-discovermenu--is-active{{/if}}">
         <p>{{_ 'pages-app-discover-partups-filter-intro-text'}}</p>
         <form class="pu-form" data-form>
             <!-- Text search -->

@@ -69,6 +69,9 @@ Template.app_discover_tribes_filter.helpers({
             },
             locationLabel: function() {
                 return Partup.client.strings.locationToDescription;
+            },
+            active: function() {
+                return template.data.isActiveReactiveVar.get();
             }
         };
     },
