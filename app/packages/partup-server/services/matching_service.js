@@ -143,6 +143,8 @@ Partup.server.services.matching = {
                 return network._id;
             });
             selector['networks'] = {$in: networkIds};
+        } else if (searchOptions.network == 'all-users') {
+            // No network ID needed
         } else if (searchOptions.network != '') {
             var network = Networks.findOne({slug: searchOptions.network});
             if (network && network.hasMember(Meteor.userId())) {

@@ -17,7 +17,12 @@ Meteor.methods({
             var network = {};
             network.name = fields.name;
             network.privacy_type = fields.privacy_type;
+
+            // Check if slug is unique
             network.slug = Partup.server.services.slugify.slugify(fields.name);
+            var existingSlug = Networks.findOne({slug: network.slug}, {fields: {slug: 1}});
+            if (existingSlug) throw new Meteor.Error('network_slug_already_exists');
+
             network.uppers = [user._id];
             network.admins = [user._id];
             network.created_at = new Date();
@@ -50,6 +55,8 @@ Meteor.methods({
                 _id: network._id
             };
         } catch (error) {
+            if (error.message == '[network_slug_already_exists]') throw new Meteor.Error(400, 'network_slug_already_exists');
+
             Log.error(error);
             throw new Meteor.Error(400, 'network_could_not_be_inserted');
         }
