@@ -1,5 +1,6 @@
 .pu-discoverlayout
     // column width 294px
+    position: relative
     font-size: 0
     white-space: nowrap
 
@@ -13,13 +14,42 @@
         margin: 0
 
     .pu-discovermenu
-        margin-right: 19px
+        display: none
+        position: absolute
+        z-index: 5
+        right: 0
+
+        > p
+            display: none
+
+        &--is-active
+            display: block
 
     .pu-columnslayout,
     .pu-discover-list
-        max-width: 294px * 3
-        width: calc(100% - 294px)
+        width: 100%
 
     .pu-discover-list
         > li
             margin-bottom: 20px
+
+    // @media screen and (min-width: $breakpoint-tablet + 1px)
+
+    @media screen and (min-width: $breakpoint-desktop)
+        .pu-discovermenu
+            display: inline-block
+            position: relative
+            margin-right: 19px
+
+            > p
+                display: block
+
+        .pu-columnslayout,
+        .pu-discover-list
+            max-width: 294px * 3
+            width: calc(100% - 294px)
+
+.pu-composition-discover
+    @media screen and (min-width: $breakpoint-desktop)
+        .pu-sub-responsive-button
+            display: none
