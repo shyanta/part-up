@@ -1,3 +1,21 @@
+<a name="1.27.0"></a>
+# [1.27.0](https://github.com/part-up/part-up/compare/1.26.2...v1.27.0) (2016-12-02)
+
+
+### Bug Fixes
+
+* **partupsettings:** fixed submit issues with partups in private privacy level networks, fixing [#775](https://github.com/part-up/part-up/issues/775) ([c790f15](https://github.com/part-up/part-up/commit/c790f15))
+
+
+### Features
+
+* **invites:** added migration to remove upper IDs from invite list that are already partner ([c8d07fd](https://github.com/part-up/part-up/commit/c8d07fd))
+* **invites:** allow BE to accept all-users query for invites [#755](https://github.com/part-up/part-up/issues/755) ([9ce9f75](https://github.com/part-up/part-up/commit/9ce9f75))
+* **invites:** remove user from invites list when becoming supporter [#765](https://github.com/part-up/part-up/issues/765) ([3000492](https://github.com/part-up/part-up/commit/3000492))
+* **networks:** check if tribe slug is unique ([d932f85](https://github.com/part-up/part-up/commit/d932f85))
+
+
+
 <a name="1.26.2"></a>
 ## [1.26.2](https://github.com/part-up/part-up/compare/1.26.1...1.26.2) (2016-11-20)
 
