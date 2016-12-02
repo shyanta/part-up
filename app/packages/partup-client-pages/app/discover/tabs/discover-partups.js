@@ -180,6 +180,9 @@ Template.app_discover_partups.helpers({
         return {
             dropdownActiveReactiveVar: function() {
                 return template.dropdownActive;
+            },
+            dropdownActive: function() {
+                return template.dropdownActive.get();
             }
         };
     },

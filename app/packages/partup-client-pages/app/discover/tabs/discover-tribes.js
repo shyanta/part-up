@@ -143,6 +143,9 @@ Template.app_discover_tribes.helpers({
         return {
             dropdownActiveReactiveVar: function() {
                 return template.dropdownActive;
+            },
+            dropdownActive: function() {
+                return template.dropdownActive.get();
             }
         };
     },
