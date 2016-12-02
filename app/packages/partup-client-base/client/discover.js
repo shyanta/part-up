@@ -31,7 +31,7 @@ Partup.client.discover = {
     DEFAULT_TRIBE_QUERY: {
         textSearch: undefined,
         locationId: undefined,
-        sort: 'new',
+        sort: 'popular',
         type: undefined,
         sector: undefined,
         language: undefined
@@ -40,7 +40,7 @@ Partup.client.discover = {
     current_tribe_query: {
         textSearch: undefined,
         locationId: undefined,
-        sort: 'new',
+        sort: 'popular',
         type: undefined,
         sector: undefined,
         language: undefined

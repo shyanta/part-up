@@ -4,7 +4,7 @@ Template.app_discover_tribes.onCreated(function() {
 
     template.dropdownActive = new ReactiveVar(false);
 
-    template.sorting = new ReactiveVar(undefined, function(a, b) {
+    template.sorting = new ReactiveVar({value: 'popular'}, function(a, b) {
         Partup.client.discover.current_tribe_query.sort = (b && b.value) || undefined;
         for (key in Partup.client.discover.DEFAULT_TRIBE_QUERY) {
             var fieldValue          = Partup.client.discover.current_tribe_query[key];

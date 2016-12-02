@@ -3,10 +3,20 @@ Template.DiscoverSortSelector.onCreated(function() {
     template.dropdownToggleBool = 'partial-dropdowns-networks-actions-sort.opened';
     template.dropdownOpen = new ReactiveVar(false);
     template.selectedOption = template.data.reactiveVar;
-    template.selectedOption.set({
+
+    template.options = [{
         name: TAPi18n.__('pages-app-discover-filter-sorting-type-newest'),
         value: 'new'
-    });
+    },{
+        name: TAPi18n.__('pages-app-discover-filter-sorting-type-popular'),
+        value: 'popular'
+    }];
+
+    var defaultOption = template.options[0];
+
+    if (template.data.default === 'popular') defaultOption = template.options[1];
+
+    template.selectedOption.set(defaultOption);
 });
 
 Template.DiscoverSortSelector.onRendered(function() {
@@ -36,16 +46,7 @@ Template.DiscoverSortSelector.helpers({
         return Template.instance().selectedOption.get();
     },
     options: function() {
-        return [
-            {
-                name: TAPi18n.__('pages-app-discover-filter-sorting-type-newest'),
-                value: 'new'
-            },
-            {
-                name: TAPi18n.__('pages-app-discover-filter-sorting-type-popular'),
-                value: 'popular'
-            }
-        ];
+        return Template.instance().options;
     },
     selected: function(input) {
         var template = Template.instance();

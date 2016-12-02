@@ -24,11 +24,6 @@ Partup.client.scroll = {
 
         // Trigger a position update when the user scrolls
         window.addEventListener('scroll', d, {passive: true});
-
-        // Trigger a position update when every template is being rendered
-        Template.onRendered(function() {
-            Meteor.defer(d);
-        });
     },
 
     /**
