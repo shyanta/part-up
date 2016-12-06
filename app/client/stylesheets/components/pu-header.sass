@@ -1,77 +1,62 @@
+$modal-bar-height: 70px
+
+@mixin seperator()
+    &::after
+        content: ''
+        position: absolute
+        right: 0
+        top: 0
+        height: 20px
+        width: 2px
+        background-color: rgba(#fff, .2)
+
 .pu-header
-    min-width: $breakpoint-min
+    width: 100vw
     position: relative
     z-index: 5
+    background-color: $color-primary
+    height: 60px
 
-    // A blue bar on mobile. On desktop, header becomes one big blue bar.
-    .pu-sub-mobilebar
-        background-color: $color-primary
-        border-bottom: 2px solid rgba(#fff, .2)
-        overflow-y: hidden
-        @extend %clearfix
-
-        > div
-            overflow-x: auto
-            overflow-y: hidden
-            transition: height 0ms
-
-        &.submenu-active
-            overflow-y: visible
-            > div
-                height: 100vh
-                transition: height 200ms
+    .pu-sub-more
+        display: none
 
     .pu-sub-logo
         text-align: center
-        // display: none
+        padding: 0 15px
 
-        h1
-            span
-                display: none
+        @include seperator()
+
+        h1 span
+            display: none
 
         .pu-brand
             display: inline-block
             margin-top: 17px
             margin-bottom: 5px
 
-    .pu-sub-nav
-        float: left
-        margin-left: 10px
-        width: 500px
+    .pu-button-header
+        margin-top: 10px
+        span
+            display: none
 
-    .pu-sub-personal
-        // float: right
-        margin-right: 10px
+    .pu-sub-tribes
+        float: none
 
-    &-desktop
-        background-color: $color-primary
-        height: 60px
+    > .pu-list
+        white-space: nowrap
+        height: 100%
 
-        .pu-sub-mobilebar
-            background-color: transparent
-            border-bottom: none
-            white-space: nowrap
+        > li
+            margin-right: 5px
 
-        .pu-sub-logo
-            float: left
-            width: 157px
-
-        .pu-sub-nav
-            float: left
-            margin-left: 0
-
-        .pu-sub-personal
-            margin-right: 0
-
-    $modalheight: 70px
     &-modal
         background-color: $color-background-tertiery
         text-align: center
-        height: $modalheight
+        height: $modal-bar-height
 
         &.pu-header-progress
             .pu-progresspager
-                padding-top: $modalheight
+                padding-top: $modal-bar-height
                 top: 0
 
     &-progress
@@ -91,31 +76,27 @@
         .pu-button
             margin-top: 9px
 
-    @media (min-width: $breakpoint-tablet + 1px)
-        .pu-sub-logo
-            display: block
-
     @media screen and (min-width: $breakpoint-desktop)
-        background-color: $color-primary
-        height: 60px
-
-        .pu-sub-mobilebar
-            background-color: transparent
-            border-bottom: none
-            white-space: nowrap
+        .pu-sub-more
+            display: inline-block
 
         .pu-sub-logo
-            float: left
-            width: 157px
+            padding: 0 30px
 
-        .pu-sub-nav
-            float: left
-            margin-left: 0
+        .pu-button-header
+            margin-top: 0
+            span
+                display: inline
 
-        .pu-sub-personal
-            float: right
-            margin-right: 0
+        .pu-sub-tribes
+            float: left
+
+        > .pu-list > li
+            @include seperator()
+
+            &:last-child::after
+                display: none
 
         &-modal
             background-color: $color-background-tertiery
-            height: $modalheight
+            height: $modal-bar-height

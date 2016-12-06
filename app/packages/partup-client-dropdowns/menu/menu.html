@@ -1,6 +1,6 @@
 <template name="DropdownMenu">
-    <button class="pu-button pu-button-header pu-button-header-desktop" data-toggle-menu="menu">
-        {{_ 'footer-menu-button-label' }}
+    <button class="pu-button pu-button-header" data-toggle-menu="menu">
+        <span>{{_ 'footer-menu-button-label' }}</span>
     </button>
     <div class="pu-dropdown {{#if menuOpen}}pu-dropdown-active{{/if}} pu-dropdown-simple" data-clickoutside-close>
         <ul class="pu-list">

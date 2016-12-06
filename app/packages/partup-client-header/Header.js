@@ -1,18 +1,26 @@
-var isMobile = new ReactiveVar();
-
-Meteor.startup(function() {
-    var onResize = lodash.debounce(function() {
-        isMobile.set(window.innerWidth < 992);
-    }, 20);
-
-    $(window).on('load resize', onResize);
+Template.Header_LoggedIn.helpers({
+    notificationslabel: function() {
+        return TAPi18n.__('header-notifications');
+    },
+    chatlabel: function() {
+        return TAPi18n.__('header-chat');
+    }
 });
 
-Template.Header.helpers({
-    isMobile: function() {
-        return Partup.client.responsive.is() && isMobile.get();
+Template.Header_LoggedOut.events({
+    'click [data-login]': function(event) {
+        event.preventDefault();
+        Intent.go({route: 'login'});
     },
-    subMenuActive: function() {
-        return Partup.client.ClientDropdowns.partupNavigationSubmenuActive.get();
+    'click [data-register]': function(event) {
+        event.preventDefault();
+        Intent.go({route: 'register'});
+    }
+});
+
+Template.Header_Tribes.helpers({
+    showDiscover: function(user) {
+        if (!user) return true;
+        return !User(user).isMemberOfAnyNetwork() && !User(user).isMemberOfAnyPartup();
     }
 });

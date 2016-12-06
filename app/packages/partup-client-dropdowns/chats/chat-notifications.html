@@ -1,10 +1,10 @@
 <template name="DropdownChatNotifications">
     {{#let chatData=data}}
-        <button class="pu-button pu-button-header pu-button-header-desktop pu-button-header-nostripe" data-toggle-menu="chat-notifications">
+        <button class="pu-button pu-button-header" data-toggle-menu="chat-notifications">
             <!-- bell icon -->
             <i class="picon-chat pu-badge {{#if chatData.totalPersonalMessages }}pu-badge-active{{/if}} {{#if chatData.totalTribeMessages }}pu-badge-active{{/if}}"></i>
 
-            {{ label }}
+            <span>{{ label }}</span>
         </button>
         <div class="pu-dropdown pu-dropdown-notifications {{#if menuOpen}}pu-dropdown-active{{/if}} pu-dropdown-notifications-nobutton pu-dropdown-notifications-header" data-clickoutside-close>
             <header>

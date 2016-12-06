@@ -8,6 +8,7 @@ var sortPartups = function(partups, user) {
         }
     }, ['desc']);
 };
+
 Template.DropdownTribes.onCreated(function() {
     var template = this;
 
@@ -99,6 +100,7 @@ Template.DropdownTribes.onCreated(function() {
         });
     };
 });
+
 Template.DropdownTribes.onRendered(function() {
     var template = this;
     ClientDropdowns.addOutsideDropdownClickHandler(template, '[data-clickoutside-close]', '[data-toggle-menu=tribes]', function() {ClientDropdowns.partupNavigationSubmenuActive.set(false);});
@@ -107,33 +109,57 @@ Template.DropdownTribes.onRendered(function() {
         next();
     });
 
-    var width = template.$('[data-toggle-menu]').outerWidth();
-    $('[data-before]').css('width', width - 19);
+    var currentWidth = 0;
+    template.calculateWidth = function() {
+        var width = template.$('[data-toggle-menu]').outerWidth(true);
+        if (currentWidth !== width) {
+            $('[data-before]').css('width', width - 19);
+            currentWidth = width;
+        }
+    };
+
+    $(window).on('resize', template.calculateWidth);
+    template.calculateWidth();
 });
 
 Template.DropdownTribes.onDestroyed(function() {
     var template = this;
     ClientDropdowns.removeOutsideDropdownClickHandler(template);
+    $(window).off('resize', template.calculateWidth);
 });
 
 Template.DropdownTribes.events({
     'DOMMouseScroll [data-preventscroll], mousewheel [data-preventscroll]': Partup.client.scroll.preventScrollPropagation,
     'click [data-toggle-menu]': ClientDropdowns.dropdownClickHandler.bind(null, 'top-level'),
     'scroll [data-hidehohover], DOMMouseScroll [data-hidehohover], mousewheel [data-hidehohover]': function(event, template) {
-        // clearTimeout(template.scrollTimer);
         $(event.currentTarget).addClass('scrolling');
-        // template.scrollTimer = setTimeout(function() {$(event.currentTarget).removeClass('scrolling');}, 200);
     },
     'mouseenter [data-hohover]': function(event, template) {
         $(event.currentTarget).css('z-index', 2);
         $(event.currentTarget).find('[data-outer]').on('mousemove', template.handleXPos);
     },
     'mouseenter [data-hover]': function(event, template) {
+        var windowWidth = window.innerWidth;
+        if (windowWidth < 992) return;
+
         $('[data-hidehohover]').removeClass('scrolling');
         var tribeId = $(event.currentTarget).data('hover');
         template.showPartups.set(false);
         if (template.activeTribe.curValue !== tribeId) template.activeTribe.set(tribeId);
         template.showPartups.set(true);
+    },
+    'click [data-hover]': function(event, template) {
+        var windowWidth = window.innerWidth;
+
+        if (windowWidth < 992) {
+            event.preventDefault();
+
+            $('[data-hidehohover]').removeClass('scrolling');
+            var tribeId = $(event.currentTarget).data('hover');
+            template.showPartups.set(false);
+            if (template.activeTribe.curValue !== tribeId) template.activeTribe.set(tribeId);
+            template.showPartups.set(true);
+        }
     },
     'mouseleave [data-hohover]': function(event, template) {
         $(event.currentTarget).css('z-index', 1);
@@ -145,6 +171,10 @@ Template.DropdownTribes.events({
     },
     'mouseleave [data-clickoutside-close]': function(event, template) {
         template.showPartups.set(false);
+    },
+    'click [data-button-back]': function(event, template) {
+        event.preventDefault();
+        template.showPartups.set(false);
     }
 });
 
@@ -152,27 +182,34 @@ Template.DropdownTribes.helpers({
     menuOpen: function() {
         return Template.instance().dropdownOpen.get();
     },
+
     showPartups: function() {
         return Template.instance().showPartups.get();
     },
+
     currentTribe: function() {
         return Template.instance().activeTribe.get();
     },
+
     currentTribeFull: function() {
         var template = Template.instance();
         var networks = template.results.networks.get();
         var networkId = template.activeTribe.get();
         return lodash.find(networks, {_id: networkId});
     },
+
     loadingUpperpartups: function() {
         return Template.instance().states.loadingUpperpartups.get();
     },
+
     loadingSupporterpartups: function() {
         return Template.instance().states.loadingSupporterpartups.get();
     },
+
     networks: function() {
         return Template.instance().results.networks.get();
     },
+
     hasPartupsWithoutNetwork: function() {
         var upperPartups = Template.instance().results.upperpartups.get().filter(function(item) {
             return !item.network_id;
@@ -182,6 +219,7 @@ Template.DropdownTribes.helpers({
         });
         return (upperPartups.length || supporterPartups.length);
     },
+
     upperPartups: function() {
         var tribeId = Template.instance().activeTribe.get();
         var user = Meteor.user();

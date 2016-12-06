@@ -1,9 +1,9 @@
 <template name="DropdownNotifications">
-    <button class="pu-button pu-button-header pu-button-header-desktop" data-toggle-menu="notifications">
+    <button class="pu-button pu-button-header" data-toggle-menu="notifications">
         <!-- bell icon -->
         <i class="picon-bell pu-badge {{#if totalNewNotifications.count }}pu-badge-active{{/if}}"></i>
 
-        {{ label }}
+        <span>{{ label }}</span>
     </button>
     <div class="pu-dropdown pu-dropdown-notifications {{#if menuOpen}}pu-dropdown-active{{/if}} pu-dropdown-notifications-nobutton" data-clickoutside-close>
         <ul data-preventscroll>

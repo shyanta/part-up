@@ -14,25 +14,6 @@
     to
         transform: rotate(360deg)
 
-@mixin button_header_desktop
-    font-size: 15px
-    font-weight: 700
-    height: 60px
-    padding: 5px 30px
-
-    &:before
-        content: ''
-        position: absolute
-        left: 0
-        top: 0
-        height: 20px
-        width: 2px
-        background-color: rgba(#fff, .2)
-
-    &.pu-button-header-nostripe
-        &:before
-            display: none
-
 .pu-button
     // Dimensions
     position: relative
@@ -83,7 +64,6 @@
 
         &.picon-message:before
             vertical-align: sub
-
 
     &-smallicon
         i.picon-times
@@ -144,7 +124,6 @@
             margin-top: -4px
 
         &:hover,
-        &:active,
         &:focus
             background-color: darken(#cccccc, 10%)
 
@@ -205,65 +184,64 @@
 
     // Type: header button
     &-header
-        padding: 0 10px
-        height: 50px
-        line-height: 50px
-        background-color: transparent
+        line-height: 40px
+        background-color: darken($color-primary, 10%)
         color: rgba($color-text-inverted, .8)
         text-decoration: none
-        font-size: 13px
+        font-size: 14px
+        vertical-align: middle
         font-weight: 600
         transition: none
+        font-weight: 700
+        height: 40px
+        min-width: 40px
+        padding: 0
+        text-align: center
 
         i
             transition: none
             vertical-align: middle
-            margin-top: -3px
+            margin-right: 0
+            // margin-top: -3px
 
-        > .pu-badge
-            &:after
-                top: 12px
-                left: -3px
+        > .pu-badge::after
+            top: 9px
+            left: -3px
+            border: 2.5px solid darken($color-primary, 10%)
 
         &:hover,
         &:focus
-            background-color: transparent
-            color: $color-text-inverted
-            text-decoration: none
-            color: $color-text-inverted
-
-        span.mobile
-            display: block
-
-            @media screen and (min-width: 1100px)
-                display: none
-
-        span.desktop
-            display: none
-
-            @media screen and (min-width: 1100px)
-                display: block
+            background-color: darken($color-primary, 10%)
+            color: rgba($color-text-inverted, .8)
 
         &-profiledropdown
             z-index: 2
+            padding-right: 10px
+            padding-left: 10px
 
             &-active
                 color: $color-text-secondary
+                background-color: #fff
+                border-bottom-left-radius: 0
+                border-bottom-right-radius: 0
+
+                &:after
+                    content: ''
+                    position: absolute
+                    width: 100%
+                    bottom: -10px
+                    right: 0
+                    height: 10px
+                    background-color: #FFF
 
                 &:hover,
                 &:focus
+                    background-color: #fff
                     color: $color-text-secondary
 
-                // &:after
-                //     opacity: 1
-                //     transform: translateY(0)
-                //     max-height: 55px
             i
                 font-size: 12px
                 vertical-align: baseline
-
-        &-desktop
-            @include button_header_desktop
 
         &-modal
             background-color: $color-background-tertiery
@@ -275,7 +253,6 @@
                 background-color: $color-background-tertiery
                 color: darken($color-text-subtle, 7%)
 
-            &:active,
             &:focus
                 background-color: $color-background-tertiery
                 color: darken($color-text-subtle, 20%)
@@ -286,6 +263,62 @@
 
         &-brand
             padding: 16px 31px
+
+        &-avatar
+            background-color: transparent
+            border-radius: 20px
+
+            .pu-avatar
+                margin-right: 0
+                width: 40px
+                height: 40px
+                border: 2px solid darken($color-primary, 10%)
+                vertical-align: sub
+
+            &:hover, &:active
+                background-color: transparent
+
+
+        @media screen and (min-width: $breakpoint-desktop)
+            padding: 5px 30px
+            background-color: transparent
+            height: 50px
+            line-height: 50px
+            font-size: 15px
+
+            i
+                margin-right: 5px
+                margin-top: -3px
+
+            &-avatar
+                border-radius: 0
+                .pu-avatar
+                    margin-right: 5px
+
+            > .pu-badge::after
+                top: 12px
+                left: -3px
+                border: 2.5px solid $color-primary
+
+            &:hover,
+            &:focus
+                background-color: transparent
+                color: $color-text-inverted
+                text-decoration: none
+                color: $color-text-inverted
+
+            &-profiledropdown
+                &-active
+                    color: $color-text-secondary
+                    background-color: transparent
+
+                    &:after
+                        display: none
+
+                    &:hover,
+                    &:focus
+                        color: $color-text-secondary
+
 
     &-spinning
         i
@@ -551,7 +584,6 @@
             background-color: transparent
             color: darken($color-secondary, 10%)
 
-        &:active,
         &:focus
             background-color: transparent
             transform: none
@@ -570,7 +602,6 @@
             &:hover
                 color: darken($color-text-secondary, 10%)
 
-            &:active,
             &:focus
                 color: $color-text-subtle
 
@@ -580,7 +611,6 @@
             &:hover
                 color: darken($color-text-subtle, 10%)
 
-            &:active,
             &:focus
                 color: $color-text-subtle
 
@@ -590,7 +620,6 @@
             &:hover
                 color: darken($color-text-inverted, 10%)
 
-            &:active,
             &:focus
                 color: $color-text-inverted
 
@@ -767,7 +796,6 @@
         color: $color-primary
 
         &:focus,
-        &:active,
         &:hover
             color: $color-primary
 
@@ -789,7 +817,6 @@
             margin-left: 5px
 
         &:focus,
-        &:active,
         &:hover
             background-color: white
             color: $color-alert-success
@@ -809,7 +836,6 @@
         padding-bottom: 11px
 
         &:focus,
-        &:active,
         &:hover
             background-color: white
             color: $color-alert-success
@@ -864,7 +890,6 @@
                 background-position: bottom
 
             &:hover,
-            &:active,
             &:focus
                 background-color: $color-background
                 color: $color-header
@@ -876,7 +901,6 @@
         border: 0
         background-color: transparent
 
-        &:active,
         &:focus,
         &:hover
             background-color: transparent
@@ -888,7 +912,6 @@
     &-dark
         background-color: $color-button-darkblue
         font-weight: bold
-        &:active,
         &:hover,
         &:focus
             background-color: darken($color-button-darkblue, 5%)
@@ -927,11 +950,3 @@
         > i
             font-size: 9px
             margin-right: 2px
-
-    @media screen and (min-width: $breakpoint-desktop)
-        &-header
-            @include button_header_desktop
-
-            &-modal
-                padding-top: 9px
-                height: 70px
