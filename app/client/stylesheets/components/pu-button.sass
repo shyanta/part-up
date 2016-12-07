@@ -275,8 +275,37 @@
                 border: 2px solid darken($color-primary, 10%)
                 vertical-align: sub
 
-            &:hover, &:active
+            &:hover, &:active, &:focus
                 background-color: transparent
+
+            &-active
+                background-color: darken($color-primary, 10%)
+                &::after
+                    content: '+'
+                    color: #fff
+                    position: absolute
+                    right: 0
+                    left: 0
+                    transform: rotate(45deg)
+                    font-size: 26px
+
+                figure
+                    opacity: 0
+
+                &:hover, &:active, &:focus
+                    background-color: darken($color-primary, 10%)
+
+                @media screen and (min-width: $breakpoint-desktop)
+                    background-color: transparent
+
+                    &::after
+                        display: none
+
+                    figure
+                        opacity: 1
+
+                    &:hover, &:active, &:focus
+                        background-color: transparent
 
 
         @media screen and (min-width: $breakpoint-desktop)

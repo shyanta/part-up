@@ -180,18 +180,20 @@
                 display: none
 
     &-notifications
-        min-width: 440px - 3px
-        left: -192px
+        // width: 100vw
         border: 0
         box-shadow: 0 2px 5px rgba(#000, 0.1)
         border-radius: 4px
         padding-top: 0
         padding-bottom: 0
+        right: 5px
+        left: 5px
+        position: fixed
 
-        &:before
+        &::before
             content: ''
             top: -5px
-            left: 50%
+            right: 60px
             height: 10px
             width: 10px
             transform: rotate(45deg)
@@ -209,7 +211,6 @@
             overflow: auto
             max-height: 546px - 56px
             list-style: none
-            min-width: 452px
 
             li:first-child
                 border-top-left-radius: 4px
@@ -247,6 +248,40 @@
             ul
                 max-height: 546px - 56px - 73px
 
+        &-chats::before
+            right: 105px
+
+        @media screen and (min-width: 500px)
+            min-width: 440px - 3px
+            position: absolute
+            left: auto
+            width: auto
+            right: -45px
+
+            &:before
+                right: 60px
+
+            &-chats
+                right: -90px
+
+                &::before
+                    right: 105px
+
+        @media screen and (min-width: $breakpoint-desktop)
+            left: -192px
+            right: auto
+
+            &:before
+                right: auto
+                left: 50%
+
+            &-chats
+                right: auto
+
+                &::before
+                    right: auto
+
+
     &-form
         position: relative
         // display: none
@@ -276,6 +311,11 @@
         padding-top: 0
         padding-bottom: 0
         overflow: hidden
+        bottom: -10px
+        min-height: calc(100vh - 60px)
+        right: -5px
+        transform: translateX(100%)
+        width: 80vw
 
         &__tribe
             .pu-avatar
@@ -283,22 +323,11 @@
                 margin-right: 5px
 
         ul
-            padding-top: 20px
-            padding-bottom: 20px
             position: relative
 
-            &:after
-                content: ''
-                display: block
-                position: absolute
-                height: 2px
-                width: 60px
-                background-color: #eee
-                bottom: 0
-                left: 0
-
             li a
-                padding: 10px 30px
+                border-bottom: 2px solid #f9f9f9
+                padding: 20px 30px
                 text-decoration: none
                 color: $color-text
                 display: block
@@ -306,13 +335,65 @@
                 &:hover
                     background-color: #f9f9f9
 
+                .picon-caret-slim-right,
+                .picon-caret-slim-left
+                    font-size: 12px
+
             &:last-child
                 &:after
                     display: none
 
+            @media screen and (min-width: 500px)
+                padding-top: 20px
+                padding-bottom: 20px
+
+                &:after
+                    content: ''
+                    display: block
+                    position: absolute
+                    height: 2px
+                    width: 60px
+                    background-color: #eee
+                    bottom: 0
+                    left: 0
+
+                li a
+                    padding: 10px 30px
+                    border-bottom: 0
+
+        @media screen and (min-width: 500px)
+            width: auto
+            bottom: auto
+            min-height: inherit
+            right: auto
+            transform: translateY(5px)
+
+    .pu-sub-morebutton
+        @media screen and (min-width: 500px)
+            display: none
+
+    &__more
+        position: absolute
+        top: 0
+        right: 0
+        bottom: 0
+        left: 0
+        z-index: 1
+        display: none
+        background-color: #fff
+
+        &-active
+            display: block
+
+        @media screen and (min-width: 500px)
+            display: none
+
+            &-active
+                display: none
+
     &-active
         opacity: 1
-        transform: translateY(0px)
+        transform: translateY(0px) translateX(0px)
         pointer-events: all
         display: block
 

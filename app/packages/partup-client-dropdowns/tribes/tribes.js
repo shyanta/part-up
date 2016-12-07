@@ -131,13 +131,6 @@ Template.DropdownTribes.onDestroyed(function() {
 Template.DropdownTribes.events({
     'DOMMouseScroll [data-preventscroll], mousewheel [data-preventscroll]': Partup.client.scroll.preventScrollPropagation,
     'click [data-toggle-menu]': ClientDropdowns.dropdownClickHandler.bind(null, 'top-level'),
-    'scroll [data-hidehohover], DOMMouseScroll [data-hidehohover], mousewheel [data-hidehohover]': function(event, template) {
-        $(event.currentTarget).addClass('scrolling');
-    },
-    'mouseenter [data-hohover]': function(event, template) {
-        $(event.currentTarget).css('z-index', 2);
-        $(event.currentTarget).find('[data-outer]').on('mousemove', template.handleXPos);
-    },
     'mouseenter [data-hover]': function(event, template) {
         var windowWidth = window.innerWidth;
         if (windowWidth < 992) return;
@@ -161,21 +154,28 @@ Template.DropdownTribes.events({
             template.showPartups.set(true);
         }
     },
-    'mouseleave [data-hohover]': function(event, template) {
-        $(event.currentTarget).css('z-index', 1);
-        $(event.currentTarget).find('[data-inner]').css({
-            display: 'none',
-            pointerEvents: 'none'
-        });
-        $(event.currentTarget).find('[data-outer]').off('mousemove', template.handleXPos);
-    },
     'mouseleave [data-clickoutside-close]': function(event, template) {
         template.showPartups.set(false);
     },
     'click [data-button-back]': function(event, template) {
         event.preventDefault();
         template.showPartups.set(false);
-    }
+    },
+    // 'scroll [data-hidehohover], DOMMouseScroll [data-hidehohover], mousewheel [data-hidehohover]': function(event, template) {
+    //     $(event.currentTarget).addClass('scrolling');
+    // },
+    // 'mouseenter [data-hohover]': function(event, template) {
+    //     $(event.currentTarget).css('z-index', 2);
+    //     $(event.currentTarget).find('[data-outer]').on('mousemove', template.handleXPos);
+    // },
+    // 'mouseleave [data-hohover]': function(event, template) {
+    //     $(event.currentTarget).css('z-index', 1);
+    //     $(event.currentTarget).find('[data-inner]').css({
+    //         display: 'none',
+    //         pointerEvents: 'none'
+    //     });
+    //     $(event.currentTarget).find('[data-outer]').off('mousemove', template.handleXPos);
+    // },
 });
 
 Template.DropdownTribes.helpers({

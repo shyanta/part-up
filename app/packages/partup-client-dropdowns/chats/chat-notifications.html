@@ -6,7 +6,7 @@
 
             <span>{{ label }}</span>
         </button>
-        <div class="pu-dropdown pu-dropdown-notifications {{#if menuOpen}}pu-dropdown-active{{/if}} pu-dropdown-notifications-nobutton pu-dropdown-notifications-header" data-clickoutside-close>
+        <div class="pu-dropdown pu-dropdown-notifications pu-dropdown-notifications-chats {{#if menuOpen}}pu-dropdown-active{{/if}} pu-dropdown-notifications-nobutton pu-dropdown-notifications-header" data-clickoutside-close>
             <header>
                 <div class="pu-toggle">
                     <button class="{{#if private}}pu-state-active{{/if}}" data-private>{{_ 'dropdowns-chat-notifications-toggle-one-on-one'}}{{#with chatData.totalPersonalMessages }} ({{ . }}){{/with}}</button>
