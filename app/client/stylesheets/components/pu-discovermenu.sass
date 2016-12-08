@@ -47,3 +47,17 @@
         top: 39px
         font-size: 12px
         right: 15px
+
+    &--is-active::before
+        content: ''
+        position: fixed
+        top: 0
+        bottom: 0
+        right: 0
+        left: 0
+        background-color: rgba(#000, .2)
+        z-index: -1
+
+    @media screen and (min-width: $breakpoint-desktop)
+        &--is-active::before
+            display: none

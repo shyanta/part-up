@@ -40,7 +40,7 @@
         // transform: translateZ(0px) // to fix render bug
 
         li
-            margin-right: 50px
+            margin-right: 25px
 
             &:last-child
                 margin-right: 0
@@ -118,6 +118,14 @@
                 border-color: $color-primary
 
     @media screen and (min-width: $breakpoint-tablet + 1px)
+
+        .pu-list-horizontal
+            li
+                margin-right: 50px
+
+                &:last-child
+                    margin-right: 0
+
         &-compact
             .pu-list-horizontal
                 li

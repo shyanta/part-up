@@ -35,7 +35,9 @@
                             </li>
                             <li class="pu-sub-pipe"></li>
                             <li class="pu-sub-responsive-button {{#if state.dropdownActive}}pu-sub-responsive-button-active{{/if}}">
-                                <button type="button" class="pu-button {{#if state.dropdownActive}}pu-button-grey{{else}}pu-button-secondary{{/if}}" data-toggle-discover-menu>Filter</button>
+                                <button type="button" class="pu-expand-button {{#if state.dropdownActive}}pu-expand-button-active pu-expand-button-active-dark{{/if}}" data-toggle-discover-menu>
+                                    {{_ 'pages-app-discover-tribes-filter'}} {{#if state.dropdownActive}}<i class="picon-caret-slim-up"></i>{{else}}<i class="picon-caret-slim-down"></i>{{/if}}
+                                </button>
                             </li>
                         </ul>
                     </span>
