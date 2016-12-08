@@ -73,6 +73,12 @@
                 -webkit-overflow-scrolling: auto
                 overflow: hidden
 
+    .pu-sub-navigation-smallscreen
+        display: block
+
+    .pu-sub-navigation-largescreen
+        display: none
+
     @media screen and (min-width: 420px)
         &__left
             width: 420px
@@ -80,6 +86,13 @@
 
             &--is-active
                 transform: translateX(0px)
+
+    @media screen and (min-width: 500px)
+        .pu-sub-navigation-smallscreen
+            display: none
+
+        .pu-sub-navigation-largescreen
+            display: block
 
     @media screen and (min-width: $breakpoint-tablet + 1px)
         button.pu-partuppagelayout__closebutton

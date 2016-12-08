@@ -76,6 +76,8 @@ Package.onUse(function(api) {
         'partials/partup/updates-actions.js',
         'partials/partup/activities-actions.html',
         'partials/partup/activities-actions.js',
+        'partials/partup/navigation.html',
+        'partials/partup/navigation.js',
 
         'partials/network/network-actions.html',
         'partials/network/network-actions.js',
