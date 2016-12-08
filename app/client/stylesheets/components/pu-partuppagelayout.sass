@@ -15,7 +15,7 @@
         white-space: normal
 
     &__left
-        width: 100vw
+        width: calc(100vw - 15px)
         position: absolute
         left: 0
         z-index: 1
@@ -46,13 +46,18 @@
     button.pu-partuppagelayout__closebutton
         position: absolute
         top: 10px
-        right: 20px
+        right: 0px
         z-index: 12
         width: 40px
         height: 40px
         text-align: center
         padding: 12px
-        box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.2)
+        border-radius: 4px 0px 0px 4px
+        background-color: #dcdcdc
+
+        i
+            font-size: 10px
+            color: $color-text
 
     .pu-navigation
         .pu-button-nav.pu-state-active
