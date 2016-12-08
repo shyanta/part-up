@@ -1,8 +1,8 @@
 <template name="DropdownMenu">
-    <button class="pu-button pu-button-header" data-toggle-menu="menu">
-        <span>{{_ 'footer-menu-button-label' }}</span>
+    <button class="pu-button pu-button-header pu-button-header-text" data-toggle-menu="menu">
+        {{_ 'footer-menu-button-label' }} {{#unless menuOpen}}<i class="picon-caret-slim-down"></i>{{/unless}}{{#if menuOpen}}<i class="picon-caret-slim-up"></i>{{/if}}
     </button>
-    <div class="pu-dropdown {{#if menuOpen}}pu-dropdown-active{{/if}} pu-dropdown-simple" data-clickoutside-close>
+    <div class="pu-dropdown {{#if menuOpen}}pu-dropdown-active{{/if}} pu-dropdown-simple pu-dropdown-more" data-clickoutside-close>
         {{> DropdownMenu_Content }}
     </div>
 </template>

@@ -17,7 +17,7 @@ $modal-bar-height: 70px
     background-color: $color-primary
     height: 60px
 
-    .pu-sub-more
+    .pu-sub-hidesmallscreen
         display: none
 
     .pu-sub-logo
@@ -39,8 +39,12 @@ $modal-bar-height: 70px
         span
             display: none
 
-    .pu-sub-tribes
+    .pu-sub-tribes,
+    .pu-sub-more
         float: none
+
+    .pu-sub-more i
+        transform: rotate(90deg)
 
     > .pu-list
         white-space: nowrap
@@ -76,8 +80,12 @@ $modal-bar-height: 70px
         .pu-button
             margin-top: 9px
 
+    @media screen and (min-width: $breakpoint-dropdowns)
+        .pu-sub-more i
+            transform: none
+
     @media screen and (min-width: $breakpoint-desktop)
-        .pu-sub-more
+        .pu-sub-hidesmallscreen
             display: inline-block
 
         .pu-sub-logo
@@ -88,7 +96,8 @@ $modal-bar-height: 70px
             span
                 display: inline
 
-        .pu-sub-tribes
+        .pu-sub-tribes,
+        .pu-sub-more
             float: left
 
         > .pu-list > li
