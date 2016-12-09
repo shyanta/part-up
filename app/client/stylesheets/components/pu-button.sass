@@ -487,7 +487,11 @@
         border-color: $color-border-light
         overflow: hidden
 
-        i
+        [icon]
+            line-height: 14px
+            font-size: 14px
+
+        i:not([icon])
             position: absolute
             right: 0
             top: 0
@@ -500,6 +504,12 @@
             text-align: center
             &.picon-times
                 display: none
+
+            &.picon-caret-down,
+            &.picon-caret-up,
+            &.picon-caret-slim-down,
+            &.picon-caret-slim-up
+                top: -2px
 
         &:hover
             background-color: $color-background

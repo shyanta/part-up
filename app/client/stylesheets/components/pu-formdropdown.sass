@@ -43,3 +43,24 @@
 
     &-active
         border-color: $color-border
+
+    &-navigation
+        transition: background-color 200ms
+        .pu-sub-container
+            border-color: #dcdcdc
+        .pu-sub-container,
+        .pu-button
+            transition: background-color 200ms
+            background-color: #dcdcdc
+            color: $color-text
+
+        .pu-button i:not([icon])
+            transition: background-color 200ms
+            background: #dcdcdc
+
+        &.pu-formdropdown-active
+            .pu-sub-container,
+            .pu-button,
+            .pu-button i:not([icon])
+                background: #fff
+

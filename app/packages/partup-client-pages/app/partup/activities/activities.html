@@ -19,6 +19,9 @@
         <!-- Header buttons -->
         <header class="pu-pageheader">
 
+            <!-- Filter -->
+            <aside>{{> PartialDropdownActivitiesActions reactiveVar=filterReactiveVar}}</aside>
+
             <!-- New activity button -->
             <section>
                 <a class="pu-button pu-button-icon" href="#" data-new-activity>
@@ -27,8 +30,6 @@
                 </a>
             </section>
 
-            <!-- Filter -->
-            <aside>{{> PartialDropdownActivitiesActions reactiveVar=filterReactiveVar}}</aside>
 
         </header>
 

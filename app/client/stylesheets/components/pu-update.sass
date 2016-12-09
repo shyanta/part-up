@@ -1,9 +1,12 @@
 .pu-update
     @extend %clearfix
 
+    > aside, > section
+        position: relative
+        float: none
+        width: 100%
+
     > aside
-        width: 130px
-        float: left
         @extend %clearfix
 
         .pu-avatar
@@ -12,7 +15,7 @@
 
         .pu-sub-time
             display: inline-block
-            margin-left: 29px
+            margin-left: 15px
             color: #7f7f7f
             font-size: 12px
             font-family: $font-primary
@@ -20,10 +23,10 @@
             letter-spacing: 0.6px
 
     > section
-        float: left
-        width: calc(100% - 130px)
-
         > header
+            width: calc(100% - 100px)
+            margin-left: 100px
+            margin-top: -40px
             @extend %clearfix
 
             h3
@@ -96,11 +99,11 @@
                 &.pu-state-expanded
                     display: block
 
-    &:hover
-        > section > header .pu-button-text
-            opacity: 1
-            transform: none
-            pointer-events: visible
+
+    > section > header .pu-button-text
+        opacity: 1
+        transform: none
+        pointer-events: visible
 
     &-placeholder
         margin-top: 80px
@@ -117,3 +120,32 @@
                 font-weight: bold
                 font-size: 20px
                 text-align: center
+
+    @media screen and (min-width: $breakpoint-partup-medium)
+        > aside, > section
+            float: left
+
+        > aside
+            width: 130px
+
+            .pu-sub-time
+                margin-left: 29px
+
+        > section
+            width: calc(100% - 130px)
+
+            > header
+                position: relative
+                margin: 0
+                width: auto
+
+    @media screen and (min-width: $breakpoint-tablet + 1px)
+        > section > header .pu-button-text
+            opacity: 0
+            transform: translateY(8px)
+            pointer-events: none
+
+        &:hover > section > header .pu-button-text
+            opacity: 1
+            transform: none
+            pointer-events: visible

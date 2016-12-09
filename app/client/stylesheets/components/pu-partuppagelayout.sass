@@ -32,7 +32,7 @@
         z-index: 0
         transition: filter 200ms
         background-color: #fff
-        min-width: 650px
+        // min-width: 600px
 
     &__content
         -webkit-overflow-scrolling: touch
@@ -43,21 +43,11 @@
         &-fixedwidth
             overflow-x: hidden
 
-    button.pu-partuppagelayout__closebutton
+    .pu-partuppagelayout__closebutton
         position: absolute
         top: 10px
         right: 0px
         z-index: 12
-        width: 40px
-        height: 40px
-        text-align: center
-        padding: 12px
-        border-radius: 4px 0px 0px 4px
-        background-color: #dcdcdc
-
-        i
-            font-size: 10px
-            color: $color-text
 
     .pu-navigation
         .pu-button-nav.pu-state-active
@@ -73,13 +63,14 @@
                 -webkit-overflow-scrolling: auto
                 overflow: hidden
 
-    .pu-sub-navigation-smallscreen
+    &__only-smallscreen
         display: block
 
-    .pu-sub-navigation-largescreen
+    &__only-mediumscreen,
+    &__only-largescreen
         display: none
 
-    @media screen and (min-width: 420px)
+    @media screen and (min-width: 440px)
         &__left
             width: 420px
             transform: translateX(-420px)
@@ -87,16 +78,20 @@
             &--is-active
                 transform: translateX(0px)
 
-    @media screen and (min-width: 500px)
-        .pu-sub-navigation-smallscreen
+    @media screen and (min-width: $breakpoint-partup-medium)
+        &__only-smallscreen
             display: none
 
-        .pu-sub-navigation-largescreen
+        &__only-mediumscreen,
+        &__only-largescreen
             display: block
 
-    @media screen and (min-width: $breakpoint-tablet + 1px)
-        button.pu-partuppagelayout__closebutton
+    @media screen and (min-width: $breakpoint-desktop)
+        .pu-partuppagelayout__closebutton
             display: none
+
+        &__only-mediumscreen
+            display: none !important
 
         &__left
             position: relative

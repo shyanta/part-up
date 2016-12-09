@@ -97,6 +97,7 @@
                         padding-top: 15px
     &-compact
         height: 60px
+        padding-left: 0
 
         .pu-list-horizontal
             li
@@ -110,6 +111,16 @@
             i
                 font-size: 14px
 
+        .pu-sub-smallscreen-navigation
+            padding-top: 10px
+
+            li
+                margin-right: 10px
+
+            .pu-formdropdown
+                width: calc(100vw - 60px)
+
+
     &-discover
         .pu-button
 
@@ -117,8 +128,11 @@
                 color: $color-primary
                 border-color: $color-primary
 
-    @media screen and (min-width: $breakpoint-tablet + 1px)
+    @media screen and (min-width: $breakpoint-partup-medium)
+        .pu-sticky-button
+            margin-top: 10px
 
+    @media screen and (min-width: $breakpoint-desktop)
         .pu-list-horizontal
             li
                 margin-right: 50px
@@ -127,10 +141,17 @@
                     margin-right: 0
 
         &-compact
+            padding-left: 40px
             .pu-list-horizontal
                 li
-                    margin-right: 40px
+                    margin-right: 20px
 
                 &.pu-sub-compact-list
                     li
                         margin-right: 20px
+
+    @media screen and (min-width: $breakpoint-desktop + 60px)
+        &-compact
+            .pu-list-horizontal
+                li
+                    margin-right: 30px

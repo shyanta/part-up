@@ -111,12 +111,21 @@
         background: $color-background-tertiery
 
     &-partup
+        .pu-formdropdown
+            z-index: 2
+
         .pu-sub-partupdetail-content
-            padding-top: $spacing-app-partupnavpaddingtop
-            padding-right: 80px
+            padding-top: 15px
             padding-bottom: 80px
-            padding-left: 40px
+            padding-right: 15px
+            padding-left: 15px
             height: calc(100% - 60px)
+
+        @media screen and (min-width: $breakpoint-partup-medium)
+            .pu-sub-partupdetail-content
+                padding-top: $spacing-app-partupnavpaddingtop
+                padding-right: 80px
+                padding-left: 40px
 
     &-error
         .pu-sub-pagecontent

@@ -8,15 +8,18 @@ Template.PartupNavigationSelector.onCreated(function() {
     template.options = [{
         name: TAPi18n.__('pages-app-partup-menu_updates'),
         route: 'partup',
-        slug: partupSlug
+        slug: partupSlug,
+        icon: 'globe'
     },{
         name: TAPi18n.__('pages-app-partup-menu_activities'),
         route: 'partup-activities',
-        slug: partupSlug
+        slug: partupSlug,
+        icon: 'chart'
     },{
         name: TAPi18n.__('pages-app-partup-menu_documents'),
         route: 'partup-documents',
-        slug: partupSlug
+        slug: partupSlug,
+        icon: 'documents'
     }];
 
     var defaultOption = template.options[0];
