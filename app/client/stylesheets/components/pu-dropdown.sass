@@ -338,7 +338,7 @@
                 &:after
                     display: none
 
-            @media screen and (min-width: $breakpoint-dropdowns)
+            @media screen and (min-width: $breakpoint-tablet + 1px)
                 padding-top: 20px
                 padding-bottom: 20px
 
@@ -357,6 +357,9 @@
                     border-bottom: 0
 
         @media screen and (min-width: $breakpoint-dropdowns)
+            max-width: 400px
+
+        @media screen and (min-width: $breakpoint-tablet + 1px)
             width: auto
             bottom: auto
             min-height: inherit
@@ -371,7 +374,7 @@
             right: auto
 
     .pu-sub-morebutton
-        @media screen and (min-width: $breakpoint-dropdowns)
+        @media screen and (min-width: $breakpoint-tablet + 1px)
             display: none
 
     &__more
@@ -387,7 +390,7 @@
         &-active
             display: block
 
-        @media screen and (min-width: $breakpoint-dropdowns)
+        @media screen and (min-width: $breakpoint-tablet + 1px)
             display: none
 
             &-active

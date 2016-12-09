@@ -84,9 +84,11 @@ $modal-bar-height: 70px
         .pu-sub-more i
             transform: none
 
-    @media screen and (min-width: $breakpoint-desktop)
+    @media screen and (min-width: $breakpoint-tablet + 1px)
         .pu-sub-hidesmallscreen
             display: inline-block
+
+    @media screen and (min-width: $breakpoint-desktop)
 
         .pu-sub-logo
             padding: 0 30px
