@@ -2,5 +2,8 @@
     "dropdowns-profile-button-back": "Back",
     "dropdowns-profile-button-more": "More",
     "pages-app-discover-tribes-filter": "Filter",
-    "pages-app-discover-partups-filter": "Filter"
+    "pages-app-discover-partups-filter": "Filter",
+    "dropdowns-chat-notifications-button-app-title": "Part-up",
+    "dropdowns-chat-notifications-button-app-description": "To use chat, download our app",
+    "dropdowns-chat-notifications-button-app-label": "Download"
 }

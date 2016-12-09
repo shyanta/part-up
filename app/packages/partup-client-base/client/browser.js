@@ -74,5 +74,26 @@ Partup.client.browser = {
         }
 
         return undefined;
+    },
+
+    onMobileOs: function(callback) {
+        var os = this.getMobileOperatingSystem();
+        if (os == 'ios') callback();
+        if (os == 'android') callback();
+    },
+
+    getAppStoreLink: function() {
+        var os = Partup.client.browser.getMobileOperatingSystem();
+        switch (os) {
+            case 'ios':
+                return TAPi18n.__('more-menu-list-for-ios-url');
+                break;
+            case 'android':
+                return TAPi18n.__('more-menu-list-for-android-url');
+                break;
+            default:
+                // revert to ios link by default
+                return TAPi18n.__('more-menu-list-for-ios-url');
+        }
     }
 };

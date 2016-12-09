@@ -102,17 +102,6 @@ Template.DropdownChatNotifications.helpers({
         };
     },
     appStoreLink: function() {
-        var os = Partup.client.browser.getMobileOperatingSystem();
-        switch (os) {
-            case 'ios':
-                return TAPi18n.__('more-menu-list-for-ios-url');
-                break;
-            case 'android':
-                return TAPi18n.__('more-menu-list-for-android-url');
-                break;
-            default:
-                // revert to ios link by default
-                return TAPi18n.__('more-menu-list-for-ios-url');
-        }
+        return Partup.client.browser.getAppStoreLink();
     }
 });
