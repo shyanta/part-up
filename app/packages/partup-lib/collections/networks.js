@@ -786,11 +786,11 @@ Networks.guardedFind = function(userId, selector, options) {
     if (selector['type']) {
         if (selector['type'] == 'public') {
             guardedCriterias.push({'privacy_type': {'$in': [Networks.privacy_types.NETWORK_PUBLIC]}});
-        } else if (selector['type'] == 'invite') {
-            guardedCriterias.push({'privacy_type': {'$in': [Networks.privacy_types.NETWORK_INVITE]}});
+        } else if (selector['type'] == 'closed') {
+            guardedCriterias.push({'privacy_type': {'$in': [Networks.privacy_types.NETWORK_INVITE, Networks.privacy_types.NETWORK_CLOSED]}});
         } else {
-            // Default to both types
-            guardedCriterias.push({'privacy_type': {'$in': [Networks.privacy_types.NETWORK_PUBLIC, Networks.privacy_types.NETWORK_INVITE]}});
+            // Default to all types
+            guardedCriterias.push({'privacy_type': {'$in': [Networks.privacy_types.NETWORK_PUBLIC, Networks.privacy_types.NETWORK_INVITE, Networks.privacy_types.NETWORK_CLOSED]}});
         }
 
         // Remove type from selector
