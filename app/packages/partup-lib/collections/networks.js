@@ -713,14 +713,17 @@ Networks.findForDiscover = function(userId, options, parameters) {
     if (textSearch) {
         Log.debug('Searching networks for [' + textSearch + ']');
 
-        var textSearchSelector = {$text: {$search: textSearch}};
+        //@TODO: investigate why full text search didn't work
+        //var textSearchSelector = {$text: {$search: textSearch}};
+        var nameSelector = {name: new RegExp('.*' + textSearch + '.*', 'i')};
+        var descriptionSelector = {description: new RegExp('.*' + textSearch + '.*', 'i')};
         var tagSelector = {tags: {$in: [textSearch]}};
         var partupNameSelector = {'partup_names.name': new RegExp('.*' + textSearch + '.*', 'i')};
 
-        options.fields = {score: {$meta: 'textScore'}};
-        options.sort['score'] = {$meta: 'textScore'};
+        //options.fields = {score: {$meta: 'textScore'}};
+        //options.sort['score'] = {$meta: 'textScore'};
 
-        selector.$or = [textSearchSelector, tagSelector, partupNameSelector];
+        selector.$or = [nameSelector, descriptionSelector, tagSelector, partupNameSelector];
     }
 
     // Filter the networks on language
