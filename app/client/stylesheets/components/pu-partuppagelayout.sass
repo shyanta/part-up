@@ -1,3 +1,4 @@
+$sidebar-min-width: 420px
 .pu-partuppagelayout
     font-size: 0
     height: calc(100vh - 60px)
@@ -70,10 +71,10 @@
     &__only-largescreen
         display: none
 
-    @media screen and (min-width: 440px)
+    @media screen and (min-width: #{$sidebar-min-width + 20px})
         &__left
-            width: 420px
-            transform: translateX(-420px)
+            width: $sidebar-min-width
+            transform: translateX(-$sidebar-min-width)
 
             &--is-active
                 transform: translateX(0px)
@@ -95,12 +96,12 @@
 
         &__left
             position: relative
-            width: 420px
+            width: $sidebar-min-width
             display: inline-block
             transform: none
 
         &__right
-            width: calc(100% - 420px)
+            width: calc(100% - #{$sidebar-min-width})
 
             .pu-sub-section-button
                 display: none
@@ -108,3 +109,10 @@
         &--section-is-active
             .pu-partuppagelayout__right
                 filter: none
+
+    @media screen and (min-width: #{$sidebar-min-width * 4})
+        &__left
+            width: 25%
+
+        &__right
+            width: 75%
