@@ -5,5 +5,17 @@
     "pages-app-discover-partups-filter": "Filter",
     "dropdowns-chat-notifications-button-app-title": "Part-up",
     "dropdowns-chat-notifications-button-app-description": "Gebruik de app om te chatten",
-    "dropdowns-chat-notifications-button-app-label": "Download"
+    "dropdowns-chat-notifications-button-app-label": "Download",
+
+    "pages-app-partup-label-network-admins-default": "Admins",
+    "pages-app-partup-label-network-colleagues-default": "Level 1",
+    "pages-app-partup-label-network-custom-a-default": "Level 2",
+    "pages-app-partup-label-network-custom-b-default": "Level 3",
+
+    "pages-app-partup-privacy-label-public": "Open voor iedereen",
+    "pages-app-partup-privacy-label-private": "Gesloten",
+    "pages-app-partup-privacy-label-network-public": "Open voor iedereen",
+    "pages-app-partup-privacy-label-network-invite": "Open voor uitgenodigde uppers",
+    "pages-app-partup-privacy-label-network-closed": "Alleen open voor leden van __network__",
+    "pages-app-partup-privacy-label-network-custom": "Alleen open voor __label__ van __network__"
 }
