@@ -3,10 +3,19 @@ Template.DiscoverTribesTypeSelector.onCreated(function() {
     template.dropdownToggleBool = 'partial-dropdowns-networks-actions-type.opened';
     template.dropdownOpen = new ReactiveVar(false);
     template.selectedOption = template.data.reactiveVar;
-    template.selectedOption.set({
+
+    template.options = [{
         name: TAPi18n.__('pages-app-discover-tribes-filter-type-all'),
         value: undefined
-    });
+    },{
+        name: TAPi18n.__('pages-app-discover-tribes-filter-type-public'),
+        value: 'public'
+    },{
+        name: TAPi18n.__('pages-app-discover-tribes-filter-type-closed'),
+        value: 'closed'
+    }];
+
+    template.selectedOption.set(template.options[0]);
 });
 
 Template.DiscoverTribesTypeSelector.onRendered(function() {
@@ -36,20 +45,7 @@ Template.DiscoverTribesTypeSelector.helpers({
         return Template.instance().selectedOption.get();
     },
     options: function() {
-        return [
-            {
-                name: TAPi18n.__('pages-app-discover-tribes-filter-type-all'),
-                value: undefined
-            },
-            {
-                name: TAPi18n.__('pages-app-discover-tribes-filter-type-public'),
-                value: 'public'
-            },
-            {
-                name: TAPi18n.__('pages-app-discover-tribes-filter-type-invite'),
-                value: 'invite'
-            }
-        ];
+        return Template.instance().options;
     },
     selected: function(input) {
         var template = Template.instance();

@@ -1,14 +1,32 @@
 Template.DiscoverTribesSectorSelector.onCreated(function() {
     var template = this;
-    template.subscribe('sectors.all');
+    var options = [{
+        name: TAPi18n.__('pages-app-discover-tribes-filter-sector-all'),
+        value: undefined
+    }];
+    template.options = new ReactiveVar(options);
+    template.subscribe('sectors.all', {
+        onReady: function() {
+            var sectors = Sectors.find().fetch();
+
+            var selectableSectors = (sectors || []).map(function(sector, index) {
+                return {
+                    name: sector._id,
+                    value: sector._id
+                };
+            });
+
+            var newOptions = options.concat(selectableSectors)
+
+            template.options.set(newOptions);
+            template.selectedOption.set(newOptions[0]);
+        }
+    });
 
     template.dropdownToggleBool = 'partial-dropdowns-networks-actions-sector.opened';
     template.dropdownOpen = new ReactiveVar(false);
     template.selectedOption = template.data.reactiveVar;
-    template.selectedOption.set({
-        name: TAPi18n.__('pages-app-discover-tribes-filter-sector-all'),
-        value: undefined
-    });
+
 });
 
 Template.DiscoverTribesSectorSelector.onRendered(function() {
@@ -38,19 +56,7 @@ Template.DiscoverTribesSectorSelector.helpers({
         return Template.instance().selectedOption.get();
     },
     options: function() {
-        var sectors = Sectors.find().fetch();
-
-        var selectableSectors = (sectors || []).map(function(sector, index) {
-            return {
-                name: sector._id,
-                value: sector._id
-            };
-        });
-
-        return [{
-            name: TAPi18n.__('pages-app-discover-tribes-filter-sector-all'),
-            value: undefined
-        }].concat(selectableSectors);
+        return Template.instance().options.get();
     },
     selected: function(input) {
         var template = Template.instance();
