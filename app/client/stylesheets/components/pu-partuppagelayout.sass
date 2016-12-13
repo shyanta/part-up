@@ -1,9 +1,6 @@
 $sidebar-min-width: 420px
 .pu-partuppagelayout
     font-size: 0
-    height: calc(100vh - 60px)
-    -webkit-overflow-scrolling: touch
-    overflow-x: scroll
     white-space: nowrap
 
     &__left,
@@ -71,6 +68,7 @@ $sidebar-min-width: 420px
     &__only-largescreen
         display: none
 
+
     @media screen and (min-width: #{$sidebar-min-width + 20px})
         &__left
             width: $sidebar-min-width
@@ -86,6 +84,10 @@ $sidebar-min-width: 420px
         &__only-mediumscreen,
         &__only-largescreen
             display: block
+
+    @media screen and (min-width: $breakpoint-tablet + 1px)
+        height: calc(100vh - 60px)
+        -webkit-overflow-scrolling: touch
 
     @media screen and (min-width: $breakpoint-desktop)
         .pu-partuppagelayout__closebutton
