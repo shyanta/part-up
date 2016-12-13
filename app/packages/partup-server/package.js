@@ -171,6 +171,7 @@ Package.onUse(function(api) {
         'publications/swarms.js',
         'publications/contentblocks.js',
         'publications/chats.js',
+        'publications/sectors.js',
         'routes/hooks.js',
         'routes/middleware.js',
         'routes/csv/csv_routes.js',
@@ -202,6 +203,7 @@ Package.onUse(function(api) {
         'methods/contentblocks/contentblocks_methods.js',
         'methods/chats/chats_methods.js',
         'methods/chatmessages/chatmessages_methods.js',
+        'methods/sectors/sectors_methods.js',
         'cron/reset_clicks_per_hour.js',
         'cron/calculate_partup_participation_score_for_users.js',
         'cron/calculate_partup_progress_score_for_partups.js',
@@ -213,6 +215,7 @@ Package.onUse(function(api) {
         'cron/update_swarm_network_stats.js',
         'cron/calculate_active_network_uppers_partups.js',
         'cron/get_common_network_tags.js',
+        'cron/set_network_updated_at.js',
         'migrations.js',
         'package-tap.i18n'
     ], ['server']);

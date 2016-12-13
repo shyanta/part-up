@@ -2,17 +2,17 @@
     <section>
         <!-- Image (circle), uppers, and progress  -->
         <div class="pu-partupcircle">
-            <a href="{{pathFor 'partup' slug=slug }}" class="pu-sub-partuplink">
-                {{# with boundedProgress }}<canvas class="pu-sub-radial" data-percent="{{ . }}"></canvas>{{/ with }}
+            <a href="{{pathFor 'partup' slug=partup.slug }}" class="pu-sub-partuplink">
+                {{# with partup.boundedProgress }}<canvas class="pu-sub-radial" data-percent="{{ . }}"></canvas>{{/ with }}
                 <figure class="pu-sub-inner" style="
-                    {{# with partupGetImageUrl imageObject '360x360' }}background-image: url('{{ . }}');{{/ with }}
+                    {{# with partupGetImageUrl partup.imageObject '360x360' }}background-image: url('{{ . }}');{{/ with }}
                 " data-partup-tile-focuspoint></figure>
             </a>
 
             <!-- Uppers -->
-            {{# if avatars }}
+            {{# if partup.avatars }}
                 <ul class="pu-sub-avatar-list">
-                    {{# each avatars }}
+                    {{# each partup.avatars }}
                         {{# if data.upper }}
                              <li style="
                                 {{# with avatarPosition }}
@@ -39,19 +39,29 @@
             {{/ if }}
         </div>
         <!-- Description -->
-        <p>{{ description }}</p>
+        <p>{{ partup.description }}</p>
+
+        {{# unless HIDE_TAGS }}
+            {{# with partup.mappedTags }}
+                <ul class="pu-sub-partup-tags">
+                    {{# each . }}
+                        <li><span class="pu-tag">{{ tag }}</span></li>
+                    {{/ each }}
+                </ul>
+            {{/ with }}
+        {{/unless}}
 
         <ul class="pu-sub-partup-stats">
             <li>
-                <strong>{{ activityCount }}</strong>
+                <strong>{{ partup.activityCount }}</strong>
                 <span>{{_ 'partuptile-activities' }}</span>
             </li>
             <li>
-                <strong>{{ supporterCount }}</strong>
+                <strong>{{ partup.supporterCount }}</strong>
                 <span>{{_ 'partuptile-supporters' }}</span>
             </li>
             <li>
-                <strong>{{ dayCount }}</strong>
+                <strong>{{ partup.dayCount }}</strong>
                 <span>{{_ 'partuptile-days-active' }}</span>
             </li>
         </ul>

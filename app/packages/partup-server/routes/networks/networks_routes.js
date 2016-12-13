@@ -9,12 +9,15 @@ Router.route('/networks/discover/count', {where: 'server'}).get(function() {
     response.setHeader('Content-Type', 'application/json');
 
     var parameters = {
-        locationId: request.query.locationId,
-        sort: request.query.sort,
         textSearch: request.query.textSearch,
+        locationId: request.query.locationId,
+        language: (request.query.language === 'all') ? undefined : request.query.language,
+        type: request.query.type,
+        sector: request.query.sector,
+        sort: request.query.sort,
         limit: request.query.limit,
         skip: request.query.skip,
-        language: (request.query.language === 'all') ? undefined : request.query.language
+        notArchived: true
     };
 
     var userId = request.user ? request.user._id : null;

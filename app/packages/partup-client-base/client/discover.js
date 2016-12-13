@@ -31,12 +31,18 @@ Partup.client.discover = {
     DEFAULT_TRIBE_QUERY: {
         textSearch: undefined,
         locationId: undefined,
+        sort: 'popular',
+        type: undefined,
+        sector: undefined,
         language: undefined
     },
 
     current_tribe_query: {
         textSearch: undefined,
         locationId: undefined,
+        sort: 'popular',
+        type: undefined,
+        sector: undefined,
         language: undefined
     },
 

@@ -1,25 +1,26 @@
-Template.DiscoverPartupsSortSelector.onCreated(function() {
+Template.DiscoverLanguageSelector.onCreated(function() {
     var template = this;
-    template.dropdownToggleBool = 'partial-dropdowns-networks-actions-sort.opened';
+    template.dropdownToggleBool = 'partial-dropdowns-networks-actions.opened';
     template.dropdownOpen = new ReactiveVar(false);
+    template.emptyOption = {
+        native_name: TAPi18n.__('pages-app-discover-filter-language-sector-all')
+    };
     template.selectedOption = template.data.reactiveVar;
-    template.selectedOption.set({
-        name: TAPi18n.__('pages-app-discover-filter-sorting-type-newest'),
-        value: 'new'
-    });
+    template.selectedOption.set(template.emptyOption);
+    template.subscribe('languages.all');
 });
 
-Template.DiscoverPartupsSortSelector.onRendered(function() {
+Template.DiscoverLanguageSelector.onRendered(function() {
     var template = this;
     ClientDropdowns.addOutsideDropdownClickHandler(template, '[data-clickoutside-close]', '[data-toggle-menu]');
 });
 
-Template.DiscoverPartupsSortSelector.onDestroyed(function() {
+Template.DiscoverLanguageSelector.onDestroyed(function() {
     var tpl = this;
     ClientDropdowns.removeOutsideDropdownClickHandler(tpl);
 });
 
-Template.DiscoverPartupsSortSelector.events({
+Template.DiscoverLanguageSelector.events({
     'click [data-toggle-menu]': ClientDropdowns.dropdownClickHandler,
     'click [data-select-option]': function eventSelectOption(event, template) {
         event.preventDefault();
@@ -28,7 +29,7 @@ Template.DiscoverPartupsSortSelector.events({
     }
 });
 
-Template.DiscoverPartupsSortSelector.helpers({
+Template.DiscoverLanguageSelector.helpers({
     menuOpen: function() {
         return Template.instance().dropdownOpen.get();
     },
@@ -36,16 +37,7 @@ Template.DiscoverPartupsSortSelector.helpers({
         return Template.instance().selectedOption.get();
     },
     options: function() {
-        return [
-            {
-                name: TAPi18n.__('pages-app-discover-filter-sorting-type-newest'),
-                value: 'new'
-            },
-            {
-                name: TAPi18n.__('pages-app-discover-filter-sorting-type-popular'),
-                value: 'popular'
-            }
-        ];
+        return Languages.find().fetch();
     },
     selected: function(input) {
         var template = Template.instance();

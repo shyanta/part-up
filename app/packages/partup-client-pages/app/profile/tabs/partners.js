@@ -1,10 +1,4 @@
 var PAGING_INCREMENT = 32;
-
-var getAmountOfColumns = function(screenwidth) {
-    var minWidth = 300;
-    return Math.min(Math.floor(screenwidth / minWidth), 4);
-};
-
 Template.app_profile_partners.onCreated(function() {
     var template = this;
     // Partup result count
@@ -46,7 +40,7 @@ Template.app_profile_partners.onCreated(function() {
             var description = descriptionLines * DESCRIPTION_LINEHEIGHT;
             return BASE_HEIGHT + MARGIN + name + description;
         },
-        columns: getAmountOfColumns(Partup.client.screen.size.get('width'))
+        columnMinWidth: 277
 
     });
 
@@ -125,16 +119,6 @@ Template.app_profile_partners.onCreated(function() {
 
 Template.app_profile_partners.onRendered(function() {
     var template = this;
-
-    // When the screen size alters
-    template.autorun(function() {
-        var screenWidth = Partup.client.screen.size.get('width');
-        var columns = getAmountOfColumns(screenWidth);
-
-        if (columns !== template.columnTilesLayout.columns.curValue.length) {
-            template.columnTilesLayout.setColumns(columns);
-        }
-    });
 
     // Infinite scroll
     Partup.client.scroll.infinite({

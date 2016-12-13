@@ -8,16 +8,43 @@ Partup.client.constructors.ColumnTilesLayout = function(options) {
     options = options || {};
 
     if (!mout.lang.isFunction(options.calculateApproximateTileHeight)) {
-        throw new Error('ColumnTilesLayout: options.calculateApproximateTileHeight() not found');
+        throw new Error('ColumnTilesLayout: options.calculateApproximateTileHeight() not found.');
     }
 
+    var _columnMinWidth = options.columnMinWidth || 300;
+    var _maxColumns = options.maxColumns || 4;
     var C = this;
     var _options = {
-        calculateApproximateTileHeight: options.calculateApproximateTileHeight,
-        columns: options.columns || 0
+        calculateApproximateTileHeight: options.calculateApproximateTileHeight
     };
     var _tiles = [];
     var _columnElements = [];
+
+    var initialColumns = [];
+    C.initialize = function(template) {
+        if (!template) throw new Error('ColumnTilesLayout: \'template\' is \'undefined\' not found.');
+
+        C._template = template;
+
+        _options.columns = getAmountOfColumnsThatFitInElement('[data-this-is-the-columns-layout]', _columnMinWidth, _maxColumns);
+
+        _.times(_options.columns, function() {
+            initialColumns.push([]);
+        });
+
+        C.columns = new ReactiveVar(initialColumns);
+
+        C._template.autorun(function() {
+            var screenWidth = Partup.client.screen.size.get('width');
+            var columns = getAmountOfColumnsThatFitInElement('[data-this-is-the-columns-layout]', _columnMinWidth, _maxColumns);
+
+            if (columns !== C.columns.curValue.length) {
+                C.setColumns(columns);
+            }
+        });
+        C.initialized.set(true);
+    };
+    C.initialized = new ReactiveVar(false);
 
     var _measureColumnHeights = function() {
         _columnElements = C._template.$('[data-column]');
@@ -31,13 +58,6 @@ Partup.client.constructors.ColumnTilesLayout = function(options) {
 
         return heights;
     };
-
-    var initialColumns = [];
-    _.times(_options.columns, function() {
-        initialColumns.push([]);
-    });
-
-    C.columns = new ReactiveVar(initialColumns);
 
     C.clear = function(cb) {
         if (!_columnElements || !_columnElements.length) return;
@@ -95,4 +115,12 @@ Partup.client.constructors.ColumnTilesLayout = function(options) {
             }
         });
     };
+};
+
+function getAmountOfColumnsThatFitInElement(selector, minWidth, maxColumns) {
+    var maxColumns = maxColumns || 4;
+    var element = $(selector)[0];
+    var offsetWidth = element ? element.offsetWidth : 0;
+    var layoutWidth = Math.min(window.innerWidth, offsetWidth);
+    return Math.max(Math.min(Math.floor(layoutWidth / minWidth), maxColumns), 1);
 };

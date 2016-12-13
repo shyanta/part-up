@@ -1,8 +1,8 @@
 <template name="ColumnTilesLayout">
-    <section class="pu-columnslayout">
+    <section class="pu-columnslayout" data-this-is-the-columns-layout>
         {{#if rendered}}
             {{# each columns }}
-                <ul class="pu-sub-column" data-column style="{{# with columnWidth }}width: {{ . }}%;{{/ with }}">
+                <ul class="pu-sub-column" data-column style="width: calc({{ columnWidth }}% - {{ columnWidthCorrection }}px);">
                     {{#if partupEqualsExactly index 0 }}
                         {{#with firstBlockSettings}}
                             <li class="pu-sub-tile pu-sub-tile-rendered">

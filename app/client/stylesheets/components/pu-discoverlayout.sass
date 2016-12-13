@@ -1,5 +1,6 @@
 .pu-discoverlayout
     // column width 294px
+    position: relative
     font-size: 0
     white-space: nowrap
 
@@ -13,13 +14,78 @@
         margin: 0
 
     .pu-discovermenu
-        margin-right: 19px
+        margin-top: -29px
+        display: none
+        position: absolute
+        z-index: 5
+        right: -10px
+
+        > p
+            display: none
+
+        &--is-active
+            display: block
+            border: 2px solid #ccc
+            border-radius: 4px
 
     .pu-columnslayout,
     .pu-discover-list
-        max-width: 294px * 3
-        width: calc(100% - 294px)
+        width: 100%
 
     .pu-discover-list
         > li
             margin-bottom: 20px
+
+    // @media screen and (min-width: $breakpoint-tablet + 1px)
+
+    @media screen and (min-width: $breakpoint-desktop)
+        .pu-discovermenu
+            display: inline-block
+            position: relative
+            margin-top: 0
+            margin-right: 19px
+            right: auto
+
+            > p
+                display: block
+
+            &--is-active
+                border: 0
+
+        .pu-columnslayout,
+        .pu-discover-list
+            max-width: 294px * 3
+            width: calc(100% - 294px)
+
+.pu-composition-discover
+    .pu-title
+        max-width: calc(100vw - 100px)
+
+    .pu-sub-responsive-sort, .pu-sub-pipe
+        display: none
+
+    .pu-sub-responsive-button
+        .pu-button
+            padding: 12px 10px
+            &.pu-button-grey
+                border-top: 2px solid #ccc
+                border-right: 2px solid #ccc
+                border-left: 2px solid #ccc
+                border-bottom-left-radius: 0px
+                border-bottom-right-radius: 0px
+                z-index: 6
+
+    @media screen and (min-width: $breakpoint-tablet)
+        .pu-sub-responsive-sort, .pu-sub-pipe
+            display: inline-block
+
+    @media screen and (min-width: $breakpoint-desktop)
+        .pu-sub-responsive-button
+            display: none
+
+        .pu-sub-pipe
+            display: none
+
+
+
+

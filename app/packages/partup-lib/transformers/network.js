@@ -21,7 +21,8 @@ Partup.transformers.network = {
             website: network.website,
             background_image: network.background_image,
             image: network.image,
-            icon: network.icon
+            icon: network.icon,
+            sector: network.sector
         };
     },
 
@@ -57,6 +58,9 @@ Partup.transformers.network = {
 
         var newLocation = Partup.services.location.locationInputToLocation(fields.location_input);
         if (newLocation) network.location = newLocation;
+
+        var validSector = Sectors.findOne(fields.sector);
+        if (validSector) network.sector = fields.sector;
 
         return network;
     }

@@ -42,6 +42,10 @@ Meteor.methods({
             network.contentblocks = [];
             network.partup_names = [];
 
+            // Add sector to network
+            var validSector = Sectors.findOne(fields.sector).fetch();
+            if (validSector) network.sector = fields.sector;
+
             // Create chat for network
             network.chat_id = Meteor.call('chats.insert', {});
             var chat = Chats.findOneOrFail(network.chat_id);

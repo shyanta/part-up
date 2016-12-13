@@ -9,11 +9,13 @@
  * @param {number} parameters.limit
  * @param {number} parameters.skip
  */
-Meteor.routeComposite('/tribes/discover', function(request, parameters) {
+Meteor.routeComposite('/networks/discover', function(request, parameters) {
     check(parameters.query, {
         textSearch: Match.Optional(String),
         locationId: Match.Optional(String),
         language: Match.Optional(String),
+        type: Match.Optional(String),
+        sector: Match.Optional(String),
         sort: Match.Optional(String),
         limit: Match.Optional(String),
         skip: Match.Optional(String),
@@ -24,6 +26,8 @@ Meteor.routeComposite('/tribes/discover', function(request, parameters) {
         textSearch: parameters.query.textSearch,
         locationId: parameters.query.locationId,
         language: (parameters.query.language === 'all') ? undefined : parameters.query.language,
+        type: parameters.query.type,
+        sector: parameters.query.sector,
         sort: parameters.query.sort,
         limit: parameters.query.limit,
         skip: parameters.query.skip,

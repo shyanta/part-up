@@ -1,22 +1,25 @@
 <template name="app_discover_tribes_filter">
-    <div class="pu-discovermenu">
+    <div class="pu-discovermenu {{#if state.active}}pu-discovermenu--is-active{{/if}}">
+        <p>{{_ 'pages-app-discover-tribes-filter-intro-text'}}</p>
         <form class="pu-form" data-form>
+            <!-- Search filter -->
             <div class="pu-formfield">
-                <span class="pu-label">Show me</span>
-                <input type="text" class="pu-input" data-search-query>
+                <span class="pu-label">{{_ 'pages-app-discover-tribes-filter-textsearch-label'}}</span>
+                <input type="text" class="pu-input" data-search-query placeholder="Zoekwoord">
             </div>
-            <!-- SECTOR INPUT: Needs implementation -->
-            <!-- <div class="pu-formfield">
-                <span class="pu-label">Sector</span>
-                <input type="text" class="pu-input">
-            </div> -->
-            <!-- TYPE INPUT: Needs implementation -->
-            <!-- <div class="pu-formfield">
-                <span class="pu-label">Type</span>
-                <input type="text" class="pu-input">
-            </div> -->
+            <!-- SECTOR INPUT-->
             <div class="pu-formfield">
-                <span class="pu-label">Location</span>
+                <span class="pu-label">{{_ 'pages-app-discover-tribes-filter-sector-label'}}</span>
+                {{> DiscoverTribesSectorSelector reactiveVar=state.selectedSectorReactiveVar }}
+            </div>
+            <!-- TYPE INPUT-->
+            <div class="pu-formfield">
+                <span class="pu-label">{{_ 'pages-app-discover-tribes-filter-type-label'}}</span>
+                {{> DiscoverTribesTypeSelector reactiveVar=state.selectedTypeReactiveVar }}
+            </div>
+            <!-- Location filter -->
+            <div class="pu-formfield">
+                <span class="pu-label">{{_ 'pages-app-discover-tribes-filter-location-label'}}</span>
                 {{# AutocompleteAdvanced
                         placeholder='Location'
                         label=state.locationLabel
@@ -27,9 +30,10 @@
                     <input type="hidden" name='location_input' class="pu-input" data-input="">
                 {{/ AutocompleteAdvanced }}
             </div>
+            <!-- Language filter -->
             <div class="pu-formfield">
-                <span class="pu-label">Language</span>
-                {{> DiscoverPartupsLanguageSelector reactiveVar=state.selectedLanguageReactiveVar }}
+                <span class="pu-label">{{_ 'pages-app-discover-tribes-filter-language-label'}}</span>
+                {{> DiscoverLanguageSelector reactiveVar=state.selectedLanguageReactiveVar }}
             </div>
         </form>
     </div>

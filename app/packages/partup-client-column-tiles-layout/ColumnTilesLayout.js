@@ -5,8 +5,10 @@ Template.ColumnTilesLayout.onCreated(function() {
 });
 Template.ColumnTilesLayout.onRendered(function() {
     var template = this;
-    this.data.instance._template = this;
     template.rendered.set(true);
+    _.defer(function() {
+        template.data.instance.initialize(template);
+    });
 });
 
 Template.ColumnTilesLayout.helpers({
@@ -15,6 +17,7 @@ Template.ColumnTilesLayout.helpers({
         return template.firstBlockSettings.get();
     },
     columns: function() {
+        if (!this.instance.initialized.get()) return [];
         var columnsArray = this.instance.columns.get();
         var columns = [];
         _.each(columnsArray, function(item, index) {
@@ -30,5 +33,14 @@ Template.ColumnTilesLayout.helpers({
     },
     columnWidth: function() {
         return (100 / Template.instance().data.instance.columns.get().length).toFixed(1);
+    },
+    columnWidthCorrection: function() {
+        var template = Template.instance();
+        var margin = 20;
+        var instance = template.data.instance;
+        if (!instance.initialized.get()) return (margin * 3) / 4;
+        var columnsArray = instance.columns.get();
+
+        return (margin * (columnsArray.length - 1)) / columnsArray.length;
     }
 });
