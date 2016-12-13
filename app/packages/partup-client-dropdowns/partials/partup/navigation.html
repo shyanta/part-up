@@ -7,13 +7,11 @@
             </button>
             <ul class="pu-dropdown pu-dropdown-form {{#if menuOpen}}pu-dropdown-active{{/if}}" data-clickoutside-close>
                 {{#each options}}
-                    {{#unless selected . }}
-                        <li class="pu-dropdownitem pu-dropdownitem-small">
-                            <a href="#" data-select-option data-toggle-menu>
-                                <i class="picon-{{ icon }}"></i> {{ name }}
-                            </a>
-                        </li>
-                    {{/unless}}
+                    <li class="pu-dropdownitem pu-dropdownitem-small">
+                        <a href="#" data-select-option data-toggle-menu>
+                            <i class="picon-{{ icon }}" icon></i> {{ name }} {{#if selected .}}<i class="picon-check"></i>{{/if}}
+                        </a>
+                    </li>
                 {{/each}}
             </ul>
         </div>
