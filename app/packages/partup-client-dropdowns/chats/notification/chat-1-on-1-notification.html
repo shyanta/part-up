@@ -10,11 +10,11 @@
                     style="background-image:url('{{ partupImageUrl id=chatNotificationData.creator.profile.image store='360x360'}}');">
                 </figure>
                 <article>
-                    <p>{{ chatNotificationData.creator.profile.name }} {{#with chatNotificationData.unreadCount}}({{.}}){{/with}}</p>
+                    <p>{{ chatNotificationData.creator.profile.name }} {{#with chatNotificationData.unreadCount}}({{.}}){{/with}} <time>{{#if chatNotificationData.message }}{{ partupDateCustom chatNotificationData.message.created_at 'D MMM HH:mm' }}{{else}}{{ partupDateCustom chatNotificationData.created_at 'D MMM HH:mm' }}{{/if}}</time></p>
                     {{#if chatNotificationData.message }}
-                        <span><span>{{{ formatted chatNotificationData.message.content }}}</span> <time>{{ partupDateCustom chatNotificationData.message.created_at 'dd D MMMM - HH:mm' }}</time></span>
+                        <span><span>{{{ formatted chatNotificationData.message.content }}}</span></span>
                     {{else}}
-                        <span><span>{{_ 'pages-one-on-one-chat-sidebar-message-placeholder'}}</span> <time>{{ partupDateCustom chatNotificationData.created_at 'dd D MMMM - HH:mm' }}</time></span>
+                        <span><span>{{_ 'pages-one-on-one-chat-sidebar-message-placeholder'}}</span></span>
                     {{/if}}
                 </article>
             </a>

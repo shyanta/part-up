@@ -10,14 +10,13 @@
                     style="background-image: url('{{ partupImageUrl id=notificationNetwork.image }}');">
                 </figure>
                 <article>
-                    <p>{{ notificationNetwork.name }} {{#if chatNotificationData.hasUnreadMessages}}({{chatNotificationData.unreadCount}}){{/if}}</p>
+                    <p>{{ notificationNetwork.name }} {{#if chatNotificationData.hasUnreadMessages}}({{chatNotificationData.unreadCount}}){{/if}} <time>{{ partupDateCustom chatNotificationData.message.created_at 'D MMM HH:mm' }}</time></p>
                     <span>
                         {{#if chatNotificationData.message }}
                             <span>{{ chatNotificationData.message.creator.profile.name }}: {{{ formatted chatNotificationData.message.content }}}</span>
                         {{else}}
                             <span>&nbsp;</span>
                         {{/if}}
-                        <time>{{ partupDateCustom chatNotificationData.message.created_at 'dd D MMMM - HH:mm' }}</time>
                     </span>
                 </article>
             </a>
