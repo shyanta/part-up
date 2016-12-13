@@ -46,7 +46,7 @@ Template.PartupNavigationSelector.onDestroyed(function() {
 
 Template.PartupNavigationSelector.events({
     'click [data-toggle-menu]': ClientDropdowns.dropdownClickHandler,
-    'click [data-select-option]': function eventSelectOption(event, template) {
+    'click [data-select-option]': function(event, template) {
         event.preventDefault();
         template.selectedOption.set(this);
         template.find('[data-container]').scrollTop = 0;

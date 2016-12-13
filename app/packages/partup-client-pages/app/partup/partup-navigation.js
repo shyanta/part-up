@@ -51,9 +51,8 @@ Template.app_partup_navigation.helpers({
     },
     selectorSettings: function() {
         var partupId = this.partupId;
-        var partup = Partups.findOne(this.partupId);
-
-        if (!partup) return false;
+        var partup = Partups.findOne({_id: this.partupId});
+        if (!partup || !partup.slug) return false;
 
         return {
             slug: partup.slug,
