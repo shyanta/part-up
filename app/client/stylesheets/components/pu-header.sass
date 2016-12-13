@@ -43,8 +43,10 @@ $modal-bar-height: 70px
     .pu-sub-more
         float: none
 
-    .pu-sub-more i
-        transform: rotate(90deg)
+    .pu-sub-more-loggedout .pu-dropdown-more
+        @media screen and (max-width: $breakpoint-tablet)
+            right: -115px
+
 
     > .pu-list
         white-space: nowrap
