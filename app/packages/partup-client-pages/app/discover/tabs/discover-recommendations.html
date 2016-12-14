@@ -1,0 +1,46 @@
+<template name="app_discover_recommendations">
+    <section class="pu-composition pu-composition-discover">
+
+        <!-- Header -->
+        {{#if haveRecommendations }}
+            <header class="pu-sub-header">
+                <form class="pu-form pu-flexible-center" novalidate data-nosubmit>
+                    <div>
+                        <span>
+                            <h2 class="pu-title">
+                                {{_ 'pages-modal-recommendations-title' }}
+                            </h2>
+                        </span>
+                    </div>
+                </form>
+
+            </header>
+        {{/if}}
+
+        <!-- Content (partup-tiles) -->
+        <div>
+            {{# ColumnTilesLayout instance=columnTilesLayout }}
+                <div class="pu-tile pu-tile-partup">
+                    {{> PartupTile }}
+                </div>
+            {{/ ColumnTilesLayout }}
+
+            {{#if loading }}
+                <div class="pu-sub-loading-infinite-scroll">
+                    <h2 class="pu-title">{{_ 'pages-modal-recommendations-generating-recommendations-title' }}</h2>
+                    {{> Spinner }}
+                </div>
+            {{else}}
+                {{#unless haveRecommendations}}
+                    <div class="pu-sub-loading-infinite-scroll">
+                        <h2 class="pu-title">{{_ 'pages-modal-recommendations-no-recommendations-title' }}</h2>
+                        <p>{{_ 'pages-modal-recommendations-no-recommendations-subtext' }}</p>
+                        <a href="{{ pathFor route='discover-partups' }}" class="pu-button">{{_ 'pages-modal-recommendations-no-recommendations-button-discover'}}</a>
+                    </div>
+                {{/unless}}
+            {{/if}}
+        </div>
+
+    </section>
+
+</template>

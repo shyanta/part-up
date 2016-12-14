@@ -1,28 +1,17 @@
 <template name="PartupTile">
     <article class="pu-partuptile">
 
-        <!-- Tags -->
-        {{# unless HIDE_TAGS }}
-            {{# with partup.mappedTags }}
-                <ul class="pu-sub-partup-tags">
-                    {{# each . }}
-                        <li><span class="pu-tag">{{ tag }}</span></li>
-                    {{/ each }}
-                </ul>
-            {{/ with }}
-        {{/unless}}
-
-        {{# with partup }}
+        {{# if partup }}
             <!-- Name of the Part-up -->
             <header>
                 <h2>
-                    <a href="{{pathFor 'partup' slug=slug }}">{{ name }}</a>
+                    <a href="{{pathFor 'partup' slug=partup.slug }}">{{ partup.name }}</a>
                 </h2>
             </header>
 
             {{> Template.dynamic template=templateName }}
 
-        {{/ with }}
+        {{/ if }}
 
         <!-- Network -->
         {{# unless HIDE_NETWORKTILE }}

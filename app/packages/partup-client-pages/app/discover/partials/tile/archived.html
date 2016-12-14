@@ -1,6 +1,6 @@
 <template name="PartupTile_archived">
     <section>
-        {{# if avatars }}
+        {{# if partup.avatars }}
             <ul class="pu-list pu-list-horizontal pu-list-avatars">
                 {{# each avatars }}
                     {{# if data.upper }}
@@ -17,11 +17,21 @@
         {{/ if }}
 
         <!-- Description -->
-        <p>{{ description }}</p>
+        <p>{{ partup.description }}</p>
+
+        {{# unless HIDE_TAGS }}
+            {{# with partup.mappedTags }}
+                <ul class="pu-sub-partup-tags">
+                    {{# each . }}
+                        <li><span class="pu-tag">{{ tag }}</span></li>
+                    {{/ each }}
+                </ul>
+            {{/ with }}
+        {{/unless}}
 
         <!-- Archive info -->
         <div class="pu-archive-info">
-            <p>{{_ 'partuptile-archive-date' }}<span>{{ partupDateOnly archived_at }}</span></p>
+            <p>{{_ 'partuptile-archive-date' }}<span>{{ partupDateOnly partup.archived_at }}</span></p>
         </div>
     </section>
 </template>

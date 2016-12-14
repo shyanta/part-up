@@ -1,5 +1,5 @@
-<a name="1.27.0"></a>
-# [1.27.0](https://github.com/part-up/part-up/compare/1.26.2...v1.27.0) (2016-12-02)
+<a name="1.28.0"></a>
+# [1.28.0](https://github.com/part-up/part-up/compare/1.26.2...1.28.0) (2016-12-02)
 
 
 ### Bug Fixes
@@ -9,8 +9,10 @@
 
 ### Features
 
+* **emails:** replaces from-name in emails with the name of the inviter [#336](https://github.com/part-up/part-up/issues/336) ([6809714](https://github.com/part-up/part-up/commit/6809714))
 * **invites:** added migration to remove upper IDs from invite list that are already partner ([c8d07fd](https://github.com/part-up/part-up/commit/c8d07fd))
 * **invites:** allow BE to accept all-users query for invites [#755](https://github.com/part-up/part-up/issues/755) ([9ce9f75](https://github.com/part-up/part-up/commit/9ce9f75))
+* **invites:** invite mail subjects for activity tribe and partup mails now contain the inviter's name [#336](https://github.com/part-up/part-up/issues/336) ([485e489](https://github.com/part-up/part-up/commit/485e489))
 * **invites:** remove user from invites list when becoming supporter [#765](https://github.com/part-up/part-up/issues/765) ([3000492](https://github.com/part-up/part-up/commit/3000492))
 * **networks:** check if tribe slug is unique ([d932f85](https://github.com/part-up/part-up/commit/d932f85))
 

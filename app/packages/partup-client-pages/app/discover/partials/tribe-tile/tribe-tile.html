@@ -1,21 +1,23 @@
 <template name="TribeTile">
-    <div class="pu-networktile">
+    <div class="pu-networktile" data-open-network={{data.tribe.slug}}>
         <figure class="pu-networktile__image" style="{{#with partupImageObjectUrl object=data.tribe.backgroundImageObject store='360x360'}}background-image: url({{.}});{{/with}}">
             <figure class="pu-avatar pu-avatar-square" style="{{#with partupImageObjectUrl object=data.tribe.imageObject store='360x360'}}background-image: url({{.}});{{/with}}"></figure>
         </figure>
         <div class="pu-networktile__meta">
             <h3>{{ data.tribe.name }}</h3>
-            {{> MostActivePartups partups=data.activePartups }}
-            <p>{{ data.tribe.description }}<span>Read more</span></p>
+            {{> TribeTile_Metadata partups=data.activePartups privacyType=data.tribe.privacy_type }}
+            <p>{{ data.tribe.description }}<a href="{{ pathFor route='network-about' slug=data.tribe.slug }}" data-prevent-open>Read more</a></p>
             <ul class="pu-list pu-list-horizontal pu-list-tags">
                 <!-- TODO use displayTags (partup-based) -->
-                {{#each data.tribe.tags}}
-                    <li class="pu-tag pu-tag-dark pu-tag-disable">{{ . }}</li>
-                {{/each}}
+                {{#with data.displayTags}}
+                    {{#each .}}
+                        <li class="pu-tag pu-tag-dark pu-tag-disable">{{ tag }}</li>
+                    {{/each}}
+                {{/with}}
             </ul>
         </div>
         <div class="pu-networktile__extra">
-            {{> MostActiveUppers uppers=data.activeUppers }}
+            {{> MostActiveUppers uppers=data.activeUppers networkSlug=data.tribe.slug }}
             <!-- TRIBE NEEDS: still needs implementation -->
             <!-- <ul class="pu-list pu-list-horizontal pu-list-pipe-seperated">
                 <li>Back-end Developer</li>
@@ -27,19 +29,23 @@
     </div>
 </template>
 
-<template name="MostActivePartups">
+<template name="TribeTile_Metadata">
     <ul class="pu-list pu-list-horizontal pu-list-pipe-seperated">
         <li>Active partups: {{data.totalActivePartupCount}}</li>
         <!-- <li>Last active: {{data.mostActivePartup.updated_at}}</li> -->
         <!-- STATE ICON: needs implementation -->
-        <!-- <li><i class="picon-bell"></i></li> -->
+        <li>{{#if state.lock}}<i class="picon-lock-closed"></i>{{else}}<i class="picon-lock-open"></i>{{/if}}</li>
     </ul>
 </template>
 
 <template name="MostActiveUppers">
     <ul class="pu-list pu-list-horizontal pu-networktile__avatars">
         {{#each data.uppers}}
-            <li><figure class="pu-avatar pu-avatar-middle" style="{{#with profile.image}}background-image: url('{{ partupImageUrl id=. store='80x80' }}'){{/with}}"></figure></li>
+            <li>
+                <a data-prevent-open href="{{ pathFor route='network-uppers' slug=data.networkSlug }}">
+                    <figure data-prevent-open class="pu-avatar pu-avatar-middle" data-hovercontainer="HoverContainer_upper" data-hovercontainer-context="{{ _id }}" style="{{#with partupImageObjectUrl object=profile.imageObject store='80x80'}}background-image: url('{{ . }}'){{/with}}"></figure>
+                </a>
+            </li>
         {{/each}}
         {{#if data.remainingUppers}}
             <li><figure class="pu-avatar pu-avatar-middle pu-sub-count"><span>+{{data.remainingUppers}}</span></figure></li>

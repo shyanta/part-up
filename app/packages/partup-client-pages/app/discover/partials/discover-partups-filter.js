@@ -19,16 +19,16 @@ Template.app_discover_partups_filter.onCreated(function() {
         updateQuery();
     });
     template.selectedTribe = new ReactiveVar(undefined, function(a, b) {
-        Partup.client.discover.current_query.networkId = b._id || undefined;
+        Partup.client.discover.current_query.networkId = (b && b._id) || undefined;
         updateQuery();
     });
     template.selectedLocation = new ReactiveVar(undefined, function(a, b) {
-        Partup.client.discover.current_query.locationId = b._id || undefined;
+        Partup.client.discover.current_query.locationId = (b && b.id) || undefined;
         updateQuery();
     });
     template.locationHasValueVar = new ReactiveVar(undefined);
     template.selectedLanguage = new ReactiveVar(undefined, function(a, b) {
-        Partup.client.discover.current_query.language = b._id || undefined;
+        Partup.client.discover.current_query.language = (b && b._id) || undefined;
         updateQuery();
     });
 });
@@ -62,6 +62,9 @@ Template.app_discover_partups_filter.helpers({
             },
             locationLabel: function() {
                 return Partup.client.strings.locationToDescription;
+            },
+            active: function() {
+                return template.data.isActiveReactiveVar.get();
             }
         };
     },

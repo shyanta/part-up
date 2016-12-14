@@ -9,7 +9,7 @@ Template.TribeTile.helpers({
             },
             activeUppers: function() {
                 return {
-                    ids: network.most_active_uppers,
+                    all: network.mostActiveUpperObjects,
                     count: network.stats.upper_count,
                     networkSlug: self.networkSlug,
                     networkId: network._id
@@ -21,17 +21,26 @@ Template.TribeTile.helpers({
                     count: network.stats.partup_count,
                     networkId: network._id
                 };
+            },
+            displayTags: function() {
+                return Partup.client.network.displayTags(network);
             }
         };
     }
 });
 
-Template.MostActivePartups.onCreated(function() {
-    var template = this;
-    var partupId = (template.data.partups.ids || [])[0];
+Template.TribeTile.events({
+    'click [data-open-network]': function(event, template) {
+        var preventOpen = Partup.client.element.hasAttr(event.target, 'data-prevent-open');
+        if (!preventOpen) {
+            event.preventDefault();
+            var networkSlug = $(event.currentTarget).data('open-network');
+            Router.go('network-detail', {slug: networkSlug});
+        }
+    }
 });
 
-Template.MostActivePartups.helpers({
+Template.TribeTile_Metadata.helpers({
     data: function() {
         var template = Template.instance();
         var partupId = (template.data.partups.ids || [])[0];
@@ -44,28 +53,33 @@ Template.MostActivePartups.helpers({
                 return partups.count;
             }
         };
-    }
-});
+    },
+    state: function() {
+        var template = Template.instance();
 
-Template.MostActiveUppers.onCreated(function() {
-    var template = this;
-    template.MAX_UPPERS = 7;
-    var upperIds = template.data.uppers.ids || [];
-    template.subscribe('users.by_ids', upperIds);
+        return {
+            lock: function() {
+                return template.data.privacyType > 1;
+            }
+        };
+    }
 });
 
 Template.MostActiveUppers.helpers({
     data: function() {
+        var MAX_UPPERS = 7;
         var template = Template.instance();
-        var upperIds = template.data.uppers.ids || [];
+        var uppers = template.data.uppers.all || [];
         var upperCount = template.data.uppers.count;
         return {
             uppers: function() {
-                return Meteor.users.find({_id: {$in: upperIds}}, {limit: template.MAX_UPPERS});
+                return uppers;
             },
             remainingUppers: function() {
-                var remaining = upperCount > template.MAX_UPPERS ? upperCount - template.MAX_UPPERS : 0;
-                return remaining;
+                return upperCount > MAX_UPPERS ? (upperCount - MAX_UPPERS) : 0;
+            },
+            networkSlug: function() {
+                return template.data.networkSlug;
             }
         };
     }

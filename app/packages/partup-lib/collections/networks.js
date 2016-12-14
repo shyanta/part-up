@@ -660,7 +660,8 @@ Networks.guardedMetaFind = function(selector, options) {
         'label_colleagues_custom_b',
         'collegues',
         'collegues_custom_a',
-        'collegues_custom_b'
+        'collegues_custom_b',
+        'sector'
     ];
 
     unguardedFields.forEach(function(unguardedField) {
@@ -692,6 +693,8 @@ Networks.findForDiscover = function(userId, options, parameters) {
     var textSearch = parameters.textSearch || undefined;
     var locationId = parameters.locationId || undefined;
     var language = parameters.language || undefined;
+    var type = parameters.type || undefined;
+    var sector = parameters.sector || undefined;
     var notArchived = parameters.notArchived || undefined;
 
     if (sort) {
@@ -710,14 +713,17 @@ Networks.findForDiscover = function(userId, options, parameters) {
     if (textSearch) {
         Log.debug('Searching networks for [' + textSearch + ']');
 
-        var textSearchSelector = {$text: {$search: textSearch}};
+        //@TODO: investigate why full text search didn't work
+        //var textSearchSelector = {$text: {$search: textSearch}};
+        var nameSelector = {name: new RegExp('.*' + textSearch + '.*', 'i')};
+        var descriptionSelector = {description: new RegExp('.*' + textSearch + '.*', 'i')};
         var tagSelector = {tags: {$in: [textSearch]}};
         var partupNameSelector = {'partup_names.name': new RegExp('.*' + textSearch + '.*', 'i')};
 
-        options.fields = {score: {$meta: 'textScore'}};
-        options.sort['score'] = {$meta: 'textScore'};
+        //options.fields = {score: {$meta: 'textScore'}};
+        //options.sort['score'] = {$meta: 'textScore'};
 
-        selector.$or = [textSearchSelector, tagSelector, partupNameSelector];
+        selector.$or = [nameSelector, descriptionSelector, tagSelector, partupNameSelector];
     }
 
     // Filter the networks on language
@@ -728,6 +734,16 @@ Networks.findForDiscover = function(userId, options, parameters) {
     // Filter the networks that are in a given location
     if (locationId) {
         selector['location.place_id'] = locationId;
+    }
+
+    // Filter on type
+    if (type) {
+        selector['type'] = type;
+    }
+
+    // Filter the networks on sector
+    if (sector) {
+        selector['sector'] = sector;
     }
 
     if (notArchived) {
@@ -768,10 +784,24 @@ Networks.guardedFind = function(userId, selector, options) {
         });
     }
 
-    var guardedCriterias = [
-        // The network is open, which means everyone can access it
-        {'privacy_type': {'$in': [Networks.privacy_types.NETWORK_PUBLIC]}}
-    ];
+    var guardedCriterias = [];
+
+    if (selector['type']) {
+        if (selector['type'] == 'public') {
+            guardedCriterias.push({'privacy_type': {'$in': [Networks.privacy_types.NETWORK_PUBLIC]}});
+        } else if (selector['type'] == 'closed') {
+            guardedCriterias.push({'privacy_type': {'$in': [Networks.privacy_types.NETWORK_INVITE, Networks.privacy_types.NETWORK_CLOSED]}});
+        } else {
+            // Default to all types
+            guardedCriterias.push({'privacy_type': {'$in': [Networks.privacy_types.NETWORK_PUBLIC, Networks.privacy_types.NETWORK_INVITE, Networks.privacy_types.NETWORK_CLOSED]}});
+        }
+
+        // Remove type from selector
+        delete selector.type;
+    } else {
+        // Only return open networks
+        guardedCriterias.push({'privacy_type': {'$in': [Networks.privacy_types.NETWORK_PUBLIC]}});
+    }
 
     // Some extra rules that are only applicable to users that are logged in
     if (userId) {

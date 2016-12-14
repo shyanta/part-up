@@ -1,10 +1,4 @@
 var PAGING_INCREMENT = 32;
-
-var getAmountOfColumns = function(screenwidth) {
-    var minWidth = 300;
-    return Math.min(Math.floor(screenwidth / minWidth), 4);
-};
-
 Template.app_network_uppers.onCreated(function() {
     var template = this;
 
@@ -30,7 +24,7 @@ Template.app_network_uppers.onCreated(function() {
             // using the given upper object
             return 500;
         },
-        columns: getAmountOfColumns(Partup.client.screen.size.get('width'))
+        columnMinWidth: 277
     });
 
     template.initialize = function(filter, searchQuery) {
@@ -98,16 +92,6 @@ Template.app_network_uppers.onCreated(function() {
                 });
             });
         });
-    });
-
-    // When the screen size alters
-    template.autorun(function() {
-        var screenWidth = Partup.client.screen.size.get('width');
-        var columns = getAmountOfColumns(screenWidth);
-
-        if (columns !== template.columnTilesLayout.columns.curValue.length) {
-            template.columnTilesLayout.setColumns(columns);
-        }
     });
 
     var switchFilter = function() {

@@ -114,6 +114,10 @@ Partup.schemas.entities.network = new SimpleSchema([networkBaseSchema, {
         type: String,
         regEx: SimpleSchema.RegEx.Id
     },
+    sector: {
+        type: String,
+        optional: true
+    },
     stats: {
         type: Object
     },
@@ -185,6 +189,10 @@ Partup.schemas.forms.network = new SimpleSchema([networkBaseSchema, {
             type: 'tags',
             afFieldInput: tagsConfiguration
         }
+    },
+    sector: {
+        type: String,
+        optional: true
     }
 }]);
 

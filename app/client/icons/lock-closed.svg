@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="12px" height="16px" viewBox="0 0 12 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 41 (35326) - http://www.bohemiancoding.com/sketch -->
+    <title>Icons/closed</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Icons/closed" fill="#999999">
+            <path d="M2,6.00001774 C0.897318916,6.00460438 0,6.89809716 0,7.99961498 L0,14.000385 C0,15.1125667 0.899249601,16 2.0085302,16 L9.9914698,16 C11.0980496,16 12,15.1047419 12,14.000385 L12,7.99961498 C12,6.89028552 11.1053568,6.00455318 10,6.0000175 L10,3.99582624 C10,1.79652125 8.209139,0 6,0 C3.79535615,0 2,1.78899235 2,3.99582624 L2,6.00001649 L2,6.00001774 Z M4,3.99582624 L4,6 L8,6 L8,3.99582624 C8,2.89837558 7.10185497,2 6,2 C4.89755916,2 4,2.89592715 4,3.99582624 Z"></path>
+        </g>
+    </g>
+</svg>

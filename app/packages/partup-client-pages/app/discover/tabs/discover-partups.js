@@ -1,16 +1,11 @@
-var PAGING_INCREMENT = 32;
-
-var getAmountOfColumns = function(screenwidth) {
-    screenwidth -= 294;
-    var minWidth = 300;
-    return Math.min(Math.floor(screenwidth / minWidth), 3);
-};
-
+var PAGING_INCREMENT = 25;
 Template.app_discover_partups.onCreated(function() {
     var template = this;
 
+    template.dropdownActive = new ReactiveVar(false);
+
     template.sorting = new ReactiveVar(undefined, function(a, b) {
-        Partup.client.discover.current_query.sort = b.value || undefined;
+        Partup.client.discover.current_query.sort = (b && b.value) || undefined;
         for (key in Partup.client.discover.DEFAULT_QUERY) {
             var fieldValue          = Partup.client.discover.current_query[key];
             var defaultFieldValue   = Partup.client.discover.DEFAULT_QUERY[key];
@@ -32,6 +27,8 @@ Template.app_discover_partups.onCreated(function() {
     // Column layout
     template.columnTilesLayout = new Partup.client.constructors.ColumnTilesLayout({
 
+        columnMinWidth: 277,
+        maxColumns: 3,
         // This function will be called for each tile
         calculateApproximateTileHeight: function(tileData, columnWidth) {
 
@@ -59,24 +56,13 @@ Template.app_discover_partups.onCreated(function() {
             var tribe = _partup.network ? 47 : 0;
 
             return BASE_HEIGHT + MARGIN + name + description + tribe;
-        },
-        columns: getAmountOfColumns(Partup.client.screen.size.get('width'))
+        }
 
     });
 });
 
 Template.app_discover_partups.onRendered(function() {
     var template = this;
-
-    // When the screen size alters
-    template.autorun(function() {
-        var screenWidth = Partup.client.screen.size.get('width');
-        var columns = getAmountOfColumns(screenWidth);
-
-        if (columns !== template.columnTilesLayout.columns.curValue.length) {
-            template.columnTilesLayout.setColumns(columns);
-        }
-    });
 
     // Current query placeholder
     template.query;
@@ -179,7 +165,27 @@ Template.app_discover_partups.onRendered(function() {
 
 });
 
+Template.app_discover_partups.events({
+    'click [data-toggle-discover-menu]': function(event, template) {
+        event.preventDefault();
+
+        template.dropdownActive.set(!template.dropdownActive.curValue);
+    }
+});
+
 Template.app_discover_partups.helpers({
+    state: function() {
+        var template = Template.instance();
+
+        return {
+            dropdownActiveReactiveVar: function() {
+                return template.dropdownActive;
+            },
+            dropdownActive: function() {
+                return template.dropdownActive.get();
+            }
+        };
+    },
     columnTilesLayout: function() {
         return Template.instance().columnTilesLayout;
     },

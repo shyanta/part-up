@@ -24,11 +24,6 @@ Partup.client.scroll = {
 
         // Trigger a position update when the user scrolls
         window.addEventListener('scroll', d, {passive: true});
-
-        // Trigger a position update when every template is being rendered
-        Template.onRendered(function() {
-            Meteor.defer(d);
-        });
     },
 
     /**
@@ -68,8 +63,6 @@ Partup.client.scroll = {
      */
     infinite: function(options, callback) {
         var self = this;
-
-        console.log(options);
 
         options = options || {};
         options.offset = mout.lang.isNumber(options.offset) ? options.offset : INFINITE_SCROLL_OFFSET;

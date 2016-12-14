@@ -14,20 +14,14 @@
                             {{ else }}
                                 <span class="pu-sub-countlabel">
                                     {{#if count}}
-                                        {{_ 'pages-app-discover-xpartups' count=count }}
+                                        {{_ 'pages-app-discover-xtribes' count=count }}
                                     {{else}}
-                                        {{_ 'pages-app-discover-nopartups' }}
+                                        {{_ 'pages-app-discover-notribes' }}
                                     {{/if}}
                                 </span>
                             {{/ if }}
 
                         </h2>
-
-                        {{# if showRecommendationsBtn }}
-                            <button id="recommendationsBtn" class="pu-button pu-button-large pu-sub-right">
-                              {{_ 'pages-app-discover-btn-recommendations' }}
-                            </button>
-                        {{/ if }}
                     </span>
                 </div>
                 <div class="pu-sub-center">
@@ -35,7 +29,15 @@
                 </div>
                 <div>
                     <span>
-                        <!-- FILTER -->
+                        <ul class="pu-list pu-list-horizontal pu-list-large-pipe-seperated">
+                            <li class="pu-sub-responsive-sort">
+                                {{> DiscoverSortSelector reactiveVar=sortReactiveVar default='popular'}}
+                            </li>
+                            <li class="pu-sub-pipe"></li>
+                            <li class="pu-sub-responsive-button {{#if state.dropdownActive}}pu-sub-responsive-button-active{{/if}}">
+                                <button type="button" class="pu-button {{#if state.dropdownActive}}pu-button-grey{{else}}pu-button-secondary{{/if}}" data-toggle-discover-menu>Filter</button>
+                            </li>
+                        </ul>
                     </span>
                 </div>
             </form>
@@ -44,7 +46,7 @@
 
         <!-- Content (partup-tiles) -->
         <div data-infinitescroll-container class="pu-discoverlayout">
-            {{> app_discover_tribes_filter }}
+            {{> app_discover_tribes_filter  isActiveReactiveVar=state.dropdownActiveReactiveVar }}
             <ul class="pu-list pu-discover-list">
                 {{#each data.networks}}
                     <li>
@@ -52,6 +54,12 @@
                     </li>
                 {{/each}}
             </ul>
+
+            {{# unless endReached }}
+                <div class="pu-sub-loading-infinite-scroll">
+                    {{> Spinner }}
+                </div>
+            {{/ unless }}
         </div>
 
     </section>

@@ -38,25 +38,25 @@ Router.route('', {
 /*************************************************************/
 /* Discover */
 /*************************************************************/
-// Router.route('/discover', {
-//     name: 'discover',
-//     where: 'client',
-//     yieldRegions: {
-//         'app':                  {to: 'main'},
-//         'app_discover':         {to: 'app'},
-//         'app_discover_tribes':  {to: 'app_discover'}
-//     },
-//     onBeforeAction: function() {
-//         Partup.client.windowTitle.setContextName('Discover');
-//         this.next();
-//     }
-// });
+Router.route('/discover', {
+    name: 'discover',
+    where: 'client',
+    yieldRegions: {
+        'app':                  {to: 'main'},
+        'app_discover':         {to: 'app'},
+        'app_discover_tribes':  {to: 'app_discover'}
+    },
+    onBeforeAction: function() {
+        Partup.client.windowTitle.setContextName('Discover');
+        this.next();
+    }
+});
 
 /*************************************************************/
 /* Discover */
 /*************************************************************/
-Router.route('/discover', {
-    name: 'discover',
+Router.route('/discover/partups', {
+    name: 'discover-partups',
     where: 'client',
     yieldRegions: {
         'app':                  {to: 'main'},
@@ -65,6 +65,22 @@ Router.route('/discover', {
     },
     onBeforeAction: function() {
         Partup.client.windowTitle.setContextName('Discover Partups');
+        this.next();
+    }
+});
+
+Router.route('/discover/recommendations', {
+    name: 'discover-recommendations',
+    where: 'client',
+    yieldRegions: {
+        'app':                          {to: 'main'},
+        'app_discover':                 {to: 'app'},
+        'app_discover_recommendations': {to: 'app_discover'},
+        // 'modal_recommendations': {to: 'modal'},
+
+    },
+    onBeforeAction: function() {
+        Partup.client.windowTitle.setContextName('Discover Recommendations');
         this.next();
     }
 });
@@ -206,23 +222,6 @@ Router.route('/profile/:_id/settings/email', {
         return {
             profileId: this.params._id
         };
-    }
-});
-
-
-/*************************************************************/
-/* Recommendations */
-/*************************************************************/
-Router.route('/recommendations', {
-    name: 'recommendations',
-    where: 'client',
-    yieldRegions: {
-        'modal':              {to: 'main'},
-        'modal_recommendations': {to: 'modal'}
-    },
-    onBeforeAction: function() {
-        Partup.client.windowTitle.setContextName("Recommendations");
-        this.next();
     }
 });
 
@@ -553,6 +552,16 @@ Router.route('/admin/swarms', {
         'modal':                 {to: 'main'},
         'modal_admin':           {to: 'modal'},
         'modal_create_swarm':    {to: 'modal_admin'}
+    }
+});
+
+Router.route('/admin/sectors', {
+    name: 'admin-sectors',
+    where: 'client',
+    yieldRegions: {
+        'modal':                 {to: 'main'},
+        'modal_admin':           {to: 'modal'},
+        'modal_sectors':    {to: 'modal_admin'}
     }
 });
 

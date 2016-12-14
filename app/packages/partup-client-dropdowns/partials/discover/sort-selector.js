@@ -1,26 +1,35 @@
-Template.DiscoverPartupsLanguageSelector.onCreated(function() {
+Template.DiscoverSortSelector.onCreated(function() {
     var template = this;
-    template.dropdownToggleBool = 'partial-dropdowns-networks-actions.opened';
+    template.dropdownToggleBool = 'partial-dropdowns-networks-actions-sort.opened';
     template.dropdownOpen = new ReactiveVar(false);
-    template.emptyOption = {
-        native_name: 'All'
-    };
     template.selectedOption = template.data.reactiveVar;
-    template.selectedOption.set(template.emptyOption);
-    template.subscribe('languages.all');
+
+    template.options = [{
+        name: TAPi18n.__('pages-app-discover-filter-sorting-type-newest'),
+        value: 'new'
+    },{
+        name: TAPi18n.__('pages-app-discover-filter-sorting-type-popular'),
+        value: 'popular'
+    }];
+
+    var defaultOption = template.options[0];
+
+    if (template.data.default === 'popular') defaultOption = template.options[1];
+
+    template.selectedOption.set(defaultOption);
 });
 
-Template.DiscoverPartupsLanguageSelector.onRendered(function() {
+Template.DiscoverSortSelector.onRendered(function() {
     var template = this;
     ClientDropdowns.addOutsideDropdownClickHandler(template, '[data-clickoutside-close]', '[data-toggle-menu]');
 });
 
-Template.DiscoverPartupsLanguageSelector.onDestroyed(function() {
+Template.DiscoverSortSelector.onDestroyed(function() {
     var tpl = this;
     ClientDropdowns.removeOutsideDropdownClickHandler(tpl);
 });
 
-Template.DiscoverPartupsLanguageSelector.events({
+Template.DiscoverSortSelector.events({
     'click [data-toggle-menu]': ClientDropdowns.dropdownClickHandler,
     'click [data-select-option]': function eventSelectOption(event, template) {
         event.preventDefault();
@@ -29,7 +38,7 @@ Template.DiscoverPartupsLanguageSelector.events({
     }
 });
 
-Template.DiscoverPartupsLanguageSelector.helpers({
+Template.DiscoverSortSelector.helpers({
     menuOpen: function() {
         return Template.instance().dropdownOpen.get();
     },
@@ -37,7 +46,7 @@ Template.DiscoverPartupsLanguageSelector.helpers({
         return Template.instance().selectedOption.get();
     },
     options: function() {
-        return Languages.find().fetch();
+        return Template.instance().options;
     },
     selected: function(input) {
         var template = Template.instance();

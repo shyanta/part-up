@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="12px" height="16px" viewBox="0 0 12 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 41 (35326) - http://www.bohemiancoding.com/sketch -->
+    <title>Icons/open</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Icons/open" fill="#999999">
+            <path d="M10,6.0000175 C11.1053568,6.00455318 12,6.89028552 12,7.99961498 L12,14.000385 C12,15.1047419 11.0980496,16 9.9914698,16 L2.0085302,16 C0.899249601,16 0,15.1125667 0,14.000385 L0,7.99961498 C0,6.89809716 0.897318916,6.00460438 2,6.00001774 L2,6.00001649 L2,3.99582624 C2,1.78899235 3.79535615,0 6,0 C7.40543803,0 8.64158175,0.727125996 9.35500022,1.82249989 L7.54271022,2.72864489 C7.17542387,2.2844012 6.61995644,2 6,2 C4.89755916,2 4,2.89592715 4,3.99582624 L4,6 L7.5,6 L10,6 Z"></path>
+        </g>
+    </g>
+</svg>

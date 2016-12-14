@@ -60,6 +60,8 @@ Package.onUse(function(api) {
             'app/discover/tabs/discover-partups.js',
             'app/discover/tabs/discover-tribes.html',
             'app/discover/tabs/discover-tribes.js',
+            'app/discover/tabs/discover-recommendations.html',
+            'app/discover/tabs/discover-recommendations.js',
             'app/discover/partials/discover-tribes-filter.html',
             'app/discover/partials/discover-tribes-filter.js',
             'app/discover/partials/discover-partups-filter.html',
@@ -260,6 +262,7 @@ Package.onUse(function(api) {
             'modal/admin/featured_networks/featured_networks.html',
             'modal/admin/createtribe/createtribe.html',
             'modal/admin/createswarm/createswarm.html',
+            'modal/admin/sectors/sectors.html',
 
             // Modal:network_settings
             'modal/network_settings/network_settings.html',
@@ -271,12 +274,6 @@ Package.onUse(function(api) {
             'modal/network_settings/bulkinvite/bulkinvite.html',
             'modal/network_settings/about/about.html',
             'modal/network_settings/access/access.html',
-
-            // Modal:recommendations
-            'modal/recommendations/recommendations.html',
-            'modal/recommendations/recommendations.js',
-            'modal/recommendations/partials/recommend-page.html',
-            'modal/recommendations/partials/recommend-page.js',
 
             // Modal:create
             'modal/create/create.html',

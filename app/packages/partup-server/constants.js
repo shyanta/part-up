@@ -15,3 +15,4 @@ Partup.constants.CRON_SWARM_SHARED_COUNTS = process.env.PARTUP_CRON_SWARM_SHARED
 Partup.constants.CRON_CALCULATE_ACTIVE_NETWORK_UPPERS_PARTUPS = process.env.PARTUP_CRON_CALCULATE_ACTIVE_NETWORK_UPPERS_PARTUPS || 'every 4 hours on the 19th minute';
 Partup.constants.CRON_GET_COMMON_NETWORK_TAGS = process.env.PARTUP_CRON_GET_COMMON_NETWORK_TAGS || 'every 6 hours on the 25th minute';
 Partup.constants.PUSH_APPLE_APN_CLEANUP_INTERVAL = process.env.PARTUP_PUSH_APPLE_APN_CLEANUP_INTERVAL || 300;
+Partup.constants.CRON_SET_NETWORK_UPDATED_AT = process.env.PARTUP_CRON_SET_NETWORK_UPDATED_AT || 'every 3 hours on the 24th minute';

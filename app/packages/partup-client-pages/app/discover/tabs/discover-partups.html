@@ -3,7 +3,7 @@
 
         <!-- Header -->
         <header class="pu-sub-header">
-            <form class="pu-form pu-flexible-center" novalidate data-nosubmit>
+            <div class="pu-flexible-center">
                 <div>
                     <span>
                         <h2 class="pu-title">
@@ -29,19 +29,27 @@
                 </div>
                 <div>
                     <span>
-                        {{> DiscoverPartupsSortSelector reactiveVar=sortReactiveVar}}
+                        <ul class="pu-list pu-list-horizontal pu-list-large-pipe-seperated">
+                            <li class="pu-sub-responsive-sort">
+                                {{> DiscoverSortSelector reactiveVar=sortReactiveVar}}
+                            </li>
+                            <li class="pu-sub-pipe"></li>
+                            <li class="pu-sub-responsive-button {{#if state.dropdownActive}}pu-sub-responsive-button-active{{/if}}">
+                                <button type="button" class="pu-button {{#if state.dropdownActive}}pu-button-grey{{else}}pu-button-secondary{{/if}}" data-toggle-discover-menu>Filter</button>
+                            </li>
+                        </ul>
                     </span>
                 </div>
-            </form>
+            </div>
 
         </header>
 
         <!-- Content (partup-tiles) -->
         <div class="pu-discoverlayout">
-            {{> app_discover_partups_filter }}
+            {{> app_discover_partups_filter isActiveReactiveVar=state.dropdownActiveReactiveVar }}
 
             {{# ColumnTilesLayout instance=columnTilesLayout }}
-                <div class="pu-tile">
+                <div class="pu-tile pu-tile-partup">
                     {{> PartupTile }}
                 </div>
             {{/ ColumnTilesLayout }}

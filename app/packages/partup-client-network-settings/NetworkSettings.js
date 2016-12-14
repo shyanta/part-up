@@ -8,6 +8,7 @@ Template.NetworkSettings.onCreated(function() {
     var template = this;
     var userId = Meteor.userId();
 
+    template.subscribe('sectors.all');
     template.subscription = template.subscribe('networks.one', template.data.networkSlug, {
         onReady: function() {
             var network = Networks.findOne({slug: template.data.networkSlug});
@@ -93,6 +94,12 @@ Template.NetworkSettings.helpers({
 
                 return '/images/tribestart.jpg';
             },
+            sectors: function() {
+                return Sectors.find();
+            },
+            isNetworkSector: function(sector) {
+                return (network && network.sector) ? (network.sector === sector) : false;
+            }
         };
     },
     form: function() {
@@ -261,6 +268,9 @@ Template.NetworkSettings.helpers({
 Template.NetworkSettings.events({
     'input [maxlength]': function(e, template) {
         template.charactersLeft.set(this.name, this.max - e.target.value.length);
+    },
+    'change [data-select-sector]': function(event, template) {
+        $('[data-sector-input]').val($(event.currentTarget).val());
     }
 });
 
