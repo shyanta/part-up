@@ -124,7 +124,8 @@ prompt.get([
                         {
                             file: 'app/i18n/' + fileName.trim() + '.<locale_name>.i18n.json',
                             params: {
-                                file_format: 'simple_json'
+                                file_format: 'simple_json',
+                                tags: 'upload'
                             }
                         }
                     );
@@ -134,7 +135,8 @@ prompt.get([
                     {
                         file: 'app/i18n/' + fileNames.trim() + '.<locale_name>.i18n.json',
                         params: {
-                            file_format: 'simple_json'
+                            file_format: 'simple_json',
+                            tags: 'upload'
                         }
                     }
                 );
