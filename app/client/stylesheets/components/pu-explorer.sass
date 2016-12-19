@@ -18,12 +18,6 @@
         top: 0
         // margin-bottom: -20px
 
-        .pu-sub-notfound
-            font-family: $font-primary
-            font-size: 40px
-            color: darken($color-primary-dark, 10%)
-            font-weight: 700
-
         figure
             display: block
             padding: 20px 0 10px 0
@@ -75,6 +69,20 @@
 
             i
                 display: none
+
+    .pu-sub-notfound
+        font-family: $font-primary
+        font-size: 40px
+        color: darken($color-primary-dark, 10%)
+        font-weight: 700
+        position: absolute
+        top: 50px
+        left: 50px
+        right: 50px
+        width: calc(100vw - 100px)
+
+        + .pu-ring
+            margin-top: 148px
 
     @media screen and (min-width: $breakpoint-desktop) and (min-height: $breakpoint-tablet - 100px)
         padding: 4vh 0px 8vh 0px

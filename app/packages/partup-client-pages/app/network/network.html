@@ -63,13 +63,15 @@
                         </ul>
                         {{# with data.network }}
                             {{#unless archived_at}}
-                                <!-- actions -->
-                                <ul class="pu-list pu-list-horizontal pu-sub-right">
-                                    <!-- join or leave button -->
-                                    <li class="pu-sub-button">
-                                        {{> app_network_joinbutton network=. }}
-                                    </li>
-                                </ul>
+                                {{#unless data.network.isClosedForUpper currentUserId}}
+                                    <!-- actions -->
+                                    <ul class="pu-list pu-list-horizontal pu-sub-right">
+                                        <!-- join or leave button -->
+                                        <li class="pu-sub-button">
+                                            {{> app_network_joinbutton network=. }}
+                                        </li>
+                                    </ul>
+                                {{/unless}}
                             {{/unless}}
                         {{/with}}
                     </nav>
@@ -80,7 +82,7 @@
 
         {{# if data.network }}
             {{# if data.network.isClosedForUpper currentUserId }}
-                {{> app_network_closed network=data.network.name }}
+                {{> app_network_closed network=data.network }}
             {{ else }}
 
                 <!-- We use refresh=. to trigger a yield refresh when networkId changes.

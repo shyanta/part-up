@@ -4,7 +4,13 @@
             <section class="pu-composition pu-composition-network">
                 <div class="pu-errorpage pu-errorpage-network-closed">
                     <h4>{{_ 'pages-app-network-closed-title'  }}</h4>
-                    <p>{{_ 'pages-app-network-closed-description' network=network}}</p>
+                    <p>{{_ 'pages-app-network-closed-description' network=network.name}}</p>
+                    {{# with network }}
+                        {{#unless archived_at}}
+                            {{> app_network_joinbutton network=. }}
+                        {{/unless}}
+                    {{/with}}
+                    <img src="/images/closed_network.png">
                 </div>
             </section>
         </div>

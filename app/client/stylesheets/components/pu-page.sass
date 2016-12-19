@@ -10,6 +10,8 @@
         min-height: 530px
 
     .pu-sub-pageheader
+        position: relative
+        z-index: 9
         width: 100%
         background: $color-background
         border-bottom: 2px solid $color-border-light
@@ -17,7 +19,6 @@
         transition: padding .2s, min-height .2s
         width: 100vw
         -webkit-overflow-scrolling: touch
-        overflow-x: scroll
         display: block
         min-width: 0
         white-space: nowrap
@@ -39,7 +40,7 @@
 
             > section
                 border-bottom: 2px solid $color-border-light
-                max-height: 200px
+                // max-height: 200px
                 transform: translateZ(0px)
 
                 .pu-navigation
@@ -87,19 +88,13 @@
         margin-right: auto
 
     .pu-sub-fixedmodalsidebar
-        position: absolute
-        top: 0
-        left: 0
-        right: 0
-        min-width: $breakpoint-desktop
+        position: relative
+        display: block
+        width: 100%
+        margin-bottom: 20px
 
         .pu-wrap
             position: relative
-
-            .pu-modalsidebar
-                position: absolute
-                right: 100%
-                top: 43px
 
     > .pu-spinner
         display: block
@@ -129,7 +124,7 @@
 
     &-error
         .pu-sub-pagecontent
-            padding-top: 100px
+            padding-top: 25px
 
     &-progresspager
         .pu-sub-pagecontent
@@ -160,7 +155,15 @@
         .pu-sub-pagecontent
             padding: 30px 0
 
+    @media screen and (min-width: $breakpoint-tablet)
+        &-error
+            .pu-sub-pagecontent
+                padding-top: 50px
+
     @media screen and (min-width: $breakpoint-desktop)
+        &-error
+            .pu-sub-pagecontent
+                padding-top: 100px
         .pu-sub-pageheader
             position: fixed
             top: $spacing-app-headerheight
@@ -224,5 +227,14 @@
 
         .pu-sub-fixedmodalsidebar
             position: fixed
+            top: 0
+            left: 0
+            right: 0
+            min-width: $breakpoint-desktop
             top: $spacing-modal-headerheight
             transform: translateZ(0)
+
+            .pu-modalsidebar
+                position: absolute
+                right: 100%
+                top: 43px
