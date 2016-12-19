@@ -800,7 +800,7 @@ Networks.guardedFind = function(userId, selector, options) {
         delete selector.type;
     } else {
         // Only return open networks
-        guardedCriterias.push({'privacy_type': {'$in': [Networks.privacy_types.NETWORK_PUBLIC]}});
+        guardedCriterias.push({'privacy_type': {'$in': [Networks.privacy_types.NETWORK_PUBLIC, Networks.privacy_types.NETWORK_INVITE, Networks.privacy_types.NETWORK_CLOSED]}});
     }
 
     // Some extra rules that are only applicable to users that are logged in
