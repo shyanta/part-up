@@ -1,23 +1,25 @@
 .pu-errorpage
-    min-height: 630px
-    background-repeat: no-repeat
-    background-position: bottom center
-    background-image: url(/images/closed_network.png) // default background
-
     h4
         font-size: 22px
         font-weight: normal
         margin-bottom: 10px
 
     p
-        max-width: 50%
+        margin-bottom: 20px
 
-    &-network
+    .pu-button
+        width: 100%
+        text-align: center
 
-        &-closed
-            background-image: url(/images/closed_network.png)
+    img
+        width: 100%
+        margin-top: 20px
 
-    &-partup
+    @media screen and (min-width: $breakpoint-tablet)
 
-        &-closed
-            background-image: url(/images/closed_partup.png)
+        p
+            max-width: 50%
+
+        .pu-button
+            width: auto
+            text-align: center
