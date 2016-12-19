@@ -107,6 +107,7 @@ Package.onUse(function (api) {
         'helpers/RenderBlock/RenderBlock.html',
         'helpers/RenderBlock/RenderBlock.js',
         'helpers/IE.js',
+        'helpers/screenSize.js',
 
         'bootstrap.js',
         'analytics.js'

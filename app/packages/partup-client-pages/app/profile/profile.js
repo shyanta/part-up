@@ -51,7 +51,7 @@ Template.app_profile.onCreated(function() {
 Template.app_profile.helpers({
     profile: function() {
         var data = Template.currentData();
-        var profile = Meteor.users.findOne(data.profileId);
+        var profile = Meteor.users.findOne({_id: data.profileId});
         if (!profile) return;
 
         return {
@@ -91,6 +91,18 @@ Template.app_profile.helpers({
             startChatQuery: function() {
                 return 'user_id=' + data.profileId;
             }
+        };
+    },
+
+    selectorSettings: function() {
+        var data = Template.currentData();
+        var profile = Meteor.users.findOne({_id: data.profileId});
+        if (!profile) return false;
+
+        return {
+            _id: data.profileId,
+            currentRoute: Router.current().route.getName(),
+            firstName: User(profile).getFirstname()
         };
     },
 

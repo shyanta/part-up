@@ -86,6 +86,8 @@ Package.onUse(function(api) {
         'partials/profile/upper-actions.js',
         'partials/profile/supporter-actions.html',
         'partials/profile/supporter-actions.js',
+        'partials/profile/navigation.html',
+        'partials/profile/navigation.js',
 
         'partials/discover/language-selector.html',
         'partials/discover/language-selector.js',

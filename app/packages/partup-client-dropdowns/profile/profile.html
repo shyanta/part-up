@@ -1,9 +1,9 @@
 <template name="DropdownProfile">
-    <button class="pu-button pu-button-header pu-button-avatar pu-button-header-avatar {{#if menuOpen}}pu-button-header-avatar-active{{/if}}" data-toggle-menu="profile">
+    <button class="pu-button pu-button-header pu-button-header-avatar {{#if menuOpen}}pu-button-header-avatar-active{{/if}}" data-toggle-menu="profile">
         <figure class="pu-avatar pu-avatar-small" style="{{#with image }}background-image:url('{{ partupImageUrl id=. store='80x80'}}');{{/with }}"></figure>
         <span>{{ label }}</span>
     </button>
-    <div class="pu-dropdown {{#if menuOpen}}pu-dropdown-active{{/if}} pu-dropdown-simple" data-clickoutside-close style="left: auto; right: -5px;">
+    <div class="pu-dropdown {{#if menuOpen}}pu-dropdown-active{{/if}} pu-dropdown-simple" data-clickoutside-close style="left: auto; right: -15px;">
 
         <div class="pu-dropdown__more {{#if moreActive}}pu-dropdown__more-active{{/if}}">
             <ul class="pu-list">

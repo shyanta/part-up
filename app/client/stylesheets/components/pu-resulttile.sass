@@ -1,10 +1,9 @@
 .pu-resulttile
     position: relative
-    // border: 2px solid $color-border-light
+    border: 2px solid $color-border-light
+    background: #fff
     border-radius: 4px
-    // background: #fff
     color: $color-text
-    max-width: 310px
     margin: 0 auto
     display: block
     height: 100%
@@ -39,6 +38,11 @@
             font-size: 14px
             font-family: $font-primary
             color: $color-text
+
+    @media screen and (min-width: 600px)
+        max-width: 310px
+        border: none
+        background: transparent
 
 .pu-no-pointer-events
     .pu-resulttile
