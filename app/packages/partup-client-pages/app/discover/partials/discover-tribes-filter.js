@@ -38,8 +38,7 @@ Template.app_discover_tribes_filter.onCreated(function() {
 });
 Template.app_discover_tribes_filter.onDestroyed(function() {
     var template = this;
-
-    Partup.client.discover.resetQuery();
+    Partup.client.discover.resetTribeQuery();
 });
 
 Template.app_discover_tribes_filter.helpers({

@@ -98,11 +98,13 @@ Partup.client.discover = {
         for (key in this.DEFAULT_QUERY) {
             this.query.set(key, this.DEFAULT_QUERY[key]);
         }
+        this.current_query = JSON.parse(JSON.stringify(this.DEFAULT_QUERY));
     },
     resetTribeQuery: function() {
         for (key in this.DEFAULT_TRIBE_QUERY) {
             this.tribe_query.set(key, this.DEFAULT_TRIBE_QUERY[key]);
         }
+        this.current_tribe_query = JSON.parse(JSON.stringify(this.DEFAULT_TRIBE_QUERY));
     },
 
     /*
