@@ -1,7 +1,7 @@
 .pu-popup
     $border-radius: 4px
-    width: 700px
-    margin: 0 auto
+    max-width: 700px
+    margin: 0 15px
     background-color: $color-background-secondary
     border-radius: $border-radius
     position: absolute
@@ -93,6 +93,9 @@
 
             footer
                 text-align: right
+
+    @media screen and (min-width: 730px)
+        margin: 0 auto
 
 .pu-overlay-active
     .pu-popup

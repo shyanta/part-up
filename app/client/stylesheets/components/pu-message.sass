@@ -7,11 +7,14 @@
         &:focus
             border-color: darken($color-border, 5%)
 
+    .pu-media-counter
+        width: 100%
+
     .pu-sub-photos
         position: relative
         display: block
-        background-color: $color-background
-        border: 2px solid darken($color-border-light, 5%)
+        background-color: #eee
+        border: 2px solid #e1e1e1
         border-top: 0
         border-bottom-left-radius: 5px
         border-bottom-right-radius: 5px
@@ -32,7 +35,7 @@
             display: block
             transition: opacity $animation-duration
 
-        li
+        > li
             margin: 0
             display: inline-block
             margin-right: 10px
@@ -50,3 +53,4 @@
         .pu-textarea
             border-bottom-left-radius: 0
             border-bottom-right-radius: 0
+
