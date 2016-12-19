@@ -43,7 +43,7 @@ Meteor.methods({
             network.partup_names = [];
 
             // Add sector to network
-            var validSector = Sectors.findOne(fields.sector).fetch();
+            var validSector = Sectors.findOne({_id: fields.sector});
             if (validSector) network.sector = fields.sector;
 
             // Create chat for network
