@@ -1,9 +1,20 @@
 <template name="app_network_chat">
-    <div class="pu-sub-pagecontent pu-sub-pagecontent-chat">
+    <div class="pu-sub-pagecontent {{#if screenSizeMin 'tablet'}}pu-sub-pagecontent-chat{{/if}}">
         <div class="pu-wrap pu-wrap-columnlayout">
             <section class="pu-composition pu-composition-network">
                 <div class="pu-composition-chat">
-                    {{> NetworkChat networkSlug=data.networkSlug }}
+                    {{#if screenSizeMin 'tablet'}}
+                        {{> NetworkChat networkSlug=data.networkSlug }}
+                    {{ else }}
+                        <div class="pu-chat-placeholder">
+                            <div>
+                                <figure class="pu-avatar pu-avatar-system pu-avatar-square pu-avatar-medium-xl"></figure>
+                                <p class="pu-chat-placeholder__title">Part-up</p>
+                                <p class="pu-chat-placeholder__description">To use chat, use our app</p>
+                                <a class="pu-chat-placeholder__button pu-button" href="{{ appStoreLink }}" target="_blank">Download</a>
+                            </div>
+                        </div>
+                    {{/if}}
                 </div>
             </section>
         </div>
