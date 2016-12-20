@@ -81,6 +81,8 @@ Package.onUse(function(api) {
 
         'partials/network/network-actions.html',
         'partials/network/network-actions.js',
+        'partials/network/navigation.html',
+        'partials/network/navigation.js',
 
         'partials/profile/upper-actions.html',
         'partials/profile/upper-actions.js',
@@ -100,7 +102,12 @@ Package.onUse(function(api) {
         'partials/discover/tribes/sector-selector.js',
 
         'partials/discover/partups/tribe-selector.html',
-        'partials/discover/partups/tribe-selector.js'
+        'partials/discover/partups/tribe-selector.js',
+
+        'expander/expander.html',
+        'expander/expander.js',
+        'expander/toggler.html',
+        'expander/toggler.js'
     ], 'client');
 
 });
