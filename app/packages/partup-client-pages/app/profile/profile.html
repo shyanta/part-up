@@ -1,5 +1,5 @@
 <template name="app_profile">
-    <article class="pu-page pu-page-tinted pu-page-profile pu-layout--profile">
+    <article class="pu-page pu-page-tinted pu-page-profile pu-layout--profile {{#if partupEquals currentUserId profile.profileId }}pu-layout--profile--self{{/if}}">
         <header class="pu-sub-pageheader pu-sub-pageheader-layered {{# if shrinkHeader }}pu-sub-pageheader-layered-shrinked{{/ if }}">
             <!-- profile -->
             <section class="pu-profile">
@@ -54,7 +54,7 @@
                     <!-- tabs -->
                     {{#if screenSizeMin 'tablet'}}
                         <nav class="pu-navigation pu-navigation-header pu-navigation-full">
-                            <ul class="pu-list pu-list-horizontal">
+                            <ul class="pu-list pu-list-horizontal pu-list-with-right-items pu-list-nowrap">
                                 {{#if profile.hasAboutSection}}
                                     <li>
                                         <a href="{{ pathFor route='profile' _id=profileId }}"
@@ -89,25 +89,23 @@
                                         </a>
                                     </li>
                                 {{/ if }}
+                                <!-- actions -->
+                                {{# unless partupEquals currentUserId profile.profileId }}
+                                    <li class="pu-sub-button pu-sub-align-right">
+                                        {{#if profile.chatIdWithCurrentUser}}
+                                            <a href="{{ pathFor route='chats' hash=profile.chatIdWithCurrentUser }}" class="pu-button pu-button-gray">
+                                                <i class="picon-chat"></i>
+                                                {{_ 'pages-app-profile-open-existing-chat' }}
+                                            </a>
+                                        {{else}}
+                                            <a href="{{ pathFor route='chats' query=profile.startChatQuery }}" class="pu-button">
+                                                <i class="picon-chat"></i>
+                                                {{_ 'pages-app-profile-start-new-chat' }}
+                                            </a>
+                                        {{/if}}
+                                    </li>
+                                {{/unless}}
                             </ul>
-                            <!-- actions -->
-                            {{# unless partupEquals currentUserId profile.profileId }}
-                            <ul class="pu-list pu-list-horizontal pu-sub-right">
-                                <li class="pu-sub-button">
-                                    {{#if profile.chatIdWithCurrentUser}}
-                                        <a href="{{ pathFor route='chats' hash=profile.chatIdWithCurrentUser }}" class="pu-button pu-button-gray">
-                                            <i class="picon-chat"></i>
-                                            {{_ 'pages-app-profile-open-existing-chat' }}
-                                        </a>
-                                    {{else}}
-                                        <a href="{{ pathFor route='chats' query=profile.startChatQuery }}" class="pu-button">
-                                            <i class="picon-chat"></i>
-                                            {{_ 'pages-app-profile-start-new-chat' }}
-                                        </a>
-                                    {{/if}}
-                                </li>
-                            </ul>
-                            {{/unless}}
                         </nav>
                     {{else}}
                         <nav class="pu-navigation pu-navigation-header pu-navigation-compact">

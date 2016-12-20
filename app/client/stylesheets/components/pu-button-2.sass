@@ -16,9 +16,16 @@
     i, span
         vertical-align: middle
 
-    > i + span
+    > i + span,
+    > span + i
         margin-left: 5px
 
     > span
         margin-left: 3px
         margin-right: 3px
+
+    &--secondary
+        background-color: $color-primary
+
+    &--fake-input
+        @include input()

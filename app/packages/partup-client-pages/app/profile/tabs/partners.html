@@ -1,22 +1,22 @@
 <template name="app_profile_partners">
-    <header class="pu-sub-header">
-        <h2 class="pu-title">
-            {{# if state.countLoading }}
-                {{_ 'pages-app-profile-partners-loading' }}
-                {{> Spinner type='small' }}
-            {{ else }}
-                {{_ 'pages-app-profile-partners-prefix' name=data.firstname }}
-                <span class="pu-sub-countlabel">
-                    {{#if data.count}}
-                        {{_ 'pages-app-profile-partners-count' count=data.count }}
-                    {{else}}
-                        {{_ 'pages-app-profile-partners-none' }}
-                    {{/if}}
-                </span>
-
-
-            {{/ if }}
-        </h2>
+    <header class="pu-row">
+        <div class="cell">
+            <h2 class="pu-title">
+                {{# if state.countLoading }}
+                    {{_ 'pages-app-profile-partners-loading' }}
+                    {{> Spinner type='small' }}
+                {{ else }}
+                    {{_ 'pages-app-profile-partners-prefix' name=data.firstname }}
+                    <span class="pu-sub-countlabel">
+                        {{#if data.count}}
+                            {{_ 'pages-app-profile-partners-count' count=data.count }}
+                        {{else}}
+                            {{_ 'pages-app-profile-partners-none' }}
+                        {{/if}}
+                    </span>
+                {{/ if }}
+            </h2>
+        </div>
     </header>
 
     <div data-infinitescroll-container>

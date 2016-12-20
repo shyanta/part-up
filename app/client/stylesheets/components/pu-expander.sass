@@ -1,0 +1,31 @@
+.pu-expander
+    position: relative
+
+    &__button
+        position: relative
+
+    &__content
+        top: calc(100% - 2px)
+        right: 0
+        z-index: 9
+        position: absolute
+        display: none
+        padding: 15px
+        border: 2px solid $color-border
+        background-color: $color-background-secondary
+        border-radius: 4px
+        border-top-right-radius: 0
+
+    &--is-expanded
+        .pu-expander__button
+            z-index: 10
+            border: 2px solid $color-border
+            background-color: $color-background-secondary
+            border-bottom-left-radius: 0
+            border-bottom-right-radius: 0
+            color: #999
+            border-bottom: 0
+
+        .pu-expander__content
+            display: block
+

@@ -17,20 +17,22 @@
         {{/if}}
 
         <!-- Header buttons -->
-        <header class="pu-pageheader">
-
-            <!-- Filter -->
-            <aside>{{> PartialDropdownActivitiesActions reactiveVar=filterReactiveVar}}</aside>
-
-            <!-- New activity button -->
-            <section>
+        <header class="pu-row">
+            <div class="cell">
                 <a class="pu-button pu-button-icon" href="#" data-new-activity>
                     <i class="picon-chart"></i>
                     {{_ "pages-app-partup-activities-newactivity_button"}}
                 </a>
-            </section>
-
-
+            </div>
+            <div class="cell last">
+                {{#if screenSizeMin 'tablet'}}
+                    {{> PartialDropdownActivitiesActions reactiveVar=filterReactiveVar}}
+                {{else}}
+                    {{#PartupExpander label='Filter'}}
+                        {{> PartialDropdownActivitiesActions reactiveVar=filterReactiveVar}}
+                    {{/PartupExpander}}
+                {{/if}}
+            </div>
         </header>
 
         <!-- Loading/rendering state -->

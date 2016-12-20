@@ -14,17 +14,25 @@
         {{/if}}
 
         <!-- Header buttons -->
-        <header class="pu-pageheader">
-            {{#if pageIsUpdates}}
-                <aside>{{> PartialDropdownUpdatesActions reactiveVar=filterReactiveVar}}</aside>
-            {{/if}}
-            <section>
-                <a class="pu-button pu-button-icon" href="#" data-newmessage-popup>
-                    <i class="picon-message"></i>
-                    {{_ 'pages-app-partup-updates-new_message' }}
-                </a>
-            </section>
-        </header>
+        {{#if pageIsUpdates}}
+            <header class="pu-row">
+                <div class="cell">
+                        <a class="pu-button pu-button-icon" href="#" data-newmessage-popup>
+                            <i class="picon-message"></i>
+                            {{_ 'pages-app-partup-updates-new_message' }}
+                        </a>
+                </div>
+                <div class="cell last">
+                    {{#if screenSizeMin 'tablet'}}
+                        {{> PartialDropdownUpdatesActions reactiveVar=filterReactiveVar}}
+                    {{else}}
+                        {{#PartupExpander label='Filter'}}
+                            {{> PartialDropdownUpdatesActions reactiveVar=filterReactiveVar}}
+                        {{/PartupExpander}}
+                    {{/if}}
+                </div>
+            </header>
+        {{/if}}
 
         <div>
 
