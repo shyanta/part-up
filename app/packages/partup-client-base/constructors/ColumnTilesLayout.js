@@ -43,6 +43,12 @@ Partup.client.constructors.ColumnTilesLayout = function(options) {
             }
         });
         C.initialized.set(true);
+
+        C._onInitCallbacks.forEach(function(args) {
+            C.addTiles(args[0], args[1]);
+        });
+
+        C._onInitCallbacks = [];
     };
     C.initialized = new ReactiveVar(false);
 
@@ -79,7 +85,19 @@ Partup.client.constructors.ColumnTilesLayout = function(options) {
         });
     };
 
-    C.addTiles = function(tiles, cb) {
+    C._onInitCallbacks = [];
+    C._addOnInitialized = function(tiles, callback) {
+        C._onInitCallbacks.push([tiles, callback]);
+    };
+
+    C.addTiles = function(tiles, callback) {
+        var inited = C.initialized.curValue;
+
+        if (!inited) {
+            C._addOnInitialized(tiles, callback);
+            return;
+        }
+
         Meteor.defer(function() {
             if (!C._template) return;
 
@@ -97,8 +115,8 @@ Partup.client.constructors.ColumnTilesLayout = function(options) {
             });
             C.columns.set(columns);
 
-            if (mout.lang.isFunction(cb)) {
-                cb.call(C);
+            if (callback) {
+                callback.call(C);
             }
         });
     };
