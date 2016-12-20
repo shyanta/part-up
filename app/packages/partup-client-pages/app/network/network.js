@@ -56,7 +56,16 @@ Template.app_network.helpers({
             },
             networkSlug: function() {
                 return template.networkSlug.get();
-            }
+            },
+            selectorSettings: function() {
+                if (!network) return false;
+
+                return {
+                    slug: network.slug,
+                    currentRoute: Router.current().route.getName(),
+                    network: network
+                };
+            },
         };
     },
 

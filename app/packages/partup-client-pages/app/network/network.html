@@ -1,6 +1,6 @@
 <template name="app_network">
 
-    <article class="pu-page pu-page-tinted pu-page-network {{#if state.currentPageIsChat}}pu-page-chat{{/if}}">
+    <article class="pu-page pu-page-tinted pu-page-network {{#if state.currentPageIsChat}}{{#if screenSizeMin 'tablet'}}pu-page-chat{{/if}}{{/if}} pu-layout--network">
         <header class="pu-sub-pageheader pu-sub-pageheader-layered {{# if state.shrinkHeader }}pu-sub-pageheader-layered-shrinked{{/ if }}">
             <!-- profile -->
             <section class="pu-coverheader {{#if data.network.archived_at}}pu-coverheader-dark{{/if}}">
@@ -12,7 +12,7 @@
                             {{ name }}
                             {{#if archived_at}}<span class="pu-sub-archived"><i class="picon-warning"></i> {{_ 'pages-app-network-start-label-archived' }} <strong>{{ partupDateOnly archived_at }}</strong></span>{{/if}}
                         </h1>
-                        <a href="{{ pathFor route='network' slug=slug query='show=true'}}" class="pu-button pu-button-darktext"><i class="picon-show"></i>{{_ 'pages-app-network-tab-button-showstart' }}</a>
+                        <a href="{{ pathFor route='network' slug=slug query='show=true'}}" class="pu-button pu-button-darktext"><i class="picon-show"></i><span>{{_ 'pages-app-network-tab-button-showstart' }}</span></a>
                     {{ else }}
                         {{> Spinner color='inverted'}}
                     {{/ with }}
@@ -22,9 +22,10 @@
             <section>
                 <div class="pu-wrap pu-wrap-columnlayout">
                     <!-- tabs -->
+                    {{#if screenSizeMin 'tablet'}}
                     <nav class="pu-navigation pu-navigation-header pu-navigation-full">
 
-                        <ul class="pu-list pu-list-horizontal">
+                        <ul class="pu-list pu-list-horizontal pu-list-with-right-items pu-list-nowrap">
                             <li>
                                 <a href="{{ pathFor route='network-detail' slug=data.network.slug }}"
                                     class="pu-button pu-button-nav pu-button-nav-secondary {{ isActiveRoute name='network-detail' class='pu-state-active'}} {{ isActiveRoute name='network' class='pu-state-active'}}">
@@ -60,21 +61,39 @@
                                     </li>
                                 {{/ if}}
                             {{/with}}
-                        </ul>
-                        {{# with data.network }}
-                            {{#unless archived_at}}
-                                {{#unless data.network.isClosedForUpper currentUserId}}
-                                    <!-- actions -->
-                                    <ul class="pu-list pu-list-horizontal pu-sub-right">
+                            {{# with data.network }}
+                                {{#unless archived_at}}
+                                    {{#unless data.network.isClosedForUpper currentUserId}}
                                         <!-- join or leave button -->
-                                        <li class="pu-sub-button">
+                                        <li class="pu-sub-button pu-sub-align-right">
                                             {{> app_network_joinbutton network=. }}
                                         </li>
-                                    </ul>
+                                    {{/unless}}
                                 {{/unless}}
-                            {{/unless}}
-                        {{/with}}
+                            {{/with}}
+                        </ul>
                     </nav>
+                    {{else}}
+                        <nav class="pu-navigation pu-navigation-header pu-navigation-compact">
+                            <ul class="pu-list pu-list-horizontal pu-list-with-right-items pu-list-nowrap pu-sub-smallscreen-navigation">
+                                <li>
+                                    {{#with data.selectorSettings}}
+                                        {{> NetworkNavigationSelector default=currentRoute slug=slug network=network }}
+                                    {{/with}}
+                                </li>
+                                {{# with data.network }}
+                                    {{#unless archived_at}}
+                                        {{#unless data.network.isClosedForUpper currentUserId}}
+                                            <!-- join or leave button -->
+                                            <li class="pu-sub-align-right">
+                                                {{> app_network_joinbutton network=. }}
+                                            </li>
+                                        {{/unless}}
+                                    {{/unless}}
+                                {{/with}}
+                            </ul>
+                        </nav>
+                    {{/if}}
                 </div>
             </section>
 
