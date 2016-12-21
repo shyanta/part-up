@@ -51,7 +51,7 @@ $modal-bar-height: 70px
             right: -98px
 
 
-    > .pu-list
+    > .pu-list:not(.pu-progresspager)
         padding-right: 8px
         white-space: nowrap
         height: 100%
@@ -111,7 +111,7 @@ $modal-bar-height: 70px
         .pu-sub-more
             float: left
 
-        > .pu-list > li
+        > .pu-list:not(.pu-progresspager) > li
             @include seperator()
 
             &:last-child::after
