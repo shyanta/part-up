@@ -4,6 +4,7 @@ Template.PartupNavigationSelector.onCreated(function() {
     template.dropdownOpen = new ReactiveVar(false);
 
     var partupSlug = template.data.slug;
+    var partup = template.data.partup;
 
     template.options = [{
         name: TAPi18n.__('pages-app-partup-menu_updates'),
@@ -21,6 +22,15 @@ Template.PartupNavigationSelector.onCreated(function() {
         slug: partupSlug,
         icon: 'documents'
     }];
+
+    if (partup.isEditableBy(Meteor.user())) {
+        template.options.push({
+            name: TAPi18n.__('pages-app-partup-menu_settings'),
+            route: 'partup-settings',
+            slug: partupSlug,
+            icon: 'cog'
+        });
+    }
 
     var defaultOption = template.options[0];
 

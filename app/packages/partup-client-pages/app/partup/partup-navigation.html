@@ -31,7 +31,7 @@
                 {{# with partup }}
                     {{# if isEditableBy currentUser }}
                         <li>
-                            <a href="#" data-openpartupsettings class="pu-button pu-button-nav pu-button-nav-icon pu-button-spinning">
+                            <a href="{{ pathFor 'partup-settings' slug=slug }}" data-openpartupsettings class="pu-button pu-button-nav pu-button-nav-icon pu-button-spinning">
                                 <i class="picon-cog"></i>
                             </a>
                         </li>
@@ -54,7 +54,7 @@
                     </button>
                 </li>
                 {{# with selectorSettings }}
-                    <li class="pu-partuppagelayout__only-smallscreen">{{> PartupNavigationSelector slug=slug default=currentRoute }}</li>
+                    <li class="pu-partuppagelayout__only-smallscreen">{{> PartupNavigationSelector slug=slug partup=data default=currentRoute }}</li>
                 {{/ with }}
             </ul>
         <!-- end navigation small screens -->
