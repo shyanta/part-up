@@ -29,3 +29,19 @@
         .pu-expander__content
             display: block
 
+        &:after
+            content: ''
+            display: block
+            position: fixed
+            top: 0
+            left: 0
+            right: 0
+            bottom: 0
+            background-color: rgba(#000, .2)
+            z-index: 5
+
+    @media screen and (max-width: 500px)
+        &__content
+            width: 100vw
+            right: -20px
+

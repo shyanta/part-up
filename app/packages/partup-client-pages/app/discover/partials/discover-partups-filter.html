@@ -1,35 +1,33 @@
 <template name="app_discover_partups_filter">
-    <div class="pu-discovermenu {{#if state.active}}pu-discovermenu--is-active{{/if}}">
-        <p>{{_ 'pages-app-discover-partups-filter-intro-text'}}</p>
-        <form class="pu-form" data-form>
-            <!-- Text search -->
-            <div class="pu-formfield">
-                <span class="pu-label">{{_ 'pages-app-discover-partups-filter-textsearch-label' }}</span>
-                <input type="text" class="pu-input" data-search-query placeholder="{{_ 'pages-app-discover-filter-textsearch-placeholder' }}">
-            </div>
-            <!-- Network filter -->
-            <div class="pu-formfield">
-                <span class="pu-label">{{_ 'pages-app-discover-partups-filter-networkfilter-label' }}</span>
-                {{> DiscoverPartupsTribeSelector reactiveVar=state.selectedTribeReactiveVar options=data.networks }}
-            </div>
-            <!-- Location filter -->
-            <div class="pu-formfield">
-                <span class="pu-label">{{_ 'pages-app-discover-partups-filter-locationfilter-label' }}</span>
-                {{# AutocompleteAdvanced
-                            placeholder='Location'
-                            label=state.locationLabel
-                            selection=state.selectedLocationReactiveVar
-                            onQuery=hooks.locationQuery
-                            hasValueVar=state.locationHasValueVar
-                            formValue=state.locationFormvalue }}
-                    <input type="hidden" name='location_input' class="pu-input" data-input="">
-                {{/ AutocompleteAdvanced }}
-            </div>
-            <!-- Language filter -->
-            <div class="pu-formfield">
-                <span class="pu-label">{{_ 'pages-app-discover-partups-filter-language-label' }}</span>
-                {{> DiscoverLanguageSelector reactiveVar=state.selectedLanguageReactiveVar }}
-            </div>
-        </form>
-    </div>
+    <form class="pu-form" data-form>
+        {{> UI.contentBlock}}
+        <!-- Text search -->
+        <div class="pu-formfield">
+            <span class="pu-label">{{_ 'pages-app-discover-partups-filter-textsearch-label' }}</span>
+            <input type="text" class="pu-input" data-search-query placeholder="{{_ 'pages-app-discover-filter-textsearch-placeholder' }}">
+        </div>
+        <!-- Network filter -->
+        <div class="pu-formfield">
+            <span class="pu-label">{{_ 'pages-app-discover-partups-filter-networkfilter-label' }}</span>
+            {{> DiscoverPartupsTribeSelector reactiveVar=state.selectedTribeReactiveVar options=data.networks }}
+        </div>
+        <!-- Location filter -->
+        <div class="pu-formfield">
+            <span class="pu-label">{{_ 'pages-app-discover-partups-filter-locationfilter-label' }}</span>
+            {{# AutocompleteAdvanced
+                        placeholder='Location'
+                        label=state.locationLabel
+                        selection=state.selectedLocationReactiveVar
+                        onQuery=hooks.locationQuery
+                        hasValueVar=state.locationHasValueVar
+                        formValue=state.locationFormvalue }}
+                <input type="hidden" name='location_input' class="pu-input" data-input="">
+            {{/ AutocompleteAdvanced }}
+        </div>
+        <!-- Language filter -->
+        <div class="pu-formfield">
+            <span class="pu-label">{{_ 'pages-app-discover-partups-filter-language-label' }}</span>
+            {{> DiscoverLanguageSelector reactiveVar=state.selectedLanguageReactiveVar }}
+        </div>
+    </form>
 </template>

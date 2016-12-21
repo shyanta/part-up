@@ -25,3 +25,13 @@ Template.registerHelper('screenSizeMin', function(sizeName) {
 
     return sizeName === name;
 });
+
+Template.registerHelper('screenSizeMinWidth', function(sizeName) {
+    var size = Partup.client.screen.size.get('width');
+
+    if (sizeName === 'mobile' && size >= mobile) return true;
+    if (sizeName === 'tablet' && size >= tablet) return true;
+    if (sizeName === 'desktop' && size >= desktop) return true;
+
+    return false;
+});

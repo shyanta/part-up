@@ -13,11 +13,12 @@
             font-size: 18px
             color: $color-button-gray-background
             z-index: 2
-            transition: color $animation-duration, left $animation-duration
+            transition: color .2s
             pointer-events: none
 
 
     &:after, &:before
+        transition: border-color .2s
         right: 95%
         top: 50%
         border: solid transparent

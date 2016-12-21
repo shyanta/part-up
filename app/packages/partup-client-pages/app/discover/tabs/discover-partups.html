@@ -1,55 +1,52 @@
 <template name="app_discover_partups">
     <section class="pu-composition pu-composition-discover">
 
-        <!-- Header -->
-        <header class="pu-sub-header">
-            <div class="pu-flexible-center">
-                <div>
-                    <span>
-                        <h2 class="pu-title">
-                            {{_ 'pages-app-discover-heading' }}
+        <header class="pu-row">
+            <div class="cell stretch">
+                <h2 class="pu-title">
+                    {{_ 'pages-app-discover-heading' }}
 
-                            {{# if countLoading }}
-                                {{> Spinner type='small' }}
-                            {{ else }}
-                                <span class="pu-sub-countlabel">
-                                    {{#if count}}
-                                        {{_ 'pages-app-discover-xpartups' count=count }}
-                                    {{else}}
-                                        {{_ 'pages-app-discover-nopartups' }}
-                                    {{/if}}
-                                </span>
-                            {{/ if }}
-
-                        </h2>
-                    </span>
-                </div>
-                <div class="pu-sub-center">
-                    <span></span>
-                </div>
-                <div>
-                    <span>
-                        <ul class="pu-list pu-list-horizontal pu-list-large-pipe-seperated">
-                            <li class="pu-sub-responsive-sort">
-                                {{> DiscoverSortSelector reactiveVar=sortReactiveVar}}
-                            </li>
-                            <li class="pu-sub-pipe"></li>
-                            <li class="pu-sub-responsive-button {{#if state.dropdownActive}}pu-sub-responsive-button-active{{/if}}">
-                                <button type="button" class="pu-expand-button {{#if state.dropdownActive}}pu-expand-button-active pu-expand-button-active-dark{{/if}}" data-toggle-discover-menu>
-                                    {{_ 'pages-app-discover-partups-filter'}} {{#if state.dropdownActive}}<i class="picon-caret-slim-up"></i>{{else}}<i class="picon-caret-slim-down"></i>{{/if}}
-                                </button>
-                            </li>
-                        </ul>
-                    </span>
+                    {{# if countLoading }}
+                        {{> Spinner type='small' }}
+                    {{ else }}
+                        <span class="pu-sub-countlabel">
+                            {{#if count}}
+                                {{_ 'pages-app-discover-xpartups' count=count }}
+                            {{else}}
+                                {{_ 'pages-app-discover-nopartups' }}
+                            {{/if}}
+                        </span>
+                    {{/ if }}
+                </h2>
+            </div>
+            <div class="cell last">
+                <div class="pu-row">
+                    <div class="cell">
+                        {{#if screenSizeMinWidth 'desktop'}}
+                            {{> DiscoverSortSelector reactiveVar=sortReactiveVar}}
+                        {{else}}
+                            {{#PartupExpander label='Filter'}}
+                                {{# app_discover_partups_filter isActiveReactiveVar=state.dropdownActiveReactiveVar }}
+                                    <div class="pu-formfield">
+                                        <span class="pu-label">Sort</span>
+                                        {{> DiscoverSortSelector reactiveVar=sortReactiveVar}}
+                                    </div>
+                                {{/app_discover_partups_filter}}
+                            {{/PartupExpander}}
+                        {{/if}}
+                    </div>
                 </div>
             </div>
-
         </header>
 
         <!-- Content (partup-tiles) -->
         <div class="pu-discoverlayout">
-            {{> app_discover_partups_filter isActiveReactiveVar=state.dropdownActiveReactiveVar }}
-
+            {{#if screenSizeMinWidth 'desktop'}}
+                <div class="pu-discovermenu">
+                    <p>{{_ 'pages-app-discover-partups-filter-intro-text'}}</p>
+                    {{> app_discover_partups_filter isActiveReactiveVar=state.dropdownActiveReactiveVar }}
+                </div>
+            {{/if}}
             {{# ColumnTilesLayout instance=columnTilesLayout }}
                 <div class="pu-tile pu-tile-partup">
                     {{> PartupTile }}

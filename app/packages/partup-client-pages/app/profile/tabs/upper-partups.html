@@ -1,6 +1,6 @@
 <template name="app_profile_upper_partups">
     <header class="pu-row">
-        <div class="cell">
+        <div class="cell stretch">
             <h2 class="pu-title">
                 {{# if state.countLoading }}
                     {{ translations.partupsLoading state.selectedFilter }}
@@ -18,13 +18,17 @@
             </h2>
         </div>
         <div class="cell last">
-            {{#if screenSizeMin 'tablet'}}
-                {{> PartialDropdownProfileUpperActions reactiveVar=data.filterReactiveVar}}
-            {{else}}
-                {{#PartupExpander label='Filter'}}
-                    {{> PartialDropdownProfileUpperActions reactiveVar=data.filterReactiveVar}}
-                {{/PartupExpander}}
-            {{/if}}
+            <div class="pu-row">
+                <div class="cell">
+                    {{#if screenSizeMin 'tablet'}}
+                        {{> PartialDropdownProfileUpperActions reactiveVar=data.filterReactiveVar}}
+                    {{else}}
+                        {{#PartupExpander label='Filter'}}
+                            {{> PartialDropdownProfileUpperActions reactiveVar=data.filterReactiveVar}}
+                        {{/PartupExpander}}
+                    {{/if}}
+                </div>
+            </div>
         </div>
     </header>
 

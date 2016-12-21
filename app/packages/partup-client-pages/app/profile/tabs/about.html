@@ -1,7 +1,7 @@
 <template name="app_profile_about">
 
     <header class="pu-row">
-        <div class="cell">
+        <div class="cell stretch">
             <h2 class="pu-title">
                 {{# if data.loading }}
                     {{_ 'pages-app-profile-about-loading'}}
@@ -14,16 +14,20 @@
         </div>
         {{# if data.profileIsCurrentUser }}
             <div class="cell last">
-                <div class="pu-columnslayoutaction">
-                    {{_ 'pages-app-profile-label-add'}}
-                    <a class="pu-button" href="#" data-create-tile="photo">
-                        <i class="picon-photo"></i>
-                        {{_ 'pages-app-profile-button-photo'}}
-                    </a>
-                    <a class="pu-button" href="#" data-create-tile="video">
-                        <i class="picon-video"></i>
-                        {{_ 'pages-app-profile-button-video'}}
-                    </a>
+                <div class="pu-row">
+                    <div class="cell">
+                        <div class="pu-columnslayoutaction">
+                            {{_ 'pages-app-profile-label-add'}}
+                            <a class="pu-button" href="#" data-create-tile="photo">
+                                <i class="picon-photo"></i>
+                                {{_ 'pages-app-profile-button-photo'}}
+                            </a>
+                            <a class="pu-button" href="#" data-create-tile="video">
+                                <i class="picon-video"></i>
+                                {{_ 'pages-app-profile-button-video'}}
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         {{/if}}

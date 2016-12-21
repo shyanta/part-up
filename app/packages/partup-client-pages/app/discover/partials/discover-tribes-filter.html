@@ -1,7 +1,6 @@
 <template name="app_discover_tribes_filter">
-    <div class="pu-discovermenu {{#if state.active}}pu-discovermenu--is-active{{/if}}">
-        <p>{{_ 'pages-app-discover-tribes-filter-intro-text'}}</p>
         <form class="pu-form" data-form>
+            {{> UI.contentBlock}}
             <!-- Search filter -->
             <div class="pu-formfield">
                 <span class="pu-label">{{_ 'pages-app-discover-tribes-filter-textsearch-label'}}</span>
@@ -36,5 +35,5 @@
                 {{> DiscoverLanguageSelector reactiveVar=state.selectedLanguageReactiveVar }}
             </div>
         </form>
-    </div>
+    <!-- </div> -->
 </template>
