@@ -235,6 +235,11 @@ Template.app_network_partups.helpers({
                     }
                 };
             },
+            focusOnSearchField: function() {
+                return function() {
+                    template.find('[data-search]').focus();
+                };
+            }
         };
     },
     data: function() {

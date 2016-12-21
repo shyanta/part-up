@@ -8,7 +8,11 @@ Template.PartupToggler.events({
     'click [data-toggle]': function(event, template) {
         event.preventDefault();
 
-        template.expanded.set(!template.expanded.curValue);
+        var newValue = !template.expanded.curValue;
+
+        template.expanded.set(newValue);
+
+        if (template.data.onToggle && newValue) _.defer(template.data.onToggle);
     },
 });
 

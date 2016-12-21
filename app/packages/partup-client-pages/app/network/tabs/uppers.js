@@ -181,6 +181,16 @@ Template.app_network_uppers.events({
 });
 
 Template.app_network_uppers.helpers({
+    configs: function() {
+        var template = Template.instance();
+        return {
+            focusOnSearchField: function() {
+                return function() {
+                    template.find('[data-search]').focus();
+                };
+            }
+        };
+    },
     networkInviteTileSettings: function() {
         var template = Template.instance();
         var network = Networks.findOne({slug: template.data.networkSlug});
