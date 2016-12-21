@@ -16,20 +16,24 @@
         <!-- Header buttons -->
         {{#if pageIsUpdates}}
             <header class="pu-row">
-                <div class="cell">
+                <div class="cell stretch">
                         <a class="pu-button pu-button-icon" href="#" data-newmessage-popup>
                             <i class="picon-message"></i>
                             {{_ 'pages-app-partup-updates-new_message' }}
                         </a>
                 </div>
                 <div class="cell last">
-                    {{#if screenSizeMin 'tablet'}}
-                        {{> PartialDropdownUpdatesActions reactiveVar=filterReactiveVar}}
-                    {{else}}
-                        {{#PartupExpander label='Filter'}}
-                            {{> PartialDropdownUpdatesActions reactiveVar=filterReactiveVar}}
-                        {{/PartupExpander}}
-                    {{/if}}
+                    <div class="pu-row">
+                        <div class="cell">
+                            {{#if screenSizeIsMinimalWidth 'tablet'}}
+                                {{> PartialDropdownUpdatesActions reactiveVar=filterReactiveVar}}
+                            {{else}}
+                                {{#PartupExpander label='Filter'}}
+                                    {{> PartialDropdownUpdatesActions reactiveVar=filterReactiveVar}}
+                                {{/PartupExpander}}
+                            {{/if}}
+                        </div>
+                    </div>
                 </div>
             </header>
         {{/if}}

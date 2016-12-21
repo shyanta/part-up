@@ -22,7 +22,7 @@
             <div class="cell last">
                 <div class="pu-row">
                     <div class="cell">
-                        {{#if screenSizeMinWidth 'desktop'}}
+                        {{#if screenSizeIsMinimalWidth 'desktop'}}
                             {{> DiscoverSortSelector reactiveVar=sortReactiveVar}}
                         {{else}}
                             {{#PartupExpander label='Filter'}}
@@ -41,7 +41,7 @@
 
         <!-- Content (partup-tiles) -->
         <div class="pu-discoverlayout">
-            {{#if screenSizeMinWidth 'desktop'}}
+            {{#if screenSizeIsMinimalWidth 'desktop'}}
                 <div class="pu-discovermenu">
                     <p>{{_ 'pages-app-discover-partups-filter-intro-text'}}</p>
                     {{> app_discover_partups_filter isActiveReactiveVar=state.dropdownActiveReactiveVar }}

@@ -1,9 +1,9 @@
 <template name="app_network_chat">
-    <div class="pu-sub-pagecontent {{#if screenSizeMin 'tablet'}}pu-sub-pagecontent-chat{{/if}}">
+    <div class="pu-sub-pagecontent {{#if screenSizeIsMinimalWidth 'tablet'}}pu-sub-pagecontent-chat{{/if}}">
         <div class="pu-wrap pu-wrap-columnlayout">
             <section class="pu-composition pu-composition-network">
                 <div class="pu-composition-chat">
-                    {{#if screenSizeMin 'tablet'}}
+                    {{#if screenSizeIsMinimalWidth 'tablet'}}
                         {{> NetworkChat networkSlug=data.networkSlug }}
                     {{ else }}
                         <div class="pu-chat-placeholder">

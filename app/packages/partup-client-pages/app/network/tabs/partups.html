@@ -25,7 +25,7 @@
                                 </div>
                                 <div class="cell">
                                     {{# if data.network.hasMember currentUser._id }}
-                                        {{#if screenSizeMin 'tablet'}}
+                                        {{#if screenSizeIsMinimalWidth 'tablet'}}
                                             {{> PartialDropdownNetworkActions reactiveVar=data.filterReactiveVar}}
                                         {{else}}
                                             {{#PartupExpander label='Filter'}}

@@ -5,8 +5,8 @@
             <section class="pu-profile">
                 <div class="pu-wrap pu-wrap-columnlayout pu-profile__wrapper">
                     <!-- <div class="pu-info {{#unless profile.data.tags}} pu-info-minimal{{/unless}}"> -->
-                    <figure class="pu-profile__figure pu-avatar {{#if screenSizeMin 'tablet'}}pu-avatar-extralarge{{else}}pu-avatar-medium-xl{{/if}}" style="background-image:url('{{ partupImageUrl id=profile.data.image store='360x360'}}');">
-                        <span class="pu-score {{#if screenSizeMin 'tablet'}}pu-score-large{{else}}pu-score-small-2{{/if}} {{#if profile.online }}pu-score-green{{/if}}">{{ profile.roundedScore }}</span>
+                    <figure class="pu-profile__figure pu-avatar {{#if screenSizeIsMinimalWidth 'tablet'}}pu-avatar-extralarge{{else}}pu-avatar-medium-xl{{/if}}" style="background-image:url('{{ partupImageUrl id=profile.data.image store='360x360'}}');">
+                        <span class="pu-score {{#if screenSizeIsMinimalWidth 'tablet'}}pu-score-large{{else}}pu-score-small-2{{/if}} {{#if profile.online }}pu-score-green{{/if}}">{{ profile.roundedScore }}</span>
                     </figure>
                     <div class="pu-profile__div">
                         <h3>
@@ -52,7 +52,7 @@
             <section>
                 <div class="pu-wrap pu-wrap-columnlayout">
                     <!-- tabs -->
-                    {{#if screenSizeMin 'tablet'}}
+                    {{#if screenSizeIsMinimalWidth 'tablet'}}
                         <nav class="pu-navigation pu-navigation-header pu-navigation-full">
                             <ul class="pu-list pu-list-horizontal pu-list-with-right-items pu-list-nowrap">
                                 {{#if profile.hasAboutSection}}

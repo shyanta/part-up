@@ -20,7 +20,7 @@
         <div class="cell last">
             <div class="pu-row">
                 <div class="cell">
-                    {{#if screenSizeMin 'tablet'}}
+                    {{#if screenSizeIsMinimalWidth 'tablet'}}
                         {{> PartialDropdownProfileUpperActions reactiveVar=data.filterReactiveVar}}
                     {{else}}
                         {{#PartupExpander label='Filter'}}
