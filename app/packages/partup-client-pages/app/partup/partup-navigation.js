@@ -53,7 +53,7 @@ Template.app_partup_navigation.helpers({
         var partupId = this.partupId;
         var partup = Partups.findOne({_id: this.partupId});
         if (!partup || !partup.slug) return false;
-        console.log('hier',partup)
+
         return {
             slug: partup.slug,
             data: partup,
