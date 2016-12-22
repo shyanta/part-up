@@ -1,8 +1,10 @@
 Template.DiscoverTribesTypeSelector.onCreated(function() {
     var template = this;
     template.dropdownToggleBool = 'partial-dropdowns-networks-actions-type.opened';
-    template.dropdownOpen = new ReactiveVar(false);
-    template.selectedOption = template.data.reactiveVar;
+    template.dropdownOpen = new ReactiveVar(false, function(a, b) {
+        Partup.client.verySpecificHelpers.setReactiveVarToBoolValueIfFalseAfterDelay(b, template.data.config.reactiveState, 200);
+    });
+    template.selectedOption = template.data.config.reactiveValue;
 
     template.options = [{
         name: TAPi18n.__('pages-app-discover-tribes-filter-type-all'),

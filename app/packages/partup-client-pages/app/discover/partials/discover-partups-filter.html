@@ -7,9 +7,9 @@
             <input type="text" class="pu-input" data-search-query placeholder="{{_ 'pages-app-discover-filter-textsearch-placeholder' }}">
         </div>
         <!-- Network filter -->
-        <div class="pu-formfield">
+        <div class="pu-formfield{{#if state.tribeSelectorOpen}} pu-high-z{{/if}}">
             <span class="pu-label">{{_ 'pages-app-discover-partups-filter-networkfilter-label' }}</span>
-            {{> DiscoverPartupsTribeSelector reactiveVar=state.selectedTribeReactiveVar options=data.networks }}
+            {{> DiscoverPartupsTribeSelector config=configs.tribeSelector }}
         </div>
         <!-- Location filter -->
         <div class="pu-formfield">
@@ -25,9 +25,9 @@
             {{/ AutocompleteAdvanced }}
         </div>
         <!-- Language filter -->
-        <div class="pu-formfield">
+        <div class="pu-formfield{{#if state.languageSelectorOpen}} pu-high-z{{/if}}">
             <span class="pu-label">{{_ 'pages-app-discover-partups-filter-language-label' }}</span>
-            {{> DiscoverLanguageSelector reactiveVar=state.selectedLanguageReactiveVar }}
+            {{> DiscoverLanguageSelector config=configs.languageSelector }}
         </div>
     </form>
 </template>

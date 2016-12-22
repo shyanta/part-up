@@ -79,6 +79,7 @@ Package.onUse(function (api) {
         'client/element.js',
         'client/columnsLayout.js',
         'client/network.js',
+        'client/verySpecificHelpers.js',
 
         'helpers/sanitize.js',
         'helpers/log.js',
