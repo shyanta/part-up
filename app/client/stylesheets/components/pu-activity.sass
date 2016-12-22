@@ -84,6 +84,13 @@
             color: $color-text-subtle
             font-weight: 600
 
+        .pu-button
+            display: block
+
+        .pu-button, .pu-sub-or
+            width: 100%
+            text-align: center
+
     &-expandable
         .pu-sub-editbutton
             display: none
@@ -130,3 +137,11 @@
     &-archived
         .pu-sub-title
             color:lighten($color-text, 50%)
+
+    @media screen and (min-width: $breakpoint-tablet)
+        .pu-sub-contribute
+            .pu-button
+                display: inline-block
+
+            .pu-button, .pu-sub-or
+                width: auto

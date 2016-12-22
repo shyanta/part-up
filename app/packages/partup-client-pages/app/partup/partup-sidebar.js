@@ -159,7 +159,11 @@ Template.app_partup_sidebar.helpers({
             return privacy;
         };
 
-        return {activeTill: date, location: location, privacy: getPrivacyLabel(partup.privacy_type, network)};
+        return {
+            activeTill: date,
+            location: location,
+            privacy: getPrivacyLabel(partup.privacy_type, network)
+        };
     }
 });
 
