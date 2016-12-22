@@ -93,10 +93,12 @@
         display: block
         width: 100%
         margin-bottom: 20px
-        overflow: hidden
 
         .pu-wrap
             position: relative
+
+        @media screen and (max-width: $breakpoint-desktop)
+            overflow: hidden
 
     > .pu-spinner
         display: block
