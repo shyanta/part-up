@@ -65,7 +65,8 @@
             float: none
 
     &-tabs
-        white-space: nowrap
+        height: auto
+        white-space: normal
         position: relative
 
         .pu-button
@@ -75,6 +76,22 @@
                 color: $color-primary
                 border-color: $color-primary
 
+            &::after
+                content: ''
+                position: absolute
+                bottom: -2px
+                height: 2px
+                background-color: #eee
+                width: 100vw
+                left: -20px
+                z-index: -1
+                pointer-events: none
+
+            @media screen and (max-width: $breakpoint-tablet)
+                height: 50px
+                padding-top: 10px
+                padding-bottom: 0
+
         &:after
             content: ''
             height: 2px
@@ -83,6 +100,7 @@
             left: -40px
             right: -40px
             bottom: 0
+
 
     .pu-sub-button
         padding-top: 15px
