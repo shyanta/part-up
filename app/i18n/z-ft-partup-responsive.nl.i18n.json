@@ -26,5 +26,7 @@
 
     "pages-app-one-on-one-chat-placeholder-title": "Part-up",
     "pages-app-one-on-one-chat-placeholder-description": "Om te chatten, gebruik de app",
-    "pages-app-one-on-one-chat-placeholder-button": "Download"
+    "pages-app-one-on-one-chat-placeholder-button": "Download",
+
+    "pages-modal-network_invite-search-label": "Gebruikers aanbevolen voor de tribe"
 }
