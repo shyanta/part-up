@@ -243,6 +243,9 @@
             &::before
                 right: 105px
 
+            ul
+                max-height: 300px
+
         @media screen and (min-width: $breakpoint-dropdowns)
             min-width: 440px - 3px
             position: absolute
@@ -260,8 +263,14 @@
                     right: 105px
 
         @media screen and (min-width: $breakpoint-tablet)
-            &-chats .pu-app-link
-                display: none
+            &-chats
+                ul
+                    max-height: 546px - 56px
+
+                .pu-app-link
+                    display: none
+
+
 
         @media screen and (min-width: $breakpoint-desktop)
             left: -192px
