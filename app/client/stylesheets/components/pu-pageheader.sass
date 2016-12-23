@@ -1,9 +1,20 @@
 .pu-pageheader
     @extend %clearfix
 
-    > section
-        float: left
-
     > aside
-        float: right
-        padding-left: 20px
+        margin-bottom: 15px
+        .pu-formdropdown .pu-sub-label
+            display: none
+
+
+    @media screen and (min-width: $breakpoint-partup-medium)
+        > section
+            float: left
+
+        > aside
+            margin-bottom: 0px
+            float: right
+            padding-left: 20px
+
+            .pu-formdropdown .pu-sub-label
+                display: inherit

@@ -1,24 +1,28 @@
 <template name="DropdownMenu">
-    <button class="pu-button pu-button-header pu-button-header-desktop" data-toggle-menu="menu">
-        {{_ 'footer-menu-button-label' }}
+    <button class="pu-button pu-button-header pu-button-header-text" data-toggle-menu="menu">
+        {{_ 'footer-menu-button-label' }} {{#unless menuOpen}}<i class="picon-caret-slim-down"></i>{{/unless}}{{#if menuOpen}}<i class="picon-caret-slim-up"></i>{{/if}}
     </button>
-    <div class="pu-dropdown {{#if menuOpen}}pu-dropdown-active{{/if}} pu-dropdown-simple" data-clickoutside-close>
-        <ul class="pu-list">
-            <li><a href="{{_ 'footer-menu-company-blog-url' }}" target="_blank">{{_ 'footer-menu-company-blog'}}</a></li>
-            <li><a href="{{_ 'footer-menu-company-about-url' }}">{{_ 'footer-menu-company-about'}}</a></li>
-        </ul>
-        <ul class="pu-list">
-            <li><a href="{{_ 'more-menu-list-for-ios-url' }}" target="_blank">{{_ 'more-menu-list-for-ios'}}</a></li>
-            <li><a href="{{_ 'more-menu-list-for-android-url' }}" target="_blank">{{_ 'more-menu-list-for-android'}}</a></li>
-        </ul>
-        <ul class="pu-list">
-            <li><a href="{{_ 'footer-menu-company-pricing-url'}}" target="_blank">{{_ 'footer-menu-company-pricing'}}</a></li>
-            <li><a href="{{_ 'footer-menu-company-community-url'}}">{{_ 'footer-menu-company-community'}}</a></li>
-        </ul>
-        <ul class="pu-list">
-            <li><a href="{{_ 'footer-menu-company-help-url' }}" target="_blank">{{_ 'footer-menu-company-help'}}</a></li>
-            <li><a href="{{_ 'footer-menu-company-contact-url'}}">{{_ 'footer-menu-company-contact'}}</a></li>
-            <li><a href="#" data-feedback target="_blank">{{_ 'footer-feedback-button' }}</a></li>
-        </ul>
+    <div class="pu-dropdown {{#if menuOpen}}pu-dropdown-active{{/if}} pu-dropdown-simple pu-dropdown-more" data-clickoutside-close>
+        {{> DropdownMenu_Content }}
     </div>
+</template>
+
+<template name="DropdownMenu_Content">
+    <ul class="pu-list">
+        <li><a href="{{_ 'footer-menu-company-blog-url' }}" target="_blank">{{_ 'footer-menu-company-blog'}}</a></li>
+        <li><a href="{{_ 'footer-menu-company-about-url' }}">{{_ 'footer-menu-company-about'}}</a></li>
+    </ul>
+    <ul class="pu-list">
+        <li><a href="{{_ 'more-menu-list-for-ios-url' }}" target="_blank">{{_ 'more-menu-list-for-ios'}}</a></li>
+        <li><a href="{{_ 'more-menu-list-for-android-url' }}" target="_blank">{{_ 'more-menu-list-for-android'}}</a></li>
+    </ul>
+    <ul class="pu-list">
+        <li><a href="{{_ 'footer-menu-company-pricing-url'}}" target="_blank">{{_ 'footer-menu-company-pricing'}}</a></li>
+        <li><a href="{{_ 'footer-menu-company-community-url'}}">{{_ 'footer-menu-company-community'}}</a></li>
+    </ul>
+    <ul class="pu-list">
+        <li><a href="{{_ 'footer-menu-company-help-url' }}" target="_blank">{{_ 'footer-menu-company-help'}}</a></li>
+        <li><a href="{{_ 'footer-menu-company-contact-url'}}">{{_ 'footer-menu-company-contact'}}</a></li>
+        <li><a href="#" data-feedback target="_blank">{{_ 'footer-feedback-button' }}</a></li>
+    </ul>
 </template>

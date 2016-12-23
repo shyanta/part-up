@@ -16,7 +16,7 @@ Template.DiscoverTribesSectorSelector.onCreated(function() {
                 };
             });
 
-            var newOptions = options.concat(selectableSectors)
+            var newOptions = options.concat(selectableSectors);
 
             template.options.set(newOptions);
             template.selectedOption.set(newOptions[0]);
@@ -24,8 +24,10 @@ Template.DiscoverTribesSectorSelector.onCreated(function() {
     });
 
     template.dropdownToggleBool = 'partial-dropdowns-networks-actions-sector.opened';
-    template.dropdownOpen = new ReactiveVar(false);
-    template.selectedOption = template.data.reactiveVar;
+    template.dropdownOpen = new ReactiveVar(false, function(a, b) {
+        Partup.client.verySpecificHelpers.setReactiveVarToBoolValueIfFalseAfterDelay(b, template.data.config.reactiveState, 200);
+    });
+    template.selectedOption = template.data.config.reactiveValue;
 
 });
 

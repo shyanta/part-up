@@ -1,0 +1,19 @@
+<template name='NetworkNavigationSelector'>
+    <div class="pu-formdropdown pu-formdropdown-navigation pu-formdropdown-navigation-profile {{#if menuOpen}}pu-formdropdown-active{{/if}}">
+        <div class="pu-sub-container" data-container>
+            <button type="button" class="pu-button pu-button-input pu-button-input-keepbuttonheight" data-toggle-menu>
+                {{ selectedOption.name }}
+                <i class="{{#if menuOpen}} picon-caret-slim-up {{else}} picon-caret-slim-down {{/if}}"></i>
+            </button>
+            <ul class="pu-dropdown pu-dropdown-form {{#if menuOpen}}pu-dropdown-active{{/if}}" data-clickoutside-close>
+                {{#each options}}
+                    <li class="pu-dropdownitem pu-dropdownitem-small">
+                        <a href="#" data-select-option data-toggle-menu>
+                            {{ name }} {{#if selected .}}<i class="picon-check"></i>{{/if}}
+                        </a>
+                    </li>
+                {{/each}}
+            </ul>
+        </div>
+    </div>
+</template>

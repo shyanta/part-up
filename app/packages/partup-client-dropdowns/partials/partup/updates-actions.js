@@ -17,7 +17,7 @@ Template.PartialDropdownUpdatesActions.onDestroyed(function() {
 
 Template.PartialDropdownUpdatesActions.events({
     'click [data-toggle-menu]': ClientDropdowns.dropdownClickHandler,
-    'click [data-select-option]': function eventSelectOption(event, template) {
+    'click [data-select-option]': function(event, template) {
         var key = $(event.currentTarget).data('translate');
         template.selectedOption.set(key.replace('dropdowns-updatesactions-option-', ''));
     }

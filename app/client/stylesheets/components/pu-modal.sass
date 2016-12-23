@@ -1,6 +1,6 @@
 .pu-modal
     background-color: $color-background
-    min-width: $breakpoint-desktop
+    // min-width: $breakpoint-desktop
 
     .pu-sub-focuslayer
         &:after
@@ -19,6 +19,9 @@
             &:after
                 background-color: rgba($color-background, .8)
                 pointer-events: auto
+
+    .pu-page
+        padding-bottom: 100px // for intercom button on production
 
     @media screen and (min-width: $breakpoint-desktop)
         padding-top: $spacing-modal-headerheight

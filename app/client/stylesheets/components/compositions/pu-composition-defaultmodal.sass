@@ -18,6 +18,9 @@
 
         button
             margin-right: 5px
+            display: block
+            margin-bottom: 10px
+            width: 100%
 
         .pu-sub-plain
             line-height: 40px
@@ -53,3 +56,11 @@
 
     &.pu-composition-fixedfooter
         margin-bottom: 105px
+
+
+    @media screen and (min-width: $breakpoint-tablet)
+        .pu-sub-modalfooter
+            button
+                display: inline-block
+                width: auto
+

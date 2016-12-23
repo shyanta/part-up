@@ -2,25 +2,22 @@
 
     {{#if networkLoaded }}
         <nav class="pu-header pu-header-modal pu-header-progress">
-            <div class="pu-progresspager">
-                <ol>
-                    <li class="{{#if isActiveRoute regex='create-details$'}}pu-state-active{{/if}}">
-                        {{#if partupId}}
-                            <!-- Shows skip button only if partup has been created -->
-                            <a class="pu-sub-skiplink pu-button pu-button-skipbutton pu-button-iconright pu-button-text pu-button-text-gray" href="{{pathFor route='create-activities' _id=partupId slug=networkSlug}}">{{_ 'pages-modal-create-skip_details' }} <i class="picon-caret-right"></i></a>
-                        {{/if}}
-                        <a class="pu-sub-pagelink" href="{{pathFor route='create-details' slug=networkSlug}}">{{_ 'pages-modal-create-details' }}</a>
-                    </li>
-                    <li class="{{#if isActiveRoute regex='create-activities$'}}pu-state-active{{/if}}">
-                        <a class="pu-sub-skiplink pu-button pu-button-skipbutton pu-button-iconright pu-button-text pu-button-text-gray" href="{{pathFor route='create-promote' _id=partupId  slug=networkSlug}}">{{_ 'pages-modal-create-skip' }} <i class="picon-caret-right"></i></a>
-                        <a class="pu-sub-pagelink" href="{{pathFor route='create-activities' _id=partupId slug=networkSlug}}">{{_ 'pages-modal-create-activities' }}</a>
-                    </li>
-                    <li class="{{#if isActiveRoute regex='create-promote$'}}pu-state-active{{/if}}">
-                        <a class="pu-sub-skiplink pu-button pu-button-skipbutton pu-button-iconright pu-button-text pu-button-text-gray" href="{{pathFor route='partup' slug=partup.slug}}">{{_ 'pages-modal-create-skip' }} <i class="picon-caret-right"></i></a>
-                        <a class="pu-sub-pagelink" href="{{pathFor route='create-promote' _id=partupId slug=networkSlug}}">{{_ 'pages-modal-create-promote' }}</a>
-                    </li>
-                </ol>
-            </div>
+            <ul class="pu-list pu-list-horizontal pu-progresspager">
+                <li class="pu-progresspager__item{{#if isActiveRoute regex='create-details$'}} pu-progresspager__item--is-active{{/if}}">
+                    {{#if partupId}}
+                        <a class="pu-progresspager__item__skip" href="{{pathFor route='create-activities' _id=partupId slug=networkSlug}}">{{_ 'pages-modal-create-skip_details' }} <i class="picon-caret-right"></i></a>
+                    {{/if}}
+                    <a class="pu-progresspager__item__link" href="{{pathFor route='create-details' slug=networkSlug}}"><span>{{_ 'pages-modal-create-details' }}</span></a>
+                </li>
+                <li class="pu-progresspager__item{{#if isActiveRoute regex='create-activities$'}} pu-progresspager__item--is-active{{/if}}">
+                    <a class="pu-progresspager__item__skip" href="{{pathFor route='create-promote' _id=partupId slug=networkSlug}}">{{_ 'pages-modal-create-skip' }} <i class="picon-caret-right"></i></a>
+                    <a class="pu-progresspager__item__link" href="{{pathFor route='create-activities' _id=partupId slug=networkSlug}}"><span>{{_ 'pages-modal-create-activities' }}</span></a>
+                </li>
+                <li class="pu-progresspager__item{{#if isActiveRoute regex='create-promote$'}} pu-progresspager__item--is-active{{/if}}">
+                    <a class="pu-progresspager__item__skip" href="{{pathFor route='partup' slug=partup.slug}}">{{_ 'pages-modal-create-skip' }} <i class="picon-caret-right"></i></a>
+                    <a class="pu-progresspager__item__link" href="{{pathFor route='create-promote' _id=partupId slug=networkSlug}}"><span>{{_ 'pages-modal-create-promote' }}</span></a>
+                </li>
+            </ul>
         </nav>
 
         <article class="pu-page pu-page-progresspager">

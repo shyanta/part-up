@@ -2,41 +2,49 @@
     <div class="pu-sub-pagecontent">
         <div class="pu-wrap pu-wrap-columnlayout">
             <section class="pu-composition pu-composition-network">
-                <header class="pu-sub-header">
-                    <form class="pu-form pu-flexible-center" novalidate data-nosubmit>
-                        <div>
-                            <span>
-                                <h2 class="pu-title">
-                                    {{# if state.countLoading }}
-                                        {{ translations.partupsLoading state.selectedFilter }}
-                                        {{> Spinner type='small' }}
-                                    {{ else }}
-                                        {{#if data.partupCount}}
-                                            {{ translations.partupsCount state.selectedFilter data.partupCount}}
+                <header class="pu-row">
+                    {{# PartupToggler onToggle=configs.focusOnSearchField}}
+                        <div class="cell stretch">
+                            <h2 class="pu-title">
+                                {{# if state.countLoading }}
+                                    {{{ translations.partupsLoading state.selectedFilter }}}
+                                    {{> Spinner type='small' }}
+                                {{ else }}
+                                    {{#if data.partupCount}}
+                                        {{{ translations.partupsCount state.selectedFilter data.partupCount}}}
+                                    {{else}}
+                                        {{{ translations.partupsNone state.selectedFilter }}}
+                                    {{/if}}
+                                {{/if}}
+                            </h2>
+                        </div>
+                        <div class="cell last">
+                            <div class="pu-row">
+                                <div class="cell">
+                                    <button class="pu-button-2 pu-button-2--fake-input pu-search-button" data-toggle><i class="picon-search"></i></button>
+                                </div>
+                                <div class="cell">
+                                    {{# if data.network.hasMember currentUser._id }}
+                                        {{#if screenSizeIsMinimalWidth 'tablet'}}
+                                            {{> PartialDropdownNetworkActions reactiveVar=data.filterReactiveVar}}
                                         {{else}}
-                                            {{ translations.partupsNone state.selectedFilter }}
+                                            {{#PartupExpander label='Filter'}}
+                                                {{> PartialDropdownNetworkActions reactiveVar=data.filterReactiveVar}}
+                                            {{/PartupExpander}}
                                         {{/if}}
                                     {{/if}}
-                                </h2>
-                            </span>
-                        </div>
-                        <div class="pu-sub-center" data-flexible-center>
-                            <span>
-                                <div class="pu-searchinput">
-                                    <input type="text" placeholder="{{_ 'pages-app-network-partups-search-placeholder'}}" class="pu-input form-control" data-search>
-                                    <i class="picon-search"></i>
-                                    <i class="picon-times" data-clear></i>
                                 </div>
-                            </span>
-                        </div>
-                        {{# if data.network.hasMember currentUser._id }}
-                            <div>
-                                <span>
-                                    {{> PartialDropdownNetworkActions reactiveVar=data.filterReactiveVar}}
-                                </span>
                             </div>
-                        {{/ if }}
-                    </form>
+                        </div>
+                    {{else}}
+                        <div class="cell">
+                            <div class="pu-searchinput start active">
+                                <input type="text" placeholder="{{_ 'pages-app-network-partups-search-placeholder'}}" class="pu-input form-control" data-search>
+                                <i class="picon-search"></i>
+                                <i class="picon-times" data-clear data-toggle></i>
+                            </div>
+                        </div>
+                    {{/PartupToggler}}
                 </header>
 
                 <div data-infinitescroll-container>

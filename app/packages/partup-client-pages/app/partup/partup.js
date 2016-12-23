@@ -84,7 +84,7 @@ Template.app_partup.helpers({
     },
     network: function() {
         var partup = Partups.findOne({_id: this.partupId});
-        if (!partup) return
+        if (!partup) return;
         return Networks.findOne({_id: partup.network_id});
     }
 });

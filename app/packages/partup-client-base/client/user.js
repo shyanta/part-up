@@ -7,6 +7,8 @@
 var beforeLogoutCallBacks = [];
 Partup.client.user = {
     logout: function() {
+        var Intercom = Intercom || undefined;
+
         if (Intercom) Intercom('shutdown');
 
         // before logout callbacks, to prevent errors

@@ -1,40 +1,38 @@
 <template name="app_discover_tribes_filter">
-    <div class="pu-discovermenu {{#if state.active}}pu-discovermenu--is-active{{/if}}">
-        <p>{{_ 'pages-app-discover-tribes-filter-intro-text'}}</p>
-        <form class="pu-form" data-form>
-            <!-- Search filter -->
-            <div class="pu-formfield">
-                <span class="pu-label">{{_ 'pages-app-discover-tribes-filter-textsearch-label'}}</span>
-                <input type="text" class="pu-input" data-search-query placeholder="Zoekwoord">
-            </div>
-            <!-- SECTOR INPUT-->
-            <div class="pu-formfield">
-                <span class="pu-label">{{_ 'pages-app-discover-tribes-filter-sector-label'}}</span>
-                {{> DiscoverTribesSectorSelector reactiveVar=state.selectedSectorReactiveVar }}
-            </div>
-            <!-- TYPE INPUT-->
-            <div class="pu-formfield">
-                <span class="pu-label">{{_ 'pages-app-discover-tribes-filter-type-label'}}</span>
-                {{> DiscoverTribesTypeSelector reactiveVar=state.selectedTypeReactiveVar }}
-            </div>
-            <!-- Location filter -->
-            <div class="pu-formfield">
-                <span class="pu-label">{{_ 'pages-app-discover-tribes-filter-location-label'}}</span>
-                {{# AutocompleteAdvanced
-                        placeholder='Location'
-                        label=state.locationLabel
-                        selection=state.selectedLocationReactiveVar
-                        onQuery=hooks.locationQuery
-                        hasValueVar=state.locationHasValueVar
-                        formValue=state.locationFormvalue }}
-                    <input type="hidden" name='location_input' class="pu-input" data-input="">
-                {{/ AutocompleteAdvanced }}
-            </div>
-            <!-- Language filter -->
-            <div class="pu-formfield">
-                <span class="pu-label">{{_ 'pages-app-discover-tribes-filter-language-label'}}</span>
-                {{> DiscoverLanguageSelector reactiveVar=state.selectedLanguageReactiveVar }}
-            </div>
-        </form>
-    </div>
+    <form class="pu-form" data-form>
+        {{> UI.contentBlock}}
+        <!-- Search filter -->
+        <div class="pu-formfield">
+            <span class="pu-label">{{_ 'pages-app-discover-tribes-filter-textsearch-label'}}</span>
+            <input type="text" class="pu-input" data-search-query placeholder="Zoekwoord">
+        </div>
+        <!-- SECTOR INPUT-->
+        <div class="pu-formfield{{#if state.sectorSelectorOpen}} pu-high-z{{/if}}">
+            <span class="pu-label">{{_ 'pages-app-discover-tribes-filter-sector-label'}}</span>
+            {{> DiscoverTribesSectorSelector config=configs.sectorSelector }}
+        </div>
+        <!-- TYPE INPUT-->
+        <div class="pu-formfield{{#if state.typeSelectorOpen}} pu-high-z{{/if}}">
+            <span class="pu-label">{{_ 'pages-app-discover-tribes-filter-type-label'}}</span>
+            {{> DiscoverTribesTypeSelector config=configs.typeSelector }}
+        </div>
+        <!-- Location filter -->
+        <div class="pu-formfield">
+            <span class="pu-label">{{_ 'pages-app-discover-tribes-filter-location-label'}}</span>
+            {{# AutocompleteAdvanced
+                    placeholder='Location'
+                    label=state.locationLabel
+                    selection=state.selectedLocationReactiveVar
+                    onQuery=hooks.locationQuery
+                    hasValueVar=state.locationHasValueVar
+                    formValue=state.locationFormvalue }}
+                <input type="hidden" name='location_input' class="pu-input" data-input="">
+            {{/ AutocompleteAdvanced }}
+        </div>
+        <!-- Language filter -->
+        <div class="pu-formfield{{#if state.languageSelectorOpen}} pu-high-z{{/if}}">
+            <span class="pu-label">{{_ 'pages-app-discover-tribes-filter-language-label'}}</span>
+            {{> DiscoverLanguageSelector config=configs.languageSelector }}
+        </div>
+    </form>
 </template>

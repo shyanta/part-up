@@ -1,31 +1,36 @@
 <template name="DropdownTribes">
-    <button class="pu-button pu-button-header pu-button-header-desktop pu-button-avatar pu-button-header-profiledropdown {{# if menuOpen }}pu-button-header-profiledropdown-active{{/ if }}" data-toggle-menu="tribes">
+    <button class="pu-button pu-button-header pu-button-avatar pu-button-header-profiledropdown {{# if menuOpen }}pu-button-header-profiledropdown-active{{/ if }}" data-toggle-menu="tribes">
         {{_ 'mytribes-button-menu' }} {{#unless menuOpen}}<i class="picon-caret-slim-down"></i>{{/unless}}{{#if menuOpen}}<i class="picon-caret-slim-up"></i>{{/if}}
     </button>
     <div class="pu-dropdown pu-dropdown-profile pu-profilemenu {{#if menuOpen}}pu-dropdown-active{{/if}}" data-clickoutside-close>
         <span class="background" data-before></span>
-        <section class='main' data-preventscroll >
-            <ul class="pu-list" data-hidehohover>
+        <section class='main' data-preventscroll>
+            <!-- <ul class="pu-list" data-hidehohover> -->
+            <ul class="pu-list">
                 {{#each networks}}
-                    <li class='pu-dropdownitem pu-extended-hover {{#if showPartups}}{{#if partupEquals currentTribe _id}}pu-dropdownitem-active{{/if}}{{/if}}' data-hohover>
-                        <div class="pu-extended-hover__container" data-outer>
+                    <!-- <li class='pu-dropdownitem pu-extended-hover {{#if showPartups}}{{#if partupEquals currentTribe _id}}pu-dropdownitem-active{{/if}}{{/if}}' data-hohover> -->
+                    <li class='pu-dropdownitem {{#if showPartups}}{{#if partupEquals currentTribe _id}}pu-dropdownitem-active{{/if}}{{/if}}'>
+                        <!-- <div class="pu-extended-hover__container" data-outer> -->
+                        <div>
                             <a href="{{ pathFor 'network' slug=slug query='show=false' }}" data-hover="{{ _id }}" >
                                 <figure class="pu-avatar pu-avatar-square" style="{{# with partupGetImageUrl imageObject '80x80'}}background-image:url('{{ . }}');{{/ with}}"></figure>
                                 <span>{{ name }}</span>
                             </a>
                         </div>
-                        <div class="pu-extended-hover__extend" data-inner></div>
+                        <!-- <div class="pu-extended-hover__extend" data-inner></div> -->
                     </li>
                 {{/each}}
                 {{#if hasPartupsWithoutNetwork}}
-                    <li class='pu-dropdownitem pu-extended-hover {{#if showPartups}}{{#if partupEquals currentTribe "none"}}pu-dropdownitem-active{{/if}}{{/if}}' data-hohover>
-                        <div class="pu-extended-hover__container" data-outer>
+                    <!-- <li class='pu-dropdownitem pu-extended-hover {{#if showPartups}}{{#if partupEquals currentTribe "none"}}pu-dropdownitem-active{{/if}}{{/if}}' data-hohover> -->
+                    <li class='pu-dropdownitem {{#if showPartups}}{{#if partupEquals currentTribe "none"}}pu-dropdownitem-active{{/if}}{{/if}}'>
+                        <!-- <div class="pu-extended-hover__container" data-outer> -->
+                        <div>
                             <a data-hover="none" class="noclick">
                                 <figure class="pu-avatar pu-avatar-square" style="background-image:url('../images/other-partups.svg');"></figure>
                                 <span>Other part-ups</span>
                             </a>
                         </div>
-                        <div class="pu-extended-hover__extend" data-inner></div>
+                        <!-- <div class="pu-extended-hover__extend" data-inner></div> -->
                     </li>
                 {{/if}}
             </ul>
@@ -33,8 +38,11 @@
                 <a href="{{pathFor 'discover'}}">{{_ 'mytribes-button-discover' }}</a>
             </footer>
         </section>
-        <section class='aside {{#if showPartups}}active{{/if}}' data-preventscroll>
+        <section class='aside {{#if partupBothAreTrue menuOpen showPartups}}active{{/if}}' data-preventscroll>
             <div>
+                <header class="pu-sub-backbutton">
+                    <a href="#" data-button-back><i class="picon-caret-slim-left"></i> My tribes</a>
+                </header>
             {{#unless partupEquals currentTribe "none"}}
                 <header>
                     <a href="{{pathFor 'network' slug=currentTribeFull.slug }}">{{_ 'mytribes-button-view' }} <i class="picon-caret-slim-right"></i></a>

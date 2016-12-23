@@ -40,7 +40,7 @@
         // transform: translateZ(0px) // to fix render bug
 
         li
-            margin-right: 50px
+            margin-right: 25px
 
             &:last-child
                 margin-right: 0
@@ -61,8 +61,12 @@
         background-color: transparent
         padding-left: 0
 
+        .pu-list-horizontal
+            float: none
+
     &-tabs
-        white-space: nowrap
+        height: auto
+        white-space: normal
         position: relative
 
         .pu-button
@@ -72,6 +76,22 @@
                 color: $color-primary
                 border-color: $color-primary
 
+            &::after
+                content: ''
+                position: absolute
+                bottom: -2px
+                height: 2px
+                background-color: #eee
+                width: 100vw
+                left: -20px
+                z-index: -1
+                pointer-events: none
+
+            @media screen and (max-width: $breakpoint-tablet)
+                height: 50px
+                padding-top: 10px
+                padding-bottom: 0
+
         &:after
             content: ''
             height: 2px
@@ -80,6 +100,10 @@
             left: -40px
             right: -40px
             bottom: 0
+
+
+    .pu-sub-button
+        padding-top: 15px
 
     &-full
 
@@ -93,10 +117,9 @@
                     margin-left: 20px
                     margin-right: 0
 
-                    &.pu-sub-button
-                        padding-top: 15px
     &-compact
         height: 60px
+        padding-left: 0
 
         .pu-list-horizontal
             li
@@ -110,6 +133,16 @@
             i
                 font-size: 14px
 
+        .pu-sub-smallscreen-navigation
+            padding-top: 10px
+
+            li
+                margin-right: 10px
+
+            .pu-formdropdown
+                width: calc(100vw - 65px)
+
+
     &-discover
         .pu-button
 
@@ -117,12 +150,30 @@
                 color: $color-primary
                 border-color: $color-primary
 
-    @media screen and (min-width: $breakpoint-tablet + 1px)
+    @media screen and (min-width: $breakpoint-partup-medium)
+        .pu-sticky-button
+            margin-top: 10px
+
+    @media screen and (min-width: $breakpoint-desktop)
+        .pu-list-horizontal
+            li
+                margin-right: 50px
+
+                &:last-child
+                    margin-right: 0
+
         &-compact
+            padding-left: 40px
             .pu-list-horizontal
                 li
-                    margin-right: 40px
+                    margin-right: 20px
 
                 &.pu-sub-compact-list
                     li
                         margin-right: 20px
+
+    @media screen and (min-width: $breakpoint-desktop + 60px)
+        &-compact
+            .pu-list-horizontal
+                li
+                    margin-right: 30px

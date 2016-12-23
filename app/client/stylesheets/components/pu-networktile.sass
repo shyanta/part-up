@@ -10,7 +10,7 @@
     cursor: pointer
 
     $image-width: 230px
-    $extra-width: 230px
+    $extra-width: 200px
 
     &__image, &__meta, &__extra
         width: 100%
@@ -155,7 +155,7 @@
             height: 100%
 
         &__image
-            width: $image-width
+            width: 26%
             border-right: 2px solid $color-border
             border-bottom: 0
 
@@ -166,7 +166,7 @@
                 left: auto
 
         &__meta
-            width: calc(100% - #{$extra-width + $image-width})
+            width: 51%
             padding: 15px 30px
 
             p
@@ -184,8 +184,10 @@
                 background-color: $color-border
 
         &__extra
-            padding: 15px
-            width: $extra-width
+            padding: 20px 15px
+            padding-right: 20px
+            overflow: hidden
+            width: 23%
 
             .pu-networktile__avatars
                 height: 88px

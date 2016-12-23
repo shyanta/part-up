@@ -100,5 +100,8 @@ Template.DropdownChatNotifications.helpers({
         return function() {
             template.setDropdownState(false);
         };
+    },
+    appStoreLink: function() {
+        return Partup.client.browser.getAppStoreLink();
     }
 });

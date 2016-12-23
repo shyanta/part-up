@@ -1,0 +1,9 @@
+<template name="PartupExpander">
+    <div class="pu-expander{{#if state.expanded}} pu-expander--is-expanded{{/if}}">
+        <button class="pu-expander__button pu-button-2 pu-button-2--secondary" data-button type="button"><span>{{ label }}</span><i class="picon-caret-slim-{{#if state.expanded}}up{{else}}down{{/if}}"></i></button>
+        <div class="pu-expander__content">
+            {{> UI.contentBlock}}
+        </div>
+        <span class="pu-expander__after" data-button></span>
+    </div>
+</template>

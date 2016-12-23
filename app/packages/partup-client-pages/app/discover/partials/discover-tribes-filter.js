@@ -35,6 +35,10 @@ Template.app_discover_tribes_filter.onCreated(function() {
         Partup.client.discover.current_tribe_query.language = (b && b._id) || undefined;
         updateQuery();
     });
+
+    template.sectorSelectorOpen = new ReactiveVar(false);
+    template.typeSelectorOpen = new ReactiveVar(false);
+    template.languageSelectorOpen = new ReactiveVar(false);
 });
 Template.app_discover_tribes_filter.onDestroyed(function() {
     var template = this;
@@ -42,21 +46,45 @@ Template.app_discover_tribes_filter.onDestroyed(function() {
 });
 
 Template.app_discover_tribes_filter.helpers({
+    configs: function() {
+        var template = Template.instance();
+
+        return {
+            sectorSelector: function() {
+                return {
+                    reactiveValue: template.selectedSector,
+                    reactiveState: template.sectorSelectorOpen
+                };
+            },
+            typeSelector: function() {
+                return {
+                    reactiveValue: template.selectedType,
+                    reactiveState: template.typeSelectorOpen
+                };
+            },
+            languageSelector: function() {
+                return {
+                    reactiveValue: template.selectedLanguage,
+                    reactiveState: template.languageSelectorOpen
+                };
+            }
+        };
+    },
     state: function() {
         var template = Template.instance();
 
         return {
-            selectedLanguageReactiveVar: function() {
-                return template.selectedLanguage;
+            sectorSelectorOpen: function() {
+                return template.sectorSelectorOpen.get();
+            },
+            typeSelectorOpen: function() {
+                return template.typeSelectorOpen.get();
+            },
+            languageSelectorOpen: function() {
+                return template.languageSelectorOpen.get();
             },
             selectedLocationReactiveVar: function() {
                 return template.selectedLocation;
-            },
-            selectedTypeReactiveVar: function() {
-                return template.selectedType;
-            },
-            selectedSectorReactiveVar: function() {
-                return template.selectedSector;
             },
             locationHasValueVar: function() {
                 return template.locationHasValueVar;

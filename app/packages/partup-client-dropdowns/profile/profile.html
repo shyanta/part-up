@@ -1,16 +1,24 @@
 <template name="DropdownProfile">
-    <button class="pu-button pu-button-header pu-button-header-desktop pu-button-avatar pu-button-header-profiledropdown" data-toggle-menu="profile">
+    <button class="pu-button pu-button-header pu-button-header-avatar {{#if menuOpen}}pu-button-header-avatar-active{{/if}}" data-toggle-menu="profile">
         <figure class="pu-avatar pu-avatar-small" style="{{#with image }}background-image:url('{{ partupImageUrl id=. store='80x80'}}');{{/with }}"></figure>
-        {{ label }}
+        <span>{{ label }}</span>
     </button>
-    <div class="pu-dropdown {{#if menuOpen}}pu-dropdown-active{{/if}} pu-dropdown-simple" data-clickoutside-close style="left: auto;">
+    <div class="pu-dropdown {{#if menuOpen}}pu-dropdown-active{{/if}} pu-dropdown-simple" data-clickoutside-close style="left: auto; right: -12px;">
+
+        <div class="pu-dropdown__more {{#if moreActive}}pu-dropdown__more-active{{/if}}">
+            <ul class="pu-list">
+                <li><a href="#" data-close-more><i class="picon-caret-slim-left"></i> {{_ 'dropdowns-profile-button-back'}}</a></li>
+            </ul>
+            {{> DropdownMenu_Content }}
+        </div>
+
         <ul class="pu-list">
             <li><a href="{{ pathFor route='profile' _id=currentUser._id }}">{{_ 'dropdowns-profile-button-myprofile'}}</a></li>
             <li><a href="#" data-settings>{{_ 'dropdowns-profile-button-settings'}}</a></li>
         </ul>
         <ul class="pu-list">
             <li><a href="#" data-logout>{{_ 'dropdowns-profile-button-logout'}}</a></li>
+            <li class="pu-sub-morebutton"><a href="#" data-more>{{_ 'dropdowns-profile-button-more' }} <i class="picon-caret-slim-right"></i></a></li>
         </ul>
     </div>
-
 </template>

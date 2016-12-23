@@ -7,6 +7,7 @@ Template.DropdownProfile.onCreated(function() {
     };
     $(window).on('resize', template.resizeHandler);
     template.activeTab = new ReactiveVar('partners');
+    template.moreActive = new ReactiveVar(false);
 
     // Current user
     var user = Meteor.user();
@@ -18,7 +19,9 @@ Template.DropdownProfile.onCreated(function() {
     };
 
     // Dropdown opened state + callback
-    template.dropdownOpen = new ReactiveVar(false);
+    template.dropdownOpen = new ReactiveVar(false, function(a, b) {
+        if (!b) template.moreActive.set(false);
+    });
 
 });
 
@@ -51,6 +54,14 @@ Template.DropdownProfile.events({
     },
     'click [data-tab-toggle]': function(event, template) {
         template.activeTab.set($(event.currentTarget).data('tab-toggle'));
+    },
+    'click [data-more]': function(event, template) {
+        event.preventDefault();
+        template.moreActive.set(true);
+    },
+    'click [data-close-more]': function(event, template) {
+        event.preventDefault();
+        template.moreActive.set(false);
     }
 });
 
@@ -65,6 +76,10 @@ Template.DropdownProfile.helpers({
 
     menuOpen: function() {
         return Template.instance().dropdownOpen.get();
+    },
+
+    moreActive: function() {
+        return Template.instance().moreActive.get();
     },
 
     user: function() {

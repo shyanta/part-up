@@ -1,9 +1,20 @@
 <template name="app_chat">
-    <article class="pu-page pu-page-tinted pu-page-chat">
+    <article class="pu-page pu-page-tinted pu-page-chat pu-layout--one-on-one">
         <div class="pu-sub-pagecontent pu-sub-pagecontent-chat">
             <div class="pu-wrap pu-wrap-columnlayout">
                 <section class="pu-composition pu-composition-chat">
-                    {{> OneOnOneChat chatId=chatId startChatUserId=startChatUserId }}
+                    {{#if screenSizeIsMinimalWidth 'tablet'}}
+                        {{> OneOnOneChat chatId=chatId startChatUserId=startChatUserId }}
+                    {{ else }}
+                        <div class="pu-chat-placeholder">
+                            <div>
+                                <figure class="pu-avatar pu-avatar-system pu-avatar-square pu-avatar-medium-xl"></figure>
+                                <p class="pu-chat-placeholder__title">{{_ 'pages-app-one-on-one-chat-placeholder-title'}}</p>
+                                <p class="pu-chat-placeholder__description">{{_ 'pages-app-one-on-one-chat-placeholder-description'}}</p>
+                                <a class="pu-chat-placeholder__button pu-button" href="{{ appStoreLink }}" target="_blank">{{_ 'pages-app-one-on-one-chat-placeholder-button'}}</a>
+                            </div>
+                        </div>
+                    {{/if}}
                 </section>
             </div>
         </div>

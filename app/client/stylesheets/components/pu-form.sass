@@ -10,6 +10,9 @@
     .pu-formfield.pu-formfield-nolabel
             margin-top: 10px
 
+    .pu-title
+        white-space: nowrap
+
     &-highlighted
         background-color: $color-background-secondary
         padding: 40px
@@ -20,7 +23,21 @@
             margin-bottom: 0
 
     &-popup
-        padding: 40px
+        padding: 20px
+        padding-bottom: 0
+
+        @media screen and (max-width: 600px)
+            .pu-row
+                display: block
+                .cell
+                    display: block
+            .pu-button
+                width: 100%
+                text-align: center
+
+            .pu-dropdown-add-media .pu-sub-container
+                // (15px margin * 2) * 3
+                max-width: calc(100vw - 90px)
 
     &-block
         border-top: 2px solid $color-border-light
@@ -33,18 +50,6 @@
         .pu-formfield + .pu-formfield,
         footer
             margin-top: 10px
-
-    &:not(.pu-form-disableinvalidstates):invalid
-        // TEMPORARY DISABLED UNTILL THE FORM HAS LIVE VALIDATION
-        // [type="submit"]
-        //     pointer-events: none
-        //     color: rgba($color-text-inverted, .5)
-
-        //     &:after
-        //         color: rgba($color-text-inverted, .5)
-
-        //     &:hover
-        //         color: rgba($color-text-inverted, .5)
 
     &.pu-form-disableinvalidstates,
     &:valid
@@ -65,3 +70,8 @@
         .pu-list-suggestiontiles
             max-height: 255px
             overflow-y: auto
+
+    @media screen and (min-width: $breakpoint-tablet)
+        &-popup
+            padding: 40px
+

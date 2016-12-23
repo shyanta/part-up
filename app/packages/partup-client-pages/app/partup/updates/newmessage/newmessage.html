@@ -3,9 +3,9 @@
         <label class="pu-formfield">
             <div class="pu-sub-validations">
                 <span class="pu-sub-input">
-                    <div class="pu-message {{#if hasUploadedMedia }}pu-message-haspictures{{/ if}}">
+                    <div class="pu-message pu-message-haspictures">
                         {{> afFieldInput name="text" data-message-input="" placeholder=placeholders.text class="pu-textarea" rows=3 autofocus=""}}
-                        {{#if hasUploadedMedia}}
+                        <!-- {{#if hasUploadedMedia}} -->
                             <ul class="pu-sub-photos">
                                 {{#each uploadedPhotos}}
                                     <li>
@@ -17,11 +17,13 @@
                                 {{#each uploadedDocuments}}
                                     <li>
                                         <figure data-type="document" class="pu-doc-icon pu-thumbnail-removable"
-                                                style="background-image:url('/images/add-media-icons/{{ getSvgIcon
-                                                        . }}');"
+                                                style="background-image:url('/images/add-media-icons/{{ getSvgIcon . }}');"
                                                 data-remove-upload="{{ _id }}"></figure>
                                     </li>
                                 {{/each}}
+                                <li>
+                                    {{> MediaUploaderButton mediaUploader=mediaUploader }}
+                                </li>
                                 {{#if mediaLimitReached}}{{else}}
                                     <li class="pu-media-counter">
                                         <div>
@@ -37,7 +39,7 @@
                                 {{/if}}
                             </ul>
 
-                        {{/if}}
+                        <!-- {{/if}} -->
                     </div>
                 </span>
                 <div class="markdown-support">
@@ -51,23 +53,23 @@
             </div>
         </label>
         <footer class="pu-row">
-            <div class="cell">
-                <button class="pu-button {{# if submitting }}pu-state-loading pu-state-disabled{{/ if }}" data-submit>
-                    {{#if state.edit}}
-                        <span>{{_ 'pages-app-partup-updates-editmessage-submit'}}</span>
-                    {{else}}
-                        <span>{{_ 'pages-app-partup-updates-newmessage-submit'}}</span>
-                    {{/if}}
-                    {{> Spinner color='inverted' type='small' }}
-                </button>
-            </div>
-            <div class="cell stretch">
-                <a class=" pu-button pu-button-text pu-button-text-subtle"
-                   data-dismiss>{{_ 'pages-app-partup-updates-newmessage-close'}}</a>
-            </div>
-            <div class="cell last">
-                {{> MediaUploaderButton mediaUploader=mediaUploader }}
-            </div>
+            <ul class="pu-list pu-list-horizontal pu-list-buttons">
+                <li>
+                    <button class="pu-button {{# if submitting }}pu-state-loading pu-state-disabled{{/ if }}" data-submit>
+                        {{#if state.edit}}
+                            <span>{{_ 'pages-app-partup-updates-editmessage-submit'}}</span>
+                        {{else}}
+                            <span>{{_ 'pages-app-partup-updates-newmessage-submit'}}</span>
+                        {{/if}}
+                        {{> Spinner color='inverted' type='small' }}
+                    </button>
+                </li>
+                <li>
+                    <a class=" pu-button pu-button-text pu-button-text-subtle"
+                       data-dismiss>{{_ 'pages-app-partup-updates-newmessage-close'}}</a>
+                </li>
+            </ul>
+                <!--  -->
         </footer>
     {{/autoForm}}
 </template>

@@ -13,6 +13,19 @@
     &.pu-state-hidden
         display: none
 
+    &-with-right-items
+        text-align: right
+
+        > li
+            float: left
+            text-align: left
+
+            &.pu-sub-align-right
+
+                float: none
+    &-nowrap
+        white-space: nowrap
+
     &-large
         > li
             font-size: 18px
@@ -57,15 +70,29 @@
                 font-weight: 700
 
     &-buttons
-        margin-bottom: -20px
-        margin-right: -20px
+        // margin-bottom: -20px
+        // margin-right: -20px
 
         li
             margin-right: 20px
             margin-bottom: 20px
+            width: 100%
 
             .pu-button
                 margin-top: 0
+                width: 100%
+                text-align: center
+
+        @media screen and (min-width: $breakpoint-tablet)
+            margin-bottom: -20px
+            margin-right: -20px
+
+            li
+                width: auto
+
+                .pu-button
+                    text-align: left
+                    width: auto
 
     &-discover
         margin-bottom: -$grid-gap

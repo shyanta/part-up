@@ -31,6 +31,9 @@ Template.app_discover_partups_filter.onCreated(function() {
         Partup.client.discover.current_query.language = (b && b._id) || undefined;
         updateQuery();
     });
+
+    template.tribeSelectorOpen = new ReactiveVar(false);
+    template.languageSelectorOpen = new ReactiveVar(false);
 });
 Template.app_discover_partups_filter.onDestroyed(function() {
     var template = this;
@@ -39,15 +42,34 @@ Template.app_discover_partups_filter.onDestroyed(function() {
 });
 
 Template.app_discover_partups_filter.helpers({
+    configs: function() {
+        var template = Template.instance();
+
+        return {
+            tribeSelector: function() {
+                return {
+                    reactiveValue: template.selectedTribe,
+                    reactiveState: template.tribeSelectorOpen,
+                    options: Networks.find()
+                };
+            },
+            languageSelector: function() {
+                return {
+                    reactiveValue: template.selectedLanguage,
+                    reactiveState: template.languageSelectorOpen
+                };
+            }
+        };
+    },
     state: function() {
         var template = Template.instance();
 
         return {
-            selectedTribeReactiveVar: function() {
-                return template.selectedTribe;
+            tribeSelectorOpen: function() {
+                return template.tribeSelectorOpen.get();
             },
-            selectedLanguageReactiveVar: function() {
-                return template.selectedLanguage;
+            languageSelectorOpen: function() {
+                return template.languageSelectorOpen.get();
             },
             selectedLocationReactiveVar: function() {
                 return template.selectedLocation;

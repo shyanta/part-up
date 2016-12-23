@@ -1,12 +1,12 @@
 <template name="DropdownChatNotifications">
     {{#let chatData=data}}
-        <button class="pu-button pu-button-header pu-button-header-desktop pu-button-header-nostripe" data-toggle-menu="chat-notifications">
+        <button class="pu-button pu-button-header" data-toggle-menu="chat-notifications">
             <!-- bell icon -->
             <i class="picon-chat pu-badge {{#if chatData.totalPersonalMessages }}pu-badge-active{{/if}} {{#if chatData.totalTribeMessages }}pu-badge-active{{/if}}"></i>
 
-            {{ label }}
+            <span>{{ label }}</span>
         </button>
-        <div class="pu-dropdown pu-dropdown-notifications {{#if menuOpen}}pu-dropdown-active{{/if}} pu-dropdown-notifications-nobutton pu-dropdown-notifications-header" data-clickoutside-close>
+        <div class="pu-dropdown pu-dropdown-notifications pu-dropdown-notifications-chats {{#if menuOpen}}pu-dropdown-active{{/if}} pu-dropdown-notifications-nobutton pu-dropdown-notifications-header" data-clickoutside-close>
             <header>
                 <div class="pu-toggle">
                     <button class="{{#if private}}pu-state-active{{/if}}" data-private>{{_ 'dropdowns-chat-notifications-toggle-one-on-one'}}{{#with chatData.totalPersonalMessages }} ({{ . }}){{/with}}</button>
@@ -38,6 +38,16 @@
                     {{/if}}
                 {{/if}}
             </ul>
+            <footer class="pu-app-link">
+                <a href="{{ appStoreLink }}" target="_blank">
+                    <figure class="pu-avatar pu-avatar-square pu-avatar-system pu-avatar-small"></figure>
+                    <article>
+                        <h8>{{_ 'dropdowns-chat-notifications-button-app-title'}}</h8>
+                        <p>{{_ 'dropdowns-chat-notifications-button-app-description'}}</p>
+                        <b>{{_ 'dropdowns-chat-notifications-button-app-label'}}</b>
+                    </article>
+                </a>
+            </footer>
         </div>
     {{/let}}
 </template>

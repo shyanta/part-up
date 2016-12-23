@@ -28,8 +28,8 @@
         color: #ccc
 
 .pu-searchinput
-    padding-left: 20px
-    padding-right: 20px
+    padding-left: 0
+    padding-right: 0
     transition: padding .2s
     position: relative
     z-index: 1
@@ -72,7 +72,7 @@
     .picon-search
         position: absolute
         top: 14px
-        left: 12px + 20px
+        left: 12px
         font-size: 18px
         color: $color-button-gray-background
         z-index: 2
@@ -80,7 +80,7 @@
         pointer-events: none
 
     .picon-times
-        opacity: 0
+        opacity: 1
         position: absolute
         z-index: 10000
         right: 0
@@ -98,7 +98,7 @@
 
 
     input
-        width: 44px
+        padding-left: 44px
         transition: width .5s, padding .5s
         cursor: pointer
 
@@ -118,6 +118,19 @@
         &:focus
             &:hover
                 cursor: auto
+.pu-flexible-center
+    .pu-searchinput
+        padding-left: 20px
+        padding-right: 20px
+
+        input
+            padding-left: 0
+            width: 44px
+        .picon-search
+            left: 12px + 20px
+
+        .picon-times
+            opacity: 0
 
 .pu-flexible-center.active,
 .pu-flexible-center.value

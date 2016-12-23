@@ -6,5 +6,8 @@ Template.app_network_chat.helpers({
                 return template.data.networkSlug;
             }
         };
+    },
+    appStoreLink: function() {
+        return Partup.client.browser.getAppStoreLink();
     }
 });

@@ -1,5 +1,6 @@
 Template.app_profile_about.onCreated(function() {
     var template = this;
+    template.loading = new ReactiveVar(true);
 
     // Column layout
     template.columnTilesLayout = new Partup.client.constructors.ColumnTilesLayout({
@@ -18,56 +19,64 @@ Template.app_profile_about.onCreated(function() {
         }
 
     });
-});
 
-Template.app_profile_about.onRendered(function() {
-    var template = this;
     var profileId = template.data.profileId;
 
-    template.handle = null;
-    template.refresh = function() {
-        if (template.handle) template.handle.stop();
+    template.subscribe('tiles.profile', profileId, {
+        onReady: function() {
+            var tiles = Tiles.find({upper_id: profileId}).fetch();
+            var user = Meteor.users.findOne({_id: profileId});
+            var displayTiles = [];
 
-        template.handle = template.subscribe('tiles.profile', profileId, {
-            onReady: function() {
-                var tiles = Tiles.find({upper_id: profileId}).fetch();
-                var user = Meteor.users.findOne(profileId);
-                var displayTiles = [];
+            var meurs = user.profile.meurs || false;
 
-                var meurs = user.profile.meurs || {};
+            var profileIsCurrentUser = !!(Meteor.userId() === profileId);
+            var profileHasResults = !!(meurs && meurs.results && meurs.results.length && meurs.fetched_results);
+            var profilehasMediaTiles = !!(tiles && tiles.length);
 
-                var profileIsCurrentUser = Meteor.userId() === profileId;
-                var profileHasResults = meurs.results && meurs.results.length && meurs.fetched_results;
-                var profileDoesNotHaveMediaTiles = !tiles || !tiles.length;
-
-                if (profileHasResults || profileIsCurrentUser) {
-                    displayTiles = displayTiles.concat([{
-                        type: 'result',
-                        profileId: profileId
-                    }]);
-                }
-
-                if (profileDoesNotHaveMediaTiles && profileIsCurrentUser) {
-                    displayTiles = displayTiles.concat([{
-                        type: 'image',
-                        placeholder: true
-                    }]);
-                } else {
-                    displayTiles = displayTiles.concat(tiles);
-                }
-
-                template.columnTilesLayout.addTiles(displayTiles);
+            if (!profileHasResults && profileIsCurrentUser) {
+                displayTiles = displayTiles.concat([{
+                    type: 'result',
+                    profileId: profileId
+                }]);
             }
-        });
-    };
 
-    // First run
-    template.refresh();
+            if (!profilehasMediaTiles && profileIsCurrentUser) {
+                displayTiles = displayTiles.concat([{
+                    type: 'image',
+                    placeholder: true
+                }]);
+            }
+
+            displayTiles = displayTiles.concat(tiles || []);
+
+            template.columnTilesLayout.addTiles(displayTiles, function() {
+                template.loading.set(false);
+            });
+        }
+
+    });
 });
 
 Template.app_profile_about.helpers({
-    columnTilesLayout: function() {
-        return Template.instance().columnTilesLayout;
+    data: function() {
+        var template = Template.instance();
+        var profileId = this.profileId;
+        return {
+            columnTilesLayout: function() {
+                return template.columnTilesLayout;
+            },
+            firstname: function() {
+                var user = Meteor.users.findOne(profileId);
+                return User(user).getFirstname();
+            },
+            profileIsCurrentUser: function() {
+                return profileId === Meteor.userId();
+            },
+            loading: function() {
+                return template.loading.get();
+            }
+        };
     }
 });
 
@@ -101,14 +110,4 @@ Template.app_profile_about.events({
         });
     }
 
-});
-
-Template.app_profile_about.helpers({
-    firstname: function() {
-        var user = Meteor.users.findOne(this.profileId);
-        return User(user).getFirstname();
-    },
-    profileIsCurrentUser: function() {
-        return this.profileId === Meteor.userId();
-    }
 });

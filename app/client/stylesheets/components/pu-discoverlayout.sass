@@ -14,11 +14,13 @@
         margin: 0
 
     .pu-discovermenu
-        margin-top: -29px
+        left: -20px
+        right: -20px
+        width: calc(100% + 40px)
+        margin-top: -27px
         display: none
         position: absolute
         z-index: 5
-        right: -10px
 
         > p
             display: none
@@ -36,7 +38,11 @@
         > li
             margin-bottom: 20px
 
-    // @media screen and (min-width: $breakpoint-tablet + 1px)
+    @media screen and (min-width: $breakpoint-dropdowns)
+        .pu-discovermenu
+            right: -20px
+            left: auto
+            width: 275px
 
     @media screen and (min-width: $breakpoint-desktop)
         .pu-discovermenu
@@ -67,6 +73,11 @@
     .pu-sub-responsive-button
         .pu-button
             padding: 12px 10px
+            font-weight: bold
+            border-top: 2px solid $color-primary
+            border-right: 2px solid $color-primary
+            border-left: 2px solid $color-primary
+
             &.pu-button-grey
                 border-top: 2px solid #ccc
                 border-right: 2px solid #ccc
@@ -74,6 +85,9 @@
                 border-bottom-left-radius: 0px
                 border-bottom-right-radius: 0px
                 z-index: 6
+
+            i
+                font-size: 12px
 
     @media screen and (min-width: $breakpoint-tablet)
         .pu-sub-responsive-sort, .pu-sub-pipe

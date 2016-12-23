@@ -2,38 +2,42 @@
     <div class="pu-sub-pagecontent">
         <div class="pu-wrap pu-wrap-columnlayout">
             <section class="pu-composition pu-composition-network">
-                <header class="pu-sub-header">
-                    <form class="pu-form pu-flexible-center" novalidate data-nosubmit>
-                        <div>
-                            <span>
-                                <h2 class="pu-title">
-                                    {{# if countLoading }}
-                                        {{_ 'pages-app-network-uppers-loading' }}
-                                        {{> Spinner type='small' }}
-                                    {{ else }}
-                                        <span class="pu-sub-countlabel">
-                                            {{#if count}}
-                                                {{_ 'pages-app-network-uppers-count' count=count }}
-                                            {{else}}
-                                                {{_ 'pages-app-network-uppers-none' }}
-                                            {{/if}}
-                                        </span>
+                <header class="pu-row">
+                    {{# PartupToggler onToggle=configs.focusOnSearchField}}
+                        <div class="cell stretch">
+                            <h2 class="pu-title">
+                                {{# if countLoading }}
+                                    {{_ 'pages-app-network-uppers-loading' }}
+                                    {{> Spinner type='small' }}
+                                {{ else }}
+                                    <span class="pu-sub-countlabel">
+                                        {{#if count}}
+                                            {{_ 'pages-app-network-uppers-count' count=count }}
+                                        {{else}}
+                                            {{_ 'pages-app-network-uppers-none' }}
+                                        {{/if}}
+                                    </span>
 
-                                        {{_ 'pages-app-network-uppers-suffix' }}
-                                    {{/if}}
-                                </h2>
-                            </span>
+                                    {{_ 'pages-app-network-uppers-suffix' }}
+                                {{/if}}
+                            </h2>
                         </div>
-                        <div class="pu-sub-center" data-flexible-center>
-                            <span>
-                                <div class="pu-searchinput">
-                                    <input type="text" placeholder="{{_ 'pages-app-network-uppers-search-placeholder'}}" class="pu-input form-control" data-search>
-                                    <i class="picon-search"></i>
-                                    <i class="picon-times" data-clear></i>
+                        <div class="cell stretch">
+                            <div class="pu-row">
+                                <div class="cell">
+                                    <button class="pu-button-2 pu-button-2--fake-input pu-search-button" data-toggle><i class="picon-search"></i></button>
                                 </div>
-                            </span>
+                            </div>
                         </div>
-                    </form>
+                    {{ else }}
+                        <div class="cell">
+                            <div class="pu-searchinput start active">
+                                <input type="text" placeholder="{{_ 'pages-app-network-uppers-search-placeholder'}}" class="pu-input form-control" data-search>
+                                <i class="picon-search"></i>
+                                <i class="picon-times" data-clear data-toggle></i>
+                            </div>
+                        </div>
+                    {{/PartupToggler}}
                 </header>
 
                 <div data-infinitescroll-container>

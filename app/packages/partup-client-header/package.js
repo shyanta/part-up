@@ -18,12 +18,7 @@ Package.onUse(function(api) {
         'Header.html',
         'Header.js',
 
-        'templates/logo.html',
-
-        'templates/nav.html',
-        'templates/nav.js',
-        'templates/personal.html',
-        'templates/personal.js'
+        'templates/logo.html'
 
     ], 'client');
 

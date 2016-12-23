@@ -1,11 +1,13 @@
 Template.DiscoverLanguageSelector.onCreated(function() {
     var template = this;
     template.dropdownToggleBool = 'partial-dropdowns-networks-actions.opened';
-    template.dropdownOpen = new ReactiveVar(false);
+    template.dropdownOpen = new ReactiveVar(false, function(a, b) {
+        Partup.client.verySpecificHelpers.setReactiveVarToBoolValueIfFalseAfterDelay(b, template.data.config.reactiveState, 200);
+    });
     template.emptyOption = {
         native_name: TAPi18n.__('pages-app-discover-filter-language-sector-all')
     };
-    template.selectedOption = template.data.reactiveVar;
+    template.selectedOption = template.data.config.reactiveValue;
     template.selectedOption.set(template.emptyOption);
     template.subscribe('languages.all');
 });

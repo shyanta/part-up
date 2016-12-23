@@ -1,8 +1,6 @@
+$sidebar-min-width: 420px
 .pu-partuppagelayout
     font-size: 0
-    height: calc(100vh - 60px)
-    -webkit-overflow-scrolling: touch
-    overflow-x: scroll
     white-space: nowrap
 
     &__left,
@@ -15,7 +13,7 @@
         white-space: normal
 
     &__left
-        width: 100vw
+        width: calc(100vw - 15px)
         position: absolute
         left: 0
         z-index: 1
@@ -32,7 +30,7 @@
         z-index: 0
         transition: filter 200ms
         background-color: #fff
-        min-width: 650px
+        // min-width: 600px
 
     &__content
         -webkit-overflow-scrolling: touch
@@ -43,16 +41,11 @@
         &-fixedwidth
             overflow-x: hidden
 
-    button.pu-partuppagelayout__closebutton
+    .pu-partuppagelayout__closebutton
         position: absolute
         top: 10px
-        right: 20px
+        right: 0px
         z-index: 12
-        width: 40px
-        height: 40px
-        text-align: center
-        padding: 12px
-        box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.2)
 
     .pu-navigation
         .pu-button-nav.pu-state-active
@@ -68,26 +61,49 @@
                 -webkit-overflow-scrolling: auto
                 overflow: hidden
 
-    @media screen and (min-width: 420px)
+    &__only-smallscreen
+        display: block
+
+    &__only-mediumscreen,
+    &__only-largescreen
+        display: none
+
+
+    @media screen and (min-width: #{$sidebar-min-width + 20px})
         &__left
-            width: 420px
-            transform: translateX(-420px)
+            width: $sidebar-min-width
+            transform: translateX(-$sidebar-min-width)
 
             &--is-active
                 transform: translateX(0px)
 
-    @media screen and (min-width: $breakpoint-tablet + 1px)
-        button.pu-partuppagelayout__closebutton
+    @media screen and (min-width: $breakpoint-partup-medium)
+        &__only-smallscreen
             display: none
+
+        &__only-mediumscreen,
+        &__only-largescreen
+            display: block
+
+    @media screen and (min-width: $breakpoint-tablet + 1px)
+        height: calc(100vh - 60px)
+        -webkit-overflow-scrolling: touch
+
+    @media screen and (min-width: $breakpoint-desktop)
+        .pu-partuppagelayout__closebutton
+            display: none
+
+        &__only-mediumscreen
+            display: none !important
 
         &__left
             position: relative
-            width: 420px
+            width: $sidebar-min-width
             display: inline-block
             transform: none
 
         &__right
-            width: calc(100% - 420px)
+            width: calc(100% - #{$sidebar-min-width})
 
             .pu-sub-section-button
                 display: none
@@ -95,3 +111,10 @@
         &--section-is-active
             .pu-partuppagelayout__right
                 filter: none
+
+    @media screen and (min-width: #{$sidebar-min-width * 4})
+        &__left
+            width: 25%
+
+        &__right
+            width: 75%

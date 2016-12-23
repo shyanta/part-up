@@ -6,7 +6,7 @@
     line-height: 0
     border-bottom: 2px solid $color-border-light
     overflow: hidden
-    white-space: normal
+    white-space: nowrap
 
     a,
     button
@@ -37,7 +37,7 @@
     article
         display: inline-block
         padding: 2px 0
-        max-width: 330px
+        max-width: calc(100% - 40px)
 
         time
             padding: 2px 0px 7px 0px
@@ -49,15 +49,20 @@
 
         p
             font-weight: 700
+            white-space: normal
 
             span
                 color: $color-text-subtle
                 font-size: 14px
 
+            time
+                margin-left: 10px
+                margin-top: 2px
+
         p,
         time
             line-height: 1.2em
-            width: 100%
+            max-width: 100%
             float: left
 
     .highlight

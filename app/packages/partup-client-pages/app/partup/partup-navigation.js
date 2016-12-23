@@ -48,6 +48,17 @@ Template.app_partup_navigation.helpers({
     },
     shareDropdownState: function() {
         return Template.instance().shareDropdownState;
+    },
+    selectorSettings: function() {
+        var partupId = this.partupId;
+        var partup = Partups.findOne({_id: this.partupId});
+        if (!partup || !partup.slug) return false;
+
+        return {
+            slug: partup.slug,
+            data: partup,
+            currentRoute: Router.current().route.getName()
+        };
     }
 });
 

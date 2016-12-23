@@ -79,6 +79,7 @@ Package.onUse(function (api) {
         'client/element.js',
         'client/columnsLayout.js',
         'client/network.js',
+        'client/verySpecificHelpers.js',
 
         'helpers/sanitize.js',
         'helpers/log.js',
@@ -107,6 +108,7 @@ Package.onUse(function (api) {
         'helpers/RenderBlock/RenderBlock.html',
         'helpers/RenderBlock/RenderBlock.js',
         'helpers/IE.js',
+        'helpers/screenSize.js',
 
         'bootstrap.js',
         'analytics.js'

@@ -1,117 +1,136 @@
 <template name="app_profile">
-    <!-- {{log profile.data}} -->
-    <!-- {{#if profile}} -->
-    <article class="pu-page pu-page-tinted pu-page-profile">
+    <article class="pu-page pu-page-tinted pu-page-profile pu-layout--profile {{#if partupEquals currentUserId profile.profileId }}pu-layout--profile--self{{/if}}">
         <header class="pu-sub-pageheader pu-sub-pageheader-layered {{# if shrinkHeader }}pu-sub-pageheader-layered-shrinked{{/ if }}">
             <!-- profile -->
             <section class="pu-profile">
-                <div class="pu-wrap pu-wrap-columnlayout">
-                    <div class="pu-info {{#unless profile.data.tags}} pu-info-minimal{{/unless}}">
-                        <figure class="pu-avatar pu-avatar-extralarge" style="background-image:url('{{ partupImageUrl id=profile.data.image store='360x360'}}');">
-                            <span class="pu-score pu-score-large {{#if profile.online }}pu-score-green{{/if}}">{{ profile.roundedScore }}</span>
-                        </figure>
-                        <div>
-                            <h3>
-                                {{profile.data.name}}
-                                {{#if profile.data.facebook_url}}<a href="{{ profile.data.facebook_url }}" target="_blank"><i class="picon-facebook"></i></a>{{/if}}
-                                {{#if profile.data.linkedin_url}}<a href="{{ profile.data.linkedin_url }}" target="_blank"><i class="picon-linkedin"></i></a>{{/if}}
-                                {{#if profile.data.twitter_url}}<a href="{{ profile.data.twitter_url }}" target="_blank"><i class="picon-twitter"></i></a>{{/if}}
-                                {{#if profile.data.instagram_url}}<a href="{{ profile.data.instagram_url }}" target="_blank"><i class="picon-instagram"></i></a>{{/if}}
-                            </h3>
-                            <p data-expander-parent>
-                                {{profile.data.description}}
-                                {{#if textHasOverflown}}
-                                    <a class="pu-readmore" href="#" data-expand data-expanded-key="pages-app-network-collapse" data-collapsed-key="pages-app-network-expand">{{_ 'pages-app-network-expand'}}</a>
-                                {{/if}}
-                            </p>
-                            <ul class="pu-list pu-list-horizontal">
-                                {{#if profile.data.location}}
-                                    {{#if profile.data.location.city}}
-                                        <li><a class="pu-metadata" href="#" data-location>
-                                            <i class="picon-location"></i>
-                                            <span>{{profile.data.location.city}}</span>
-                                        </a></li>
-                                    {{/if}}
-                                {{/if}}
-                                {{#with profile.data.website}}
-                                    <li><a class="pu-metadata" href="{{ partupHTTP . }}" target="_blank">
-                                        <i class="picon-monitor"></i>
-                                        <span>{{ partupCleanUrl .}}</span>
+                <div class="pu-wrap pu-wrap-columnlayout pu-profile__wrapper">
+                    <!-- <div class="pu-info {{#unless profile.data.tags}} pu-info-minimal{{/unless}}"> -->
+                    <figure class="pu-profile__figure pu-avatar {{#if screenSizeIsMinimalWidth 'tablet'}}pu-avatar-extralarge{{else}}pu-avatar-medium-xl{{/if}}" style="background-image:url('{{ partupImageUrl id=profile.data.image store='360x360'}}');">
+                        <span class="pu-score {{#if screenSizeIsMinimalWidth 'tablet'}}pu-score-large{{else}}pu-score-small-2{{/if}} {{#if profile.online }}pu-score-green{{/if}}">{{ profile.roundedScore }}</span>
+                    </figure>
+                    <div class="pu-profile__div">
+                        <h3>
+                            {{profile.data.name}}
+                            {{#if profile.data.facebook_url}}<a href="{{ profile.data.facebook_url }}" target="_blank"><i class="picon-facebook"></i></a>{{/if}}
+                            {{#if profile.data.linkedin_url}}<a href="{{ profile.data.linkedin_url }}" target="_blank"><i class="picon-linkedin"></i></a>{{/if}}
+                            {{#if profile.data.twitter_url}}<a href="{{ profile.data.twitter_url }}" target="_blank"><i class="picon-twitter"></i></a>{{/if}}
+                            {{#if profile.data.instagram_url}}<a href="{{ profile.data.instagram_url }}" target="_blank"><i class="picon-instagram"></i></a>{{/if}}
+                        </h3>
+                        <p data-expander-parent>
+                            {{profile.data.description}}
+                            {{#if textHasOverflown}}
+                                <a class="pu-readmore" href="#" data-expand data-expanded-key="pages-app-network-collapse" data-collapsed-key="pages-app-network-expand">{{_ 'pages-app-network-expand'}}</a>
+                            {{/if}}
+                        </p>
+                        <ul class="pu-list pu-list-horizontal pu-profile__list">
+                            {{#if profile.data.location}}
+                                {{#if profile.data.location.city}}
+                                    <li><a class="pu-metadata" href="#" data-location>
+                                        <i class="picon-location"></i>
+                                        <span>{{profile.data.location.city}}</span>
                                     </a></li>
-                                {{/with}}
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- {{#unless networkClosedForUser }} -->
-                        <ul class="pu-list pu-list-horizontal pu-list-tags">
-                            {{#each profile.data.tags}}
-                                <li>
-                                    <a href="#" class="pu-tag">{{.}}</a>
-                                </li>
-                            {{/each}}
+                                {{/if}}
+                            {{/if}}
+                            {{#with profile.data.website}}
+                                <li><a class="pu-metadata" href="{{ partupHTTP . }}" target="_blank">
+                                    <i class="picon-monitor"></i>
+                                    <span>{{ partupCleanUrl .}}</span>
+                                </a></li>
+                            {{/with}}
                         </ul>
-                    <!-- {{/unless}} -->
+                    </div>
+                    <!-- </div> -->
+                    <ul class="pu-profile__ul pu-list pu-list-horizontal pu-list-tags">
+                        {{#each profile.data.tags}}
+                            <li>
+                                <a href="#" class="pu-tag">{{.}}</a>
+                            </li>
+                        {{/each}}
+                    </ul>
                 </div>
             </section>
             <section>
                 <div class="pu-wrap pu-wrap-columnlayout">
                     <!-- tabs -->
-                    <nav class="pu-navigation pu-navigation-header pu-navigation-full">
-                        <ul class="pu-list pu-list-horizontal">
-                            {{#if profile.hasAboutSection}}
-                                <li>
-                                    <a href="{{ pathFor route='profile' _id=profileId }}"
-                                        class="pu-button pu-button-nav pu-button-nav-secondary {{ isActiveRoute name='profile' class='pu-state-active'}} {{ isActiveRoute name='profile-fallback' class='pu-state-active'}}">
-                                        {{_ 'pages-app-profile-about-nav' name=profile.firstname}}
-                                    </a>
-                                </li>
-                            {{/if}}
-                            <li>
-                                <a href="{{ pathFor route='profile-upper-partups' _id=profileId }}"
-                                    class="pu-button pu-button-nav pu-button-nav-secondary {{ isActiveRoute name='profile-upper-partups' class='pu-state-active'}}">
-                                    {{_ 'pages-app-profile-upper-partups-nav' }}
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ pathFor route='profile-supporter-partups' _id=profileId }}"
-                                    class="pu-button pu-button-nav pu-button-nav-secondary {{ isActiveRoute name='profile-supporter-partups' class='pu-state-active'}}">
-                                    {{_ 'pages-app-profile-supporter-partups-nav' }}
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ pathFor route='profile-partners' _id=profileId }}"
-                                    class="pu-button pu-button-nav pu-button-nav-secondary {{ isActiveRoute name='profile-partners' class='pu-state-active'}}">
-                                    {{_ 'pages-app-profile-partners-nav' }}
-                                </a>
-                            </li>
-                            {{# if partupEquals currentUserId profile.profileId }}
-                                <li>
-                                    <a href="{{pathFor 'profile-settings' _id=profileId}}" data-open-profilesettings
-                                        class="pu-button pu-button-nav pu-button-nav-secondary pu-button-nav-secondary-subtle">
-                                        {{_ 'pages-app-network-tab-button-settings'}}
-                                    </a>
-                                </li>
-                            {{/ if }}
-                        </ul>
-                        <!-- actions -->
-                        {{# unless partupEquals currentUserId profile.profileId }}
-                        <ul class="pu-list pu-list-horizontal pu-sub-right">
-                            <li class="pu-sub-button">
-                                {{#if profile.chatIdWithCurrentUser}}
-                                    <a href="{{ pathFor route='chats' hash=profile.chatIdWithCurrentUser }}" class="pu-button pu-button-gray">
-                                        <i class="picon-chat"></i>
-                                        {{_ 'pages-app-profile-open-existing-chat' }}
-                                    </a>
-                                {{else}}
-                                    <a href="{{ pathFor route='chats' query=profile.startChatQuery }}" class="pu-button">
-                                        <i class="picon-chat"></i>
-                                        {{_ 'pages-app-profile-start-new-chat' }}
-                                    </a>
+                    {{#if screenSizeIsMinimalWidth 'tablet'}}
+                        <nav class="pu-navigation pu-navigation-header pu-navigation-full">
+                            <ul class="pu-list pu-list-horizontal pu-list-with-right-items pu-list-nowrap">
+                                {{#if profile.hasAboutSection}}
+                                    <li>
+                                        <a href="{{ pathFor route='profile' _id=profileId }}"
+                                            class="pu-button pu-button-nav pu-button-nav-secondary {{ isActiveRoute name='profile' class='pu-state-active'}} {{ isActiveRoute name='profile-fallback' class='pu-state-active'}}">
+                                            {{_ 'pages-app-profile-about-nav' name=profile.firstname}}
+                                        </a>
+                                    </li>
                                 {{/if}}
-                            </li>
-                        </ul>
-                        {{/unless}}
-                    </nav>
+                                <li>
+                                    <a href="{{ pathFor route='profile-upper-partups' _id=profileId }}"
+                                        class="pu-button pu-button-nav pu-button-nav-secondary {{ isActiveRoute name='profile-upper-partups' class='pu-state-active'}}">
+                                        {{_ 'pages-app-profile-upper-partups-nav' }}
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ pathFor route='profile-supporter-partups' _id=profileId }}"
+                                        class="pu-button pu-button-nav pu-button-nav-secondary {{ isActiveRoute name='profile-supporter-partups' class='pu-state-active'}}">
+                                        {{_ 'pages-app-profile-supporter-partups-nav' }}
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ pathFor route='profile-partners' _id=profileId }}"
+                                        class="pu-button pu-button-nav pu-button-nav-secondary {{ isActiveRoute name='profile-partners' class='pu-state-active'}}">
+                                        {{_ 'pages-app-profile-partners-nav' }}
+                                    </a>
+                                </li>
+                                {{# if partupEquals currentUserId profile.profileId }}
+                                    <li>
+                                        <a href="{{pathFor 'profile-settings' _id=profileId}}" data-open-profilesettings
+                                            class="pu-button pu-button-nav pu-button-nav-secondary pu-button-nav-secondary-subtle">
+                                            {{_ 'pages-app-network-tab-button-settings'}}
+                                        </a>
+                                    </li>
+                                {{/ if }}
+                                <!-- actions -->
+                                {{# unless partupEquals currentUserId profile.profileId }}
+                                    <li class="pu-sub-button pu-sub-align-right">
+                                        {{#if profile.chatIdWithCurrentUser}}
+                                            <a href="{{ pathFor route='chats' hash=profile.chatIdWithCurrentUser }}" class="pu-button pu-button-gray">
+                                                <i class="picon-chat"></i>
+                                                {{_ 'pages-app-profile-open-existing-chat' }}
+                                            </a>
+                                        {{else}}
+                                            <a href="{{ pathFor route='chats' query=profile.startChatQuery }}" class="pu-button">
+                                                <i class="picon-chat"></i>
+                                                {{_ 'pages-app-profile-start-new-chat' }}
+                                            </a>
+                                        {{/if}}
+                                    </li>
+                                {{/unless}}
+                            </ul>
+                        </nav>
+                    {{else}}
+                        <nav class="pu-navigation pu-navigation-header pu-navigation-compact">
+                            <ul class="pu-list pu-list-horizontal pu-sub-smallscreen-navigation">
+                                <li>
+                                    {{#with selectorSettings}}
+                                        {{> ProfileNavigationSelector default=currentRoute _id=_id firstName=firstName }}
+                                    {{/with}}
+                                </li>
+                                {{# unless partupEquals currentUserId profile.profileId }}
+                                    <li class="pu-sub-button">
+                                        {{#if profile.chatIdWithCurrentUser}}
+                                            <a href="{{ pathFor route='chats' hash=profile.chatIdWithCurrentUser }}" class="pu-button-2 pu-button-2--gray">
+                                                <i class="picon-chat"></i>
+                                            </a>
+                                        {{else}}
+                                            <a href="{{ pathFor route='chats' query=profile.startChatQuery }}" class="pu-button">
+                                                <i class="picon-chat"></i>
+                                            </a>
+                                        {{/if}}
+                                    </li>
+                                {{/unless}}
+                            </ul>
+                        </nav>
+                    {{/if}}
                 </div>
             </section>
         </header>
@@ -128,6 +147,4 @@
             </div>
         </div>
     </article>
-    <!-- {{/if}} -->
-
 </template>

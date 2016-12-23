@@ -14,33 +14,31 @@
         {{/if}}
 
         <!-- Header buttons -->
-        <header class="pu-pageheader">
-            <section>
-                <a class="pu-button pu-button-icon" href="#" data-newmessage-popup>
-                    <i class="picon-message"></i>
-                    {{_ 'pages-app-partup-updates-new_message' }}
-                </a>
-            </section>
-            {{#if pageIsUpdates}}
-            <aside>{{> PartialDropdownUpdatesActions reactiveVar=filterReactiveVar}}</aside>
-            {{/if}}
-        </header>
+        {{#if pageIsUpdates}}
+            <header class="pu-row">
+                <div class="cell stretch">
+                        <a class="pu-button pu-button-icon" href="#" data-newmessage-popup>
+                            <i class="picon-message"></i>
+                            {{_ 'pages-app-partup-updates-new_message' }}
+                        </a>
+                </div>
+                <div class="cell last">
+                    <div class="pu-row">
+                        <div class="cell">
+                            {{#if screenSizeIsMinimalWidth 'tablet'}}
+                                {{> PartialDropdownUpdatesActions reactiveVar=filterReactiveVar}}
+                            {{else}}
+                                {{#PartupExpander label='Filter'}}
+                                    {{> PartialDropdownUpdatesActions reactiveVar=filterReactiveVar}}
+                                {{/PartupExpander}}
+                            {{/if}}
+                        </div>
+                    </div>
+                </div>
+            </header>
+        {{/if}}
 
         <div>
-
-            <!-- REMOVED LOADER UNTILL INFINITE SCROLL IS PERMANENTLY FIXED -->
-            <!-- {{# if updatesLoading }}
-                <section class="pu-update">
-                    <aside>
-                        <figure class="pu-avatar pu-avatar-update">
-                            <span class="pu-sub-image pu-sub-image-loader">
-                                {{> Loader ALIGNMENT='center' COLOR='white' SIZE='small' }}
-                            </span>
-                        </figure>
-
-                    </aside>
-                </section>
-            {{ else }} -->
 
             {{#unless updatesLoading}}
                 <!-- Reveal new updates -->

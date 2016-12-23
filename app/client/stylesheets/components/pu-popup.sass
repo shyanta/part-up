@@ -1,7 +1,7 @@
 .pu-popup
     $border-radius: 4px
-    width: 700px
-    margin: 0 auto
+    max-width: 700px
+    margin: 0 15px
     background-color: $color-background-secondary
     border-radius: $border-radius
     position: absolute
@@ -42,7 +42,7 @@
             margin-bottom: -4px
 
     .pu-sub-content
-        padding: 40px
+        padding: 20px
 
         section
             margin-bottom: 30px
@@ -65,7 +65,7 @@
 
     .pu-activity-form
         margin-top: 0
-        padding: 40px
+        padding: 20px
 
     .pu-input
         border-color: $color-border
@@ -86,13 +86,21 @@
 
     &-prompt
         transform: scale(0.9)
-        width: 450px
+        max-width: 450px
 
         .pu-sub-content
             padding: 20px
 
             footer
                 text-align: right
+
+    @media screen and (min-width: 730px)
+        margin: 0 auto
+
+    @media screen and (min-width: $breakpoint-tablet)
+        .pu-sub-content,
+        .pu-activity-form
+            padding: 40px
 
 .pu-overlay-active
     .pu-popup

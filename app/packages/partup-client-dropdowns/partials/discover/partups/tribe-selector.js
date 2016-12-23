@@ -1,11 +1,13 @@
 Template.DiscoverPartupsTribeSelector.onCreated(function() {
     var template = this;
     template.dropdownToggleBool = 'partial-dropdowns-networks-actions.opened';
-    template.dropdownOpen = new ReactiveVar(false);
+    template.dropdownOpen = new ReactiveVar(false, function(a, b) {
+        Partup.client.verySpecificHelpers.setReactiveVarToBoolValueIfFalseAfterDelay(b, template.data.config.reactiveState, 200);
+    });
     template.emptyOption = {
         name: 'All'
     };
-    template.selectedOption = template.data.reactiveVar;
+    template.selectedOption = template.data.config.reactiveValue;
     template.selectedOption.set(template.emptyOption);
 });
 
@@ -37,7 +39,7 @@ Template.DiscoverPartupsTribeSelector.helpers({
     },
     options: function() {
         var template = Template.instance();
-        return template.data.options;
+        return template.data.config.options;
     },
     selected: function(input) {
         var template = Template.instance();
