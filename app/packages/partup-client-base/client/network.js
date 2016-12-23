@@ -8,8 +8,8 @@ Partup.client.network = {
         var commonTags = network.common_tags || [];
         var customTags = network.tags || [];
 
-        _.times(maxTags, function() {
-            var tag = commonTags.shift();
+        _.times(maxTags, function(index) {
+            var tag = commonTags[index];
             if (!tag) return;
             tags.push({
                 tag: tag.tag,
@@ -19,8 +19,8 @@ Partup.client.network = {
 
         if (tags.length === maxTags) return tags;
 
-        _.times((maxTags - tags.length), function() {
-            var tag = customTags.shift();
+        _.times((maxTags - tags.length), function(index) {
+            var tag = customTags[index];
             if (!tag) return;
             tags.push({
                 tag: tag,
