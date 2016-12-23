@@ -1,3 +1,70 @@
+<a name="1.29.0"></a>
+# [1.29.0](https://github.com/part-up/part-up/compare/1.28.0...1.29.0) (2016-12-14)
+
+
+### Bug Fixes
+
+* **columnslayout:** columnslayout has auto resizing with better handling of column count ([da3166a](https://github.com/part-up/part-up/commit/da3166a))
+* **columnslayout:** fixed the new implementation of the columnslayout everywhere ([bf10ea9](https://github.com/part-up/part-up/commit/bf10ea9))
+* **discover:** added discover intro text and translations ([9e43fbe](https://github.com/part-up/part-up/commit/9e43fbe))
+* **discover:** added placeholder for lagguage selector ([43013d7](https://github.com/part-up/part-up/commit/43013d7))
+* **discover:** added some translations and implemented count (still needs routepublication though) ([91f3e5d](https://github.com/part-up/part-up/commit/91f3e5d))
+* **discover:** default selection for sort selector and fixed the trigger-happy infinite scroll ([59d2c9e](https://github.com/part-up/part-up/commit/59d2c9e))
+* **discover:** fixed location input ([22288aa](https://github.com/part-up/part-up/commit/22288aa))
+* **discover:** fixed placeholders ([b705c4c](https://github.com/part-up/part-up/commit/b705c4c))
+* **discover:** fixed removal error ([aa4703f](https://github.com/part-up/part-up/commit/aa4703f))
+* **discover:** fixed the type selector and removed duplicates from other selectors ([8d37721](https://github.com/part-up/part-up/commit/8d37721))
+* **discover:** infinite scroll added to tribe discover and cleaned up the columnslayout implementation across the project ([5a59194](https://github.com/part-up/part-up/commit/5a59194))
+* **discover:** mage tribe tile more elastic ([e381a05](https://github.com/part-up/part-up/commit/e381a05))
+* **discover:** minor fixes ([b600990](https://github.com/part-up/part-up/commit/b600990))
+* **discover:** moved the language selector to a more universal place ([b48c86a](https://github.com/part-up/part-up/commit/b48c86a))
+* **discover:** swapped textsearch with regular search to make it work [#689](https://github.com/part-up/part-up/issues/689) ([adc139f](https://github.com/part-up/part-up/commit/adc139f))
+* **discover:** tile ([aabc57b](https://github.com/part-up/part-up/commit/aabc57b))
+* **discover:** tribe tile fix ([c1eb639](https://github.com/part-up/part-up/commit/c1eb639))
+* **discover:** use display (dynamic) tags for tribe tiles ([ceb2774](https://github.com/part-up/part-up/commit/ceb2774))
+* **discover-tribes:** implemented (almost) working filter ([820aca8](https://github.com/part-up/part-up/commit/820aca8))
+* **icon:** added lock icon ([381e487](https://github.com/part-up/part-up/commit/381e487))
+* **infinitescroll:** removed stray log ([810d2bb](https://github.com/part-up/part-up/commit/810d2bb))
+* **invite:** added filter option “all-users” to as mentioned in commit 9ce9f75ce7e2a1f218921547e453b44a7de53bf5 this fixes issue [#755](https://github.com/part-up/part-up/issues/755) ([4195436](https://github.com/part-up/part-up/commit/4195436))
+* **recommendations:** code cleanup and moved everything to their proper templates ([c108c17](https://github.com/part-up/part-up/commit/c108c17))
+* **recommendations:** correct states for recommendations page ([ef924a7](https://github.com/part-up/part-up/commit/ef924a7))
+* **recommendations:** updated route to recommendations ([7467d79](https://github.com/part-up/part-up/commit/7467d79))
+* **selectors:** added type=“button” to prevent form submissions or other unintended behaviour ([65a1dff](https://github.com/part-up/part-up/commit/65a1dff))
+* **translations:** added stranslations ([0874597](https://github.com/part-up/part-up/commit/0874597))
+* **tribe-discover:** fixed discover for loggedout users ([a435ffa](https://github.com/part-up/part-up/commit/a435ffa))
+* **wrap:** fixed layout issues with media queries ([ed4c93e](https://github.com/part-up/part-up/commit/ed4c93e))
+
+
+### Features
+
+* **cron:** calculate latest updated_at property (in progress) ([c34046b](https://github.com/part-up/part-up/commit/c34046b))
+* **discover:** added cron to update the updated_at property based on chat and partup updates ([30e63eb](https://github.com/part-up/part-up/commit/30e63eb))
+* **discover:** added insert and remove methods for sector ([43cabed](https://github.com/part-up/part-up/commit/43cabed))
+* **discover:** added sector collection ([4474407](https://github.com/part-up/part-up/commit/4474407))
+* **discover:** added sector publication ([94b57e3](https://github.com/part-up/part-up/commit/94b57e3))
+* **discover:** added sector schema ([a7a2100](https://github.com/part-up/part-up/commit/a7a2100))
+* **discover:** added sector selector ([3d86132](https://github.com/part-up/part-up/commit/3d86132))
+* **discover:** added sector to network ([61e8729](https://github.com/part-up/part-up/commit/61e8729))
+* **discover:** added type selector to discover filters ([5716415](https://github.com/part-up/part-up/commit/5716415))
+* **discover:** allow type and sector as parameters ([850cc2b](https://github.com/part-up/part-up/commit/850cc2b))
+* **discover:** expose sector collection ([73ed31c](https://github.com/part-up/part-up/commit/73ed31c))
+* **discover:** implement network types in guardedFind ([1dd9491](https://github.com/part-up/part-up/commit/1dd9491))
+* **discover:** implemented sort filter to tribe discover ([8cc6abe](https://github.com/part-up/part-up/commit/8cc6abe))
+* **discover:** responsive ([a8ce1dc](https://github.com/part-up/part-up/commit/a8ce1dc))
+* **discover:** responsive partup-tile ([b6c7f77](https://github.com/part-up/part-up/commit/b6c7f77))
+* **discover:** search for sector when needed ([eed399f](https://github.com/part-up/part-up/commit/eed399f))
+* **discover:** show and hide filter menu with button click for small screens ([4301baf](https://github.com/part-up/part-up/commit/4301baf))
+* **discover:** tribe tile responsive ([114537b](https://github.com/part-up/part-up/commit/114537b))
+* **discover:** updated count route ([9dd3899](https://github.com/part-up/part-up/commit/9dd3899))
+* **element:** element helper for element specific functions ([ed52a1a](https://github.com/part-up/part-up/commit/ed52a1a))
+* **recommendations:** started movien recommendations to its own tab ([2c98f58](https://github.com/part-up/part-up/commit/2c98f58))
+* **sectors:** added admin tab “sectors”, also added the “sector” field to networksettings ([a2f7cd6](https://github.com/part-up/part-up/commit/a2f7cd6))
+* **sectors:** added feedback when a new sector already exists ([8d0ccb1](https://github.com/part-up/part-up/commit/8d0ccb1))
+* **tribe-discover:** also show closed networks ([e26a8b3](https://github.com/part-up/part-up/commit/e26a8b3))
+* **tribe-tile:** added all click handlers for tribe-tile ([386402f](https://github.com/part-up/part-up/commit/386402f))
+
+
+
 <a name="1.28.0"></a>
 # [1.28.0](https://github.com/part-up/part-up/compare/1.26.2...1.28.0) (2016-12-02)
 
