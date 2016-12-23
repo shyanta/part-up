@@ -1,4 +1,4 @@
-if(process.env.PARTUP_CRON_ENABLED) {
+if (process.env.PARTUP_CRON_ENABLED) {
     SyncedCron.add({
         name: 'Calculate the Part-up popularity score for partups',
         schedule: function(parser) {

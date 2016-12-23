@@ -10,6 +10,7 @@ Partup.constants.CRON_PARTICIPATION = process.env.PARTUP_CRON_PARTICIPATION || '
 Partup.constants.CRON_RESET_CLICKS = process.env.PARTUP_CRON_RESET_CLICKS || 'every 1 hour on the 45th minute';
 Partup.constants.CRON_SHARED_COUNTS = process.env.PARTUP_CRON_SHARED_COUNTS || 'every 13 minutes';
 Partup.constants.CRON_POPULARITY = process.env.PARTUP_CRON_POPULARITY || 'every 1 hour on the 20th minute';
+Partup.constants.CRON_NETWORK_POPULARITY = process.env.NETWORK_CRON_POPULARITY || 'every 1 hour on the 25th minute';
 Partup.constants.CRON_UPDATE_SWARM_NETWORK_STATS = process.env.PARTUP_CRON_UPDATE_SWARM_NETWORK_STATS || 'every 2 hours on the 17th minute';
 Partup.constants.CRON_SWARM_SHARED_COUNTS = process.env.PARTUP_CRON_SWARM_SHARED_COUNTS || 'every 10 hours on the 38th minute';
 Partup.constants.CRON_CALCULATE_ACTIVE_NETWORK_UPPERS_PARTUPS = process.env.PARTUP_CRON_CALCULATE_ACTIVE_NETWORK_UPPERS_PARTUPS || 'every 4 hours on the 19th minute';
