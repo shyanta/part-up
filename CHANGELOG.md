@@ -1,3 +1,15 @@
+<a name="2.0.1"></a>
+## [2.0.1](https://github.com/part-up/part-up/compare/2.0.0...2.0.1) (2017-01-09)
+
+
+### Bug Fixes
+
+* **i18n:** Release will no longer run with z-files in i18n dir ([b17fb95](https://github.com/part-up/part-up/commit/b17fb95))
+* **i18n:** Removed z-files ([d9bc000](https://github.com/part-up/part-up/commit/d9bc000))
+* **i18n:** Removed z-files ([c3cea68](https://github.com/part-up/part-up/commit/c3cea68))
+
+
+
 <a name="2.0.0"></a>
 # [2.0.0](https://github.com/part-up/part-up/compare/1.29.0...2.0.0) (2016-12-23)
 
