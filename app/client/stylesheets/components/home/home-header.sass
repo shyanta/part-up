@@ -1,0 +1,34 @@
+.pu-home-header
+    position: relative
+    height: 100vh
+    background-image: url('/images/about-image.jpg')
+    background-size: cover
+    background-position: center
+    text-align: center
+
+    .pu-title
+        margin-bottom: 30px
+
+    .pu-centerview__horizontal-center
+        width: 600px
+
+    .pu-home-calltoaction
+        margin: 0 auto
+
+    &__text
+        margin-bottom: 60px
+
+    &__content
+        position: relative
+        z-index: 1
+        height: 100%
+
+    &::after
+        content: ''
+        position: absolute
+        top: 0
+        right: 0
+        bottom: 0
+        left: 0
+        background-color: rgba(#000, .5)
+        z-index: 0

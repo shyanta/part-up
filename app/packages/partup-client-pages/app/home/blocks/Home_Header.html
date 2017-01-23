@@ -1,0 +1,30 @@
+<template name="Home_Header">
+    <div class="pu-home-header">
+        <div class="pu-home-header__content">
+            {{# CenterView }}
+                {{#if currentUser}}
+                    <h2 class="pu-title pu-title-serif pu-title-home">
+                        <span>{{_ 'pages-app-home-loggedin-heading' greeting=greeting name=firstName }}</span>
+                    </h2>
+                    <p class="pu-home-header__text pu-paragraph-inverted">{{_ 'pages-app-home-loggedin-paragraph' }}</p>
+                {{ else }}
+                    <h2 class="pu-title pu-title-serif pu-title-home">
+                        <span>{{_ 'pages-app-home-heading' }}</span>
+                    </h2>
+                    <p class="pu-home-header__text pu-paragraph-inverted">{{_ 'pages-app-home-paragraph' }}</p>
+                    {{> Home_Header_CallToAction }}
+                {{/if}}
+            {{/ CenterView}}
+        </div>
+    </div>
+</template>
+
+<template name="Home_Header_CallToAction">
+    <div class="pu-home-calltoaction">
+        <div class="pu-home-calltoaction__form">
+            <input class="pu-home-calltoaction__form__input pu-input" type="email" />
+            <button class="pu-home-calltoaction__form__button pu-button-2" type="button">Meld je aan (gratis)</button>
+        </div>
+        <p class="pu-home-calltoaction__description">Gebruikt jouw organisatie Part-up al? <a href="/discover">Vind jouw team.</a></p>
+    </div>
+</template>
