@@ -1,0 +1,9 @@
+<template name="CenterView">
+    <div class="pu-centerview" style="{{#with height}}height: {{.}}px;{{/with}}">
+        <div class="pu-centerview__vertical-center">
+            <div class="pu-centerview__horizontal-center">
+                {{> UI.contentBlock }}
+            </div>
+        </div>
+    </div>
+</template>

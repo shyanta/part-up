@@ -22,7 +22,8 @@ Template.app_discover_tribes.onCreated(function() {
     template.states = {
         loading_infinite_scroll: false,
         paging_end_reached: new ReactiveVar(false),
-        count_loading: new ReactiveVar(false)
+        count_loading: new ReactiveVar(false),
+        loaded: new ReactiveVar(false)
     };
 
     // Partup result count
@@ -46,6 +47,7 @@ Template.app_discover_tribes.onCreated(function() {
         query.token = Accounts._storedLoginToken();
 
         template.tribesXMLHttpRequest = null;
+
         HTTP.get('/networks/discover' + mout.queryString.encode(query), {
             beforeSend: function(_request) {
                 template.tribesXMLHttpRequest = _request;
@@ -69,6 +71,7 @@ Template.app_discover_tribes.onCreated(function() {
             var curNetworks = template.networks.get();
             var newNetworks = curNetworks.concat(tiles);
             template.networks.set(newNetworks);
+            template.states.loaded.set(true);
         });
     });
 
@@ -148,6 +151,9 @@ Template.app_discover_tribes.helpers({
                 return template.dropdownActive.get();
             }
         };
+    },
+    loaded: function() {
+        return Template.instance().states.loaded.get();
     },
     endReached: function() {
         return Template.instance().states.paging_end_reached.get();

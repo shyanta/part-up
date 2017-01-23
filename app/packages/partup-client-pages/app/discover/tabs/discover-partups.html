@@ -47,17 +47,27 @@
                     {{> app_discover_partups_filter isActiveReactiveVar=state.dropdownActiveReactiveVar }}
                 </div>
             {{/if}}
-            {{# ColumnTilesLayout instance=columnTilesLayout }}
-                <div class="pu-tile pu-tile-partup">
-                    {{> PartupTile }}
-                </div>
-            {{/ ColumnTilesLayout }}
+            {{#if loaded}}
+                {{# ColumnTilesLayout instance=columnTilesLayout }}
+                    <div class="pu-tile pu-tile-partup">
+                        {{> PartupTile }}
+                    </div>
+                {{/ ColumnTilesLayout }}
 
-            {{# unless endReached }}
-                <div class="pu-sub-loading-infinite-scroll">
-                    {{> Spinner }}
+                {{# unless endReached }}
+                    {{# CenterView height=100 }}
+                        <div class="pu-sub-loading-infinite-scroll">
+                            {{> Spinner }}
+                        </div>
+                    {{/ CenterView}}
+                {{/ unless }}
+            {{else}}
+                <div class="pu-discover-list">
+                    {{# CenterView height=100 }}
+                        {{> Spinner }}
+                    {{/ CenterView}}
                 </div>
-            {{/ unless }}
+            {{/if}}
         </div>
 
     </section>
