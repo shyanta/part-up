@@ -114,6 +114,10 @@ Partup.schemas.entities.partup = new SimpleSchema([partupBaseSchema, {
         type: Date,
         optional: true
     },
+    board_id: {
+        type: String,
+        regEx: SimpleSchema.RegEx.Id
+    },
     created_at: {
         type: Date,
         defaultValue: new Date()
@@ -234,6 +238,10 @@ Partup.schemas.entities.partup = new SimpleSchema([partupBaseSchema, {
  * @memberOf Partup.schemas.forms
  */
 Partup.schemas.forms.partup = new SimpleSchema([partupBaseSchema, {
+    board_view: {
+        type: Boolean,
+        optional: true
+    },
     focuspoint_x_input: {
         type: Number,
         min: 0,
