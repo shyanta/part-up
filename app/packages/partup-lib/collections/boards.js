@@ -36,6 +36,25 @@ Board.prototype.createDefaultLaneSet = function() {
 };
 
 /**
+ * Remove a specific lane from a board
+ *
+ * @memberOf Boards
+ *
+ */
+Board.prototype.removeLane = function(laneId, laneActivities) {
+    var lanes = this.lanes || [];
+    var laneIndex = lanes.indexOf(laneId);
+    if (laneIndex > -1) {
+        lanes = lanes.splice(laneIndex, 1);
+    }
+
+    //@TODO set the activities of the removed lane to the first lane
+
+    // Store the updated lane list
+    Boards.update(this._id, {$set: {lanes: lanes}});
+};
+
+/**
  @namespace Boards
  */
 Boards = new Mongo.Collection('boards', {
