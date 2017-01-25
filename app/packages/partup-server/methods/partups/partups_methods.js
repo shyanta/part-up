@@ -27,8 +27,14 @@ Meteor.methods({
                 email: 0
             };
             newPartup.refreshed_at = new Date();
+            newPartup.board_view = false;
 
-            //check(newPartup, Partup.schemas.entities.partup);
+            // Create a board
+            newPartup.board_id = Meteor.call('boards.insert', newPartup._id);
+
+            // Set the default board lanes
+            var board = Boards.findOneOrFail(newPartup.board_id);
+            board.createDefaultLaneSet();
 
             Partups.insert(newPartup);
             Meteor.users.update(user._id, {$addToSet: {'upperOf': newPartup._id}});
