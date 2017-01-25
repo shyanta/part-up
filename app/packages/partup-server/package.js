@@ -205,6 +205,7 @@ Package.onUse(function(api) {
         'methods/chats/chats_methods.js',
         'methods/chatmessages/chatmessages_methods.js',
         'methods/sectors/sectors_methods.js',
+        'methods/boards/boards_methods.js',
         'cron/reset_clicks_per_hour.js',
         'cron/calculate_partup_participation_score_for_users.js',
         'cron/calculate_partup_progress_score_for_partups.js',
