@@ -92,6 +92,12 @@ Meteor.methods({
         }
 
         try {
+            // Check if the activity is in a lane, and remove from there if so
+            if (activity.lane_id) {
+                var lane = Lanes.findOneOrFail(activity.lane_id);
+                lane.removeActivity(activity._id);
+            }
+
             activity.remove();
 
             // Post system message
