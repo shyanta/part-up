@@ -1,0 +1,49 @@
+.pu-home-form
+    padding-top: 50px
+    padding-bottom: 50px
+    background-color: $color-primary
+
+    &__title
+        text-align: center
+        margin-bottom: 40px
+
+        span
+            border-bottom: 3px solid #3aaab3
+            line-height: 0.9em
+            display: inline-block
+
+    &__form
+        &__button
+            width: 100%
+            min-width: 252px
+
+        &__input
+            background-color: #fff
+            color: #000
+            border: 0
+            width: 100%
+            margin-bottom: 10px
+
+        &__input,
+        &__button
+            display: inline-block
+            vertical-align: top
+            height: 48px
+            font-size: normal
+
+        @media screen and (min-width: 600px)
+            &__button
+                width: calc(50% - 5px)
+                min-width: 252px
+
+            &__input
+                margin-right: 10px
+                width: calc(50% - 5px)
+
+        @media screen and (min-width: 850px)
+            &__button
+                width: 22%
+                min-width: 252px
+
+            &__input
+                width: calc(25% - #{292px / 4})
