@@ -59,6 +59,7 @@ Package.onUse(function(api) {
         'collections/chats.js',
         'collections/chatmessages.js',
         'collections/sectors.js',
+        'collections/boards.js',
         'schemas/activity.js',
         'schemas/update.js',
         'schemas/contribution.js',
@@ -81,6 +82,7 @@ Package.onUse(function(api) {
         'schemas/chat.js',
         'schemas/chatmessage.js',
         'schemas/sector.js',
+        'schemas/board.js',
         'transformers/activity.js',
         'transformers/partup.js',
         'transformers/user.js',
@@ -144,6 +146,7 @@ Package.onUse(function(api) {
     api.export('ChatMessages');
     api.export('FileUploader');
     api.export('Sectors');
+    api.export('Boards');
 
     // Globals
     api.export('get');
