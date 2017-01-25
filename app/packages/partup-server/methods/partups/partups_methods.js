@@ -123,7 +123,6 @@ Meteor.methods({
 
                 // Update network info
                 if (partup.network_id) {
-                    Log.debug('3');
                     var network = Networks.findOneOrFail(partup.network_id);
                     network.updatePartupName(partup._id, newPartupFields.name);
                 }
