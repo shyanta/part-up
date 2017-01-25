@@ -1,5 +1,5 @@
 <template name="Header">
-    <header class="pu-header pu-header-desktop {{#if partupRoute 'home'}}pu-header-home{{/if}}">
+    <header class="pu-header pu-header-desktop{{#if partupRoute 'home'}} {{#if scrollTop}}pu-header--is-transparent{{/if}}{{/if}}">
         {{# if currentUser }}
             {{> Header_LoggedIn }}
         {{ else }}

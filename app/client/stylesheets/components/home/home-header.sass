@@ -1,27 +1,44 @@
 .pu-home-header
     position: relative
     height: 100vh
+    width: 100vw
     background-image: url('/images/about-image.jpg')
     background-size: cover
     background-position: center
     text-align: center
+    min-height: 700px
+    transition: height 250ms
 
     .pu-title
-        margin-bottom: 30px
+        margin-bottom: 20px
 
-    .pu-centerview__horizontal-center
-        width: 600px
+    .pu-centerview
+        position: absolute
+
+        &__horizontal-center
+            width: 100vw
+            padding: 20px
+            padding-top: 60px
 
     .pu-home-calltoaction
         margin: 0 auto
 
     &__text
-        margin-bottom: 60px
+        font-size: 16px
+        margin-bottom: 40px
 
     &__content
         position: relative
         z-index: 1
         height: 100%
+
+    &__button
+        margin-top: 40px
+        transition: opacity 250ms, margin-top 250ms
+
+        &--is-clicked
+            opacity: 0
+            margin-top: 0px !important
 
     &::after
         content: ''
@@ -30,5 +47,28 @@
         right: 0
         bottom: 0
         left: 0
-        background-color: rgba(#000, .5)
+        background-color: rgba(#000, .6)
         z-index: 0
+
+    @media screen and (min-width: $breakpoint-tablet)
+
+        .pu-title
+            margin-bottom: 40px
+
+        &__text
+            font-size: 18px
+            margin-bottom: 60px
+
+        .pu-centerview__horizontal-center
+            padding-top: 20px
+            width: 600px
+
+        &__button
+            margin-top: 18vh
+
+    &--is-collapsed
+        height: 75vh
+
+    // @media screen and (min-width: $breakpoint-desktop)
+    //     .pu-centerview__horizontal-center
+    //         width: 600px

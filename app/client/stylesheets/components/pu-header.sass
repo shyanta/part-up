@@ -16,6 +16,7 @@ $modal-bar-height: 70px
     z-index: 5
     background-color: $color-primary
     height: 60px
+    transition: background-color 150ms
 
     .pu-sub-hidesmallscreen
         display: none
@@ -89,7 +90,7 @@ $modal-bar-height: 70px
         .pu-button
             margin-top: 9px
 
-    &-home
+    &--is-transparent
         background-color: transparent
 
     @media screen and (min-width: $breakpoint-dropdowns)
