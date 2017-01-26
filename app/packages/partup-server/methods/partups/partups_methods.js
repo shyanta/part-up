@@ -27,7 +27,6 @@ Meteor.methods({
                 email: 0
             };
             newPartup.refreshed_at = new Date();
-            newPartup.board_view = false;
 
             // Create a board
             newPartup.board_id = Meteor.call('boards.insert', newPartup._id);
