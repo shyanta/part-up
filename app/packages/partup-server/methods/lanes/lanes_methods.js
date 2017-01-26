@@ -46,6 +46,9 @@ Meteor.methods({
         var board = Boards.findOneOrFail(lane.board_id);
         if (!user || !lane || !User(user).isPartnerInPartup(board.partup_id)) throw new Meteor.Error(401, 'unauthorized');
 
+        // Don't remove if this is the only lane of the board
+        if (board.lanes.length < 2) throw new Meteor.Error(400, 'lane_could_not_be_deleted');
+
         try {
             board.removeLane(lane._id, lane.activities);
             Lanes.remove(lane._id);
