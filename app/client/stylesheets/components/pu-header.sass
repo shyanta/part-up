@@ -66,6 +66,7 @@ $modal-bar-height: 70px
         height: $modal-bar-height
 
         .pu-button-header
+            transition: background-color 150ms
             margin-top: 0
 
         &.pu-header-progress
@@ -92,6 +93,11 @@ $modal-bar-height: 70px
 
     &--is-transparent
         background-color: transparent
+
+        .pu-button-header
+            @media screen and (max-width: #{$breakpoint-desktop - 1px})
+                background-color: rgba(#000, .3)
+
 
     @media screen and (min-width: $breakpoint-dropdowns)
         .pu-sub-more i

@@ -47,6 +47,17 @@
                 // margin-right: 10px
                 width: 50%
 
+        @media screen and (min-width: $breakpoint-tablet)
+            &__button, &__input
+                display: inline-block
+                margin: 0
+                margin-bottom: 0
+
+            &__input, &__button
+                width: calc(33% - 10px)
+                margin-right: 10px
+                margin-bottom: 10px
+
         @media screen and (min-width: 850px)
             &__button, &__input
                 display: inline-block

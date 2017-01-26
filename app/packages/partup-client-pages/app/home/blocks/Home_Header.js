@@ -41,3 +41,12 @@ Template.Home_Header.events({
         $('[data-header]').addClass('pu-home-header--is-collapsed');
     }
 });
+
+Template.Home_Header_CallToAction.events({
+    'input [data-register-email]': function(event, template) {
+        template.email = $('[data-register-email]').val();
+    },
+    'click [data-register-button]': function(event, template) {
+        Router.go('register', {}, {query: 'email=' + template.email});
+    }
+});

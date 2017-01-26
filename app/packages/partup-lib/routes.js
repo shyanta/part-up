@@ -341,6 +341,11 @@ Router.route('/register', {
         'modal_register':        {to: 'modal'},
         'modal_register_signup': {to: 'modal_register'}
     },
+    data: function() {
+        return {
+            prefillEmail: this.params.query.email
+        };
+    },
     onBeforeAction: function() {
         Partup.client.windowTitle.setContextName("Register");
         this.next();

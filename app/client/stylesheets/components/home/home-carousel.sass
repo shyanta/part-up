@@ -23,7 +23,7 @@
 
         .pu-home-wrap
             padding-bottom: 40px
-            padding-top: 290px
+            padding-top: 310px
 
         &--left
             transform: translateX(-20px)
@@ -46,7 +46,7 @@
         transition: opacity 250ms
         background-repeat: no-repeat
         border-bottom: 2px solid #eee
-        background-size: 75vw
+        background-size: 95%
         background-position: right bottom
 
         &--is-active
@@ -100,6 +100,12 @@
 
             &:last-child
                 right: 0
+
+    @media screen and (min-width: 400px)
+        &__image
+            background-size: 90vw
+            background-position: right 20px
+
 
     @media screen and (min-width: $breakpoint-tablet)
 

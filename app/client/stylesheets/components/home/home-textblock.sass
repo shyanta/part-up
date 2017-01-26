@@ -1,6 +1,6 @@
 .pu-home-textblock
-    padding-top: 40px
-    padding-bottom: 40px
+    padding-top: 20px
+    padding-bottom: 20px
 
     &__title, &__paragraph
         color: #000
@@ -27,7 +27,7 @@
         font-family: $font-secondary
 
     &__paragraph
-        font-size: 16px
+        font-size: 14px
         color: #999
         margin-bottom: 20px
 
@@ -52,3 +52,10 @@
                 border-bottom: 3px solid $color-primary
                 line-height: 0.9em
                 display: inline-block
+
+    @media screen and (min-width: $breakpoint-tablet)
+        padding-top: 40px
+        padding-bottom: 40px
+
+        &__paragraph
+            font-size: 16px
