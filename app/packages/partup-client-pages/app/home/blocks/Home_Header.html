@@ -2,20 +2,14 @@
     <div class="pu-home-header" data-header>
         <div class="pu-home-header__content">
             {{# CenterView }}
-                {{#if currentUser}}
-                    <h2 class="pu-title pu-title-serif pu-title-home">
-                        <span>{{_ 'pages-app-home-loggedin-heading' greeting=greeting name=firstName }}</span>
-                    </h2>
-                    <p class="pu-home-header__text pu-paragraph-inverted">{{_ 'pages-app-home-loggedin-paragraph' }}</p>
-                    <button class="pu-button-2 pu-button-2--secondary pu-home-header__button" data-what-is-partup><span>Wat is part-up?</span><i class="picon-caret-slim-down"></i></button>
-                {{ else }}
-                    <h2 class="pu-title pu-title-serif pu-title-home">
-                        <span>{{_ 'pages-app-home-heading' }}</span>
-                    </h2>
-                    <p class="pu-home-header__text pu-paragraph-inverted">{{_ 'pages-app-home-paragraph' }}</p>
-                    {{> Home_Header_CallToAction }}
-                    <button class="pu-button-2 pu-button-2--secondary pu-home-header__button" data-what-is-partup><span>Wat is part-up?</span><i class="picon-caret-slim-down"></i></button>
-                {{/if}}
+                <h2 class="pu-title pu-title-serif pu-title-home">
+                    <span>{{_ 'pages-app-home-header-heading' }}</span>
+                </h2>
+                <p class="pu-home-header__text pu-paragraph-inverted">{{_ 'pages-app-home-header-paragraph' }}</p>
+                {{#unless currentUser}}
+                {{> Home_Header_CallToAction }}
+                {{/unless}}
+                <button class="pu-button-2 pu-button-2--secondary pu-home-header__button" data-what-is-partup><span>{{_ 'pages-app-home-header-button'}}</span><i class="picon-caret-slim-down"></i></button>
             {{/ CenterView}}
         </div>
     </div>
@@ -24,9 +18,9 @@
 <template name="Home_Header_CallToAction">
     <div class="pu-home-calltoaction">
         <div class="pu-home-calltoaction__form">
-            <input data-register-email class="pu-home-calltoaction__form__input pu-input" type="email" placeholder="E-mailadres"/>
-            <button data-register-button class="pu-home-calltoaction__form__button pu-button-2" type="button">Meld je aan (gratis)</button>
+            <input data-register-email class="pu-home-calltoaction__form__input pu-input" type="email" placeholder="{{_ 'pages-app-home-header-calltoaction-placeholder'}}"/>
+            <button data-register-button class="pu-home-calltoaction__form__button pu-button-2" type="button">{{_ 'pages-app-home-header-calltoaction-button'}}</button>
         </div>
-        <p class="pu-home-calltoaction__description">Gebruikt jouw organisatie Part-up al? <a href="/discover">Vind jouw team.</a></p>
+        <p class="pu-home-calltoaction__description">{{_ 'pages-app-home-header-calltoaction-description'}} <a href="/discover">{{_ 'pages-app-home-header-calltoaction-link'}}</a></p>
     </div>
 </template>

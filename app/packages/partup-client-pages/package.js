@@ -49,6 +49,7 @@ Package.onUse(function(api) {
             'app/home/blocks/Home_Header.html',
             'app/home/blocks/Home_Header.js',
             'app/home/blocks/Home_Intro.html',
+            'app/home/blocks/Home_Intro.js',
             'app/home/blocks/Home_Segments.html',
             'app/home/blocks/Home_Carousel.html',
             'app/home/blocks/Home_Carousel.js',
