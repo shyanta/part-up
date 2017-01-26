@@ -5,7 +5,6 @@ if (Meteor.isClient) {
 
     Template.DropboxChooser.onRendered(function () {
 
-
         /**
          * part-up webapp, Dropbox Developer console
          */
@@ -17,21 +16,22 @@ if (Meteor.isClient) {
         $mediaTrigger.click(mediaUploadTrigger);
 
         function mediaUploadTrigger() {
-            var dropboxClient = new Dropbox({clientId: "le3ovpnhqs4qy9g"});
-            var authUrl = dropboxClient.getAuthenticationUrl(new URL(window.location).origin + "/dropbox/oauth_receiver.html");
-            popupCenter(authUrl, 'dropbox', 800, 600);
+            var dropboxClient;
 
-            window.setData = function (error, dropboxClient) {
-                setTimeout(function () {
-                    Dropbox.choose({
-                        success: function (files) {
-                            onFileChange.apply(Dropbox, [files, dropboxClient]);
-                        },
-                        linkType: "direct", // or "preview"
-                        multiselect: true, // or true
-                        extensions: getExtensions()
-                    });
-                }, 0);
+            if (Cookies.get('dropbox-accessToken')) {
+                dropboxClient = new Dropbox({accessToken: Cookies.get('dropbox-accessToken')});
+                Dropbox.choose({
+                    success: function (files) {
+                        onFileChange.apply(Dropbox, [files, dropboxClient]);
+                    },
+                    linkType: "direct", // or "preview"
+                    multiselect: true, // or true
+                    extensions: getExtensions()
+                });
+            } else {
+                dropboxClient = new Dropbox({clientId: jQuery('#dropboxjs').attr('data-app-key')});
+                var authUrl = dropboxClient.getAuthenticationUrl(new URL(window.location).origin + "/dropbox/oauth_receiver.html");
+                popupCenter(authUrl, 'dropbox', 800, 600);
             }
 
         }
