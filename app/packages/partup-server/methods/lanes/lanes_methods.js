@@ -25,7 +25,12 @@ Meteor.methods({
                 created_at: new Date(),
                 name: fields.name,
                 updated_at: new Date()
-            })
+            });
+
+            // Update the board
+            Boards.update(board._id, {$addToSet: {lanes: laneId}});
+
+            return laneId;
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'lane_could_not_be_inserted');
