@@ -1,7 +1,3 @@
-// Meteor.startup(function() {
-//     Session.set('partup-fullScreenHome', true);
-// });
-
 Template.Home_Header.onCreated(function() {
     $('body').addClass('pu-prevent-scrolling');
 });
@@ -32,7 +28,7 @@ Template.Home_Header.events({
     'click [data-what-is-partup]': function(event, template) {
         event.preventDefault();
 
-        // Session.set('partup-fullScreenHome', false);
+        template.data.reactiveHeaderExpanded.set(true);
 
         $(event.currentTarget).addClass('pu-home-header__button--is-clicked');
 

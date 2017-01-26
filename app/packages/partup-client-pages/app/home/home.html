@@ -1,27 +1,29 @@
 <template name="app_home">
 
     <article class="pu-page pu-home">
-        <div class="pu-home__block pu-home__header">
-            {{> Home_Header }}
+        <div class="pu-home__block pu-home__header pu-home__block--is-active">
+            {{> Home_Header reactiveHeaderExpanded=headerExpandedVar }}
         </div>
-        <div class="pu-home__block pu-home__intro">
-            {{> Home_Intro }}
-        </div>
-        <div class="pu-home__block pu-home__segments">
-            {{> Home_Segments }}
-        </div>
-        <div class="pu-home__block pu-home__carousel">
-            {{> Home_Carousel }}
-        </div>
-        <div class="pu-home__block pu-home__products">
-            {{> Home_Products }}
-        </div>
-        <div class="pu-home__block pu-home__form">
-            {{> Home_Form}}
-        </div>
-        <div class="pu-home__block pu-home__footer">
-            {{> Home_Footer }}
-        </div>
+        <!-- {{#if headerExpanded}} -->
+            <div data-home-intro class="pu-home__block pu-home__intro {{#if render.intro}}pu-home__block--is-active{{/if}}">
+                {{> Home_Intro }}
+            </div>
+            <div data-home-segments class="pu-home__block pu-home__segments {{#if render.segments}}pu-home__block--is-active{{/if}}">
+                {{> Home_Segments }}
+            </div>
+            <div data-home-carousel class="pu-home__block pu-home__carousel {{#if render.carousel}}pu-home__block--is-active{{/if}}">
+                {{> Home_Carousel }}
+            </div>
+            <div data-home-products class="pu-home__block pu-home__products {{#if render.products}}pu-home__block--is-active{{/if}}">
+                {{> Home_Products }}
+            </div>
+            <div data-home-form class="pu-home__block pu-home__form {{#if render.form}}pu-home__block--is-active{{/if}}">
+                {{> Home_Form}}
+            </div>
+            <div data-home-footer class="pu-home__block pu-home__footer {{#if render.footer}}pu-home__block--is-active{{/if}}">
+                {{> Home_Footer }}
+            </div>
+        <!-- {{/if}} -->
     </article>
 
 </template>
