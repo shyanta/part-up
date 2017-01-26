@@ -9,13 +9,12 @@
 
         span
             border-bottom: 3px solid #3aaab3
-            line-height: 0.9em
-            display: inline-block
 
     &__form
+        font-size: 0
         &__button
             width: 100%
-            min-width: 252px
+            // min-width: 252px
 
         &__input
             background-color: #fff
@@ -26,24 +25,39 @@
 
         &__input,
         &__button
+            font-size: 16px
             display: inline-block
             vertical-align: top
             height: 48px
             font-size: normal
 
         @media screen and (min-width: 600px)
+            text-align: center
+
+            &__button, &__input
+                display: block
+                margin-left: auto
+                margin-right: auto
+
             &__button
-                width: calc(50% - 5px)
+                width: 50%
                 min-width: 252px
 
             &__input
-                margin-right: 10px
-                width: calc(50% - 5px)
+                // margin-right: 10px
+                width: 50%
 
         @media screen and (min-width: 850px)
+            &__button, &__input
+                display: inline-block
+                margin: 0
+                margin-bottom: 0
+
             &__button
                 width: 22%
                 min-width: 252px
+                max-width: 252px
 
             &__input
+                margin-right: 10px
                 width: calc(25% - #{292px / 4})

@@ -56,11 +56,20 @@ Template.Home_Carousel.onRendered(function() {
     var template = this;
     template.ajustCarouselHeight();
     $(window).on('resize', template.ajustCarouselHeight);
+
+    template.interval = setInterval(function() {
+        if (template.pauseInterval) return;
+        var gotoSlide = template.currentIndex === (template.totalSlides - 1) ? 0 : template.currentIndex + 1;
+
+        template.gotoSlide(gotoSlide);
+    }, 5000);
 });
 
 Template.Home_Carousel.onDestroyed(function() {
     var template = this;
     $(window).off('resize', template.ajustCarouselHeight);
+
+    clearInterval(template.interval);
 });
 
 Template.Home_Carousel.events({
@@ -76,5 +85,11 @@ Template.Home_Carousel.events({
     'click [data-carousel-arrow-right]': function(event, template) {
         event.preventDefault();
         if (template.currentIndex !== (template.totalSlides - 1)) template.gotoSlide(template.currentIndex + 1);
+    },
+    'mouseenter [data-carousel]': function(event, template) {
+        template.pauseInterval = true;
+    },
+    'mouseleave [data-carousel]': function(event, template) {
+        template.pauseInterval = false;
     }
 });

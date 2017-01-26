@@ -1,7 +1,6 @@
 .pu-home-segments
     background-color: #3aaab3
     position: relative
-    padding-top: 10px
     padding-bottom: 20px
 
     &__wrapper
@@ -22,7 +21,44 @@
     &__button
         margin-top: 20px
 
+    &__navigation
+        margin-left: -20px
+        margin-right: -20px
+        padding: 0
+
+        &__item
+            width: 50%
+            display: inline-block
+            vertical-align: top
+
+        &__button
+            width: 100%
+            padding: 20px
+            text-align: center
+            background-color: transparent
+            border: 0
+            outline: 0
+            color: #fff
+
+            .pu-home-subtitle span
+                border-bottom: 3px solid #57c0c9
+
+            &--is-active
+                background-color: #57c0c9
+                .pu-home-subtitle span
+                    border-bottom: 3px solid #3aaab3
+
+
+    @media screen and (min-width: $breakpoint-phablet)
+
+        &__navigation
+            &__button
+                padding: 50px
+
+
     @media screen and (min-width: $breakpoint-tablet)
+        padding-top: 10px
+
         &__segment
             max-width: calc(50% - 65px)
             margin-right: 65px
