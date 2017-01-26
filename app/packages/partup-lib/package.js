@@ -94,6 +94,7 @@ Package.onUse(function(api) {
         'transformers/networkAccess.js',
         'transformers/swarm.js',
         'transformers/contentblock.js',
+        'transformers/lane.js',
         'helpers/parselocale.js',
         'helpers/mentions.js',
         'helpers/normalize.js',

@@ -33,6 +33,33 @@ Meteor.methods({
     },
 
     /**
+     * Insert a lane on a board
+     *
+     * @param laneId
+     * @param {mixed[]} fields
+     */
+    'lanes.update': function(laneId, fields) {
+        check(laneId, String);
+        check(fields, Partup.schemas.forms.lane);
+
+        this.unblock();
+
+        // Check if user is logged in and partner of the partup
+        var user = Meteor.user();
+        var lane = Lanes.findOneOrFail(laneId);
+        var board = Boards.findOneOrFail(lane.board_id);
+        if (!user || !User(user).isPartnerInPartup(board.partup_id)) throw new Meteor.Error(401, 'unauthorized');
+
+        try {
+            var updatedLane = Partup.transformers.lane.fromForm(fields);
+            Lanes.update(laneId, {$set: updatedLane});
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(400, 'lane_could_not_be_updated');
+        }
+    },
+
+    /**
      * Remove a lane from the board
      *
      * @param {String} laneId
