@@ -46,7 +46,7 @@ Meteor.routeComposite('/networks/discover', function(request, parameters) {
         children: [
             {find: Images.findForNetwork},
             {
-                find: Meteor.users.findUppersForNetwork, children: [
+                find: Meteor.users.findUppersForNetworkDiscover, children: [
                 {find: Images.findForUser}
             ]
             }

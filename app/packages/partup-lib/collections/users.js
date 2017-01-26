@@ -188,6 +188,19 @@ Meteor.users.findUppersForNetwork = function(network, options, parameters) {
 };
 
 /**
+ * A stripped down version of the uppers find that only returns ID and image ID
+ *
+ * @memberOf Meteor.users
+ * @param {Network} network
+ * @return {Mongo.Cursor}
+ */
+Meteor.users.findUppersForNetworkDiscover = function(network) {
+    var uppers = network.most_active_uppers || [];
+    // Only return ID and image ID
+    return Meteor.users.find({_id: {$in: uppers}}, {fields: {'_id': 1, 'profile.image': 1}});
+};
+
+/**
  * Find the uppers of a partup
  *
  * @memberOf Meteor.users

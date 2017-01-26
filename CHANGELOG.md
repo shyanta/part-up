@@ -1,3 +1,24 @@
+<a name="2.2.0"></a>
+# [2.2.0](https://github.com/part-up/part-up/compare/2.1.1...2.2.0) (2017-01-26)
+
+
+### Bug Fixes
+
+* **cron:** check if variable was set ([9a7d7a8](https://github.com/part-up/part-up/commit/9a7d7a8))
+
+
+### Features
+
+* **discover:** added centered loader ([89eba3c](https://github.com/part-up/part-up/commit/89eba3c))
+* **google-drive-api:** update src code ([4046e83](https://github.com/part-up/part-up/commit/4046e83))
+
+
+### Performance Improvements
+
+* **discover:** limit network uppers array to 7 to remove excessive data [#825](https://github.com/part-up/part-up/issues/825) ([449e4f6](https://github.com/part-up/part-up/commit/449e4f6))
+
+
+
 <a name="2.1.1"></a>
 ## [2.1.1](https://github.com/part-up/part-up/compare/2.1.0...2.1.1) (2017-01-13)
 
