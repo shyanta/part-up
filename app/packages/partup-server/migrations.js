@@ -921,10 +921,45 @@ Migrations.add({
 
 Migrations.add({
     version: 38,
+<<<<<<< HEAD
     name: 'Remove partup invites for uppers that are already partner or supporter',
     up: function() {
         Partups.find().fetch().forEach(function(partup) {
             Invites.remove({partup_id: partup._id, invitee_id: {$in: partup.uppers.concat(partup.supporters)}});
+=======
+    name: 'Create a board with default lanes for existing partups and set the current activities',
+    up: function() {
+        Partups.find().fetch().forEach(function(partup) {
+            // Skip partups that already have a board
+            if (partup.board_id) return;
+
+            // Create a board
+            var boardId = Boards.insert({
+                _id: Random.id(),
+                created_at: new Date(),
+                lanes: [],
+                partup_id: partup._id,
+                updated_at: new Date()
+            });
+
+            // Set the default board lanes
+            var board = Boards.findOneOrFail(boardId);
+            board.createDefaultLaneSet();
+
+            // Put all existing activities in Backlog
+            board = Boards.findOneOrFail(boardId);
+            var backlogLaneId = board.lanes[0];
+            var activityIds = Activities.find({partup_id: partup._id}, {_id: 1}).map(function(activity) {
+                return activity._id;
+            });
+
+            // Set Backlog lane ID to activities
+            Activities.update({_id: {$in: activityIds}}, {$set: {lane_id: backlogLaneId}});
+            // Set activities in lane
+            Lanes.update(backlogLaneId, {$set: {activities: activityIds}});
+            // And lastly, connect board to partup
+            Partups.update(partup._id, {$set: {board_id: boardId}});
+>>>>>>> feat(board-view): added migration that creates a board and the default lanes for all partups and puts all the current activities on the Backlog lane
         });
     },
     down: function() {
