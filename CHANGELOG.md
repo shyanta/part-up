@@ -1,3 +1,13 @@
+<a name="2.1.1"></a>
+## [2.1.1](https://github.com/part-up/part-up/compare/2.1.0...2.1.1) (2017-01-13)
+
+
+### Bug Fixes
+
+* **security:** No errors when x-forwarded-proto not set ([a03d1ea](https://github.com/part-up/part-up/commit/a03d1ea))
+
+
+
 <a name="2.1.0"></a>
 # [2.1.0](https://github.com/part-up/part-up/compare/2.0.2...2.1.0) (2017-01-13)
 
