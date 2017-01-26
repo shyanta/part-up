@@ -47,7 +47,7 @@ Event.on('partups.inserted', function(userId, partup) {
         recipients.forEach(function(upperId) {
             // Don't send a notification to the creator of the partup
             if (upperId === creator._id) return;
-            var upper = Meteor.users.findOneOrFail(upperId);
+            var upper = Meteor.users.findOne(upperId);
             if (!User(upper).isActive()) return; // Ignore deactivated accounts
 
             // Set the notification details
