@@ -15,8 +15,6 @@ Package.onUse(function(api) {
 
     api.addFiles([
 
-        'dropins.min.js',
-
         'DropboxChooser.html',
         'DropboxChooser.ctrl.js'
 

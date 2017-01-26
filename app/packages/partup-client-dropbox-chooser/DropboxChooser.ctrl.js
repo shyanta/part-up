@@ -1,5 +1,6 @@
 import {FileUploader} from 'meteor/partup-lib';
 
+
 if (Meteor.isClient) {
 
     Template.DropboxChooser.onRendered(function () {
@@ -8,7 +9,6 @@ if (Meteor.isClient) {
         /**
          * part-up webapp, Dropbox Developer console
          */
-        Dropbox.init({appKey: 'le3ovpnhqs4qy9g'});
 
         var mediaUploader = Template.instance().data.mediaUploader;
 
@@ -17,31 +17,29 @@ if (Meteor.isClient) {
         $mediaTrigger.click(mediaUploadTrigger);
 
         function mediaUploadTrigger() {
+            var dropboxClient = new Dropbox({clientId: "le3ovpnhqs4qy9g"});
+            var authUrl = dropboxClient.getAuthenticationUrl(new URL(window.location).origin + "/dropbox/oauth_receiver.html");
+            popupCenter(authUrl, 'dropbox', 800, 600);
 
-            // Browser-side applications do not use the API secret.
-            var client = new Dropbox.Client({key: "le3ovpnhqs4qy9g"});
+            window.setData = function (error, dropboxClient) {
+                setTimeout(function () {
+                    Dropbox.choose({
+                        success: function (files) {
+                            onFileChange.apply(Dropbox, [files, dropboxClient]);
+                        },
+                        linkType: "direct", // or "preview"
+                        multiselect: true, // or true
+                        extensions: getExtensions()
+                    });
+                }, 0);
+            }
 
-            client.authDriver(
-                new Dropbox.AuthDriver.Popup({
-                    receiverUrl: new URL(window.location).origin + "/dropbox/oauth_receiver.html"
-                }));
+        }
 
-            client.authenticate(function (error, dropboxClient) {
-                if (error) {
-                    return Partup.client.notify.error(TAPi18n.__(error.response.error));
-                }
-
-                Dropbox.choose({
-                    success: function (files) {
-                        onFileChange.apply(Dropbox, [files, dropboxClient]);
-                    },
-                    linkType: "direct", // or "preview"
-                    multiselect: true, // or true
-                    extensions: getExtensions()
-                });
-            });
-
-
+        function popupCenter(url, title, w, h) {
+            var left = (screen.width / 2) - (w / 2);
+            var top = (screen.height / 2) - (h / 2);
+            return window.open(url, title, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
         }
 
         function getExtensions() {
@@ -77,16 +75,27 @@ if (Meteor.isClient) {
 
                 if (path) {
                     shareSettingPromises.push(new Promise(function (resolve, reject) {
-                        dropboxClient.makeUrl(decodeURI(path[2]), {
-                            longUrl: true,
-                            long: true
-                        }, function (error, result) {
-                            if (error) {
+                        jQuery.ajax({
+                            url: 'https://api.dropboxapi.com/2/sharing/create_shared_link',
+                            method: "POST",
+                            contentType: "application/json; charset=utf-8",
+                            traditional: true,
+                            headers: {
+                                "Authorization": "Bearer " + dropboxClient.accessToken
+                            },
+                            data: JSON.stringify({
+                                path: '/' + decodeURI(path[2])
+                            }),
+                            success: function (result) {
+                                debugger
+                                mappedFile.previewLink = result.url;
+                                resolve(mappedFile);
+                            },
+                            error: function (error) {
+                                debugger
                                 reject(error);
                             }
-                            mappedFile.previewLink = result.url;
-                            resolve(mappedFile);
-                        })
+                        });
                     }));
                 }
             });
@@ -141,6 +150,7 @@ if (Meteor.isClient) {
                 });
 
             }).catch(function (error) {
+                debugger;
                 Partup.client.notify.error(TAPi18n.__(error.response.error));
             });
         }
