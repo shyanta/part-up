@@ -46,9 +46,10 @@ Board.prototype.removeLane = function(laneId, laneActivities) {
     var laneIndex = lanes.indexOf(laneId);
     if (laneIndex > -1) {
         lanes = lanes.splice(laneIndex, 1);
-    }
 
-    //@TODO set the activities of the removed lane to the first lane
+        //Set the remaining activities of the removed lane to the first lane
+        Lanes.update(lanes[0], {$addToSet: {activities: laneActivities}});
+    }
 
     // Store the updated lane list
     Boards.update(this._id, {$set: {lanes: lanes}});
