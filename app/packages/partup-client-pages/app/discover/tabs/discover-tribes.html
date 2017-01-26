@@ -46,19 +46,31 @@
                     {{> app_discover_tribes_filter  isActiveReactiveVar=state.dropdownActiveReactiveVar }}
                 </div>
             {{/if}}
-            <ul class="pu-list pu-discover-list">
-                {{#each data.networks}}
-                    <li>
-                        {{> TribeTile tribe=. }}
-                    </li>
-                {{/each}}
-            </ul>
+            {{#if loaded}}
+                <ul class="pu-list pu-discover-list">
+                    {{#each data.networks}}
+                        <li>
+                            {{> TribeTile tribe=. }}
+                        </li>
+                    {{/each}}
+                    {{# unless endReached }}
+                        <li>
+                            {{# CenterView height=100 }}
+                                {{> Spinner }}
+                            {{/ CenterView}}
+                        </li>
+                    {{/ unless }}
+                </ul>
 
-            {{# unless endReached }}
-                <div class="pu-sub-loading-infinite-scroll">
-                    {{> Spinner }}
+
+            {{else}}
+                <div class="pu-discover-list">
+                    {{# CenterView height=100 }}
+                        {{> Spinner }}
+                    {{/ CenterView}}
                 </div>
-            {{/ unless }}
+            {{/if}}
+
         </div>
 
     </section>

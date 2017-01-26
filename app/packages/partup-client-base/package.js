@@ -110,6 +110,8 @@ Package.onUse(function (api) {
         'helpers/IE.js',
         'helpers/screenSize.js',
 
+        'views/CenterView.html',
+
         'bootstrap.js',
         'analytics.js'
 

@@ -687,6 +687,7 @@ Networks.findForDiscover = function(userId, options, parameters) {
     options.limit = options.limit ? parseInt(options.limit) : undefined;
     options.skip = options.skip ? parseInt(options.skip) : 0;
     options.sort = options.sort || {};
+    options.fields = options.fields || {};
 
     parameters = parameters || {};
     var sort = parameters.sort || undefined;
@@ -749,6 +750,9 @@ Networks.findForDiscover = function(userId, options, parameters) {
     if (notArchived) {
         selector['archived_at'] = {$exists: false};
     }
+
+    // Limit uppers array to 7 to remove excessive data
+    options.fields['uppers'] = {$slice: 7};
 
     return this.guardedFind(userId, selector, options);
 };

@@ -18,7 +18,8 @@ Template.app_discover_partups.onCreated(function() {
     template.states = {
         loading_infinite_scroll: false,
         paging_end_reached: new ReactiveVar(false),
-        count_loading: new ReactiveVar(false)
+        count_loading: new ReactiveVar(false),
+        loaded: new ReactiveVar(false)
     };
 
     // Partup result count
@@ -117,6 +118,9 @@ Template.app_discover_partups.onRendered(function() {
             template.columnTilesLayout.addTiles(tiles, function callback() {
                 template.states.loading_infinite_scroll = false;
             });
+
+            template.states.loaded.set(true);
+
         });
     });
 
@@ -185,6 +189,9 @@ Template.app_discover_partups.helpers({
                 return template.dropdownActive.get();
             }
         };
+    },
+    loaded: function() {
+        return Template.instance().states.loaded.get();
     },
     columnTilesLayout: function() {
         return Template.instance().columnTilesLayout;
