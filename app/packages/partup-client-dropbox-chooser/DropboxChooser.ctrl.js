@@ -87,12 +87,10 @@ if (Meteor.isClient) {
                                 path: '/' + decodeURI(path[2])
                             }),
                             success: function (result) {
-                                debugger
                                 mappedFile.previewLink = result.url;
                                 resolve(mappedFile);
                             },
                             error: function (error) {
-                                debugger
                                 reject(error);
                             }
                         });
