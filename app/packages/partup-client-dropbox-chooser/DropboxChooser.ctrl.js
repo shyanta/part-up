@@ -83,7 +83,7 @@ if (Meteor.isClient) {
                 if (path) {
                     shareSettingPromises.push(new Promise(function (resolve, reject) {
                         jQuery.ajax({
-                            url: 'https://api.dropboxapi.com/2/sharing/create_shared_link',
+                            url: 'https://api.dropboxapi.com/2/sharing/create_shared_link_with_settings',
                             method: "POST",
                             contentType: "application/json; charset=utf-8",
                             traditional: true,
@@ -91,7 +91,10 @@ if (Meteor.isClient) {
                                 "Authorization": "Bearer " + dropboxClient.accessToken
                             },
                             data: JSON.stringify({
-                                path: '/' + decodeURI(path[2])
+                                path: '/' + decodeURI(path[2]),
+                                settings: {
+                                    "requested_visibility": "public"
+                                }
                             }),
                             success: function (result) {
                                 mappedFile.previewLink = result.url;
