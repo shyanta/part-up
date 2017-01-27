@@ -32,3 +32,14 @@ Lanes = new Mongo.Collection('lanes', {
         return new Lane(document);
     }
 });
+
+/**
+ * Find the lanes for a board
+ *
+ * @memberOf Lanes
+ * @param {Board} board
+ * @return {Mongo.Cursor}
+ */
+Lanes.findForBoard = function(board) {
+    return Lanes.find({board_id: board._id});
+};
