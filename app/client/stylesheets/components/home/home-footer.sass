@@ -8,6 +8,7 @@
         width: 100%
 
     &__socials
+        min-height: 55px
         padding: 20px 0
         background-color: #31919a
 
@@ -16,6 +17,26 @@
 
         &__links
             opacity: .8
+            margin-bottom: 10px
+
+            .pu-home-links__link
+                margin-right: 10px
+
+            &.first
+                float: left
+
+            &.second
+                float: left
+                margin-left: -20px
+
+            @media screen and (min-width: 500px)
+                margin-bottom: 0
+
+                &.second
+                    float: right
+
+        @extend %clearfix
+
 
     @media screen and (min-width: $breakpoint-tablet)
         &__list

@@ -97,5 +97,10 @@
 
     "pages-app-home-footer-copyright": "© 2016 Part-up",
     "app-language-nl": "Nederlands",
-    "app-language-en": "English"
+    "app-language-en": "English",
+
+    "pages-app-home-footer-terms": "Terms of use",
+    "pages-app-home-footer-terms-link": "#",
+    "pages-app-home-footer-privacy": "Privacy Policy",
+    "pages-app-home-footer-privacy-link": "#"
 }
