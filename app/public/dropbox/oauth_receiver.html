@@ -48,5 +48,6 @@
     var dropboxClient = new Dropbox({accessToken: getAccessTokenFromUrl()});
 
     Cookies.set('dropbox-accessToken', dropboxClient.accessToken);
+    window.opener.setData(dropboxClient);
     window.close();
 </script>

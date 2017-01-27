@@ -15,9 +15,16 @@ if (Meteor.isClient) {
 
         $mediaTrigger.click(mediaUploadTrigger);
 
+        window.setData = function () {
+            setTimeout(function () {
+                if (!Partup.client.browser.isSafari()) {
+                    mediaUploadTrigger();
+                }
+            }, 0);
+        };
+
         function mediaUploadTrigger() {
             var dropboxClient;
-
             if (Cookies.get('dropbox-accessToken')) {
                 dropboxClient = new Dropbox({accessToken: Cookies.get('dropbox-accessToken')});
                 Dropbox.choose({
@@ -148,8 +155,8 @@ if (Meteor.isClient) {
                 });
 
             }).catch(function (error) {
-                debugger;
-                Partup.client.notify.error(TAPi18n.__(error.response.error));
+                var errorString = JSON.stringify(error, null, 4);
+                Partup.client.notify.error(TAPi18n.__(errorString));
             });
         }
     });
