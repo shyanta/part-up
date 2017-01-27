@@ -63,3 +63,16 @@ Boards = new Mongo.Collection('boards', {
         return new Board(document);
     }
 });
+
+/**
+ * Find the board for a partup
+ *
+ * @memberOf Boards
+ * @param {Partup} partup
+ * @param {String} userId
+ * @return {Mongo.Cursor}
+ */
+Boards.findForPartup = function(partup, userId) {
+    if (!partup.isViewableByUser(userId)) return null;
+    return Boards.find({_id: partup.board_id}, {limit: 1});
+};

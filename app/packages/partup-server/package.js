@@ -173,6 +173,7 @@ Package.onUse(function(api) {
         'publications/contentblocks.js',
         'publications/chats.js',
         'publications/sectors.js',
+        'publications/boards.js',
         'routes/hooks.js',
         'routes/middleware.js',
         'routes/csv/csv_routes.js',
