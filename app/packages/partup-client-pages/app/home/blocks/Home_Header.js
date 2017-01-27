@@ -25,12 +25,13 @@ Template.Home_Header.helpers({
 });
 
 Template.Home_Header.events({
-    'click [data-what-is-partup]': function(event, template) {
-        event.preventDefault();
+    'click [data-what-is-partup], mousewheel [data-header]': function(event, template) {
+        // event.preventDefault();
+        if (template.data.reactiveHeaderExpanded.curValue) return;
 
         template.data.reactiveHeaderExpanded.set(true);
 
-        $(event.currentTarget).addClass('pu-home-header__button--is-clicked');
+        $('[data-what-is-partup]').addClass('pu-home-header__button--is-clicked');
 
         $('body').removeClass('pu-prevent-scrolling');
 
@@ -43,6 +44,10 @@ Template.Home_Header_CallToAction.events({
         template.email = $('[data-register-email]').val();
     },
     'click [data-register-button]': function(event, template) {
+        Router.go('register', {}, {query: 'email=' + template.email});
+    },
+    'submit [data-register-form]': function(event, template) {
+        event.preventDefault();
         Router.go('register', {}, {query: 'email=' + template.email});
     }
 });

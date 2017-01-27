@@ -80,11 +80,13 @@ Template.Home_Carousel.events({
     },
     'click [data-carousel-arrow-left]': function(event, template) {
         event.preventDefault();
-        if (template.currentIndex) template.gotoSlide(template.currentIndex - 1);
+        var gotoSlide = template.currentIndex === 0 ? template.totalSlides - 1 : template.currentIndex - 1;
+        template.gotoSlide(gotoSlide);
     },
     'click [data-carousel-arrow-right]': function(event, template) {
         event.preventDefault();
-        if (template.currentIndex !== (template.totalSlides - 1)) template.gotoSlide(template.currentIndex + 1);
+        var gotoSlide = template.currentIndex === (template.totalSlides - 1) ? 0 : template.currentIndex + 1;
+        template.gotoSlide(gotoSlide);
     },
     'mouseenter [data-carousel]': function(event, template) {
         template.pauseInterval = true;

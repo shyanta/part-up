@@ -66,6 +66,9 @@ Package.onUse(function(api) {
         'menu/menu.html',
         'menu/menu.js',
 
+        'language-selector/language-selector.html',
+        'language-selector/language-selector.js',
+
         'tribes/tribes.html',
         'tribes/tribes.js',
 

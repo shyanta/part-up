@@ -1,0 +1,15 @@
+<template name="DropdownLanguageSelector">
+    <button class="pu-button pu-button-header pu-button-header-text" data-toggle-menu="menu">
+        <i class="picon-globe"></i> {{ language }} {{#unless menuOpen}}<i class="picon-caret-slim-down"></i>{{/unless}}{{#if menuOpen}}<i class="picon-caret-slim-up"></i>{{/if}}
+    </button>
+    <div class="pu-dropdown {{#if menuOpen}}pu-dropdown-active{{/if}} pu-dropdown-simple pu-dropdown-more" data-clickoutside-close>
+        {{> DropdownLanguageSelector_Content }}
+    </div>
+</template>
+
+<template name="DropdownLanguageSelector_Content">
+    <ul class="pu-list">
+        <li><a data-language="nl" href="#">{{_ 'app-language-nl'}} {{#if partupEquals language 'nl' }}<i class="picon-check"></i>{{/if}}</a></li>
+        <li><a data-language="en" href="#">{{_ 'app-language-en'}} {{#if partupEquals language 'en' }}<i class="picon-check"></i>{{/if}}</a></li>
+    </ul>
+</template>
