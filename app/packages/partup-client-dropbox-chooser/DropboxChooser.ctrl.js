@@ -96,14 +96,22 @@ if (Meteor.isClient) {
                                     "requested_visibility": "public"
                                 }
                             }),
-                            success: function (result) {
-                                mappedFile.previewLink = result.url;
-                                resolve(mappedFile);
-                            },
-                            error: function (error) {
-                                reject(error);
-                            }
-                        });
+                        })
+                            .fail(function (response) {
+                                var dropboxError = response.responseJSON.error;
+                                if (dropboxError['.tag'] === 'shared_link_already_exists') {
+                                    resolve(mappedFile);
+                                } else {
+                                    reject(dropboxError.error_summary);
+                                }
+                            })
+                            .done(
+                                function (result) {
+                                    mappedFile.previewLink = result.url;
+                                    resolve(mappedFile);
+                                }
+                            )
+
                     }));
                 }
             });
