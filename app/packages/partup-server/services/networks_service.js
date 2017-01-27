@@ -197,7 +197,7 @@ Partup.server.services.networks = {
 
         // Retrieve data
         var latestUpdate = Updates.findOne({partup_id: {$in: networkPartupIds}}, {fields: {updated_at: 1}, sort: {updated_at: -1}});
-        var updateUpdatedAt = latestUpdate.updated_at || null;
+        var updateUpdatedAt = latestUpdate ? latestUpdate.updated_at : null;
         var latestChatMessage = ChatMessages.findOne({chat_id: network.chat_id}, {fields: {updated_at: 1}, sort: {updated_at: -1}});
         var chatUpdatedAt = latestChatMessage ? latestChatMessage.updated_at : null;
 
