@@ -89,6 +89,11 @@ Template.app_partup_activities.helpers({
 
             });
         };
+    },
+    boardViewEnabled: function() {
+        var partup = Template.instance().partup;
+        if (!partup) return false;
+        return partup.board_view;
     }
 
 });
