@@ -100,6 +100,7 @@ if (Meteor.isClient) {
                             .fail(function (response) {
                                 var dropboxError = response.responseJSON.error;
                                 if (dropboxError['.tag'] === 'shared_link_already_exists') {
+                                    mappedFile.previewLink = file.link;
                                     resolve(mappedFile);
                                 } else {
                                     reject(dropboxError.error_summary);
