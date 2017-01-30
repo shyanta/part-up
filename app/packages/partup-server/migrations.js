@@ -951,8 +951,8 @@ Migrations.add({
             Activities.update({_id: {$in: activityIds}}, {$set: {lane_id: backlogLaneId}});
             // Set activities in lane
             Lanes.update(backlogLaneId, {$set: {activities: activityIds}});
-            // And lastly, connect board to partup
-            Partups.update(partup._id, {$set: {board_id: boardId}});
+            // And lastly, connect board to partup and set the default view mode to false (classic view)
+            Partups.update(partup._id, {$set: {board_id: boardId, board_view: false}});
         });
     },
     down: function() {
