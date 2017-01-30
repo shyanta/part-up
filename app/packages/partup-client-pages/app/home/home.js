@@ -17,7 +17,7 @@ Template.app_home.onRendered(function() {
     var isElementInViewPort = function(el) {
 
         //special bonus for those using jQuery
-        if (typeof jQuery === "function" && el instanceof jQuery) {
+        if (typeof jQuery === 'function' && el instanceof jQuery) {
             el = el[0];
         }
 
@@ -30,6 +30,9 @@ Template.app_home.onRendered(function() {
     };
 
     template.handler = function() {
+        if (isElementInViewPort($('[data-home-intro]'))) {
+            template.intro.set(true);
+        }
         if (isElementInViewPort($('[data-home-segments]'))) {
             template.segments.set(true);
         }
