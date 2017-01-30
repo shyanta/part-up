@@ -56,6 +56,7 @@ Package.onUse(function(api) {
             'app/home/blocks/Home_Carousel.js',
             'app/home/blocks/Home_Products.html',
             'app/home/blocks/Home_Form.html',
+            'app/home/blocks/Home_Form.js',
             'app/home/blocks/Home_Footer.html',
             // 'app/home/partials/featured-networks.html',
             // 'app/home/partials/featured-networks.js',
