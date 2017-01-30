@@ -921,12 +921,20 @@ Migrations.add({
 
 Migrations.add({
     version: 38,
-<<<<<<< HEAD
     name: 'Remove partup invites for uppers that are already partner or supporter',
     up: function() {
         Partups.find().fetch().forEach(function(partup) {
             Invites.remove({partup_id: partup._id, invitee_id: {$in: partup.uppers.concat(partup.supporters)}});
-=======
+
+        });
+    },
+    down: function() {
+        //
+    }
+});
+
+Migrations.add({
+    version: 39,
     name: 'Create a board with default lanes for existing partups and set the current activities',
     up: function() {
         Partups.find().fetch().forEach(function(partup) {
@@ -957,16 +965,12 @@ Migrations.add({
             Activities.update({_id: {$in: activityIds}}, {$set: {lane_id: backlogLaneId}});
             // Set activities in lane
             Lanes.update(backlogLaneId, {$set: {activities: activityIds}});
-            // And lastly, connect board to partup
-            Partups.update(partup._id, {$set: {board_id: boardId}});
->>>>>>> feat(board-view): added migration that creates a board and the default lanes for all partups and puts all the current activities on the Backlog lane
+            // And lastly, connect board to partup and set the default view mode to false (classic view)
+            Partups.update(partup._id, {$set: {board_id: boardId, board_view: false}});
+
         });
     },
     down: function() {
         //
     }
-});
-
-Meteor.startup(function() {
-    Migrations.migrateTo(38);
 });
