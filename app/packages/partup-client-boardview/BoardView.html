@@ -1,0 +1,22 @@
+<template name="BoardView">
+    <div class="pu-boardview">
+        {{log lanes}}
+        {{#each lanes}}
+            <div class="pu-boardview-lane">
+                <div class="pu-boardview-lane__header">
+                    {{ name }}
+                </div>
+                <ul class="pu-boardview-lane__content">
+                    {{#each activities}}
+                        <li class="pu-boardview-card">
+                            {{> Activity activity=. EXPANDABLE=false COMMENTS_LINK=true isUpper=true }}
+                        </li>
+                    {{/each}}
+                </ul>
+                <div class="pu-boardview-lane__footer">
+                    <button>Toevoegen</button>
+                </div>
+            </div>
+        {{/each}}
+    </div>
+</template>

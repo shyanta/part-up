@@ -668,3 +668,12 @@ var ImageSystem = function(template) {
         }
     });
 };
+
+Template.BoardSwitch.events({
+    'click [data-enable]': function(event, template) {
+        template.$('[data-board-input]').val(true);
+    },
+    'click [data-disable]': function(event, template) {
+        template.$('[data-board-input]').val(false);
+    }
+});

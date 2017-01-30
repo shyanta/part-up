@@ -207,6 +207,17 @@
             </div>
         </label>
 
+        <div class="pu-formfield">
+            <span class="pu-label">
+                Hoe wil je activiteiten tonen?
+            </span>
+            <div class="pu-sub-validations">
+                {{# BoardSwitch }}
+                    {{> afFieldInput name='board_view' type="hidden" data-board-input="" }}
+                {{/ BoardSwitch }}
+            </div>
+        </div>
+
         {{#unless preselectedNetwork}}
         {{# if CREATE }}
             <div class="pu-formfield">
@@ -272,25 +283,6 @@
             {{/ if }}
         {{/ if }}
         {{/unless}}
-
-        <div class="pu-formfield">
-            <span class="pu-label">
-                {{_ 'partupsettings-form-phase-label' }}
-            </span>
-
-            <div class="pu-sub-validations {{#if afFieldIsInvalid name='phase' }}pu-state-invalid{{/if}}">
-                <div class="pu-sub-input">
-                    <fieldset class="pu-sub-radiogroup" data-phase>
-                        {{# each phaseOptions }}
-                            <label><input type="radio" name="phase_input" value="{{ value }}" class="pu-input-radio" checked="{{ phaseChecked }}">{{{_ label }}}</label>
-                        {{/ each }}
-                    </fieldset>
-                </div>
-                <span class="pu-sub-error">{{ afFieldMessage name='phase' }}</span>
-
-                {{> afFieldInput type='hidden' name='phase' value=selectedPhase }}
-            </div>
-        </div>
 
         <!-- Image -->
         <div class="pu-formfield">
@@ -361,4 +353,21 @@
         {{> yield region="PartupsettingsFooter" }}
 
     {{/autoForm}}
+</template>
+
+<template name="BoardSwitch">
+    <div class="pu-boardswitch">
+        <label class="pu-boardswitch__check" data-enable>
+            <input name="board-switch" value="enabled" class="pu-boardswitch__input pu-input-radio" type="radio">
+            <span class="pu-boardswitch__label">Scrum/Agile</span>
+            <figure class="pu-boardswitch__figure pu-boardswitch__figure-board"></figure>
+        </label>
+        <label class="pu-boardswitch__check" data-disable>
+            <input name="board-switch" value="disabled" class="pu-boardswitch__input pu-input-radio" type="radio">
+            <span class="pu-boardswitch__label">List</span>
+            <figure class="pu-boardswitch__figure pu-boardswitch__figure-list"></figure>
+        </label>
+        {{> UI.contentBlock}}
+    </div>
+
 </template>

@@ -32,6 +32,7 @@ var partupBaseSchema = new SimpleSchema({
     },
     phase: {
         type: String,
+        optional: true,
         allowedValues: [
             Partups.PHASE.BRAINSTORM,
             Partups.PHASE.PLAN,
@@ -239,8 +240,7 @@ Partup.schemas.entities.partup = new SimpleSchema([partupBaseSchema, {
  */
 Partup.schemas.forms.partup = new SimpleSchema([partupBaseSchema, {
     board_view: {
-        type: Boolean,
-        optional: true
+        type: Boolean
     },
     focuspoint_x_input: {
         type: Number,

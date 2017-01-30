@@ -86,5 +86,13 @@ Template.app_partup.helpers({
         var partup = Partups.findOne({_id: this.partupId});
         if (!partup) return;
         return Networks.findOne({_id: partup.network_id});
+    },
+    isActivities: function() {
+        return Router.current().route.getName() === 'partup-activities';
+    },
+    boardViewEnabled: function() {
+        var partup = Partups.findOne({_id: this.partupId});
+        if (!partup) return;
+        return partup.board_view;
     }
 });
