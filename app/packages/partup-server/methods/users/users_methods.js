@@ -352,5 +352,30 @@ Meteor.methods({
         });
 
         return lodash.sortByOrder(uppers, ['admin', 'colleague', 'participation_score'], ['desc', 'desc', 'desc']);
+    },
+
+    /**
+     * Add an email address to a user that he/she can login with. This also sends the verification email.
+     * @param emailAddress
+     */
+    'users.add_email': function(emailAddress) {
+        check(emailAddress, String);
+
+        var user = Meteor.user();
+        if (!user) throw new Meteor.Error(401, 'unauthorized');
+
+        // Check if mailaddress is already in use
+        var addressExisits = Meteor.users.findOne({$or: [
+            {'emails.address': emailAddress},
+            {'registered_emails.address': emailAddress},
+            {'services.email.verificationTokens.address': emailAddress}
+        ]});
+
+        if (addressExisits) throw new Meteor.Error(400, 'email_address_already_in_use');
+
+        // Add email to user's email list
+        Meteor.users.update(user._id, {$addToSet: {emails: {address: emailAddress, verified: false}}});
+
+        Accounts.sendVerificationEmail(user._id, emailAddress);
     }
 });
