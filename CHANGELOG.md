@@ -1,3 +1,8 @@
+<a name="2.2.1"></a>
+## [2.2.1](https://github.com/part-up/part-up/compare/2.2.0...2.2.1) (2017-01-26)
+
+
+
 <a name="2.2.0"></a>
 # [2.2.0](https://github.com/part-up/part-up/compare/2.1.1...2.2.0) (2017-01-26)
 
@@ -10,6 +15,7 @@
 ### Features
 
 * **discover:** added centered loader ([89eba3c](https://github.com/part-up/part-up/commit/89eba3c))
+* **dropbox-sdk:** upgrade to 2.5.0 ([80ff3f3](https://github.com/part-up/part-up/commit/80ff3f3))
 * **google-drive-api:** update src code ([4046e83](https://github.com/part-up/part-up/commit/4046e83))
 
 
