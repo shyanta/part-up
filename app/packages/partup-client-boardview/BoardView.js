@@ -1,166 +1,256 @@
 Template.BoardView.onCreated(function() {
     var template = this;
-    var partupId = 'hSCFmnoDi4hvmb9GR';
+    var partupId = template.data.partupId;
 
-    template.board = {
-        _id: 'hfdskfgyu',
-        created_at: new Date(),
-        partup_id: partupId,
-        updated_at: new Date(),
-        lanes: ['hfdsail','gfdauyew','hfewyid']
+    template.editLane = new ReactiveVar(undefined);
+    template.addLane = new ReactiveVar(false);
+
+    template.loaded = new ReactiveVar(false, function(a, b) {
+        if (!b) return;
+        lodash.defer(function() {
+            template.createLanes();
+        });
+    });
+
+    template.subscribe('board.for_partup_id', partupId, {
+        onReady: function() {
+            template.loaded.set(true);
+        }
+    });
+
+    var arraysAreTheSame = function(arr1, arr2) {
+        return JSON.stringify(arr1) === JSON.stringify(arr2);
     };
 
-    template.lanes = [{
-        _id: 'hfdsail',
-        name: 'Backlog',
-        board_id: 'hfdskfgyu',
-        created_at: new Date(),
-        updated_at: new Date(),
-        activities: ['tj8M62M52Sa7MwMnZ', 'vAMWQP5vQZzScpQeb', 'X7h7ruFCZr7qtGGez', 'cq5dK2CkZHbsRLsY2', 'kLy8ub6qCytinCGbB']
-    },{
-        _id: 'gfdauyew',
-        name: 'Verify',
-        board_id: 'hfdskfgyu',
-        created_at: new Date(),
-        updated_at: new Date(),
-        activities: ['vEoGorDunHjRLrX9v', 'CjvSRHF3afmFbxuY8']
-    },{
-        _id: 'hfewyid',
-        name: 'Done',
-        board_id: 'hfdskfgyu',
-        created_at: new Date(),
-        updated_at: new Date(),
-        activities: ['EQoA2RF74qbrzkK9Z', 'SL7z9zCE6PSnfRH4R']
-    }];
+    var callBoardUpdate = function(laneIds) {
+        var board = Boards.findOne();
+        if (!board) return;
+
+        Meteor.call('boards.update', board._id, {lanes: laneIds || []}, function(err, res) {
+            if (err) return Partup.client.notify.error('something went wrong');
+        });
+    };
+
+    template.updateBoard = function() {
+        var boardLanes = template.$('[data-sortable-board] [data-lane]');
+        var lanes = $.map(boardLanes, function(laneElement, index) {
+            return $(laneElement).data('lane');
+        });
+
+        // Update board lanes.
+        callBoardUpdate(lanes);
+    };
+
+    var callLaneUpdateActivities = function(laneId, activityIds) {
+        if (!laneId) return;
+        Meteor.call('lanes.update_activities', laneId, activityIds || [], function(err, res) {
+            if (err) return Partup.client.notify.error('something went wrong');
+        });
+    };
+
+    var callActivityUpdateLane = function(activityId, laneId) {
+        if (!activityId || !laneId) return;
+        Meteor.call('activities.update_lane', activityId, laneId, function(err, res) {
+            if (err) return Partup.client.notify.error('something went wrong');
+        });
+    };
+
+    template.updateLane = function(fromLane, toLane, activity) {
+        var $fromLane = $(fromLane);
+        var $toLane = $(toLane);
+        var $activity = $(activity);
+
+        var fromLaneId = $fromLane.data('sortable-lane');
+        var toLaneId = $toLane.data('sortable-lane');
+        var activityId = $activity.data('activity');
+
+        var fromLaneActivityElements = $fromLane.find('[data-activity]');
+        var toLaneActivityElements = $toLane.find('[data-activity]');
+
+        var fromLaneActivities = $.map(fromLaneActivityElements, function(activityElement, index) {
+            return $(activityElement).data('activity');
+        });
+
+        var toLaneActivities = $.map(toLaneActivityElements, function(activityElement, index) {
+            return $(activityElement).data('activity');
+        });
+
+        // lane.onSort will be called twice if the activity is moved to another lane,
+        // once if it is moved up or down in the same lane.
+        // Because of this we compare the two lanes (fromLane and toLane):
+        // If they are the same, we update only the fromLane.
+        // If they differ, we update the toLane and the activity that is moved.
+        // This way we make sure only one update call is executed per lane.
+        if (arraysAreTheSame(fromLaneActivities, toLaneActivities)) {
+            callLaneUpdateActivities(fromLaneId, fromLaneActivities);
+
+        } else {
+            callLaneUpdateActivities(toLaneId, toLaneActivities);
+            callActivityUpdateLane(activityId, toLaneId);
+        }
+    };
+
+    template.updateLaneName = function(laneId, name) {
+        if (!laneId || !name) return;
+        Meteor.call('lanes.update_name', laneId, name, function(err, res) {
+            if (err) return Partup.client.notify.error('something went wrong');
+        });
+    };
+
+    template.callInsertLane = function(laneName) {
+        var board = Boards.findOne();
+        if (!board || !laneName) return;
+
+        Meteor.call('lanes.insert', board._id, {name: laneName}, function(err, res) {
+            if (err) return Partup.client.notify.error('something went wrong');
+            template.refresh();
+        });
+    };
+
+    template.createBoard = function() {
+        var boardElement = template.$('[data-sortable-board]')[0];
+
+        template.sortableBoard = Sortable.create(boardElement, {
+            group: {
+                name: 'board',
+                pull: false,
+                put: false
+            },
+            draggable: '.pu-js-sortable-lane',
+            onUpdate: function(event) {
+                template.updateBoard();
+            }
+        });
+    };
+
+    template.sortableLanes = [];
+    template.createLanes = function() {
+        template.$('[data-sortable-lane]').each(function(index, laneElement) {
+            var sortableLane = Sortable.create(laneElement, {
+                group: {
+                    name: $(laneElement).data('lane'),
+                    pull: function() {
+                        return true; // pull from any lane
+                    },
+                    put: function() {
+                        return true; // put to any lane
+                    }
+                },
+                draggable: '.pu-js-sortable-card',
+                onSort: function(event) {
+                    template.updateLane(event.from, event.to, event.item);
+                }
+            });
+
+            template.sortableLanes.push(sortableLane);
+        });
+    };
+
+    template.destroy = function() {
+        for (var i = 0; i < template.sortableLanes.length; i++) {
+            var lane = template.sortableLanes.pop();
+            lane.destroy();
+        }
+
+        template.sortableBoard.destroy();
+    };
+
+    template.refresh = function() {
+        console.log('refresh');
+        template.destroy();
+        template.createBoard();
+        lodash.defer(function() {
+            template.createLanes();
+        });
+    };
 });
 
 Template.BoardView.onRendered(function() {
     var template = this;
-    var boardElement = template.$('[data-sortable-board]')[0];
-    Sortable.create(boardElement, {
-        // group: "name",  // or { name: "...", pull: [true, false, clone], put: [true, false, array] }
-        //sort: true,  // sorting inside list
-        //delay: 0, // time in milliseconds to define when the sorting should start
-        //disabled: false, // Disables the sortable if set to true.
-        //store: null,  // @see Store
-        //animation: 150,  // ms, animation speed moving items when sorting, `0` — without animation
-        //handle: ".my-handle",  // Drag handle selector within list items
-        // filter: ".ignore-elements",  // Selectors that do not lead to dragging (String or Function)
-        draggable: ".pu-js-sortable-lane",  // Specifies which items inside the element should be draggable
-        //ghostClass: "sortable-ghost",  // Class name for the drop placeholder
-        //chosenClass: "sortable-chosen",  // Class name for the chosen item
-        //dragClass: "sortable-drag",  // Class name for the dragging item
-        // dataIdAttr: 'data-lane',
+    template.createBoard();
+});
 
-        //forceFallback: false,  // ignore the HTML5 DnD behaviour and force the fallback to kick in
+Template.BoardView.onDestroyed(function() {
+    var template = this;
+    template.destroy();
+});
 
-        //fallbackClass: "sortable-fallback",  // Class name for the cloned DOM Element when using forceFallback
-        //fallbackOnBody: false,  // Appends the cloned DOM Element into the Document's Body
-        //fallbackTolerance: 0, // Specify in pixels how far the mouse should move before it's considered as a drag.
-
-        //scroll: true, // or HTMLElement
-        //scrollFn: function(offsetX, offsetY, originalEvent) { ... }, // if you have custom scrollbar scrollFn may be used for autoscrolling
-        //scrollSensitivity: 30, // px, how near the mouse must be to an edge to start scrolling.
-        //scrollSpeed: 10, // px
-
-        // setData: function (/** DataTransfer */dataTransfer, /** HTMLElement*/dragEl) {
-        //     dataTransfer.setData('Text', dragEl.textContent); // `dataTransfer` object of HTML5 DragEvent
-        // },
-
-        // Element is chosen
-        // onChoose: function (/**Event*/evt) {
-        //     evt.oldIndex;  // element index within parent
-        // },
-
-        // Element dragging started
-        // onStart: function (/**Event*/evt) {
-        //     evt.oldIndex;  // element index within parent
-        // },
-
-        // Element dragging ended
-        // onEnd: function (/**Event*/evt) {
-        //     evt.oldIndex;  // element's old index within parent
-        //     evt.newIndex;  // element's new index within parent
-        // },
-
-        // Element is dropped into the list from another list
-        // onAdd: function (/**Event*/evt) {
-        //     var itemEl = evt.item;  // dragged HTMLElement
-        //     evt.from;  // previous list
-        //     // + indexes from onEnd
-        // },
-
-        // Changed sorting within list
-        // onUpdate: function (/**Event*/evt) {
-        //     var itemEl = evt.item;  // dragged HTMLElement
-        //     // + indexes from onEnd
-        // },
-
-        // Called by any change to the list (add / update / remove)
-        // onSort: function (/**Event*/evt) {
-        //     // same properties as onUpdate
-        // },
-
-        // Element is removed from the list into another list
-        // onRemove: function (/**Event*/evt) {
-        //     // same properties as onUpdate
-        // },
-
-        // Attempt to drag a filtered element
-        // onFilter: function (/**Event*/evt) {
-        //     var itemEl = evt.item;  // HTMLElement receiving the `mousedown|tapstart` event.
-        // },
-
-        // Event when you move an item in the list or between lists
-        // onMove: function (/**Event*/evt, /**Event*/originalEvent) {
-        //     // Example: http://jsbin.com/tuyafe/1/edit?js,output
-        //     evt.dragged; // dragged HTMLElement
-        //     evt.draggedRect; // TextRectangle {left, top, right и bottom}
-        //     evt.related; // HTMLElement on which have guided
-        //     evt.relatedRect; // TextRectangle
-        //     originalEvent.clientY; // mouse position
-        //     // return false; — for cancel
-        // },
-
-        // Called when creating a clone of element
-        // onClone: function (/**Event*/evt) {
-        //     var origEl = evt.item;
-        //     var cloneEl = evt.clone;
-        // }
-    });
-    var lanes = [];
-    template.$('[data-sortable-lane]').each(function(index, item) {
-        var laneName = $(item).data('lane');
-        lanes.push(laneName);
-    });
-
-    var laneElements = template.$('[data-sortable-lane]').each(function(index, item) {
-        var laneName = $(item).data('lane');
-        Sortable.create(item, {
-            group: {
-                name: laneName,
-                pull: lanes,
-                put: lanes
-            },
-            draggable: ".pu-js-sortable-card"
+Template.BoardView.events({
+    'click [data-lane-name]': function(event, template) {
+        event.preventDefault();
+        template.editLane.set($(event.currentTarget).data('lane-name'));
+        lodash.defer(function() {
+            $('[data-lane-name-input]').focus();
+            $('[data-lane-name-input]')[0].select();
         });
-    });
-
+    },
+    'keyup [data-lane-name-input]': function(event, template) {
+        var value = $(event.currentTarget).val();
+        var laneId = $(event.currentTarget).data('lane-name-input');
+        if (event.keyCode === 13) {
+            template.editLane.set(undefined);
+            template.updateLaneName(laneId, value);
+        }
+    },
+    'keyup [data-add-lane-input]': function(event, template) {
+        var value = $(event.currentTarget).val();
+        if (event.keyCode === 13) {
+            template.addLane.set(false);
+            template.callInsertLane(value);
+        }
+    },
+    'blur [data-add-lane-input]': function(event, template) {
+        template.addLane.set(false);
+    },
+    'blur [data-lane-name-input]': function(event, template) {
+        var value = $(event.currentTarget).val();
+        var laneId = $(event.currentTarget).data('lane-name-input');
+        template.editLane.set(undefined);
+        template.updateLaneName(laneId, value);
+    },
+    'click [data-add-button]': function(event, template) {
+        event.preventDefault();
+        var laneId = $(event.currentTarget).data('add-button');
+        template.data.onAdd(laneId);
+    },
+    'click [data-remove-button]': function(event, template) {
+        event.preventDefault();
+        var laneId = $(event.currentTarget).data('remove-button');
+        Meteor.call('lanes.remove', laneId, function(err, res) {
+            if (err) return Partup.client.notify.error('something went wrong');
+            template.refresh();
+        });
+    },
+    'click [data-add-lane]': function(event, template) {
+        event.preventDefault();
+        template.addLane.set(true);
+        lodash.defer(function() {
+            $('[data-add-lane-input]').focus();
+        });
+    }
 });
 
 Template.BoardView.helpers({
     lanes: function() {
-        var template = Template.instance();
+        var board = Boards.findOne();
+        if (!board) return undefined;
+        return (board && board.lanes || []).map(function(laneId, laneIndex) {
+            var lane = Lanes.findOne(laneId);
 
-        return (template.board.lanes || []).map(function(laneId, index) {
-            var lane = lodash.find(template.lanes, {_id: laneId});
+            if (!lane) return [];
 
-            lane.activities = (lane.activities || []).map(function(activityId) {
+            lane.activities = (lane && lane.activities || []).map(function(activityId, activityIndex) {
                 return Activities.findOne(activityId);
             }).filter(function(activity) { return !!activity; });
 
             return lane;
         });
+    },
+    editLane: function() {
+        return Template.instance().editLane.get();
+    },
+    addLane: function() {
+        return Template.instance().addLane.get();
     }
 });
 

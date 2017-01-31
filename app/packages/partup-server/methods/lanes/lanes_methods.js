@@ -65,6 +65,58 @@ Meteor.methods({
     },
 
     /**
+     * Insert a lane on a board
+     *
+     * @param laneId
+     * @param {mixed[]} fields
+     */
+    'lanes.update_activities': function(laneId, activityIds) {
+        check(laneId, String);
+        check(activityIds, [String]);
+
+        this.unblock();
+
+        // Check if user is logged in and partner of the partup
+        var user = Meteor.user();
+        var lane = Lanes.findOneOrFail(laneId);
+        var board = Boards.findOneOrFail(lane.board_id);
+        if (!user || !User(user).isPartnerInPartup(board.partup_id)) throw new Meteor.Error(401, 'unauthorized');
+
+        try {
+            Lanes.update(laneId, {$set: {activities: activityIds, updated_at: new Date()}});
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(400, 'lane_could_not_be_updated');
+        }
+    },
+
+    /**
+     * Insert a lane on a board
+     *
+     * @param laneId
+     * @param {mixed[]} fields
+     */
+    'lanes.update_name': function(laneId, name) {
+        check(laneId, String);
+        check(name, String);
+
+        this.unblock();
+
+        // Check if user is logged in and partner of the partup
+        var user = Meteor.user();
+        var lane = Lanes.findOneOrFail(laneId);
+        var board = Boards.findOneOrFail(lane.board_id);
+        if (!user || !User(user).isPartnerInPartup(board.partup_id)) throw new Meteor.Error(401, 'unauthorized');
+
+        try {
+            Lanes.update(laneId, {$set: {name: name, updated_at: new Date()}});
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(400, 'lane_could_not_be_updated');
+        }
+    },
+
+    /**
      * Remove a lane from the board
      *
      * @param {String} laneId
@@ -78,11 +130,14 @@ Meteor.methods({
         var board = Boards.findOneOrFail(lane.board_id);
         if (!user || !lane || !User(user).isPartnerInPartup(board.partup_id)) throw new Meteor.Error(401, 'unauthorized');
 
+        // Don't remove if this lane has activities
+        if (lane.activities.length) throw new Meteor.Error(400, 'lane_could_not_be_deleted');
+
         // Don't remove if this is the only lane of the board
         if (board.lanes.length < 2) throw new Meteor.Error(400, 'lane_could_not_be_deleted');
 
         try {
-            board.removeLane(lane._id, lane.activities);
+            board.removeLane(lane._id);
             Lanes.remove(lane._id);
         } catch (error) {
             throw new Meteor.Error(400, 'lane_could_not_be_deleted');

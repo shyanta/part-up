@@ -26,6 +26,38 @@
         top: 0
         font-size: 15px
 
+        &__input
+            height: 40px
+            font-family: $font-secondary
+            margin-top: -10px
+            margin-left: -10px
+            border-radius: 4px
+            border: 2px solid #ccc
+            font-weight: 600
+            outline: 0
+            padding: 0 10px
+            width: calc(100% + 20px)
+            font-size: 15px
+
+        &__remove-button
+            position: absolute
+            right: 0
+            top: 0
+            bottom: 0
+            width: 40px
+            text-align: center
+            line-height: 50px
+            vertical-align: middle
+            outline: 0
+            background-color: transparent
+            border: 0
+
+            i
+                color: #ccc
+
+            &:hover i
+                color: darken(#ccc, 10%)
+
     &__footer
         height: 40px
         padding: 10px

@@ -46,7 +46,7 @@
             {{> Loader ALIGNMENT='center' }}
         {{ else }}
             {{#if boardViewEnabled}}
-                {{> BoardView }}
+                {{> BoardView partupId=partupId activities=activities onAdd=onAddHook }}
             {{ else}}
                 {{# each activities }}
                     {{> Activity activity=. EXPANDABLE=true COMMENTS_LINK=true isUpper=isUpper }}

@@ -1,11 +1,18 @@
 <template name="BoardView">
-    <div class="pu-boardview" data-sortable-board>
+    <div class="pu-boardview" data-sortable-board id="board">
         {{#each lanes}}
             <div class="pu-boardview-lane pu-js-sortable-lane" data-lane="{{ _id }}">
                 <div class="pu-boardview-lane__header">
-                    {{ name }}
+                    {{#if partupEquals editLane _id }}
+                        <input class="pu-boardview-lane__header__input" type="text" data-lane-name-input="{{ _id }}" autofocus value="{{ name }}">
+                    {{else}}
+                        <span data-lane-name="{{ _id }}">
+                            {{ name }}
+                        </span>
+                    {{/if}}
+                    <button class="pu-boardview-lane__header__remove-button" data-remove-button="{{ _id }}" type="button"><i class="picon-times"></i></button>
                 </div>
-                <ul class="pu-boardview-lane__content" data-sortable-lane id="{{ _id }}">
+                <ul class="pu-boardview-lane__content" data-sortable-lane="{{ _id }}" id="{{ _id }}">
                     {{#each activities}}
                         <li class="pu-boardview-card pu-js-sortable-card" data-activity="{{ _id }}">
                             {{> Activity activity=. EXPANDABLE=false COMMENTS_LINK=true isUpper=true }}
@@ -13,9 +20,20 @@
                     {{/each}}
                 </ul>
                 <div class="pu-boardview-lane__footer">
-                    <button>Toevoegen</button>
+                    <button data-add-button="{{ _id }}" type="button">Activity toevoegen</button>
                 </div>
             </div>
         {{/each}}
+        {{#if addLane}}
+            <div class="pu-boardview-lane">
+                <div class="pu-boardview-lane__header">
+                    <input class="pu-boardview-lane__header__input" data-add-lane-input type="text">
+                </div>
+                <ul class="pu-boardview-lane__content">
+                </ul>
+            </div>
+        {{else}}
+            <button class="pu-boardview__add-lane-button" type="button" data-add-lane><i class="picon-plus"></i></button>
+        {{/if}}
     </div>
 </template>

@@ -73,6 +73,35 @@ Meteor.methods({
     },
 
     /**
+     * Update an Activity
+     *
+     * @param {string} activityId
+     * @param {mixed[]} fields
+     */
+    'activities.update_lane': function(activityId, laneId) {
+        check(activityId, String);
+        check(laneId, String);
+        var upper = Meteor.user();
+        var activity = Activities.findOneOrFail(activityId);
+
+        if (activity.isRemoved()) throw new Meteor.Error(404, 'activity_could_not_be_found');
+
+        var partup = Partups.findOneOrFail(activity.partup_id);
+
+        if (!upper || !partup.hasUpper(upper._id)) {
+            throw new Meteor.Error(401, 'unauthorized');
+        }
+
+        try {
+            Activities.update(activityId, {$set: {lane_id: laneId, updated_at: new Date()}});
+
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(500, 'activity_could_not_be_updated');
+        }
+    },
+
+    /**
      * Remove an Activity
      *
      * @param {string} activityId
