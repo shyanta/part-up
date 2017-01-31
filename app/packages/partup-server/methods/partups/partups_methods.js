@@ -126,6 +126,14 @@ Meteor.methods({
                     network.updatePartupName(partup._id, newPartupFields.name);
                 }
             }
+            // Create a board
+            if (!partup.board_id) {
+                newPartupFields.board_id = Meteor.call('boards.insert', partup._id);
+
+                // Set the default board lanes
+                var board = Boards.findOneOrFail(newPartupFields.board_id);
+                board.createDefaultLaneSet();
+            };
 
             Partups.update(partupId, {$set: newPartupFields});
 
