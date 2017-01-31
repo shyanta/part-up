@@ -1,14 +1,13 @@
 <template name="BoardView">
-    <div class="pu-boardview">
-        {{log lanes}}
+    <div class="pu-boardview" data-sortable-board>
         {{#each lanes}}
-            <div class="pu-boardview-lane">
+            <div class="pu-boardview-lane pu-js-sortable-lane" data-lane="{{ _id }}">
                 <div class="pu-boardview-lane__header">
                     {{ name }}
                 </div>
-                <ul class="pu-boardview-lane__content">
+                <ul class="pu-boardview-lane__content" data-sortable-lane id="{{ _id }}">
                     {{#each activities}}
-                        <li class="pu-boardview-card">
+                        <li class="pu-boardview-card pu-js-sortable-card" data-activity="{{ _id }}">
                             {{> Activity activity=. EXPANDABLE=false COMMENTS_LINK=true isUpper=true }}
                         </li>
                     {{/each}}

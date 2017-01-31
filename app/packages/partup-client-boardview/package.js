@@ -13,6 +13,11 @@ Package.onUse(function(api) {
 
     api.addFiles([
         'BoardView.html',
+        '.npm/package/node_modules/sortablejs/Sortable.min.js',
         'BoardView.js'
     ], 'client');
+});
+
+Npm.depends({
+    "sortablejs": "1.5.0-rc1",
 });
