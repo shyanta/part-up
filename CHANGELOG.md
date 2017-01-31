@@ -1,3 +1,28 @@
+<a name="2.3.0"></a>
+# [2.3.0](https://github.com/part-up/part-up/compare/2.2.1...2.3.0) (2017-01-30)
+
+
+### Bug Fixes
+
+* **cron:** check if value is set before accessing ([7c16450](https://github.com/part-up/part-up/commit/7c16450))
+* **dropbox-chooser:** change api endpoint ([99b7beb](https://github.com/part-up/part-up/commit/99b7beb))
+* **dropbox-chooser:** handle fail and upload the fileObject from chooser ([125f856](https://github.com/part-up/part-up/commit/125f856))
+* **dropbox-chooser:** remove debugger statement ([de612de](https://github.com/part-up/part-up/commit/de612de))
+
+
+### Features
+
+* **dropbox-chooser:** dont do popup after auth on safari ([2bbf467](https://github.com/part-up/part-up/commit/2bbf467))
+* **dropbox-chooser:** implement it with api version 2 ([a05a9ea](https://github.com/part-up/part-up/commit/a05a9ea))
+* **dropbox-chooser:** use cookie check whether to open authentication or chooser dialog ([899bfc5](https://github.com/part-up/part-up/commit/899bfc5))
+
+
+
+<a name="2.2.1"></a>
+## [2.2.1](https://github.com/part-up/part-up/compare/2.2.0...2.2.1) (2017-01-26)
+
+
+
 <a name="2.2.0"></a>
 # [2.2.0](https://github.com/part-up/part-up/compare/2.1.1...2.2.0) (2017-01-26)
 
@@ -10,6 +35,7 @@
 ### Features
 
 * **discover:** added centered loader ([89eba3c](https://github.com/part-up/part-up/commit/89eba3c))
+* **dropbox-sdk:** upgrade to 2.5.0 ([80ff3f3](https://github.com/part-up/part-up/commit/80ff3f3))
 * **google-drive-api:** update src code ([4046e83](https://github.com/part-up/part-up/commit/4046e83))
 
 
