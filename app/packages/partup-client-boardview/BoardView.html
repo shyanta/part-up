@@ -10,24 +10,24 @@
                             {{ name }} <span>{{ activitiesCount }}</span>
                         </span>
                     {{/if}}
-                    <button class="pu-boardview-lane__header__remove-button" data-remove-button="{{ _id }}" type="button"><i class="picon-times"></i></button>
+                    {{#if moreThanOneLane }}<button class="pu-boardview-lane__header__remove-button" data-remove-button="{{ _id }}" type="button"><i class="picon-times"></i></button>{{/if}}
                 </div>
                 <ul class="pu-boardview-lane__content" data-sortable-lane="{{ _id }}" id="{{ _id }}">
                     {{#each activities}}
                         <li class="pu-boardview-card pu-js-sortable-card" data-activity="{{ _id }}">
-                            {{> Activity activity=. EXPANDABLE=false COMMENTS_LINK=true isUpper=true }}
+                            {{> Activity activity=. EXPANDABLE=false COMMENTS_LINK=true isUpper=isUpper COMPACT=true }}
                         </li>
                     {{/each}}
                 </ul>
                 <div class="pu-boardview-lane__footer">
-                    <button data-add-button="{{ _id }}" type="button">Activity toevoegen</button>
+                    <button class="pu-boardview-lane__footer__add-button" data-add-button="{{ _id }}" type="button"><i class="picon-plus"></i>Activity toevoegen</button>
                 </div>
             </div>
         {{/each}}
         {{#if addLane}}
             <div class="pu-boardview-lane">
                 <div class="pu-boardview-lane__header">
-                    <input class="pu-boardview-lane__header__input" data-add-lane-input type="text">
+                    <input placeholder="New" class="pu-boardview-lane__header__input pu-boardview-lane__header__input-full" data-add-lane-input type="text">
                 </div>
                 <ul class="pu-boardview-lane__content">
                 </ul>

@@ -5,6 +5,7 @@
     padding: 60px 0 40px 0
     border-radius: 4px
     position: relative
+    z-index: 1
 
     &__header, &__footer
         position: absolute
@@ -13,6 +14,7 @@
 
     &__content
         list-style: none
+        overflow: auto
         overflow-x: hidden
         overflow-y: scroll
         height: 100%
@@ -39,6 +41,9 @@
             padding: 0 10px
             width: calc(100% - 10px)
             font-size: 15px
+
+            &-full
+                width: calc(100% + 20px)
 
         &__text
             display: inline-block
@@ -82,6 +87,38 @@
         padding: 10px
         border-top: 2px solid #eee
         bottom: 0
+        text-align: right
+
+        &__add-button
+            color: $color-primary
+            font-size: 14px
+            font-weight: 600
+            font-family: $font-secondary
+            border: 0
+            outline: 0
+            background-color: transparent
+            margin-top: -3px
+
+            i
+                font-size: 12px
+                margin-right: 10px
 
     .pu-boardview-card
         margin-bottom: 10px
+
+    &--is-ghost
+        background-color: #fff
+        border: 2px dashed #ccc
+        border-radius: 4px
+
+        .pu-boardview-card,
+        .pu-boardview-lane__header,
+        .pu-boardview-lane__footer,
+        .pu-boardview-lane__content
+            visibility: hidden
+
+    &--is-dragging
+        z-index: 100
+
+        .pu-boardview-lane__content
+            display: none

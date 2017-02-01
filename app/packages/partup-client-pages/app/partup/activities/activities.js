@@ -69,6 +69,9 @@ Template.app_partup_activities.helpers({
     activities: function() {
         return Template.instance().activities.all({archived: false});
     },
+    allActivities: function() {
+        return Template.instance().activities.all();
+    },
     archivedActivities: function() {
         return Template.instance().activities.all({archived: true});
     },
