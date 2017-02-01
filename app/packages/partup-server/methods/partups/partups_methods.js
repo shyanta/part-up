@@ -133,7 +133,7 @@ Meteor.methods({
                 // Set the default board lanes
                 var board = Boards.findOneOrFail(newPartupFields.board_id);
                 board.createDefaultLane();
-            };
+            }
 
             Partups.update(partupId, {$set: newPartupFields});
 
