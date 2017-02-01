@@ -14,7 +14,6 @@ Template.BoardView.onCreated(function() {
             lodash.defer(function() {
                 template.createLanes();
             });
-            template.initialize();
         });
     });
 
@@ -227,16 +226,6 @@ Template.BoardView.onCreated(function() {
         });
         template.lanesCollection.set(lanes);
     });
-
-    // template.poller = new ReactiveVar(0, template.updateLanesCollection);
-    template.initialize = function() {
-        // template.pollInterval = setInterval(function() {
-        //     console.log(template.dragging);
-        //     if (template.dragging) return;
-        //     console.log('poller');
-        //     template.poller.set(template.poller.curValue + 1);
-        // }, 150);
-    };
 });
 
 Template.BoardView.onRendered(function() {

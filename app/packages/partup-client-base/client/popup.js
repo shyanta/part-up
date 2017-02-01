@@ -27,6 +27,8 @@ Partup.client.popup = {
     imageIndex: new ReactiveVar(0),
     totalImages: new ReactiveVar(0),
 
+    parameters: {},
+
     /**
      * Open a popup
      *
@@ -38,6 +40,8 @@ Partup.client.popup = {
      */
     open: function(options, callback) {
         if (!options || !options.id) console.error('a unique options.id must be defined');
+
+        this.parameters = options.parameters || {};
 
         var id = options.id;
         if (!id || !mout.lang.isString(id)) throw 'id must be a string';
@@ -86,6 +90,8 @@ Partup.client.popup = {
         // Delete callback before executing, because otherwise you should not be able
         // to open a new popup within the callback
         this._closeCallback = null;
+
+        this.parameters = {};
 
         // Execute callback
         if (mout.lang.isFunction(callback)) {
