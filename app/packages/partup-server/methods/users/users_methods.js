@@ -395,8 +395,25 @@ Meteor.methods({
 
         if (emailIndex > 0 && emailIndex < user.emails.length) {
             user.emails.splice(emailIndex, 1);
+            Meteor.users.update(user._id, {$set: {emails: user.emails}});
         }
+    },
 
-        Meteor.users.update(user._id, {$set: {emails: user.emails}});
+    /**
+     * Set a given email address as primary address
+     * @param emailIndex
+     */
+    'users.set_primary_email': function(emailIndex) {
+        check(emailIndex, Number);
+
+        var user = Meteor.user();
+        if (!user) throw new Meteor.Error(401, 'unauthorized');
+
+        if (emailIndex > 0 && emailIndex < user.emails.length) {
+            var primary = lodash.pullAt(user.emails, emailIndex);
+            console.log(primary);
+            user.emails.unshift(primary[0]);
+            Meteor.users.update(user._id, {$set: {emails: user.emails}});
+        }
     }
 });
