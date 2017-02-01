@@ -212,7 +212,7 @@
                 Hoe wil je activiteiten tonen?
             </span>
             <div class="pu-sub-validations">
-                {{# BoardSwitch }}
+                {{# BoardSwitch enabled=fieldsFromPartup.board_view }}
                     {{> afFieldInput name='board_view' type="hidden" data-board-input="" }}
                 {{/ BoardSwitch }}
             </div>
