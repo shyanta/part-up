@@ -28,7 +28,7 @@ Template.BoardView.onCreated(function() {
     };
 
     var callBoardUpdate = function(laneIds) {
-        var board = Boards.findOne();
+        var board = Boards.findOne({partup_id: partupId});
         if (!board) return;
 
         Meteor.call('boards.update', board._id, {lanes: laneIds || []}, function(err, res) {
@@ -111,6 +111,13 @@ Template.BoardView.onCreated(function() {
         });
     };
 
+    template.callRemoveLane = function(laneId) {
+        Meteor.call('lanes.remove', laneId, function(err, res) {
+            if (err) return Partup.client.notify.error(err.message);
+            template.refresh();
+        });
+    };
+
     template.startDrag = function() {
         setTimeout(function() {
             template.dragging.set(true);
@@ -134,6 +141,8 @@ Template.BoardView.onCreated(function() {
             },
             animation: 150,
             draggable: '.pu-js-sortable-lane',
+            ghostClass: 'pu-boardview-lane--is-ghost',
+            dragClass: 'pu-boardview-lane--is-dragging',
             onStart: template.startDrag,
             onEnd: template.endDrag,
             onUpdate: template.updateBoard
@@ -156,7 +165,6 @@ Template.BoardView.onCreated(function() {
                 animation: 50,
                 draggable: '.pu-js-sortable-card',
                 ghostClass: 'pu-boardview-card--is-ghost',
-                chosenClass: 'pu-boardview-card--is-chosen',
                 dragClass: 'pu-boardview-card--is-dragging',
                 onStart: template.startDrag,
                 onEnd: template.endDrag,
@@ -279,9 +287,21 @@ Template.BoardView.events({
     'click [data-remove-button]': function(event, template) {
         event.preventDefault();
         var laneId = $(event.currentTarget).data('remove-button');
-        Meteor.call('lanes.remove', laneId, function(err, res) {
-            if (err) return Partup.client.notify.error(err.message);
-            template.refresh();
+        var board = Boards.findOne({partup_id: template.data.partupId});
+        var thisLane = Lanes.findOne({_id: laneId});
+        var newLane;
+        if (board.lanes.indexOf(laneId) === 0) {
+            newLane = Lanes.findOne({_id: board.lanes[1]});
+        } else {
+            newLane = Lanes.findOne({_id: board.lanes[0]});
+        }
+
+        Partup.client.prompt.confirm({
+            title: 'Weet je het zeker?',
+            message: 'Als je ' + thisLane.name + ' verwijdert, worden alle activiteiten van ' + thisLane.name + ' verplaatst naar ' + newLane.name,
+            onConfirm: function() {
+                template.callRemoveLane(laneId);
+            }
         });
     },
     'click [data-add-lane]': function(event, template) {
@@ -298,11 +318,26 @@ Template.BoardView.helpers({
         var template = Template.instance();
         return template.lanesCollection.get();
     },
+    moreThanOneLane: function() {
+        var template = Template.instance();
+        var lanes = template.lanesCollection.get();
+        return !!(lanes.length > 1);
+    },
     editLane: function() {
         return Template.instance().editLane.get();
     },
     addLane: function() {
         return Template.instance().addLane.get();
-    }
+    },
+    isUpper: function() {
+        var template = Template.instance();
+        var partup = Partups.findOne({_id: template.data.partupId});
+        if (!partup || !partup.uppers) return false;
+
+        var user = Meteor.user();
+        if (!user) return false;
+
+        return partup.uppers.indexOf(user._id) > -1;
+    },
 });
 
