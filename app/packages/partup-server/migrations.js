@@ -952,7 +952,7 @@ Migrations.add({
 
             // Set the default board lanes
             var board = Boards.findOneOrFail(boardId);
-            board.createDefaultLaneSet();
+            board.createDefaultLane();
 
             // Put all existing activities in Backlog
             board = Boards.findOneOrFail(boardId);

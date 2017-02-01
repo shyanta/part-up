@@ -33,7 +33,7 @@ Meteor.methods({
 
             // Set the default board lanes
             var board = Boards.findOneOrFail(newPartup.board_id);
-            board.createDefaultLaneSet();
+            board.createDefaultLane();
 
             Partups.insert(newPartup);
             Meteor.users.update(user._id, {$addToSet: {'upperOf': newPartup._id}});
@@ -132,7 +132,7 @@ Meteor.methods({
 
                 // Set the default board lanes
                 var board = Boards.findOneOrFail(newPartupFields.board_id);
-                board.createDefaultLaneSet();
+                board.createDefaultLane();
             };
 
             Partups.update(partupId, {$set: newPartupFields});

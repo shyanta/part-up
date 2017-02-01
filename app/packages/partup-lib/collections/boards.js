@@ -12,27 +12,19 @@ var Board = function(document) {
  *
  * @memberOf Boards
  */
-Board.prototype.createDefaultLaneSet = function() {
-    var laneNames = ['Backlog', 'To do', 'Busy', 'Done'];
-    var laneIds = [];
-    var self = this;
-
-    // Insert default set
-    laneNames.forEach(function(laneName) {
-        var laneId = Random.id();
-        Lanes.insert({
-            _id: laneId,
-            activities: [],
-            board_id: self._id,
-            created_at: new Date(),
-            name: laneName,
-            updated_at: new Date()
-        });
-        laneIds.push(laneId);
+Board.prototype.createDefaultLane = function() {
+    var laneId = Random.id();
+    Lanes.insert({
+        _id: laneId,
+        activities: [],
+        board_id: this._id,
+        created_at: new Date(),
+        name: 'Backlog',
+        updated_at: new Date()
     });
 
     // Store the lane IDs
-    Boards.update(this._id, {$set: {lanes: laneIds}});
+    Boards.update(this._id, {$addToSet: {lanes: laneId}});
 };
 
 /**
