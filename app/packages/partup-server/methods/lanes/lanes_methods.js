@@ -94,7 +94,7 @@ Meteor.methods({
      * Insert a lane on a board
      *
      * @param laneId
-     * @param {mixed[]} fields
+     * @param {String} name
      */
     'lanes.update_name': function(laneId, name) {
         check(laneId, String);
@@ -130,14 +130,11 @@ Meteor.methods({
         var board = Boards.findOneOrFail(lane.board_id);
         if (!user || !lane || !User(user).isPartnerInPartup(board.partup_id)) throw new Meteor.Error(401, 'unauthorized');
 
-        // Don't remove if this lane has activities
-        if (lane.activities.length) throw new Meteor.Error(400, 'lane_could_not_be_deleted');
-
         // Don't remove if this is the only lane of the board
         if (board.lanes.length < 2) throw new Meteor.Error(400, 'lane_could_not_be_deleted');
 
         try {
-            board.removeLane(lane._id);
+            board.removeLane(lane._id, lane.activities);
             Lanes.remove(lane._id);
         } catch (error) {
             throw new Meteor.Error(400, 'lane_could_not_be_deleted');
