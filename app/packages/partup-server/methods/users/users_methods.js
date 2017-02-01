@@ -377,5 +377,26 @@ Meteor.methods({
         Meteor.users.update(user._id, {$addToSet: {emails: {address: emailAddress, verified: false}}});
 
         Accounts.sendVerificationEmail(user._id, emailAddress);
+    },
+
+    /**
+     * Remove a given email address by index
+     * @param emailIndex
+     */
+    'users.remove_email': function(emailIndex) {
+        check(emailIndex, Number);
+
+        var user = Meteor.user();
+        if (!user) throw new Meteor.Error(401, 'unauthorized');
+
+        if (user.emails.length < 2 || emailIndex == 0) {
+            throw new Meteor.Error(400, 'primary_email_cannot_be_removed');
+        }
+
+        if (emailIndex > 0 && emailIndex < user.emails.length) {
+            user.emails.splice(emailIndex, 1);
+        }
+
+        Meteor.users.update(user._id, {$set: {emails: user.emails}});
     }
 });
