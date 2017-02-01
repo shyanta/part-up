@@ -16,7 +16,19 @@ Meteor.methods({
         try {
             var activity = Partup.transformers.activity.fromForm(fields, upper._id, partupId);
 
+            // Insert activity
             activity._id = Activities.insert(activity);
+
+            // Add activity to a lane
+            if (activity.lane_id) {
+                var lane = Lanes.findOneOrFail(activity.lane_id);
+                lane.addActivity(activity._id);
+            } else {
+                // No board view, so add to Backlog lane
+                var board = Boards.findOneOrFail(partup.board_id);
+                var backlogLane = Lanes.findOneOrFail(board.lanes[0]);
+                backlogLane.addActivity(activity._id);
+            }
 
             // Update the activity count of the Partup
             Partups.update(partupId, {

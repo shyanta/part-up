@@ -8,10 +8,18 @@ var Lane = function(document) {
 };
 
 /**
- * Remove a specific activity from a lane
+ * Add an activity to the lane
  *
  * @memberOf Lanes
+ */
+Lane.prototype.addActivity = function(activityId) {
+    Lanes.update(this._id, {$addToSet: {activities: activityId}});
+};
+
+/**
+ * Remove a specific activity from the lane
  *
+ * @memberOf Lanes
  */
 Lane.prototype.removeActivity = function(activityId) {
     var activities = this.activities || [];
