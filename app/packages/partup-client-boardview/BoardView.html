@@ -6,8 +6,8 @@
                     {{#if partupEquals editLane _id }}
                         <input class="pu-boardview-lane__header__input" type="text" data-lane-name-input="{{ _id }}" autofocus value="{{ name }}">
                     {{else}}
-                        <span data-lane-name="{{ _id }}">
-                            {{ name }}
+                        <span class="pu-boardview-lane__header__text" data-lane-name="{{ _id }}">
+                            {{ name }} <span>{{ activitiesCount }}</span>
                         </span>
                     {{/if}}
                     <button class="pu-boardview-lane__header__remove-button" data-remove-button="{{ _id }}" type="button"><i class="picon-times"></i></button>
