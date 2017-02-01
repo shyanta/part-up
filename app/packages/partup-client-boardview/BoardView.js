@@ -2,13 +2,19 @@ Template.BoardView.onCreated(function() {
     var template = this;
     var partupId = template.data.partupId;
 
+    template.dragging = new ReactiveVar(false);
     template.editLane = new ReactiveVar(undefined);
     template.addLane = new ReactiveVar(false);
 
     template.loaded = new ReactiveVar(false, function(a, b) {
         if (!b) return;
+        template.updateLanesCollection();
         lodash.defer(function() {
-            template.createLanes();
+            template.createBoard();
+            lodash.defer(function() {
+                template.createLanes();
+            });
+            template.initialize();
         });
     });
 
@@ -27,7 +33,7 @@ Template.BoardView.onCreated(function() {
         if (!board) return;
 
         Meteor.call('boards.update', board._id, {lanes: laneIds || []}, function(err, res) {
-            if (err) return Partup.client.notify.error('something went wrong');
+            if (err) return Partup.client.notify.error(err.message);
         });
     };
 
@@ -44,14 +50,14 @@ Template.BoardView.onCreated(function() {
     var callLaneUpdateActivities = function(laneId, activityIds) {
         if (!laneId) return;
         Meteor.call('lanes.update_activities', laneId, activityIds || [], function(err, res) {
-            if (err) return Partup.client.notify.error('something went wrong');
+            if (err) return Partup.client.notify.error(err.message);
         });
     };
 
     var callActivityUpdateLane = function(activityId, laneId) {
         if (!activityId || !laneId) return;
         Meteor.call('activities.update_lane', activityId, laneId, function(err, res) {
-            if (err) return Partup.client.notify.error('something went wrong');
+            if (err) return Partup.client.notify.error(err.message);
         });
     };
 
@@ -83,7 +89,6 @@ Template.BoardView.onCreated(function() {
         // This way we make sure only one update call is executed per lane.
         if (arraysAreTheSame(fromLaneActivities, toLaneActivities)) {
             callLaneUpdateActivities(fromLaneId, fromLaneActivities);
-
         } else {
             callLaneUpdateActivities(toLaneId, toLaneActivities);
             callActivityUpdateLane(activityId, toLaneId);
@@ -93,7 +98,7 @@ Template.BoardView.onCreated(function() {
     template.updateLaneName = function(laneId, name) {
         if (!laneId || !name) return;
         Meteor.call('lanes.update_name', laneId, name, function(err, res) {
-            if (err) return Partup.client.notify.error('something went wrong');
+            if (err) return Partup.client.notify.error(err.message);
         });
     };
 
@@ -102,9 +107,21 @@ Template.BoardView.onCreated(function() {
         if (!board || !laneName) return;
 
         Meteor.call('lanes.insert', board._id, {name: laneName}, function(err, res) {
-            if (err) return Partup.client.notify.error('something went wrong');
+            if (err) return Partup.client.notify.error(err.message);
             template.refresh();
         });
+    };
+
+    template.startDrag = function() {
+        setTimeout(function() {
+            template.dragging.set(true);
+        }, 250);
+    };
+
+    template.endDrag = function() {
+        setTimeout(function() {
+            template.dragging.set(false);
+        }, 250);
     };
 
     template.createBoard = function() {
@@ -116,10 +133,11 @@ Template.BoardView.onCreated(function() {
                 pull: false,
                 put: false
             },
+            animation: 150,
             draggable: '.pu-js-sortable-lane',
-            onUpdate: function(event) {
-                template.updateBoard();
-            }
+            onStart: template.startDrag,
+            onEnd: template.endDrag,
+            onUpdate: template.updateBoard
         });
     };
 
@@ -136,7 +154,13 @@ Template.BoardView.onCreated(function() {
                         return true; // put to any lane
                     }
                 },
+                animation: 50,
                 draggable: '.pu-js-sortable-card',
+                ghostClass: 'pu-boardview-card--is-ghost',
+                chosenClass: 'pu-boardview-card--is-chosen',
+                dragClass: 'pu-boardview-card--is-dragging',
+                onStart: template.startDrag,
+                onEnd: template.endDrag,
                 onSort: function(event) {
                     template.updateLane(event.from, event.to, event.item);
                 }
@@ -146,7 +170,7 @@ Template.BoardView.onCreated(function() {
         });
     };
 
-    template.destroy = function() {
+    template.destroyBoard = function() {
         for (var i = 0; i < template.sortableLanes.length; i++) {
             var lane = template.sortableLanes.pop();
             lane.destroy();
@@ -156,23 +180,73 @@ Template.BoardView.onCreated(function() {
     };
 
     template.refresh = function() {
-        console.log('refresh');
-        template.destroy();
+        template.destroyBoard();
         template.createBoard();
         lodash.defer(function() {
             template.createLanes();
         });
     };
+
+    template.lanesCollection = new ReactiveVar([]);
+    template.updateLanesCollection = function() {
+        var board = Boards.findOne();
+        if (!board) return;
+        var lanes = (board && board.lanes || []).map(function(laneId, laneIndex) {
+            var lane = Lanes.findOne(laneId);
+
+            if (!lane) return [];
+
+            lane.activities = (lane && lane.activities || []).map(function(activityId, activityIndex) {
+                return Activities.findOne(activityId);
+            }).filter(function(activity) { return !!activity; });
+
+            lane.activitiesCount = lane.activities.length;
+
+            return lane;
+        });
+        template.lanesCollection.set(lanes);
+    };
+
+    template.autorun(function() {
+        var board = Boards.findOne();
+        var dragging = template.dragging.get();
+        if (!board || dragging) return;
+
+        var lanes = (board && board.lanes || []).map(function(laneId, laneIndex) {
+            var lane = Lanes.findOne(laneId);
+
+            if (!lane) return [];
+
+            lane.activities = (lane && lane.activities || []).map(function(activityId, activityIndex) {
+                return Activities.findOne(activityId);
+            }).filter(function(activity) { return !!activity; });
+
+            lane.activitiesCount = lane.activities.length;
+
+            return lane;
+        });
+        template.lanesCollection.set(lanes);
+    });
+
+    // template.poller = new ReactiveVar(0, template.updateLanesCollection);
+    template.initialize = function() {
+        // template.pollInterval = setInterval(function() {
+        //     console.log(template.dragging);
+        //     if (template.dragging) return;
+        //     console.log('poller');
+        //     template.poller.set(template.poller.curValue + 1);
+        // }, 150);
+    };
 });
 
 Template.BoardView.onRendered(function() {
     var template = this;
-    template.createBoard();
 });
 
 Template.BoardView.onDestroyed(function() {
     var template = this;
-    template.destroy();
+    template.destroyBoard();
+    clearInterval(template.pollInterval);
 });
 
 Template.BoardView.events({
@@ -217,7 +291,7 @@ Template.BoardView.events({
         event.preventDefault();
         var laneId = $(event.currentTarget).data('remove-button');
         Meteor.call('lanes.remove', laneId, function(err, res) {
-            if (err) return Partup.client.notify.error('something went wrong');
+            if (err) return Partup.client.notify.error(err.message);
             template.refresh();
         });
     },
@@ -232,19 +306,8 @@ Template.BoardView.events({
 
 Template.BoardView.helpers({
     lanes: function() {
-        var board = Boards.findOne();
-        if (!board) return undefined;
-        return (board && board.lanes || []).map(function(laneId, laneIndex) {
-            var lane = Lanes.findOne(laneId);
-
-            if (!lane) return [];
-
-            lane.activities = (lane && lane.activities || []).map(function(activityId, activityIndex) {
-                return Activities.findOne(activityId);
-            }).filter(function(activity) { return !!activity; });
-
-            return lane;
-        });
+        var template = Template.instance();
+        return template.lanesCollection.get();
     },
     editLane: function() {
         return Template.instance().editLane.get();
