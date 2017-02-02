@@ -10,10 +10,15 @@ Template.BoardView.onCreated(function() {
         if (!b) return;
         template.updateLanesCollection();
         lodash.defer(function() {
-            template.createBoard();
-            lodash.defer(function() {
-                template.createLanes();
-            });
+            var partup = Partups.findOne({_id: partupId});
+
+            // only kickstart the board when the user is an upper
+            if (partup.hasUpper(Meteor.userId())) {
+                template.createBoard();
+                lodash.defer(function() {
+                    template.createLanes();
+                });
+            }
         });
     });
 
@@ -226,7 +231,7 @@ Template.BoardView.onCreated(function() {
 
             lane.activities = (lane && lane.activities || []).map(function(activityId, activityIndex) {
                 return Activities.findOne(activityId);
-            }).filter(function(activity) { return !!activity; });
+            }).filter(function(activity) { return !!(activity && !activity.isRemoved()); });
 
             lane.activitiesCount = lane.activities.length;
 
@@ -243,7 +248,6 @@ Template.BoardView.onRendered(function() {
 Template.BoardView.onDestroyed(function() {
     var template = this;
     template.destroyBoard();
-    clearInterval(template.pollInterval);
 });
 
 Template.BoardView.events({

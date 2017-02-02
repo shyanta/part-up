@@ -109,6 +109,14 @@ Template.ActivityView.events({
         template.data.edit.set(true);
     },
     'click [data-activity-expander]': function(event, template) {
+        var partup = Partups.findOne({_id: template.data.activity.partup_id});
+        if (template.data.BOARDVIEW) {
+            Router.go('partup-update', {
+                slug: partup.slug,
+                update_id: template.data.updateId || template.data.activity.update_id
+            });
+        }
+
         if (!template.data.EXPANDABLE) return;
 
         var opened = template.expanded.get();
