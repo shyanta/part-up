@@ -151,7 +151,13 @@
                 font-size: 14px
 
             > .pu-avatar-stack
-                position: relative
+                position: static
+                height: 20px
+                margin-top: 15px
+                text-align: left
+
+                &:before
+                    display: none
 
     @media screen and (min-width: $breakpoint-tablet)
         .pu-sub-contribute

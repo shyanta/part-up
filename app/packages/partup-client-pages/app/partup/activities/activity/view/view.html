@@ -59,11 +59,13 @@
                 {{# unless COMPACT }}
                     {{# unless BOARDVIEW }}
                         {{# unless expanded }}
-                            <ul class="pu-avatar-stack pu-avatar-stack-tiny">
-                                {{# each contributions }}
-                                    <li class="pu-avatar pu-avatar-tiny" style="{{#with upper.profile.image }}background-image: url('{{ partupImageUrl id=. store='80x80' }}');{{/with }}}"></li>
-                                {{/ each }}
-                            </ul>
+                            {{#with contributions }}
+                                <ul class="pu-avatar-stack pu-avatar-stack-tiny">
+                                    {{# each . }}
+                                        <li class="pu-avatar pu-avatar-tiny" style="{{#with upper.profile.image }}background-image: url('{{ partupImageUrl id=. store='80x80' }}');{{/with }}}"></li>
+                                    {{/ each }}
+                                </ul>
+                            {{/with}}
                         {{/ unless }}
                     {{/ unless }}
                 {{/ unless}}
@@ -89,11 +91,15 @@
 
                 {{# unless COMPACT }}
                     {{# unless expanded }}
-                        <ul class="pu-avatar-stack pu-avatar-stack-tiny">
-                            {{# each contributions }}
-                                <li class="pu-avatar pu-avatar-tiny" style="{{#with upper.profile.image }}background-image: url('{{ partupImageUrl id=. store='80x80' }}');{{/with }}}"></li>
-                            {{/ each }}
-                        </ul>
+                        {{#if BOARDVIEW}}
+                            {{#with contributions }}
+                                <ul class="pu-avatar-stack pu-avatar-stack-tiny">
+                                    {{# each . }}
+                                        <li class="pu-avatar pu-avatar-tiny" style="{{#with upper.profile.image }}background-image: url('{{ partupImageUrl id=. store='80x80' }}');{{/with }}}"></li>
+                                    {{/ each }}
+                                </ul>
+                            {{/with}}
+                        {{/if}}
                     {{/ unless }}
                 {{/ unless}}
             </section>
