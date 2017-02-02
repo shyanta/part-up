@@ -58,6 +58,7 @@ Package.onUse(function(api) {
             'app/home/blocks/Home_Form.html',
             'app/home/blocks/Home_Form.js',
             'app/home/blocks/Home_Footer.html',
+            'app/home/blocks/Home_Footer.js',
             // 'app/home/partials/philosophy.html',
             // 'app/home/partials/philosophy.js',
             // 'app/home/partials/call-to-action.html',
