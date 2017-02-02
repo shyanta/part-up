@@ -493,7 +493,6 @@ Meteor.methods({
             }
 
             network.leave(upperId);
-            Event.emit('networks.uppers.removed', user, network);
 
             return {
                 network_id: network._id,
