@@ -112,6 +112,12 @@ var updatePartup = function(partupId, insertDoc, callback) {
 
 AutoForm.hooks({
     editPartupForm: {
+        beginSubmit: function() {
+
+        },
+        onError: function(formType, error) {
+            console.log(formType, error);
+        },
         onSubmit: function(insertDoc) {
             var self = this;
 
