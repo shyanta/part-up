@@ -116,7 +116,7 @@ AutoForm.hooks({
 
         },
         onError: function(formType, error) {
-            console.log(formType, error);
+            console.log(formType, error, arguments);
         },
         onSubmit: function(insertDoc) {
             var self = this;
