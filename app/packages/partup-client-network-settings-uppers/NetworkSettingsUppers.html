@@ -10,7 +10,7 @@
         {{> SearchInput inputSettings=form.searchInput}}
 
 
-        <ul class="pu-list pu-list-lineseparated">
+        <ul class="pu-list pu-list-lineseparated" data-list>
             {{# each data.uppers }}
                 <li>
                     <figure class="pu-avatar" style="background-image: url('{{ partupImageUrl id=profile.image }}');" data-hovercontainer="HoverContainer_upper" data-hovercontainer-context="{{ _id }}"></figure>
@@ -57,6 +57,11 @@
                 </li>
             {{/ each }}
         </ul>
+        {{#if loadingInfiniteScroll}}
+            {{#CenterView}}
+                {{> Spinner}}
+            {{/CenterView}}
+        {{/if}}
         {{ else }}
         <ul class="pu-network-uppers"><li><p>{{_ 'network-settings-uppers-nouppers' }}</p></li></ul>
         {{/ if }}

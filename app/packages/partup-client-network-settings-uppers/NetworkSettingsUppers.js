@@ -9,9 +9,37 @@
 Template.NetworkSettingsUppers.onCreated(function() {
     var template = this;
     var userId = Meteor.userId();
+    var endReached = false;
 
-    template.searchQuery = new ReactiveVar();
+    template.searchQuery = new ReactiveVar(undefined, function() {
+        endReached = false;
+        template.limit.set(10);
+    });
     template.reactiveLabel = new ReactiveVar('No uppers');
+    template.loadingInfiniteScroll = new ReactiveVar(true);
+
+    template.limit = new ReactiveVar(10, function(a, b) {
+
+        if (endReached) return;
+        template.loadingInfiniteScroll.set(true);
+        template.upperSub = template.subscribe('networks.one.uppers', {slug: template.data.networkSlug}, {limit: b}, {onReady: function() {
+            template.loadingInfiniteScroll.set(false);
+
+            var network = Networks.findOne({slug: template.data.networkSlug});
+
+            if (network) {
+                var searchOptions = {
+                    _id: {$in: network.uppers || []}
+                };
+                var searchQuery = template.searchQuery.get();
+                if (searchQuery) searchOptions['profile.name'] = {$regex: searchQuery, $options: 'i'};
+                var total = Meteor.users.find(searchOptions).count();
+
+                if (total <= b) endReached = true;
+
+            }
+        }});
+    });
 
     template.subscription = template.subscribe('networks.one', template.data.networkSlug, {
         onReady: function() {
@@ -21,7 +49,10 @@ Template.NetworkSettingsUppers.onCreated(function() {
             if (network.isClosedForUpper(userId)) Router.pageNotFound('network');
         }
     });
-    template.subscribe('networks.one.uppers', {slug: template.data.networkSlug});
+
+    template.upperSub = template.subscribe('networks.one.uppers', {slug: template.data.networkSlug}, {limit: 10}, {onReady: function() {
+        template.loadingInfiniteScroll.set(false);
+    }});
 
     template.callMethod = function(method, networkSlug, userId, userName, successKey, privacyType) {
         var network = Networks.findOne({slug: template.data.networkSlug});
@@ -48,6 +79,17 @@ Template.NetworkSettingsUppers.onCreated(function() {
             }
         });
     };
+});
+
+Template.NetworkSettingsUppers.onRendered(function() {
+    var template = this;
+    Partup.client.scroll.infinite({
+        template: template,
+        element: $('body')[0],
+        offset: 200
+    }, function() {
+        template.limit.set(template.limit.curValue + 10);
+    });
 });
 
 Template.NetworkSettingsUppers.helpers({
@@ -163,6 +205,9 @@ Template.NetworkSettingsUppers.helpers({
     },
     getToken: function() {
         return Accounts._storedLoginToken();
+    },
+    loadingInfiniteScroll: function() {
+        return Template.instance().loadingInfiniteScroll.get();
     }
 });
 
