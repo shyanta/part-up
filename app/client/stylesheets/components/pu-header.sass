@@ -95,11 +95,15 @@ $modal-bar-height: 70px
         background-color: transparent
 
         .pu-button-header
+            .pu-avatar, .pu-badge::after
+                border: 0
+
             @media screen and (max-width: #{$breakpoint-desktop - 1px})
                 background-color: rgba(#000, .3)
 
                 &.pu-button-header-profiledropdown-active
                     background-color: #fff
+
 
     @media screen and (min-width: $breakpoint-dropdowns)
         .pu-sub-more i
