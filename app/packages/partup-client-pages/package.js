@@ -58,8 +58,6 @@ Package.onUse(function(api) {
             'app/home/blocks/Home_Form.html',
             'app/home/blocks/Home_Form.js',
             'app/home/blocks/Home_Footer.html',
-            // 'app/home/partials/featured-networks.html',
-            // 'app/home/partials/featured-networks.js',
             // 'app/home/partials/philosophy.html',
             // 'app/home/partials/philosophy.js',
             // 'app/home/partials/call-to-action.html',
@@ -85,8 +83,6 @@ Package.onUse(function(api) {
             'app/discover/partials/tile/archived.html',
             'app/discover/partials/tile/active.html',
             'app/discover/partials/tile/active.js',
-            'app/discover/partials/tile/featured.html',
-            'app/discover/partials/tile/featured.js',
 
             // App:network
             'app/network/network.html',
@@ -269,9 +265,7 @@ Package.onUse(function(api) {
             'modal/admin/admin.html',
             'modal/admin/admin.js',
             'modal/admin/overview/overview.html',
-            'modal/admin/featured_partups/featured_partups.html',
             'modal/admin/partups/partups.html',
-            'modal/admin/featured_networks/featured_networks.html',
             'modal/admin/createtribe/createtribe.html',
             'modal/admin/createswarm/createswarm.html',
             'modal/admin/sectors/sectors.html',

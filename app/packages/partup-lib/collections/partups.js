@@ -307,16 +307,6 @@ Partup.prototype.isRemoved = function() {
 };
 
 /**
- * Check whether or not a partup is featured
- *
- * @memberOf Partups
- * @return {Boolean}
- */
-Partup.prototype.isFeatured = function() {
-    return !!this.featured.active;
-};
-
-/**
  * Get all partners and supporters
  *
  * @memberOf Partups

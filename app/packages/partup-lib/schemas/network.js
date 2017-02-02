@@ -220,36 +220,3 @@ Partup.schemas.forms.networkEdit = new SimpleSchema({
         regEx: SimpleSchema.RegEx.Id
     }
 });
-
-/**
- * Feature network form schema
- * @name featureNetwork
- * @memberof Partup.schemas.forms
- */
-Partup.schemas.forms.featureNetwork = new SimpleSchema({
-    active: {
-        type: Boolean
-    },
-    comment: {
-        type: String
-    },
-    author_id: {
-        type: String
-    },
-    job_title: {
-        type: String
-    },
-    language: {
-        type: String,
-        allowedValues: ['en', 'nl'],
-        autoform: {
-            options: [
-                {label: 'English', value: 'en'},
-                {label: 'Dutch', value: 'nl'},
-            ]
-        }
-    },
-    logo: {
-        type: String
-    }
-});
