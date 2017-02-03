@@ -42,24 +42,27 @@
                 {{/ unless }}
 
                 <!-- Title (could be clickable) -->
-                <h3 class="pu-sub-title {{# if EXPANDABLE }}{{# unless expanded }}pu-expander{{/ unless }}{{/ if }}" data-activity-expander>
+                <h3 class="pu-sub-title {{# if EXPANDABLE }}{{# unless expanded }}pu-expander{{/ unless }}{{/ if }}">
                     {{#unless BOARDVIEW}}
                         {{#with lane}}
                             <span class="pu-tag">{{ name }}</span>
                         {{/with}}
                     {{/unless}}
+                    <span data-activity-expander>
                     {{# if isActiveRoute name='partup' }}
                         <a href="{{ pathFor route='partup-update' slug=partup.slug update_id=activity.update_id }}">{{ activity.name }}</a>
                         <i class="picon-caret-slim-right"></i>
                     {{ else }}
                         {{ activity.name }}
                     {{/ if }}
+                    </span>
 
                     {{# if showChevron }}
                         <i class="{{# if expanded }}picon-caret-slim-up{{ else }}picon-caret-slim-down{{/ if }}"></i>
                     {{/ if }}
                     {{# if BOARDVIEW }}
                         <i class="picon-caret-down" data-activity-dropdown></i>
+                        {{> Dropdown toggle=activityDropdownOpen template="activityActionsDropdown" data=. position='left' }}
                     {{/ if }}
                 </h3>
 
@@ -139,4 +142,27 @@
 
     </article>
     {{/if}}
+</template>
+
+<template name="activityActionsDropdown">
+    <div class="pu-dropdown pu-dropdown-simple">
+        {{# if showInviteButton }}
+            <ul class="pu-list">
+                {{# if showContributeButton }}
+                    <li>
+                        <a href="#" data-contribute>{{_ 'activity-contribute'}}</a>
+                    </li>
+                {{/ if }}
+                <li>
+                    <a href="#" data-invite>{{_ 'activity-invite'}}</a>
+                </li>
+            </ul>
+        {{/ if }}
+        <!-- {{# if showEditButton }}
+            <ul class="pu-list">
+                <li><a href="#" data-activity-edit>{{_ 'activity-button-edit' }}</a></li>
+            </ul>
+        {{/ if }} -->
+
+    </div>
 </template>

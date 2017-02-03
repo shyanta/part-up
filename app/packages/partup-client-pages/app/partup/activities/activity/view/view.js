@@ -4,12 +4,14 @@ import {strings} from 'meteor/partup-client-base';
 /* Widget initial */
 /*************************************************************/
 Template.ActivityView.onCreated(function() {
-    var tpl = this;
+    var template = this;
 
-    tpl.expanded = new ReactiveVar(!!tpl.data.EXPANDED || !!tpl.data.CREATE_PARTUP);
+    template.activityDropdownOpen = new ReactiveVar(false);
 
-    tpl.updateContribution = function(contribution, cb) {
-        var activityId = tpl.data.activity ? tpl.data.activity._id : tpl.data.activity_id;
+    template.expanded = new ReactiveVar(!!template.data.EXPANDED || !!template.data.CREATE_PARTUP);
+
+    template.updateContribution = function(contribution, cb) {
+        var activityId = template.data.activity ? template.data.activity._id : template.data.activity_id;
         Meteor.call('contributions.update', activityId, contribution, cb);
     };
 });
@@ -18,6 +20,9 @@ Template.ActivityView.onCreated(function() {
 /* Widget helpers */
 /*************************************************************/
 Template.ActivityView.helpers({
+    activityDropdownOpen: function() {
+        return Template.instance().activityDropdownOpen;
+    },
     renderWithMarkdown: function(text) {
         return strings.renderToMarkdownWithEmoji(text, 'pu-sub-description');
     },
@@ -113,6 +118,10 @@ Template.ActivityView.helpers({
 /* Widget events */
 /*************************************************************/
 Template.ActivityView.events({
+    'click [data-activity-dropdown]': function(event, template) {
+        event.preventDefault();
+        template.activityDropdownOpen.set(true);
+    },
     'click [data-activity-edit]': function(event, template) {
         template.data.edit.set(true);
     },
@@ -203,3 +212,32 @@ Template.ActivityView.events({
         });
     },
 });
+
+Template.activityActionsDropdown.helpers({
+    showInviteButton: function() {
+        if (this.contribution_id) return false;
+        if (this.READONLY) return false;
+
+        var user = Meteor.user();
+        if (!user) return false;
+
+        return true;
+    },
+    showContributeButton: function() {
+        if (this.contribution_id) return false;
+        if (this.READONLY) return false;
+
+        var user = Meteor.user();
+        if (!user) return false;
+
+        var contributions = Contributions.findForActivity(this.activity).fetch();
+        for (var i = 0; i < contributions.length; i++) {
+            if (contributions[i].upper_id === user._id && !contributions[i].archived) return false;
+        }
+
+        return true;
+    },
+    showEditButton: function() {
+        return !this.READONLY && this.isUpper;
+    }
+})
