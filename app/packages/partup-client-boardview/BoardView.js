@@ -10,7 +10,7 @@ Template.BoardView.onCreated(function() {
         if (!b) return;
         template.updateLanesCollection();
         lodash.defer(function() {
-            var partup = Partups.findOne({_id: partupId});
+            var partup = Partups.findOne({_id: template.data.partupId});
 
             // only kickstart the board when the user is an upper
             if (partup.hasUpper(Meteor.userId())) {
@@ -20,12 +20,6 @@ Template.BoardView.onCreated(function() {
                 });
             }
         });
-    });
-
-    template.subscribe('board.for_partup_id', partupId, {
-        onReady: function() {
-            template.loaded.set(true);
-        }
     });
 
     var arraysAreTheSame = function(arr1, arr2) {
@@ -243,6 +237,8 @@ Template.BoardView.onCreated(function() {
 
 Template.BoardView.onRendered(function() {
     var template = this;
+
+    template.loaded.set(true);
 });
 
 Template.BoardView.onDestroyed(function() {
