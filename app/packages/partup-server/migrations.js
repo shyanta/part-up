@@ -959,7 +959,3 @@ Migrations.add({
         //
     }
 });
-
-Meteor.startup(function() {
-    Migrations.migrateTo(38);
-});
