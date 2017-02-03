@@ -392,7 +392,6 @@ Meteor.methods({
 
         try {
             network.acceptPendingUpper(upperId);
-            network.removeAllUpperInvites(upperId);
 
             Event.emit('networks.accepted', user._id, networkId, upperId);
 

@@ -919,6 +919,19 @@ Migrations.add({
     }
 });
 
+Migrations.add({
+    version: 38,
+    name: 'Remove partup invites for uppers that are already partner or supporter',
+    up: function() {
+        Partups.find().fetch().forEach(function(partup) {
+            Invites.remove({partup_id: partup._id, invitee_id: {$in: partup.uppers.concat(partup.supporters)}});
+        });
+    },
+    down: function() {
+        //
+    }
+});
+
 Meteor.startup(function() {
-    Migrations.migrateTo(37);
+    Migrations.migrateTo(38);
 });

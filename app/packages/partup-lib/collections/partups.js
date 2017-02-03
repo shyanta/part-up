@@ -228,12 +228,13 @@ Partup.prototype.hasEnded = function() {
  * @param {String} upperId the user that becomes a supporter
  */
 Partup.prototype.makeSupporter = function(upperId) {
-    if (!this.hasUpper(upperId)) {
-        Partups.update(this._id, {$addToSet: {'supporters': upperId}, $pull: {invites: upperId}});
-        Meteor.users.update(upperId, {$addToSet: {'supporterOf': this._id}});
+    if (this.hasUpper(upperId)) return;
 
-        this.createUpperDataObject(upperId);
-    }
+    Partups.update(this._id, {$addToSet: {'supporters': upperId}, $pull: {invites: upperId}});
+    Meteor.users.update(upperId, {$addToSet: {'supporterOf': this._id}});
+    Invites.remove({partup_id: this._id, invitee_id: upperId});
+
+    this.createUpperDataObject(upperId);
 };
 
 /**
