@@ -1,8 +1,8 @@
 Template.app_partup.onCreated(function() {
-    var tpl = this;
+    var template = this;
 
-    tpl.partupId = new ReactiveVar();
-    tpl.sectionActive = new ReactiveVar(false);
+    template.partupId = new ReactiveVar();
+    template.sectionActive = new ReactiveVar(false);
 
     var partup_sub;
 
@@ -13,7 +13,7 @@ Template.app_partup.onCreated(function() {
         var userId = Meteor.userId();
         if (!partup.isViewableByUser(userId, Session.get('partup_access_token'))) return Router.pageNotFound('partup-closed');
 
-        tpl.partupId.set(id);
+        template.partupId.set(id);
 
         var seo = {
             title: Partup.client.notifications.createTitle(partup.name),
@@ -36,8 +36,14 @@ Template.app_partup.onCreated(function() {
         }
     };
 
-    tpl.autorun(function() {
-        var template = Template.instance();
+    template.loading = {
+        partup: new ReactiveVar(true),
+        activities: new ReactiveVar(true),
+        updates: new ReactiveVar(true),
+        board: new ReactiveVar(true)
+    };
+
+    template.autorun(function() {
         var id = Template.currentData().partupId;
         var accessToken = Session.get('partup_access_token');
 
@@ -47,19 +53,26 @@ Template.app_partup.onCreated(function() {
                 // the subscription is ready to prevent false positives on
                 // the 'partup not found' fallback
                 continueLoadingPartupById(id);
+                template.loading.partup.set(false);
             }
         }); // subs manager fails here
-        template.subscribe('activities.from_partup', id, accessToken);
-        template.subscribe('updates.from_partup', id, {}, accessToken);
-        template.subscribe('board.for_partup_id', id);
+        template.subscribe('activities.from_partup', id, accessToken, {onReady: function() {
+            template.loading.activities.set(false);
+        }});
+        template.subscribe('updates.from_partup', id, {}, accessToken, {onReady: function() {
+            template.loading.updates.set(false);
+        }});
+        template.subscribe('board.for_partup_id', id, {onReady: function() {
+            template.loading.board.set(false);
+        }});
     });
 });
 
 Template.app_partup.onRendered(function() {
-    var tpl = this;
+    var template = this;
 
-    tpl.autorun(function(computation) {
-        var partup = Partups.findOne({_id: tpl.data.partupId});
+    template.autorun(function(computation) {
+        var partup = Partups.findOne({_id: template.data.partupId});
         if (!partup) return;
     });
 });
@@ -78,7 +91,8 @@ Template.app_partup.events({
 
 Template.app_partup.helpers({
     partupIsLoaded: function() {
-        return Partups.findOne({_id: this.partupId});
+        var template = Template.instance();
+        return !(template.loading.partup.get() && template.loading.activities.get() && template.loading.updates.get() && template.loading.board.get());
     },
     sectionActive: function() {
         return Template.instance().sectionActive.get();
