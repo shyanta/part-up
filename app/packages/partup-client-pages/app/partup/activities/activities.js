@@ -38,7 +38,7 @@ Template.app_partup_activities.onCreated(function() {
 
     // Partup findOne and activities subscription
     template.activities.loading.set(true);
-    template.subscribe('activities.from_partup', template.partup._id, {
+    template.subscribe('activities.from_partup', template.data.partupId, {
         onReady: function() {
             template.activities.loading.set(false);
         }
@@ -109,7 +109,8 @@ Template.app_partup_activities.helpers({
         };
     },
     boardViewEnabled: function() {
-        var partup = Template.instance().partup;
+        var template = Template.instance();
+        var partup = Partups.findOne(template.data.partupId);
         if (!partup) return false;
         return partup.board_view;
     },

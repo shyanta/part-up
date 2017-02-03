@@ -58,6 +58,9 @@
                     {{# if showChevron }}
                         <i class="{{# if expanded }}picon-caret-slim-up{{ else }}picon-caret-slim-down{{/ if }}"></i>
                     {{/ if }}
+                    {{# if BOARDVIEW }}
+                        <i class="picon-caret-down" data-activity-dropdown></i>
+                    {{/ if }}
                 </h3>
 
                 <!-- Contributors -->
