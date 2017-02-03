@@ -20,14 +20,14 @@
                     {{/each}}
                 </ul>
                 <div class="pu-boardview-lane__footer">
-                    <button class="pu-boardview-lane__footer__add-button" data-add-button="{{ _id }}" type="button"><i class="picon-plus"></i>Activity toevoegen</button>
+                    <button class="pu-boardview-lane__footer__add-button" data-add-button="{{ _id }}" type="button"><i class="picon-plus"></i>{{_ 'boardview-add-activity-button'}}</button>
                 </div>
             </div>
         {{/each}}
         {{#if addLane}}
             <div class="pu-boardview-lane">
                 <div class="pu-boardview-lane__header">
-                    <input placeholder="New" class="pu-boardview-lane__header__input pu-boardview-lane__header__input-full" data-add-lane-input type="text">
+                    <input placeholder="{{_ 'boardview-new-input-placeholder'}}" class="pu-boardview-lane__header__input pu-boardview-lane__header__input-full" data-add-lane-input type="text">
                 </div>
                 <ul class="pu-boardview-lane__content">
                 </ul>

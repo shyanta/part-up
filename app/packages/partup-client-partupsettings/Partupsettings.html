@@ -209,7 +209,7 @@
 
         <div class="pu-formfield">
             <span class="pu-label">
-                Hoe wil je activiteiten tonen?
+                {{_ 'partupsettings-board-label' }}
             </span>
             <div class="pu-sub-validations">
                 {{# BoardSwitch enabled=fieldsFromPartup.board_view }}
@@ -353,21 +353,4 @@
         {{> yield region="PartupsettingsFooter" }}
 
     {{/autoForm}}
-</template>
-
-<template name="BoardSwitch">
-    <div class="pu-boardswitch">
-        <label class="pu-boardswitch__check" data-enable>
-            <input name="board-switch" value="enabled" class="pu-boardswitch__input pu-input-radio" type="radio">
-            <span class="pu-boardswitch__label">Scrum/Agile</span>
-            <figure class="pu-boardswitch__figure pu-boardswitch__figure-board"></figure>
-        </label>
-        <label class="pu-boardswitch__check" data-disable>
-            <input name="board-switch" value="disabled" class="pu-boardswitch__input pu-input-radio" type="radio">
-            <span class="pu-boardswitch__label">List</span>
-            <figure class="pu-boardswitch__figure pu-boardswitch__figure-list"></figure>
-        </label>
-        {{> UI.contentBlock}}
-    </div>
-
 </template>

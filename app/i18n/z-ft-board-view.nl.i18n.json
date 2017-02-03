@@ -1,0 +1,9 @@
+{
+    "partupsettings-board-label": "Hoe wil je activiteiten tonen?",
+
+    "partupsettings-board-switch-board-label": "Scrum/Agile",
+    "partupsettings-board-switch-list-label": "Lijst",
+
+    "boardview-new-input-placeholder": "Nieuw",
+    "boardview-add-activity-button": "Activity toevoegen"
+}
