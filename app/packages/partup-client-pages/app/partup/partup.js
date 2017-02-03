@@ -51,6 +51,7 @@ Template.app_partup.onCreated(function() {
         }); // subs manager fails here
         template.subscribe('activities.from_partup', id, accessToken);
         template.subscribe('updates.from_partup', id, {}, accessToken);
+        template.subscribe('board.for_partup_id', id);
     });
 });
 

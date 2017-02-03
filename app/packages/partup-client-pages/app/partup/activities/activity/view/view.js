@@ -99,6 +99,14 @@ Template.ActivityView.helpers({
         });
         return newComments.length;
     },
+    lane: function() {
+        var activity = this.activity;
+        var partup = Partups.findOne(this.activity.partup_id);
+
+        if (!partup.board_view) return false;
+
+        return Lanes.findOne({_id: activity.lane_id});
+    }
 });
 
 /*************************************************************/

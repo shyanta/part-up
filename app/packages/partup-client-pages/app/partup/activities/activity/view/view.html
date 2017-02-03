@@ -43,6 +43,11 @@
 
                 <!-- Title (could be clickable) -->
                 <h3 class="pu-sub-title {{# if EXPANDABLE }}{{# unless expanded }}pu-expander{{/ unless }}{{/ if }}" data-activity-expander>
+                    {{#unless BOARDVIEW}}
+                        {{#with lane}}
+                            <span class="pu-tag">{{ name }}</span>
+                        {{/with}}
+                    {{/unless}}
                     {{# if isActiveRoute name='partup' }}
                         <a href="{{ pathFor route='partup-update' slug=partup.slug update_id=activity.update_id }}">{{ activity.name }}</a>
                         <i class="picon-caret-slim-right"></i>
@@ -89,19 +94,15 @@
                     {{/ if }}
                 {{/ unless }}
 
-                {{# unless COMPACT }}
-                    {{# unless expanded }}
-                        {{#if BOARDVIEW}}
-                            {{#with contributions }}
-                                <ul class="pu-avatar-stack pu-avatar-stack-tiny">
-                                    {{# each . }}
-                                        <li class="pu-avatar pu-avatar-tiny" style="{{#with upper.profile.image }}background-image: url('{{ partupImageUrl id=. store='80x80' }}');{{/with }}}"></li>
-                                    {{/ each }}
-                                </ul>
-                            {{/with}}
-                        {{/if}}
-                    {{/ unless }}
-                {{/ unless}}
+                {{# unless COMPACT }}{{# unless expanded }}{{# if BOARDVIEW }}
+                    {{#with contributions }}
+                        <ul class="pu-avatar-stack pu-avatar-stack-small">
+                            {{# each . }}
+                                <li class="pu-avatar pu-avatar-small" style="{{#with upper.profile.image }}background-image: url('{{ partupImageUrl id=. store='80x80' }}');{{/with }}}"></li>
+                            {{/ each }}
+                        </ul>
+                    {{/with}}
+                {{/ if }}{{/ unless }}{{/ unless }}
             </section>
 
         {{/ if }}

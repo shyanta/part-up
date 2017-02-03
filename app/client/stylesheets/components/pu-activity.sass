@@ -46,6 +46,9 @@
         &:last-child
             margin-bottom: -3px
 
+        .pu-tag
+            margin-right: 10px
+
     .pu-sub-description
         margin-bottom: 5px
         margin-top: 6px
@@ -151,13 +154,20 @@
                 font-size: 14px
 
             > .pu-avatar-stack
+                background-color: transparent
+                border-top: 2px solid #eee
+                margin-left: -5px
                 position: static
-                height: 20px
                 margin-top: 15px
                 text-align: left
+                height: 40px
+                padding-top: 10px
 
                 &:before
                     display: none
+
+                // .pu-avatar
+                //     float: left
 
     @media screen and (min-width: $breakpoint-tablet)
         .pu-sub-contribute
