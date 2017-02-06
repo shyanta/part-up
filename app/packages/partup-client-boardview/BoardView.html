@@ -24,18 +24,18 @@
                 </div>
             </div>
         {{/each}}
-        {{#if addLane}}
-            {{#if isUpper}}
-                <div class="pu-boardview-lane">
-                    <div class="pu-boardview-lane__header">
-                        <input placeholder="{{_ 'boardview-new-input-placeholder'}}" class="pu-boardview-lane__header__input pu-boardview-lane__header__input-full" data-add-lane-input type="text">
+        {{#if isUpper}}
+            {{#if addLane}}
+                    <div class="pu-boardview-lane">
+                        <div class="pu-boardview-lane__header">
+                            <input placeholder="{{_ 'boardview-new-input-placeholder'}}" class="pu-boardview-lane__header__input pu-boardview-lane__header__input-full" data-add-lane-input type="text">
+                        </div>
+                        <ul class="pu-boardview-lane__content">
+                        </ul>
                     </div>
-                    <ul class="pu-boardview-lane__content">
-                    </ul>
-                </div>
+            {{else}}
+                <button class="pu-boardview__add-lane-button" type="button" data-add-lane><i class="picon-plus"></i></button>
             {{/if}}
-        {{else}}
-            <button class="pu-boardview__add-lane-button" type="button" data-add-lane><i class="picon-plus"></i></button>
         {{/if}}
     </div>
 </template>

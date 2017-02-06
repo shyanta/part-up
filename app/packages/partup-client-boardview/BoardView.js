@@ -185,7 +185,7 @@ Template.BoardView.onCreated(function() {
             lane.destroy();
         }
 
-        template.sortableBoard.destroy();
+        if (template.sortableBoard) template.sortableBoard.destroy();
     };
 
     template.refresh = function() {
