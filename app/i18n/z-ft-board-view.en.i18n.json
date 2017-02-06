@@ -5,5 +5,7 @@
     "partupsettings-board-switch-list-label": "List",
 
     "boardview-new-input-placeholder": "New",
-    "boardview-add-activity-button": "Add activity"
+    "boardview-add-activity-button": "Add activity",
+
+    "pages-app-partup-update-back_to_overview-activities": "Back to activities"
 }

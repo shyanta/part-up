@@ -5,5 +5,7 @@
     "partupsettings-board-switch-list-label": "Lijst",
 
     "boardview-new-input-placeholder": "Nieuw",
-    "boardview-add-activity-button": "Activity toevoegen"
+    "boardview-add-activity-button": "Activity toevoegen",
+
+    "pages-app-partup-update-back_to_overview-activities": "Terug naar activities"
 }
