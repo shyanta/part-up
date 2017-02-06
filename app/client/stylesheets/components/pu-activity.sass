@@ -1,28 +1,11 @@
 .pu-activity
     .pu-sub-section
-        border-bottom: 2px solid $color-border-light
+        position: relative
         padding: 15px
+        border-top: 2px solid #eee
 
-        &:last-child
-            border-bottom: 0
-
-        > .pu-avatar-stack
-            position: absolute
-            top: 15px
-            right: 15px
-            background-color: #fff
-
-            &:before
-                content: ''
-                display: block
-                height: 25px
-                background-color: white
-                width: 25px
-                position: absolute
-                left: -25px
-                top: 0
-                bottom: 0
-                background: linear-gradient(to right, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 60%)
+        &:first-child
+            border-top: 0
 
         .pu-contribution + .pu-contribution
             border-top: 2px solid $color-border-light
@@ -33,8 +16,53 @@
         .pu-block-meta-nocomment
             margin-top: 0
 
+        .pu-sub-editbutton
+            margin-top: -15px
+
+        &-divided
+            font-size: 0
+            display: table
+            table-layout: fixed
+            width: 100%
+
+            .pu-sub-section__main
+                width: calc(100% - 240px)
+                position: relative
+
+            .pu-sub-section__main,
+            .pu-sub-section__side
+                display: table-cell
+                vertical-align: top
+
+        &-comments
+            background-color: #f9f9f9
+            border-top: 2px solid #eee
+
+        &__side
+            position: relative
+            width: 240px
+
+            .pu-avatar-stack
+                width: 100%
+                display: block
+                height: 40px
+
+            &:before
+                content: ''
+                position: absolute
+                top: 0
+                left: 5px
+                bottom: 0
+                display: block
+                height: 100%
+                width: 2px
+                background-color: $color-border-light
+
     .pu-label
         font-size: 14px
+
+    .pu-sub-editbutton
+        margin-top: -10px
 
     .pu-sub-title
         font-size: 20px
@@ -79,24 +107,21 @@
 
     .pu-sub-contribute
         color: #aaa
-
-        .pu-sub-or
-            display: inline-block
-            padding: 0 15px
-            line-height: 40px
-            color: $color-text-subtle
-            font-weight: 600
+        text-align: right
 
         .pu-button
             display: block
+
+            &:last-child
+                margin-left: 5px
 
         .pu-button, .pu-sub-or
             width: 100%
             text-align: center
 
     &-expandable
-        .pu-sub-editbutton
-            display: none
+        // .pu-sub-editbutton
+        //     display: none
 
         &.pu-activity-expanded
             .pu-sub-editbutton
@@ -143,6 +168,8 @@
 
     &-board-card
         .pu-sub-section
+            max-width: none
+
             .pu-sub-title
                 font-size: 16px
                 cursor: pointer
@@ -157,7 +184,7 @@
             .pu-sub-description
                 font-size: 14px
 
-            > .pu-avatar-stack
+            .pu-avatar-stack
                 background-color: transparent
                 border-top: 2px solid #eee
                 margin-left: -5px

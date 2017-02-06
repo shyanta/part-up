@@ -266,10 +266,8 @@ Template.BoardView.events({
         }
     },
     'keyup [data-add-lane-input]': function(event, template) {
-        // var value = $(event.currentTarget).val();
         if (event.keyCode === 13) {
             template.addLane.set(false);
-            // template.callInsertLane(value);
         }
     },
     'blur [data-add-lane-input]': function(event, template) {

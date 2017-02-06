@@ -49,7 +49,7 @@ Template.ActivityView.helpers({
         return this.EXPANDABLE && !Template.instance().expanded.get() && !this.contribution_id;
     },
     showEditButton: function() {
-        return !this.READONLY && this.isUpper && Template.instance().expanded.get();
+        return !this.READONLY && this.isUpper //&& Template.instance().expanded.get();
     },
     showMetaData: function() {
         return (this.activity && this.activity.end_date) || this.COMMENTS_LINK;
@@ -111,6 +111,9 @@ Template.ActivityView.helpers({
         if (!partup.board_view) return false;
 
         return Lanes.findOne({_id: activity.lane_id});
+    },
+    updateDetail: function() {
+        return Router.current().route.getName() === 'partup-update';
     }
 });
 
