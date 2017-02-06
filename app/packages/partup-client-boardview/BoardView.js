@@ -128,8 +128,9 @@ Template.BoardView.onCreated(function() {
             template.dragging.set(false);
         }, 250);
     };
-
+    var isMobile = Partup.client.isMobile.isTabletOrMobile();
     template.createBoard = function() {
+        if (isMobile) return;
         var boardElement = template.$('[data-sortable-board]')[0];
 
         template.sortableBoard = Sortable.create(boardElement, {
@@ -150,6 +151,7 @@ Template.BoardView.onCreated(function() {
 
     template.sortableLanes = [];
     template.createLanes = function() {
+        if (isMobile) return;
         template.$('[data-sortable-lane]').each(function(index, laneElement) {
             var sortableLane = Sortable.create(laneElement, {
                 group: {
@@ -238,7 +240,6 @@ Template.BoardView.onCreated(function() {
 
 Template.BoardView.onRendered(function() {
     var template = this;
-
     template.loaded.set(true);
 });
 
@@ -272,7 +273,9 @@ Template.BoardView.events({
         }
     },
     'blur [data-add-lane-input]': function(event, template) {
+        var value = $(event.currentTarget).val();
         template.addLane.set(false);
+        template.callInsertLane(value);
     },
     'blur [data-lane-name-input]': function(event, template) {
         var value = $(event.currentTarget).val();

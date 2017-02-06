@@ -174,19 +174,33 @@
             position: absolute
             margin-top: 12px
             padding: 0
+            right: -12px
 
             .pu-sub-arrow
-                right: 7px
+                right: 19px
 
-            .pu-dropdown
-                position: static
-                transform: none
-                opacity: 1
-                box-shadow: none
+            ul
+                position: relative
 
-                a
+                li a
+                    border-bottom: 2px solid #f9f9f9
+                    padding: 20px 30px
+                    text-decoration: none
+                    color: $color-text
+                    display: block
+                    transition: background-color .2s
                     font-family: $font-primary
-                    font-weight: normal
+                    font-weight: 500
+                    &:hover
+                        background-color: #f9f9f9
+
+                    .picon-caret-slim-right,
+                    .picon-caret-slim-left
+                        font-size: 12px
+
+                &:last-child
+                    &:after
+                        display: none
 
     @media screen and (min-width: $breakpoint-tablet)
         .pu-sub-contribute
