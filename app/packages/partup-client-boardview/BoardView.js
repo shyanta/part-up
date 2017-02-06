@@ -216,6 +216,16 @@ Template.BoardView.onCreated(function() {
         template.lanesCollection.set(lanes);
     };
 
+    template.userIsUpper = function() {
+        var partup = Partups.findOne({_id: template.data.partupId});
+        if (!partup || !partup.uppers) return false;
+
+        var user = Meteor.user();
+        if (!user) return false;
+
+        return partup.uppers.indexOf(user._id) > -1;
+    };
+
     template.autorun(function() {
         var board = Boards.findOne();
         var dragging = template.dragging.get();
@@ -251,6 +261,7 @@ Template.BoardView.onDestroyed(function() {
 Template.BoardView.events({
     'click [data-lane-name]': function(event, template) {
         event.preventDefault();
+        if (!template.userIsUpper()) return;
         template.editLane.set($(event.currentTarget).data('lane-name'));
         lodash.defer(function() {
             $('[data-lane-name-input]').focus();
@@ -332,14 +343,7 @@ Template.BoardView.helpers({
         return Template.instance().addLane.get();
     },
     isUpper: function() {
-        var template = Template.instance();
-        var partup = Partups.findOne({_id: template.data.partupId});
-        if (!partup || !partup.uppers) return false;
-
-        var user = Meteor.user();
-        if (!user) return false;
-
-        return partup.uppers.indexOf(user._id) > -1;
-    },
+        return Template.instance().userIsUpper();
+    }
 });
 
