@@ -19,5 +19,6 @@
     "modal-profilesettings-usermail-remove-success": "removed",
 
     "modal-profilesettings-usermail-set-primary-button-label": "Make primary",
-    "modal-profilesettings-usermail-remove-button-label": "Remove"
+    "modal-profilesettings-usermail-remove-button-label": "Remove",
+    "modal-profilesettings-usermail-label-secondary-unverified": "(unverified)"
 }
