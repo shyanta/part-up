@@ -28,7 +28,8 @@ Partup.transformers.partup = {
             tags_input: Partup.services.tags.tagArrayToInput(partup.tags),
             focuspoint_x_input: image ? (mout.object.get(image, 'focuspoint.x') || 0) : 0,
             focuspoint_y_input: image ? (mout.object.get(image, 'focuspoint.y') || 0) : 0,
-            phase: partup.phase
+            phase: partup.phase,
+            board_view: partup.board_view
         };
 
         // Determine privacy type
@@ -72,7 +73,8 @@ Partup.transformers.partup = {
             image: fields.image,
             tags: Partup.services.tags.tagInputToArray(fields.tags_input),
             language: Partup.server.services.google.detectLanguage(fields.description),
-            phase: fields.phase
+            phase: fields.phase,
+            board_view: fields.board_view
         };
 
         var newLocation = Partup.services.location.locationInputToLocation(fields.location_input);

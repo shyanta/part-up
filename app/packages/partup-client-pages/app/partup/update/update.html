@@ -4,9 +4,15 @@
                 <!-- Header buttons -->
                 <header class="pu-pageheader">
                     <section>
-                        <a class="pu-button" href="{{ pathFor 'partup' slug=partup.slug }}">
-                            {{_ 'pages-app-partup-update-back_to_overview' }}
-                        </a>
+                        {{#if isActivityUpdate}}
+                            <a class="pu-button" href="{{ pathFor 'partup-activities' slug=partup.slug }}">
+                                {{_ 'pages-app-partup-update-back_to_overview-activities' }}
+                            </a>
+                        {{else}}
+                            <a class="pu-button" href="{{ pathFor 'partup' slug=partup.slug }}">
+                                {{_ 'pages-app-partup-update-back_to_overview' }}
+                            </a>
+                        {{/if}}
                     </section>
                 </header>
 
@@ -36,6 +42,7 @@
         {{/if}}
     </div>
 </template>
+
 <template name="_app_partup_update_placeholder">
     <div class="pu-sub-timeline pu-sub-makespaceforthedayheader">
         <!-- Day header -->

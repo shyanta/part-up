@@ -1,12 +1,14 @@
 Template.modal_partup_settings.onCreated(function() {
-    var tpl = this;
-    tpl.subscribe('partups.one', tpl.data.partupId, function() {
-        var partup = Partups.findOne(tpl.data.partupId);
+    var template = this;
+    template.partupLoaded = new ReactiveVar(false);
+    template.subscribe('partups.one', template.data.partupId, {onReady: function() {
+        template.partupLoaded.set(true);
+        var partup = Partups.findOne(template.data.partupId);
         if (!partup) return Router.pageNotFound('partup');
         var user = Meteor.user();
         if (!partup.hasUpper(user._id) && !User(user).isAdmin()) return Router.pageNotFound('partup-not-allowed');
-    });
-    tpl.submitting = new ReactiveVar(false);
+    }});
+    template.submitting = new ReactiveVar(false);
 });
 
 Template.modal_partup_settings.helpers({
@@ -15,11 +17,14 @@ Template.modal_partup_settings.helpers({
     },
     submitting: function() {
         return Template.instance().submitting.get();
+    },
+    partupLoaded: function() {
+        return Template.instance().partupLoaded.get();
     }
 });
 
 Template.modal_partup_settings.events({
-    'click [data-closepage]': function eventClickClosePage (event, template) {
+    'click [data-closepage]': function(event, template) {
         event.preventDefault();
 
         var partup = Partups.findOne(template.data.partupId);

@@ -552,9 +552,6 @@ Network.prototype.createPartupName = function(partupId, partupName) {
  * @memberOf Networks
  */
 Network.prototype.updatePartupName = function(partupId, partupName) {
-    Log.debug(partupId);
-    Log.debug(partupName);
-
     Networks.update({
         _id: this._id,
         'partup_names._id': partupId

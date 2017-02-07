@@ -93,5 +93,9 @@ Template.app_partup_update.helpers({
     },
     subscriptionReady: function() {
         return Template.instance().subscriptionReady.get();
+    },
+    isActivityUpdate: function() {
+        var update = Updates.findOne({_id: Template.instance().data.updateId});
+        return !!(lodash.get(update, 'type_data.activity_id'));
     }
 });

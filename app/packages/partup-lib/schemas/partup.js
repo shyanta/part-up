@@ -32,6 +32,7 @@ var partupBaseSchema = new SimpleSchema({
     },
     phase: {
         type: String,
+        optional: true,
         allowedValues: [
             Partups.PHASE.BRAINSTORM,
             Partups.PHASE.PLAN,
@@ -113,6 +114,10 @@ Partup.schemas.entities.partup = new SimpleSchema([partupBaseSchema, {
     archived_at: {
         type: Date,
         optional: true
+    },
+    board_id: {
+        type: String,
+        regEx: SimpleSchema.RegEx.Id
     },
     created_at: {
         type: Date,
@@ -213,6 +218,9 @@ Partup.schemas.entities.partup = new SimpleSchema([partupBaseSchema, {
  * @memberOf Partup.schemas.forms
  */
 Partup.schemas.forms.partup = new SimpleSchema([partupBaseSchema, {
+    board_view: {
+        type: Boolean
+    },
     focuspoint_x_input: {
         type: Number,
         min: 0,

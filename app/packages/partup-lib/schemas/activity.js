@@ -14,6 +14,11 @@ var activityBaseSchema = new SimpleSchema({
         type: Date,
         optional: true
     },
+    lane_id: {
+        type: String,
+        optional: true,
+        regEx: SimpleSchema.RegEx.Id
+    },
     name: {
         type: String,
         max: 60

@@ -28,7 +28,12 @@ Meteor.methods({
             };
             newPartup.refreshed_at = new Date();
 
-            //check(newPartup, Partup.schemas.entities.partup);
+            // Create a board
+            newPartup.board_id = Meteor.call('boards.insert', newPartup._id);
+
+            // Set the default board lanes
+            var board = Boards.findOneOrFail(newPartup.board_id);
+            board.createDefaultLane();
 
             Partups.insert(newPartup);
             Meteor.users.update(user._id, {$addToSet: {'upperOf': newPartup._id}});
@@ -117,10 +122,17 @@ Meteor.methods({
 
                 // Update network info
                 if (partup.network_id) {
-                    Log.debug('3');
                     var network = Networks.findOneOrFail(partup.network_id);
                     network.updatePartupName(partup._id, newPartupFields.name);
                 }
+            }
+            // Create a board
+            if (!partup.board_id) {
+                newPartupFields.board_id = Meteor.call('boards.insert', partup._id);
+
+                // Set the default board lanes
+                var board = Boards.findOneOrFail(newPartupFields.board_id);
+                board.createDefaultLane();
             }
 
             Partups.update(partupId, {$set: newPartupFields});

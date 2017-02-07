@@ -121,6 +121,8 @@ AutoForm.addHooks(null, {
             self.done.apply(arguments);
         };
 
+        doc.lane_id = Partup.client.popup.parameters.laneId || undefined;
+
         if (template.data && template.data.activity) {
             Meteor.call('activities.update', template.data.activity._id, doc, function(error) {
                 if (error && error.message) {

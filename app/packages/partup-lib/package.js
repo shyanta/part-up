@@ -59,6 +59,8 @@ Package.onUse(function(api) {
         'collections/chats.js',
         'collections/chatmessages.js',
         'collections/sectors.js',
+        'collections/boards.js',
+        'collections/lanes.js',
         'schemas/activity.js',
         'schemas/update.js',
         'schemas/contribution.js',
@@ -81,6 +83,8 @@ Package.onUse(function(api) {
         'schemas/chat.js',
         'schemas/chatmessage.js',
         'schemas/sector.js',
+        'schemas/board.js',
+        'schemas/lane.js',
         'transformers/activity.js',
         'transformers/partup.js',
         'transformers/user.js',
@@ -90,6 +94,7 @@ Package.onUse(function(api) {
         'transformers/networkAccess.js',
         'transformers/swarm.js',
         'transformers/contentblock.js',
+        'transformers/lane.js',
         'helpers/parselocale.js',
         'helpers/mentions.js',
         'helpers/normalize.js',
@@ -144,6 +149,8 @@ Package.onUse(function(api) {
     api.export('ChatMessages');
     api.export('FileUploader');
     api.export('Sectors');
+    api.export('Boards');
+    api.export('Lanes');
 
     // Globals
     api.export('get');

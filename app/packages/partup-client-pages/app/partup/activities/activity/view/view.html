@@ -9,7 +9,7 @@
     {{/ if }}
 
     {{#if activity.deleted_at }}
-    <article class="pu-block pu-block-activity pu-activity">
+    <article class="pu-block pu-block-activity pu-activity{{# if BOARDVIEW }} pu-activity-board-card{{/ if }}">
         <section class="pu-sub-section">
             <h3 class="pu-sub-title pu-state-deleted">{{ activity.name }}</h3>
         </section>
@@ -20,98 +20,148 @@
                     {{# if contribution }}        pu-activity-singlecontribution   {{/ if }}
                     {{# if expanded }}            pu-activity-expanded             {{/ if }}
                     {{# if CREATE_PARTUP }}       pu-activity-in-startpartup-modal {{/ if }}
+                    {{# if BOARDVIEW }}           pu-activity-board-card           {{/ if }}
                     {{# if activity.archived }}   pu-activity-archived             {{/ if }}"
             data-activity-id="{{ activity._id }}">
 
         <!-- If the activity is a single contribution, only show the contribution -->
         {{# if contribution }}
-            <section class="pu-sub-section">
-                {{> Contribution contribution=contribution updateContribution=updateContribution READONLY=isReadOnly}}
-            </section>
+        <section class="pu-sub-section">
+            {{> Contribution contribution=contribution updateContribution=updateContribution READONLY=isReadOnly}}
+        </section>
         {{ else }}
 
             <!-- Meta data -->
-            <section class="pu-sub-section">
+            <section class="pu-sub-section {{#unless BOARDVIEW}}pu-sub-section-divided{{/unless}}">
+                <div class="pu-sub-section__main">
+                    <!-- Edit button -->
+                    {{# unless COMPACT }}{{#unless BOARDVIEW}}{{# if showEditButton }}
+                    <a class="pu-sub-editbutton pu-button pu-button-text pu-button-text-subtle" data-activity-edit>{{_ 'activity-button-edit' }}</a>
+                    {{/ if }}{{/ unless }}{{/ unless }}
 
-                <!-- Edit button -->
-                {{# unless COMPACT }}
-                    {{# if showEditButton }}
-                        <a class="pu-sub-editbutton pu-button pu-button-text pu-button-text-subtle" data-activity-edit>{{_ 'activity-button-edit' }}</a>
-                    {{/ if }}
-                {{/ unless }}
+                    <!-- Title (could be clickable) -->
+                    <h3 class="pu-sub-title pu-expander">
+                        {{#unless BOARDVIEW}}
+                        {{#with lane}}
+                            <span class="pu-tag">{{ name }}</span>
+                        {{/with}}
+                        {{/unless}}
 
-                <!-- Title (could be clickable) -->
-                <h3 class="pu-sub-title {{# if EXPANDABLE }}{{# unless expanded }}pu-expander{{/ unless }}{{/ if }}" data-activity-expander>
-                    {{# if isActiveRoute name='partup' }}
-                        <a href="{{ pathFor route='partup-update' slug=partup.slug update_id=activity.update_id }}">{{ activity.name }}</a>
-                        <i class="picon-caret-slim-right"></i>
-                    {{ else }}
-                        {{ activity.name }}
-                    {{/ if }}
+                        <span data-activity-expander>
+                            {{# if isActiveRoute name='partup' }}
+                                <a href="{{ pathFor route='partup-update' slug=partup.slug update_id=activity.update_id }}">{{ activity.name }}</a>
+                                <!-- <i class="picon-caret-slim-right"></i> -->
+                            {{ else }}
+                                {{ activity.name }}
+                            {{/ if }}
+                        </span>
 
-                    {{# if showChevron }}
-                        <i class="{{# if expanded }}picon-caret-slim-up{{ else }}picon-caret-slim-down{{/ if }}"></i>
-                    {{/ if }}
-                </h3>
+                        <!-- {{# if showChevron }}
+                            <i class="{{# if expanded }}picon-caret-slim-up{{ else }}picon-caret-slim-down{{/ if }}"></i>
+                        {{/ if }} -->
+                        {{# if BOARDVIEW }}
+                            <i class="picon-caret-down" data-activity-dropdown></i>
+                            {{> Dropdown toggle=activityDropdownOpen template="activityActionsDropdown" data=. position='left' }}
+                        {{/ if }}
+                    </h3>
+
+                    <!-- If multiple contributions were found, show the activity description and metadata -->
+                    {{# unless COMPACT }}
+                        {{# if activity.description }}
+                            {{{ renderWithMarkdown activity.description }}}
+                        {{/ if }}
+
+                        {{# if showMetaData }}
+                            <p class="pu-block-meta {{#unless COMMENTS_LINK}}pu-block-meta-nocomment{{/unless}}">
+                                {{# if activity.end_date }}
+                                    <time class="pu-sub-date" datetime="{{ activity.end_date.toISOString }}" title="{{ partupDateFull activity.end_date }}">{{ partupDateNormal activity.end_date }}</time>
+                                {{/if}}
+
+                                {{# if COMMENTS_LINK }}
+                                    <a class="pu-sub-comments {{#if newComments upper_data=update.upper_data }}pu-state-unread{{/if}}" href="{{ pathFor route='partup-update' slug=partup.slug update_id=activity.update_id }}"><i class="picon-chat"></i> {{_ 'activity-comment' count=update.comments_count }}</a>
+                                {{/ if }}
+                            </p>
+                        {{/ if }}
+                    {{/ unless }}
+
+                    {{# unless COMPACT }}{{# unless expanded }}{{# if BOARDVIEW }}
+                        {{#with contributions }}
+                            <ul class="pu-avatar-stack pu-avatar-stack-small">
+                                {{# each . }}
+                                    <li class="pu-avatar pu-avatar-small" style="{{#with upper.profile.image }}background-image: url('{{ partupImageUrl id=. store='80x80' }}');{{/with }}}"></li>
+                                {{/ each }}
+                            </ul>
+                        {{/with}}
+                    {{/ if }}{{/ unless }}{{/ unless }}
+                </div>
 
                 <!-- Contributors -->
-                {{# unless COMPACT }}
-                    {{# unless expanded }}
+                {{# unless COMPACT }}{{# unless BOARDVIEW }}
+                <div class="pu-sub-section__side">
+                    {{#with contributions }}
                         <ul class="pu-avatar-stack pu-avatar-stack-tiny">
-                            {{# each contributions }}
+                            {{# each . }}
                                 <li class="pu-avatar pu-avatar-tiny" style="{{#with upper.profile.image }}background-image: url('{{ partupImageUrl id=. store='80x80' }}');{{/with }}}"></li>
                             {{/ each }}
                         </ul>
-                    {{/ unless }}
-                {{/ unless}}
-
-                <!-- If multiple contributions were found, show the activity description and metadata -->
-                {{# unless COMPACT }}
-                    {{# if activity.description }}
-                        {{{ renderWithMarkdown activity.description }}}
-                    {{/ if }}
-
-                    {{# if showMetaData }}
-                        <p class="pu-block-meta {{#unless COMMENTS_LINK}}pu-block-meta-nocomment{{/unless}}">
-                            {{# if activity.end_date }}
-                                <time class="pu-sub-date" datetime="{{ activity.end_date.toISOString }}" title="{{ partupDateFull activity.end_date }}">{{ partupDateNormal activity.end_date }}</time>
-                            {{/if}}
-
-                            {{# if COMMENTS_LINK }}
-                                <a class="pu-sub-comments {{#if newComments upper_data=update.upper_data }}pu-state-unread{{/if}}" href="{{ pathFor route='partup-update' slug=partup.slug update_id=activity.update_id }}"><i class="picon-chat"></i> {{_ 'activity-comment' count=update.comments_count }}</a>
+                    {{/with}}
+                    {{# unless CREATE_PARTUP }}{{# unless BOARDVIEW}}{{# if expanded }}
+                    {{# if showInviteButton }}
+                        <p class="pu-sub-contribute">
+                            {{# if showContributeButton }}
+                                <button href="#" class="pu-button" data-contribute>Doe mee</button>
+                                <!-- <span class="pu-sub-or">{{_ 'activity-or'}}</span> -->
                             {{/ if }}
+                            <button href="#" class="pu-button" data-invite>Uitnodigen</button>
                         </p>
                     {{/ if }}
-                {{/ unless }}
+                    {{/if}}{{/unless}}{{/unless}}
+                </div>
+                {{/ unless }}{{/ unless}}
             </section>
 
         {{/ if }}
 
-        <!-- Show multiple contributions if the activity is expandable -->
-        {{# unless CREATE_PARTUP }}
-            {{# if expanded }}
-                {{# if contributions.length }}
-                    <section class="pu-sub-section">
-                        {{# each contributions }}
-                            {{> Contribution contribution=. updateContribution=updateContribution READONLY=isReadOnly}}
-                        {{/ each }}
-                    </section>
-                {{/ if }}
-
-                {{# if showInviteButton }}
-                    <section class="pu-sub-section">
-                        <p class="pu-sub-contribute">
-                            {{# if showContributeButton }}
-                                <button href="#" class="pu-button" data-contribute>{{_ 'activity-contribute'}}</button>
-                                <span class="pu-sub-or">{{_ 'activity-or'}}</span>
-                            {{/ if }}
-                            <button href="#" class="pu-button" data-invite>{{_ 'activity-invite'}}</button>
-                        </p>
-                    </section>
-                {{/ if }}
+        {{#if updateDetail }}
+            {{# unless CREATE_PARTUP }}{{# unless BOARDVIEW}}{{# if expanded }}
+            {{# if contributions.length }}
+                <section class="pu-sub-section">
+                    {{# each contributions }}
+                        {{> Contribution contribution=. updateContribution=updateContribution READONLY=isReadOnly}}
+                    {{/ each }}
+                </section>
             {{/ if }}
-        {{/ unless }}
+            {{/ if }}{{/unless}}{{/ unless }}
+        {{else}}
+            {{# unless CREATE_PARTUP }}{{# unless BOARDVIEW}}{{# if expanded }}
+            <section class="pu-sub-section pu-sub-section-comments">
+                {{> Comments update=update showCommentClicked=false FULLVIEW=true SHOW_COMMENTS=true LIMIT=0 }}
+            </section>
+            {{/if}}{{/unless}}{{/unless}}
+        {{/if}}
+
+        <!-- Show multiple contributions if the activity is expandable -->
 
     </article>
     {{/if}}
+</template>
+
+<template name="activityActionsDropdown">
+    {{# if showInviteButton }}
+        <ul class="pu-list">
+            {{# if showContributeButton }}
+                <li>
+                    <a href="#" data-contribute>{{_ 'activity-contribute'}}</a>
+                </li>
+            {{/ if }}
+            <li>
+                <a href="#" data-invite>{{_ 'activity-invite'}}</a>
+            </li>
+        </ul>
+    {{/ if }}
+    <!-- {{# if showEditButton }}
+        <ul class="pu-list">
+            <li><a href="#" data-activity-edit>{{_ 'activity-button-edit' }}</a></li>
+        </ul>
+    {{/ if }} -->
 </template>

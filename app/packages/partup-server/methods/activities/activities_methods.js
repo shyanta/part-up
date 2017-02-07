@@ -16,7 +16,19 @@ Meteor.methods({
         try {
             var activity = Partup.transformers.activity.fromForm(fields, upper._id, partupId);
 
+            // Insert activity
             activity._id = Activities.insert(activity);
+
+            // Add activity to a lane
+            if (activity.lane_id) {
+                var lane = Lanes.findOneOrFail(activity.lane_id);
+                lane.addActivity(activity._id);
+            } else {
+                // No board view, so add to Backlog lane
+                var board = Boards.findOneOrFail(partup.board_id);
+                var backlogLane = Lanes.findOneOrFail(board.lanes[0]);
+                backlogLane.addActivity(activity._id);
+            }
 
             // Update the activity count of the Partup
             Partups.update(partupId, {
@@ -46,7 +58,7 @@ Meteor.methods({
         var upper = Meteor.user();
         var activity = Activities.findOneOrFail(activityId);
 
-        if (activity.isRemoved()) throw new Meteor.Error(404, 'activity_could_not_be_found');
+        // if (activity.isRemoved()) throw new Meteor.Error(404, 'activity_could_not_be_found');
 
         var partup = Partups.findOneOrFail(activity.partup_id);
 
@@ -73,6 +85,35 @@ Meteor.methods({
     },
 
     /**
+     * Update an Activity
+     *
+     * @param {string} activityId
+     * @param {mixed[]} fields
+     */
+    'activities.update_lane': function(activityId, laneId) {
+        check(activityId, String);
+        check(laneId, String);
+        var upper = Meteor.user();
+        var activity = Activities.findOneOrFail(activityId);
+
+        // if (activity.isRemoved()) throw new Meteor.Error(404, 'activity_could_not_be_found');
+
+        var partup = Partups.findOneOrFail(activity.partup_id);
+
+        if (!upper || !partup.hasUpper(upper._id)) {
+            throw new Meteor.Error(401, 'unauthorized');
+        }
+
+        try {
+            Activities.update(activityId, {$set: {lane_id: laneId, updated_at: new Date()}});
+
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(500, 'activity_could_not_be_updated');
+        }
+    },
+
+    /**
      * Remove an Activity
      *
      * @param {string} activityId
@@ -92,6 +133,12 @@ Meteor.methods({
         }
 
         try {
+            // Check if the activity is in a lane, and remove from there if so
+            if (activity.lane_id) {
+                var lane = Lanes.findOneOrFail(activity.lane_id);
+                lane.removeActivity(activity._id);
+            }
+
             activity.remove();
 
             // Post system message

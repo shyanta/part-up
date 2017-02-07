@@ -21,7 +21,8 @@ Partup.transformers.activity = {
             updated_at: new Date(),
             creator_id: upperId,
             partup_id: partupId,
-            archived: false
+            archived: false,
+            lane_id: fields.lane_id
         };
     }
 };
