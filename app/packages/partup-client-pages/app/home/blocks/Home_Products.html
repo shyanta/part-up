@@ -1,0 +1,117 @@
+<template name="Home_Products">
+        {{#if screenSizeIsMinimalWidth 'tablet'}}
+        <div class="pu-home-products">
+            {{#TabView onToggleTab=onToggleTabHook defaultActiveTab=1 }}
+                <div class="pu-home-wrap">
+                    <h2 class="pu-home-subtitle pu-home-products__title">{{_ 'pages-app-home-products-title'}}</h2>
+                    <ul class="pu-home-products__navigation">
+                        <li class="pu-home-products__navigation__item"><button {{ tabButton 1 }} class="pu-home-products__navigation__button{{#if activeTab 1 }} pu-home-products__navigation__button--is-active{{/if}}"><span>{{_ 'pages-app-home-products-solution-1-button'}}</span></button></li>
+                        <li class="pu-home-products__navigation__item"><button {{ tabButton 2 }} class="pu-home-products__navigation__button{{#if activeTab 2 }} pu-home-products__navigation__button--is-active{{/if}}"><span>{{_ 'pages-app-home-products-solution-2-button'}}</span></button></li>
+                        <li class="pu-home-products__navigation__item"><button {{ tabButton 3 }} class="pu-home-products__navigation__button{{#if activeTab 3 }} pu-home-products__navigation__button--is-active{{/if}}"><span>{{_ 'pages-app-home-products-solution-3-button'}}</span></button></li>
+                    </ul>
+                </div>
+                <div class="pu-home-wrap pu-home-products__tab">
+                    {{#if activeTab 1 }}
+                        <div class="pu-home-block">
+                            <figure class="pu-home-figure" style="background-image: url('{{_ 'pages-app-home-products-solution-1-image'}}');"></figure>
+                        </div>
+                        <div class="pu-home-block pu-home-textblock pu-home-products__tab__content">
+                            <h2 class="pu-home-textblock__title-small"><span>{{_ 'pages-app-home-products-solution-1-title'}}</span></h2>
+                            <p class="pu-home-textblock__paragraph">{{_ 'pages-app-home-products-solution-1-paragraph-1'}}</p>
+                            <p class="pu-home-textblock__paragraph">{{_ 'pages-app-home-products-solution-1-paragraph-2'}}</p>
+                            <h3 class="pu-home-textblock__subtitle">{{_ 'pages-app-home-products-solution-1-subtitle'}}</h3>
+                            <ul class="pu-home-textblock__horizontal-list pu-list pu-list-horizontal">
+                                <li><img src="{{_ 'pages-app-home-products-solution-1-organisation-1-image'}}" alt=""></li>
+                                <li><img src="{{_ 'pages-app-home-products-solution-1-organisation-2-image'}}" alt=""></li>
+                                <li><img src="{{_ 'pages-app-home-products-solution-1-organisation-3-image'}}" alt=""></li>
+                            </ul>
+                        </div>
+                    {{/if}}
+                    {{#if activeTab 2 }}
+                        <div class="pu-home-block">
+                            <figure class="pu-home-figure" style="background-image: url('{{_ 'pages-app-home-products-solution-2-image'}}');"></figure>
+                        </div>
+                        <div class="pu-home-block pu-home-textblock pu-home-products__tab__content">
+                            <h2 class="pu-home-textblock__title-small"><span>{{_ 'pages-app-home-products-solution-2-title'}}</span></h2>
+                            <p class="pu-home-textblock__paragraph">{{_ 'pages-app-home-products-solution-2-paragraph-1'}}</p>
+                            <p class="pu-home-textblock__paragraph">{{_ 'pages-app-home-products-solution-2-paragraph-2'}}</p>
+                            <h3 class="pu-home-textblock__subtitle">{{_ 'pages-app-home-products-solution-2-subtitle'}}</h3>
+                            <ul class="pu-home-textblock__horizontal-list pu-list pu-list-horizontal">
+                                <li><img src="{{_ 'pages-app-home-products-solution-2-organisation-1-image'}}" alt=""></li>
+                                <li><img src="{{_ 'pages-app-home-products-solution-2-organisation-2-image'}}" alt=""></li>
+                                <li><img src="{{_ 'pages-app-home-products-solution-2-organisation-3-image'}}" alt=""></li>
+                            </ul>
+                        </div>
+                    {{/if}}
+                    {{#if activeTab 3 }}
+                        <div class="pu-home-block">
+                            <figure class="pu-home-figure" style="background-image: url('{{_ 'pages-app-home-products-solution-3-image'}}');"></figure>
+                        </div>
+                        <div class="pu-home-block pu-home-textblock pu-home-products__tab__content">
+                            <h2 class="pu-home-textblock__title-small"><span>{{_ 'pages-app-home-products-solution-3-title'}}</span></h2>
+                            <p class="pu-home-textblock__paragraph">{{_ 'pages-app-home-products-solution-3-paragraph-1'}}</p>
+                            <p class="pu-home-textblock__paragraph">{{_ 'pages-app-home-products-solution-3-paragraph-2'}}</p>
+                            <h3 class="pu-home-textblock__subtitle">{{_ 'pages-app-home-products-solution-3-subtitle'}}</h3>
+                            <ul class="pu-home-textblock__horizontal-list pu-list pu-list-horizontal">
+                                <li><img src="{{_ 'pages-app-home-products-solution-3-organisation-1-image'}}" alt=""></li>
+                                <li><img src="{{_ 'pages-app-home-products-solution-3-organisation-2-image'}}" alt=""></li>
+                                <li><img src="{{_ 'pages-app-home-products-solution-3-organisation-3-image'}}" alt=""></li>
+                            </ul>
+                        </div>
+                    {{/if}}
+                </div>
+            {{/TabView}}
+        </div>
+        {{ else }}
+            <div class="pu-home-products pu-home-products--smallscreen">
+                <div class="pu-home-wrap">
+                    <h2 class="pu-home-subtitle pu-home-products__title">{{_ 'pages-app-home-products-title'}}</h2>
+                </div>
+                <div class="pu-home-wrap pu-home-products__tab pu-home-products__tab-card">
+                    <figure class="pu-home-figure" style="background-image: url('{{_ 'pages-app-home-products-solution-1-image'}}');"></figure>
+                    <div class="pu-home-block pu-home-textblock pu-home-products__tab__content">
+                        <h3 class="pu-home-textblock__title-subtle">{{_ 'pages-app-home-products-solution-1-button'}}</h3>
+                        <h2 class="pu-home-textblock__title-small"><span>{{_ 'pages-app-home-products-solution-1-title'}}</span></h2>
+                        <p class="pu-home-textblock__paragraph">{{_ 'pages-app-home-products-solution-1-paragraph-1'}}</p>
+                        <p class="pu-home-textblock__paragraph">{{_ 'pages-app-home-products-solution-1-paragraph-2'}}</p>
+                        <h3 class="pu-home-textblock__subtitle">{{_ 'pages-app-home-products-solution-1-subtitle'}}</h3>
+                        <ul class="pu-home-textblock__horizontal-list pu-list pu-list-horizontal">
+                            <li><img src="{{_ 'pages-app-home-products-solution-3-organisation-1-image'}}" alt=""></li>
+                            <li><img src="{{_ 'pages-app-home-products-solution-3-organisation-2-image'}}" alt=""></li>
+                            <li><img src="{{_ 'pages-app-home-products-solution-3-organisation-3-image'}}" alt=""></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="pu-home-wrap pu-home-products__tab pu-home-products__tab-card">
+                    <figure class="pu-home-figure" style="background-image: url('{{_ 'pages-app-home-products-solution-2-image'}}');"></figure>
+                    <div class="pu-home-block pu-home-textblock pu-home-products__tab__content">
+                        <h3 class="pu-home-textblock__title-subtle">{{_ 'pages-app-home-products-solution-2-button'}}</h3>
+                        <h2 class="pu-home-textblock__title-small"><span>{{_ 'pages-app-home-products-solution-2-title'}}</span></h2>
+                        <p class="pu-home-textblock__paragraph">{{_ 'pages-app-home-products-solution-2-paragraph-1'}}</p>
+                        <p class="pu-home-textblock__paragraph">{{_ 'pages-app-home-products-solution-2-paragraph-2'}}</p>
+                        <h3 class="pu-home-textblock__subtitle">{{_ 'pages-app-home-products-solution-2-subtitle'}}</h3>
+                        <ul class="pu-home-textblock__horizontal-list pu-list pu-list-horizontal">
+                            <li><img src="{{_ 'pages-app-home-products-solution-2-organisation-1-image'}}" alt=""></li>
+                            <li><img src="{{_ 'pages-app-home-products-solution-2-organisation-2-image'}}" alt=""></li>
+                            <li><img src="{{_ 'pages-app-home-products-solution-2-organisation-3-image'}}" alt=""></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="pu-home-wrap pu-home-products__tab pu-home-products__tab-card">
+                    <figure class="pu-home-figure" style="background-image: url('{{_ 'pages-app-home-products-solution-3-image'}}');"></figure>
+                    <div class="pu-home-block pu-home-textblock pu-home-products__tab__content">
+                        <h3 class="pu-home-textblock__title-subtle">{{_ 'pages-app-home-products-solution-3-button'}}</h3>
+                        <h2 class="pu-home-textblock__title-small"><span>{{_ 'pages-app-home-products-solution-3-title'}}</span></h2>
+                        <p class="pu-home-textblock__paragraph">{{_ 'pages-app-home-products-solution-3-paragraph-1'}}</p>
+                        <p class="pu-home-textblock__paragraph">{{_ 'pages-app-home-products-solution-3-paragraph-2'}}</p>
+                        <h3 class="pu-home-textblock__subtitle">{{_ 'pages-app-home-products-solution-3-subtitle'}}</h3>
+                        <ul class="pu-home-textblock__horizontal-list pu-list pu-list-horizontal">
+                            <li><img src="{{_ 'pages-app-home-products-solution-3-organisation-1-image'}}" alt=""></li>
+                            <li><img src="{{_ 'pages-app-home-products-solution-3-organisation-2-image'}}" alt=""></li>
+                            <li><img src="{{_ 'pages-app-home-products-solution-3-organisation-3-image'}}" alt=""></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        {{/if}}
+</template>

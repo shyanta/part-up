@@ -90,8 +90,6 @@
 @import "client/stylesheets/components/pu-explorer.sass";
 @import "client/stylesheets/components/pu-external-url.sass";
 @import "client/stylesheets/components/pu-face.sass";
-@import "client/stylesheets/components/pu-feature.sass";
-@import "client/stylesheets/components/pu-featuredpartuptile.sass";
 @import "client/stylesheets/components/pu-fileinput.sass";
 @import "client/stylesheets/components/pu-filterbar.sass";
 @import "client/stylesheets/components/pu-floatingbutton.sass";
@@ -229,3 +227,21 @@
 @import "client/stylesheets/components/boardview/boardview.sass";
 @import "client/stylesheets/components/boardview/boardview-lane.sass";
 @import "client/stylesheets/components/boardview/boardview-card.sass";
+@import "client/stylesheets/components/home/home-header.sass";
+@import "client/stylesheets/components/home/home.sass";
+
+@import "client/stylesheets/components/home/home-calltoaction.sass";
+@import "client/stylesheets/components/home/home-intro.sass";
+@import "client/stylesheets/components/home/home-wrap.sass";
+@import "client/stylesheets/components/home/home-block.sass";
+@import "client/stylesheets/components/home/home-textblock.sass";
+@import "client/stylesheets/components/home/home-segments.sass";
+@import "client/stylesheets/components/home/home-carousel.sass";
+@import "client/stylesheets/components/home/home-figure.sass";
+@import "client/stylesheets/components/home/home-products.sass";
+@import "client/stylesheets/components/home/home-form.sass";
+@import "client/stylesheets/components/home/home-subtitle.sass";
+@import "client/stylesheets/components/home/home-footer.sass";
+@import "client/stylesheets/components/home/homt-languageselector.sass";
+@import "client/stylesheets/components/pu-button-revealing-input.sass";
+@import "client/stylesheets/components/pu-inputicon.sass";

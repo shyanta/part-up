@@ -54,6 +54,14 @@ Template.modal_register_signup.helpers({
     },
     linkedinLoading: function() {
         return linkedinLoading.get();
+    },
+    prefill: function() {
+        return {
+            email: Template.instance().data.prefillEmail || ''
+        };
+    },
+    prefillEmail: function() {
+        return Template.instance().data.prefillEmail;
     }
 });
 

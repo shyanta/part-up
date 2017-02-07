@@ -1,3 +1,11 @@
+Template.Header.helpers({
+    scrollTop: function() {
+        var scrollPosition = Partup.client.scroll.pos.get();
+
+        return scrollPosition <= 0;
+    }
+});
+
 Template.Header_LoggedIn.helpers({
     notificationslabel: function() {
         return TAPi18n.__('header-notifications');

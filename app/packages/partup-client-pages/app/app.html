@@ -1,6 +1,6 @@
 <template name="app">
 
-    <div class="pu-app {{# if partupResponsive }}pu-app-responsive{{/ if }}">
+    <div class="pu-app {{# if partupResponsive }}pu-app-responsive{{/ if }} {{#if partupRoute 'home'}}pu-app-home{{/if}}">
 
         <!-- Header -->
         {{> Header }}

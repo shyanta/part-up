@@ -41,14 +41,6 @@ Meteor.startup(function() {
                 'supporters' : [
                     'a7qcp5RHnh5rfaeW9'
                 ],
-                'featured' : {
-                    'active' : true,
-                    'by_upper' : {
-                        '_id' : 'q63Kii9wwJX3Q6rHS',
-                        'title' : 'Founder Part-up'
-                    },
-                    'comment' : '"Dit is een nederlandse quote voor een nederlandse partup"'
-                },
                 'language' : 'nl',
                 'upper_data' : [
                     {
@@ -185,14 +177,6 @@ Meteor.startup(function() {
                     'last_ip' : '127.0.0.1'
                 },
                 'language' : 'en',
-                'featured' : {
-                    'active' : true,
-                    'by_upper' : {
-                        '_id' : 'q63Kii9wwJX3Q6rHS',
-                        'title' : 'Founder Part-up'
-                    },
-                    'comment' : '"This is an english quote for an english partup"'
-                },
                 'upper_data' : [
                     {
                         '_id' : 'a7qcp5RHnh5rfaeW9',
