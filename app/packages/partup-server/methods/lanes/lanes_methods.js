@@ -82,10 +82,27 @@ Meteor.methods({
         var board = Boards.findOneOrFail(lane.board_id);
         if (!user || !User(user).isPartnerInPartup(board.partup_id)) throw new Meteor.Error(401, 'unauthorized');
 
+        var sisterLanes = Lanes.find({board_id: lane.board_id, _id: {$not: laneId}}).fetch();
+
         var activities = lodash.uniq(activityIds);
 
         try {
             Lanes.update(laneId, {$set: {activities: activities, updated_at: new Date()}});
+
+            // remove duplicate activities from other lanes
+            if (sisterLanes && sisterLanes.length) {
+                sisterLanes.forEach(function(sisterLane, index) {
+                    var intersectedActivities = lodash.intersection(sisterLane.activities, activityIds);
+
+                    if (!intersectedActivities.length) return;
+
+                    var newActivities = lodash.remove(sisterLane.activities, function(activityId) {
+                        return intersectedActivities.includes(activityId);
+                    });
+
+                    Lanes.update(sisterLane._id, {$set: {activities: newActivities}});
+                });
+            }
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'lane_could_not_be_updated');
