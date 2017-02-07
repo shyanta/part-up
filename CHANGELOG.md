@@ -1,3 +1,13 @@
+<a name="2.3.1"></a>
+## [2.3.1](https://github.com/part-up/part-up/compare/2.3.0...2.3.1) (2017-01-30)
+
+
+### Bug Fixes
+
+* **dropbox-chooser:** save directLink even when settings is already set ([5799490](https://github.com/part-up/part-up/commit/5799490))
+
+
+
 <a name="2.3.0"></a>
 # [2.3.0](https://github.com/part-up/part-up/compare/2.2.1...2.3.0) (2017-01-30)
 
