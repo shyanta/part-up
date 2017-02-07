@@ -21,6 +21,9 @@
                         <li class="{{# if isActiveRoute name='profile-settings-email' }}pu-state-active{{/ if }}">
                             <a href="{{ pathFor 'profile-settings-email' _id=currentUser._id }}">{{_ 'modal-profilesettings-tab-email'}}</a>
                         </li>
+                        <li class="{{# if isActiveRoute name='profile-settings-notifications' }}pu-state-active{{/ if }}">
+                            <a href="{{ pathFor 'profile-settings-notifications' _id=currentUser._id }}">{{_ 'modal-profilesettings-tab-notifications'}}</a>
+                        </li>
                     </ul>
                 </div>
             </div>

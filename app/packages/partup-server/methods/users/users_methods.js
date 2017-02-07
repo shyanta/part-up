@@ -352,5 +352,68 @@ Meteor.methods({
         });
 
         return lodash.sortByOrder(uppers, ['admin', 'colleague', 'participation_score'], ['desc', 'desc', 'desc']);
+    },
+
+    /**
+     * Add an email address to a user that he/she can login with. This also sends the verification email.
+     * @param emailAddress
+     */
+    'users.add_email': function(emailAddress) {
+        check(emailAddress, String);
+
+        var user = Meteor.user();
+        if (!user) throw new Meteor.Error(401, 'unauthorized');
+
+        // Check if mailaddress is already in use
+        var addressExisits = Meteor.users.findOne({$or: [
+            {'emails.address': emailAddress},
+            {'registered_emails.address': emailAddress},
+            {'services.email.verificationTokens.address': emailAddress}
+        ]});
+
+        if (addressExisits) throw new Meteor.Error(400, 'email_address_already_in_use');
+
+        // Add email to user's email list
+        Meteor.users.update(user._id, {$addToSet: {emails: {address: emailAddress, verified: false}}});
+
+        Accounts.sendVerificationEmail(user._id, emailAddress);
+    },
+
+    /**
+     * Remove a given email address by index
+     * @param emailIndex
+     */
+    'users.remove_email': function(emailIndex) {
+        check(emailIndex, Number);
+
+        var user = Meteor.user();
+        if (!user) throw new Meteor.Error(401, 'unauthorized');
+
+        if (user.emails.length < 2 || emailIndex == 0) {
+            throw new Meteor.Error(400, 'primary_email_cannot_be_removed');
+        }
+
+        if (emailIndex > 0 && emailIndex < user.emails.length) {
+            user.emails.splice(emailIndex, 1);
+            Meteor.users.update(user._id, {$set: {emails: user.emails}});
+        }
+    },
+
+    /**
+     * Set a given email address as primary address
+     * @param emailIndex
+     */
+    'users.set_primary_email': function(emailIndex) {
+        check(emailIndex, Number);
+
+        var user = Meteor.user();
+        if (!user) throw new Meteor.Error(401, 'unauthorized');
+
+        if (emailIndex > 0 && emailIndex < user.emails.length) {
+            var primary = lodash.pullAt(user.emails, emailIndex);
+            console.log(primary);
+            user.emails.unshift(primary[0]);
+            Meteor.users.update(user._id, {$set: {emails: user.emails}});
+        }
     }
 });
