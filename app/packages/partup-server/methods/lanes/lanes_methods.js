@@ -82,8 +82,10 @@ Meteor.methods({
         var board = Boards.findOneOrFail(lane.board_id);
         if (!user || !User(user).isPartnerInPartup(board.partup_id)) throw new Meteor.Error(401, 'unauthorized');
 
+        var activities = lodash.uniq(activityIds);
+
         try {
-            Lanes.update(laneId, {$set: {activities: activityIds, updated_at: new Date()}});
+            Lanes.update(laneId, {$set: {activities: activities, updated_at: new Date()}});
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'lane_could_not_be_updated');
