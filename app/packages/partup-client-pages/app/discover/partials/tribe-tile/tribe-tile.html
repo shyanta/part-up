@@ -6,7 +6,7 @@
         <div class="pu-networktile__meta">
             <h3>{{ data.tribe.name }}</h3>
             {{> TribeTile_Metadata partups=data.activePartups privacyType=data.tribe.privacy_type }}
-            <p>{{ data.tribe.description }}<a href="{{ pathFor route='network-about' slug=data.tribe.slug }}" data-prevent-open>Read more</a></p>
+            <p>{{ data.tribe.description }}<a href="{{ pathFor route='network-about' slug=data.tribe.slug }}" data-prevent-open>{{_ 'discover-tribe-tile-read-more'}}</a></p>
             <ul class="pu-list pu-list-horizontal pu-list-tags">
                 <!-- TODO use displayTags (partup-based) -->
                 {{#with data.displayTags}}
@@ -31,7 +31,7 @@
 
 <template name="TribeTile_Metadata">
     <ul class="pu-list pu-list-horizontal pu-list-pipe-seperated">
-        <li>Active partups: {{data.totalActivePartupCount}}</li>
+        <li>{{_ 'discover-tribe-tile-active-uppers'}}: {{data.totalActivePartupCount}}</li>
         <!-- <li>Last active: {{data.mostActivePartup.updated_at}}</li> -->
         <!-- STATE ICON: needs implementation -->
         <li>{{#if state.lock}}<i class="picon-lock-closed"></i>{{else}}<i class="picon-lock-open"></i>{{/if}}</li>
