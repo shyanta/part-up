@@ -1,130 +1,106 @@
 <template name="modal_profile_settings_email">
-    <div class="pu-composition pu-composition-defaultmodal pu-composition-profilesettings-email">
-        <h2 class="pu-title pu-title-modal">{{_ 'modal-profilesettings-email-title'}}</h2>
-        <p>{{_ 'modal-profilesettings-email-text-explaination'}}</p>
-        <h3>{{_ 'modal-profilesettings-email-listheading' }}</h3>
-        <ul class="pu-list pu-list-lineseparated">
-            <li>
-                <div class="pu-switch {{#if email.dailydigest}}pu-switch-enabled{{else}}pu-switch-disabled{{/if}}">
-                    <span>{{_ 'modal-profilesettings-email-dailydigest' }}</span>
-                    <button type="button">
-                        <div class="pu-button pu-button-checkmark pu-button-checkmark-confirm" data-enable="dailydigest"> <i class="picon-check"></i> </div>
-                        <div class="pu-button pu-button-checkmark pu-button-checkmark-deny" data-disable="dailydigest"> <i class="picon-times"></i> </div>
-                    </button>
-                </div>
-            </li>
-            <li>
-                <div class="pu-switch {{#if email.upper_mentioned_in_partup}}pu-switch-enabled{{else}}pu-switch-disabled{{/if}}">
-                    <span>{{_ 'modal-profilesettings-email-upper_mentioned_in_partup' }}</span>
-                    <button type="button">
-                        <div type="button" class="pu-button pu-button-checkmark pu-button-checkmark-confirm" data-enable="upper_mentioned_in_partup"> <i class="picon-check"></i> </div>
-                        <div type="button" class="pu-button pu-button-checkmark pu-button-checkmark-deny" data-disable="upper_mentioned_in_partup"> <i class="picon-times"></i> </div>
-                    </button>
-                </div>
-            </li>
-            <li>
-                <div class="pu-switch {{#if email.upper_mentioned_in_network_chat}}pu-switch-enabled{{else}}pu-switch-disabled{{/if}}">
-                    <span>{{_ 'modal-profilesettings-email-upper_mentioned_in_network_chat' }}</span>
-                    <button type="button">
-                        <div type="button" class="pu-button pu-button-checkmark pu-button-checkmark-confirm" data-enable="upper_mentioned_in_network_chat"> <i class="picon-check"></i> </div>
-                        <div type="button" class="pu-button pu-button-checkmark pu-button-checkmark-deny" data-disable="upper_mentioned_in_network_chat"> <i class="picon-times"></i> </div>
-                    </button>
-                </div>
-            </li>
-            <li>
-                <div class="pu-switch {{#if email.invite_upper_to_partup}}pu-switch-enabled{{else}}pu-switch-disabled{{/if}}">
-                    <span>{{_ 'modal-profilesettings-email-invite_upper_to_partup' }}</span>
-                    <button type="button">
-                        <div class="pu-button pu-button-checkmark pu-button-checkmark-confirm" data-enable="invite_upper_to_partup"> <i class="picon-check"></i> </div>
-                        <div class="pu-button pu-button-checkmark pu-button-checkmark-deny" data-disable="invite_upper_to_partup"> <i class="picon-times"></i> </div>
-                    </button>
-                </div>
-            </li>
-            <li>
-                <div class="pu-switch {{#if email.invite_upper_to_partup_activity}}pu-switch-enabled{{else}}pu-switch-disabled{{/if}}">
-                    <span>{{_ 'modal-profilesettings-email-invite_upper_to_partup_activity' }}</span>
-                    <button type="button">
-                        <div class="pu-button pu-button-checkmark pu-button-checkmark-confirm" data-enable="invite_upper_to_partup_activity"> <i class="picon-check"></i> </div>
-                        <div class="pu-button pu-button-checkmark pu-button-checkmark-deny" data-disable="invite_upper_to_partup_activity"> <i class="picon-times"></i> </div>
-                    </button>
-                </div>
-            </li>
-            <li>
-                <div class="pu-switch {{#if email.invite_upper_to_network}}pu-switch-enabled{{else}}pu-switch-disabled{{/if}}">
-                    <span>{{_ 'modal-profilesettings-email-invite_upper_to_network' }}</span>
-                    <button type="button">
-                        <div class="pu-button pu-button-checkmark pu-button-checkmark-confirm" data-enable="invite_upper_to_network"> <i class="picon-check"></i> </div>
-                        <div class="pu-button pu-button-checkmark pu-button-checkmark-deny" data-disable="invite_upper_to_network"> <i class="picon-times"></i> </div>
-                    </button>
-                </div>
-            </li>
-            <li>
-                <div class="pu-switch {{#if email.partup_created_in_network}}pu-switch-enabled{{else}}pu-switch-disabled{{/if}}">
-                    <span>{{_ 'modal-profilesettings-email-partup_created_in_network' }}</span>
-                    <button type="button">
-                        <div class="pu-button pu-button-checkmark pu-button-checkmark-confirm" data-enable="partup_created_in_network"> <i class="picon-check"></i> </div>
-                        <div class="pu-button pu-button-checkmark pu-button-checkmark-deny" data-disable="partup_created_in_network"> <i class="picon-times"></i> </div>
-                    </button>
-                </div>
-            </li>
-            <li>
-                <div class="pu-switch {{#if email.partups_networks_accepted}}pu-switch-enabled{{else}}pu-switch-disabled{{/if}}">
-                    <span>{{_ 'modal-profilesettings-email-partups_networks_accepted' }}</span>
-                    <button type="button">
-                        <div class="pu-button pu-button-checkmark pu-button-checkmark-confirm" data-enable="partups_networks_accepted"> <i class="picon-check"></i> </div>
-                        <div class="pu-button pu-button-checkmark pu-button-checkmark-deny" data-disable="partups_networks_accepted"> <i class="picon-times"></i> </div>
-                    </button>
-                </div>
-            </li>
-            <li>
-                <div class="pu-switch {{#if email.partups_new_comment_in_involved_conversation}}pu-switch-enabled{{else}}pu-switch-disabled{{/if}}">
-                    <span>{{_ 'modal-profilesettings-email-partups_new_comment_in_involved_conversation' }}</span>
-                    <button type="button">
-                        <div class="pu-button pu-button-checkmark pu-button-checkmark-confirm" data-enable="partups_new_comment_in_involved_conversation"> <i class="picon-check"></i> </div>
-                        <div class="pu-button pu-button-checkmark pu-button-checkmark-deny" data-disable="partups_new_comment_in_involved_conversation"> <i class="picon-times"></i> </div>
-                    </button>
-                </div>
-            </li>
-            <li>
-                <div class="pu-switch {{#if email.partups_networks_new_upper}}pu-switch-enabled{{else}}pu-switch-disabled{{/if}}">
-                    <span>{{_ 'modal-profilesettings-email-partups_networks_new_upper' }}</span>
-                    <button type="button">
-                        <div class="pu-button pu-button-checkmark pu-button-checkmark-confirm" data-enable="partups_networks_new_upper"> <i class="picon-check"></i> </div>
-                        <div class="pu-button pu-button-checkmark pu-button-checkmark-deny" data-disable="partups_networks_new_upper"> <i class="picon-times"></i> </div>
-                    </button>
-                </div>
-            </li>
-            <li>
-                <div class="pu-switch {{#if email.partups_partner_request}}pu-switch-enabled{{else}}pu-switch-disabled{{/if}}">
-                    <span>{{_ 'modal-profilesettings-email-partups_partner_request' }}</span>
-                    <button type="button">
-                        <div class="pu-button pu-button-checkmark pu-button-checkmark-confirm" data-enable="partups_partner_request"> <i class="picon-check"></i> </div>
-                        <div class="pu-button pu-button-checkmark pu-button-checkmark-deny" data-disable="partups_partner_request"> <i class="picon-times"></i> </div>
-                    </button>
-                </div>
-            </li>
+    <div class="pu-composition pu-composition-defaultmodal">
+        <h2 class="pu-title pu-title-modal">{{_ 'modal-profilesettings-usermail-title'}}</h2>
+        <p>{{_ 'modal-profilesettings-usermail-text-explaination'}}</p>
 
-            <!-- for tribe admins only-->
-            {{#if isSomeNetworkAdmin}}
-                <li>
-                    <div class="pu-switch {{#if email.partups_networks_new_pending_upper}}pu-switch-enabled{{else}}pu-switch-disabled{{/if}}">
-                        <span>{{_ 'modal-profilesettings-email-partups_networks_new_pending_upper' }}</span>
-                        <button type="button">
-                            <div class="pu-button pu-button-checkmark pu-button-checkmark-confirm" data-enable="partups_networks_new_pending_upper"> <i class="picon-check"></i> </div>
-                            <div class="pu-button pu-button-checkmark pu-button-checkmark-deny" data-disable="partups_networks_new_pending_upper"> <i class="picon-times"></i> </div>
-                        </button>
+        <article class="pu-form">
+
+            <!-- Name -->
+            {{#each user.emails}}
+                <label class="pu-formfield">
+                    {{#if partupEquals @index 0}}
+                        <span class="pu-label">
+                            {{_ 'modal-profilesettings-usermail-label-primary' }}
+                            <a class="pu-hint pu-tooltip">
+                                <i class="picon-question"></i>
+                                <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'modal-profilesettings-usermail-hint-primary' }}</p></span>
+                            </a>
+                        </span>
+                        <div class="pu-sub-validations">
+                            <label class="pu-sub-input">
+                                <div class="pu-inputicon pu-inputicon-right pu-inputicon-green">
+                                    <input type="email" class="pu-input" value="{{ address }}" readonly>
+                                    {{#if verified}}
+                                        <i class="picon-check"></i>
+                                    {{/if}}
+                                </div>
+                            </label>
+                            <span class="pu-sub-error">error</span>
+                        </div>
+                    {{else}}
+                        <span class="pu-label">
+                            {{_ 'modal-profilesettings-usermail-label-secondary' }}
+                            <a class="pu-hint pu-tooltip">
+                                <i class="picon-question"></i>
+                                <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'modal-profilesettings-usermail-hint-secondary' }}</p></span>
+                            </a>
+                        </span>
+                        <div class="pu-sub-validations">
+                            <label class="pu-sub-input">
+                                {{#if verified}}
+                                    {{#modal_profile_settings_email__manager onPrimary=handlers.makePrimary onRemove=handlers.remove params=@index }}
+                                        <div class="pu-inputicon pu-inputicon-right pu-inputicon-green">
+                                            <input type="email" class="pu-input" value="{{ address }}" readonly>
+                                            <i class="picon-check"></i>
+                                        </div>
+                                    {{/modal_profile_settings_email__manager}}
+                                {{ else }}
+                                    {{#modal_profile_settings_email__manager onRemove=handlers.remove params=@index }}
+                                        <input type="email" class="pu-input" value="{{ address }}" readonly>
+                                    {{/modal_profile_settings_email__manager}}
+                                {{/if}}
+                            </label>
+                            <span class="pu-sub-error">error</span>
+                        </div>
+                    {{/if}}
+
+                </label>
+            {{/each}}
+
+            {{#if addEmail}}
+                <label class="pu-formfield">
+                    <span class="pu-label">
+                        {{_ 'modal-profilesettings-usermail-label-new' }}
+                        <a class="pu-hint pu-tooltip">
+                            <i class="picon-question"></i>
+                            <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'modal-profilesettings-usermail-hint-new' }}</p></span>
+                        </a>
+                    </span>
+
+                    <div class="pu-sub-validations">
+                        <label class="pu-sub-input">
+                            <input type="email" class="pu-input" value="{{ address }}" data-add-input>
+                        </label>
+                        <span class="pu-sub-error">error</span>
                     </div>
-                </li>
-                <li>
-                    <div class="pu-switch {{#if email.partups_networks_upper_left}}pu-switch-enabled{{else}}pu-switch-disabled{{/if}}">
-                        <span>{{_ 'modal-profilesettings-email-partups_networks_upper_left' }}</span>
-                        <button type="button">
-                            <div class="pu-button pu-button-checkmark pu-button-checkmark-confirm" data-enable="partups_networks_upper_left"> <i class="picon-check"></i> </div>
-                            <div class="pu-button pu-button-checkmark pu-button-checkmark-deny" data-disable="partups_networks_upper_left"> <i class="picon-times"></i> </div>
-                        </button>
+                </label>
+            {{else}}
+                <footer class="pu-sub-modalfooter pu-sub-modalfooter-alignleft">
+                    <div class="pu-sub-footer-container">
+                        <button class="pu-button-2" data-add-button>{{_ 'modal-profilesettings-usermail-button-add' }}</button>
                     </div>
-                </li>
+                </footer>
             {{/if}}
-        </ul>
+
+        </article>
+    </div>
+</template>
+<template name="modal_profile_settings_email__manager">
+    <div class="pu-button-revealing-input">
+        <div class="pu-button-revealing-input__input">
+            {{> UI.contentBlock}}
+        </div>
+        <div class="pu-button-revealing-input__button">
+            {{#if has.primaryHandler}}
+                <button class="pu-button-2 pu-button-2--secondary" data-button type="button">
+                    {{_ 'modal-profilesettings-usermail-set-primary-button-label' }}
+                </button>
+            {{/if}}
+            {{#if has.removeHandler}}
+                <button class="pu-button-2 pu-button-2--dangerous" data-button-2>
+                    {{_ 'modal-profilesettings-usermail-remove-button-label' }}
+                </button>
+            {{/if}}
+        </div>
     </div>
 </template>
