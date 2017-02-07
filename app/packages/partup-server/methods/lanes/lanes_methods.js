@@ -74,15 +74,13 @@ Meteor.methods({
         check(laneId, String);
         check(activityIds, [String]);
 
-        this.unblock();
-
         // Check if user is logged in and partner of the partup
         var user = Meteor.user();
         var lane = Lanes.findOneOrFail(laneId);
         var board = Boards.findOneOrFail(lane.board_id);
         if (!user || !User(user).isPartnerInPartup(board.partup_id)) throw new Meteor.Error(401, 'unauthorized');
 
-        var sisterLanes = Lanes.find({board_id: lane.board_id, _id: {$not: laneId}}).fetch();
+        var sisterLanes = Lanes.find({board_id: lane.board_id, _id: {$ne: laneId}}).fetch();
 
         var activities = lodash.uniq(activityIds);
 
@@ -96,11 +94,12 @@ Meteor.methods({
 
                     if (!intersectedActivities.length) return;
 
-                    var newActivities = lodash.remove(sisterLane.activities, function(activityId) {
-                        return intersectedActivities.includes(activityId);
+                    var sisterLaneActivities = sisterLane.activities;
+                    var duplicateActivities = lodash.remove(sisterLaneActivities, function(activityId) {
+                        return !!(intersectedActivities.indexOf(activityId) > -1);
                     });
 
-                    Lanes.update(sisterLane._id, {$set: {activities: newActivities}});
+                    Lanes.update(sisterLane._id, {$set: {activities: sisterLaneActivities}});
                 });
             }
         } catch (error) {
