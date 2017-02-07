@@ -256,11 +256,17 @@
             &:before
                 right: 60px
 
+            &.pu-dropdown-active
+                right: -45px
+
             &-chats
                 right: -90px
 
                 &::before
                     right: 105px
+
+                &.pu-dropdown-active
+                    right: -90px
 
         @media screen and (min-width: $breakpoint-tablet)
             &-chats
@@ -274,7 +280,7 @@
 
         @media screen and (min-width: $breakpoint-desktop)
             left: -192px
-            right: auto
+            right: 0px
 
             &:before
                 right: auto
@@ -379,7 +385,7 @@
         right: -5px
 
         @media screen and (min-width: $breakpoint-desktop)
-            right: auto
+            right: 0px
 
     .pu-sub-morebutton
         @media screen and (min-width: $breakpoint-tablet + 1px)

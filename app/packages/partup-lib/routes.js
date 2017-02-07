@@ -356,6 +356,11 @@ Router.route('/register', {
         'modal_register':        {to: 'modal'},
         'modal_register_signup': {to: 'modal_register'}
     },
+    data: function() {
+        return {
+            prefillEmail: this.params.query.email
+        };
+    },
     onBeforeAction: function() {
         Partup.client.windowTitle.setContextName("Register");
         this.next();
@@ -530,16 +535,6 @@ Router.route('/admin/partups', {
     }
 });
 
-Router.route('/admin/featured-partups', {
-    name: 'admin-featured-partups',
-    where: 'client',
-    yieldRegions: {
-        'modal':                            {to: 'main'},
-        'modal_admin':                      {to: 'modal'},
-        'modal_admin_featured_partups':     {to: 'modal_admin'}
-    }
-});
-
 Router.route('/admin/tribes', {
     name: 'admin-createtribe',
     where: 'client',
@@ -547,16 +542,6 @@ Router.route('/admin/tribes', {
         'modal':                   {to: 'main'},
         'modal_admin':             {to: 'modal'},
         'modal_create_tribe':      {to: 'modal_admin'}
-    }
-});
-
-Router.route('/admin/featured-tribes', {
-    name: 'admin-featured-networks',
-    where: 'client',
-    yieldRegions: {
-        'modal':                            {to: 'main'},
-        'modal_admin':                      {to: 'modal'},
-        'modal_admin_featured_networks':    {to: 'modal_admin'}
     }
 });
 

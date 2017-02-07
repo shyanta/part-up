@@ -16,6 +16,7 @@ $modal-bar-height: 70px
     z-index: 5
     background-color: $color-primary
     height: 60px
+    transition: background-color 150ms
 
     .pu-sub-hidesmallscreen
         display: none
@@ -65,6 +66,7 @@ $modal-bar-height: 70px
         height: $modal-bar-height
 
         .pu-button-header
+            transition: background-color 150ms
             margin-top: 0
 
         &.pu-header-progress
@@ -88,6 +90,21 @@ $modal-bar-height: 70px
 
         .pu-button
             margin-top: 9px
+
+    &--is-transparent
+        background-color: transparent
+
+        .pu-button-header
+            .pu-avatar, .pu-badge::after
+                border: 0
+                transition: border 150ms
+
+            @media screen and (max-width: #{$breakpoint-desktop - 1px})
+                background-color: rgba(#000, .3)
+
+                &.pu-button-header-profiledropdown-active
+                    background-color: #fff
+
 
     @media screen and (min-width: $breakpoint-dropdowns)
         .pu-sub-more i

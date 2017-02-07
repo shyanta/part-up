@@ -1,0 +1,26 @@
+<template name="Home_Header">
+    <div class="pu-home-header" data-header>
+        <div class="pu-home-header__content">
+            {{# CenterView }}
+                <h2 class="pu-title pu-title-serif pu-title-home">
+                    <span>{{_ 'pages-app-home-header-heading' }}</span>
+                </h2>
+                <p class="pu-home-header__text pu-paragraph-inverted">{{_ 'pages-app-home-header-paragraph' }}</p>
+                {{#unless currentUser}}
+                {{> Home_Header_CallToAction }}
+                {{/unless}}
+                <button class="pu-button-2 pu-button-2--secondary pu-home-header__button" data-what-is-partup><span>{{_ 'pages-app-home-header-button'}}</span><i class="picon-caret-slim-down"></i></button>
+            {{/ CenterView}}
+        </div>
+    </div>
+</template>
+
+<template name="Home_Header_CallToAction">
+    <div class="pu-home-calltoaction">
+        <form data-register-form class="pu-home-calltoaction__form">
+            <input data-register-email class="pu-home-calltoaction__form__input pu-input" type="email" placeholder="{{_ 'pages-app-home-header-calltoaction-placeholder'}}"/>
+            <button data-register-button class="pu-home-calltoaction__form__button pu-button-2" type="button">{{_ 'pages-app-home-header-calltoaction-button'}}</button>
+        </form>
+        <p class="pu-home-calltoaction__description">{{_ 'pages-app-home-header-calltoaction-description'}} <a href="/discover">{{_ 'pages-app-home-header-calltoaction-link'}}</a></p>
+    </div>
+</template>

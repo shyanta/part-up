@@ -69,16 +69,6 @@ Partup.client.embed = {
             network.imageObject = mout.object.find(images, {_id: network.image});
         }
 
-        // Add featured by user data
-        if (users && get(network, 'featured.by_upper._id')) {
-            network.featured.by_upperObject = mout.object.find(users, {_id: network.featured.by_upper._id});
-
-            // Embed user
-            if (network.featured.by_upperObject) {
-                embed.user(network.featured.by_upperObject, images);
-            }
-        }
-
     },
     user: function(user, images) {
 

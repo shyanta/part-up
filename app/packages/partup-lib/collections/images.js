@@ -36,7 +36,7 @@ Images.findForUser = function(user) {
  * @return {Mongo.Cursor}
  */
 Images.findForNetwork = function(network) {
-    return Images.find({_id: {'$in': [network.background_image, network.image, network.icon, get(network, 'featured.logo')]}}, {limit: 4});
+    return Images.find({_id: {'$in': [network.background_image, network.image, network.icon]}}, {limit: 4});
 };
 
 /**

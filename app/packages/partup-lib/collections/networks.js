@@ -826,21 +826,6 @@ Networks.guardedFind = function(userId, selector, options) {
 };
 
 /**
- * Find featured networks
- *
- * @memberOf Networks
- * @param {String} language
- * @return {Mongo.Cursor}
- */
-Networks.findFeatured = function(language) {
-    var selector = {'featured.active': true};
-    if (language) {
-        selector.language = language;
-    }
-    return Networks.find(selector);
-};
-
-/**
  * Find the network for a partup
  *
  * @memberOf Networks

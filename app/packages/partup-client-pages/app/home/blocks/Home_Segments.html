@@ -1,0 +1,52 @@
+<template name="Home_Segments">
+    <div class="pu-home-segments">
+    {{#if screenSizeIsMinimalWidth 'tablet'}}
+        <div class="pu-home-wrap pu-home-segments__wrapper">
+            <div class="pu-home-block pu-home-textblock pu-home-textblock-secondary pu-home-segments__segment">
+                <h2 class="pu-home-textblock__title"><span>{{_ 'pages-app-home-segments-start-title'}}</span></h2>
+                <p class="pu-home-textblock__paragraph">{{_ 'pages-app-home-segments-start-description'}}</p>
+                <a href="{{_ 'pages-app-home-segments-start-button-url'}}" class="pu-button-2 pu-home-segments__button"><span>{{_ 'pages-app-home-segments-start-button'}}</span></a>
+            </div>
+            <div class="pu-home-segments__divider"></div>
+            <div class="pu-home-block pu-home-textblock pu-home-textblock-secondary pu-home-segments__segment">
+                <h2 class="pu-home-textblock__title"><span>{{_ 'pages-app-home-segments-search-title'}}</span></h2>
+                <p class="pu-home-textblock__paragraph">{{_ 'pages-app-home-segments-search-description'}}</p>
+                <button data-segment-search-button class="pu-button-2 pu-home-segments__button"><span>{{_ 'pages-app-home-segments-search-button'}}</span></button>
+            </div>
+        </div>
+    {{else}}
+        {{#TabView onToggleTab=onToggleTabHook defaultActiveTab=1 }}
+            <div class="pu-home-wrap">
+                <ul class="pu-home-segments__navigation">
+                    <li class="pu-home-segments__navigation__item">
+                        <button {{ tabButton 1 }} class="pu-home-segments__navigation__button{{#if activeTab 1 }} pu-home-segments__navigation__button--is-active{{/if}}">
+                            <h2 class="pu-home-subtitle pu-home-subtitle-serif pu-home-subtitle-light"><span>{{_ 'pages-app-home-segments-start-title'}}</span></h2>
+                        </button>
+                    </li>
+                    <li class="pu-home-segments__navigation__item">
+                        <button {{ tabButton 2 }} class="pu-home-segments__navigation__button{{#if activeTab 2 }} pu-home-segments__navigation__button--is-active{{/if}}">
+                            <h2 class="pu-home-subtitle pu-home-subtitle-serif pu-home-subtitle-light"><span>{{_ 'pages-app-home-segments-search-title'}}</span></h2>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+            {{#if activeTab 1 }}
+                <div class="pu-home-wrap pu-home-segments__wrapper">
+                    <div class="pu-home-block pu-home-textblock pu-home-textblock-secondary pu-home-segments__segment">
+                        <p class="pu-home-textblock__paragraph">{{_ 'pages-app-home-segments-start-description'}}</p>
+                        <a href="{{_ 'pages-app-home-segments-start-button-url'}}" class="pu-button-2 pu-home-segments__button"><span>{{_ 'pages-app-home-segments-start-button'}}</span></a>
+                    </div>
+                </div>
+            {{/if}}
+            {{#if activeTab 2}}
+                <div class="pu-home-wrap pu-home-segments__wrapper">
+                    <div class="pu-home-block pu-home-textblock pu-home-textblock-secondary pu-home-segments__segment">
+                        <p class="pu-home-textblock__paragraph">{{_ 'pages-app-home-segments-search-description'}}</p>
+                        <button data-segment-search-button class="pu-button-2 pu-home-segments__button"><span>{{_ 'pages-app-home-segments-search-button'}}</span></button>
+                    </div>
+                </div>
+            {{/if}}
+        {{/TabView}}
+    {{/if}}
+    </div>
+</template>
