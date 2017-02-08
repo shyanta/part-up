@@ -114,6 +114,20 @@ Partup.client.strings = {
             return '<p class="pu-paragraph ' + extraCssClass + '">' + text + '</p>';
         };
 
+        renderer.link = function (href, title, text) {
+
+            let isExternal = function (url) {
+                return !(location.href.replace("http://", "")
+                    .replace("https://", "").split("/")[0] === url
+                    .replace("http://", "")
+                    .replace("https://", "").split("/")[0]);
+            };
+
+            return (isExternal(href))
+                ? `<a href="${href}" target="_blank" title="${title}">${text}</a>`
+                : `<a href="${href}" title="${title}">${text}</a>`;
+        };
+
         return Partup.helpers.mentions.decode(
             partupAutolinker(
                 marked(
