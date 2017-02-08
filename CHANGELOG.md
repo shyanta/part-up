@@ -1,3 +1,13 @@
+<a name="2.5.2"></a>
+## [2.5.2](https://github.com/part-up/part-up/compare/2.5.1...2.5.2) (2017-02-08)
+
+
+### Bug Fixes
+
+* **performance:** Cache headers improved for images ([c125c42](https://github.com/part-up/part-up/commit/c125c42))
+
+
+
 <a name="2.5.1"></a>
 ## [2.5.1](https://github.com/part-up/part-up/compare/2.5.0...2.5.1) (2017-02-08)
 
@@ -9,6 +19,8 @@
 
 ### Bug Fixes
 
+* **activities:** fixes activity title vertical display problem for safari (fix [#855](https://github.com/part-up/part-up/issues/855) 1/2) ([6373e3f](https://github.com/part-up/part-up/commit/6373e3f))
+* **homepage:** added footer social links and target=blank to segments start button url ([e27e996](https://github.com/part-up/part-up/commit/e27e996))
 * **performance:** Cache headers improved for static resources ([a489603](https://github.com/part-up/part-up/commit/a489603))
 
 
