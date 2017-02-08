@@ -14,10 +14,15 @@ JsonRoutes.Middleware.use(function(request, response, next) {
         /\/users\/count$/, // /users/count
     ];
 
+    var imagesAndFonts = [
+        /^.*\.woff(2)*$/,
+        /^.*\.(jpeg|jpg|gif|png)$/
+    ];
+
     var meteorResourceIndicators = [
         'meteor_js_resource=true',
         'meteor_css_resource=true'
-    ]
+    ];
 
     var cacheControl = 'no-store, max-age=0';
 
@@ -32,7 +37,7 @@ JsonRoutes.Middleware.use(function(request, response, next) {
     if (uri.query.meteor_js_resource || 
         uri.query.meteor_css_resource ||
         uri.query.hash || uri.query.v || 
-        /^.*\.woff(2)*$/.test(uri.pathname)) {
+        imagesAndFonts.some(function(regex){ return regex.test(uri.pathname) })) {
         // Meteor resource filename is hashed, cache for a year...
         cacheControl = 'public, max-age=31536000';
     }
