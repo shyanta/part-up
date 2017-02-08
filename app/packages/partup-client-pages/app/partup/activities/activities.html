@@ -1,5 +1,5 @@
 <template name="app_partup_activities">
-    <div class="pu-composition pu-composition-partupdetailactivities">
+    <div class="pu-composition pu-composition-partupdetailactivities{{#if boardViewEnabled }} pu-composition-partupdetailactivities-board{{/if}}">
 
         <!-- new activity popup -->
         {{#if partupIsPopupActive 'new-activity' }}
@@ -24,52 +24,58 @@
                     {{_ "pages-app-partup-activities-newactivity_button"}}
                 </a>
             </div>
-            <div class="cell last">
-                <div class="pu-row">
-                    <div class="cell">
-                        {{#if screenSizeIsMinimalWidth 'tablet'}}
-                            {{> PartialDropdownActivitiesActions reactiveVar=filterReactiveVar}}
-                        {{else}}
-                            {{#PartupExpander label='Filter'}}
+            {{#unless boardViewEnabled }}
+                <div class="cell last">
+                    <div class="pu-row">
+                        <div class="cell">
+                            {{#if screenSizeIsMinimalWidth 'tablet'}}
                                 {{> PartialDropdownActivitiesActions reactiveVar=filterReactiveVar}}
-                            {{/PartupExpander}}
-                        {{/if}}
+                            {{else}}
+                                {{#PartupExpander label='Filter'}}
+                                    {{> PartialDropdownActivitiesActions reactiveVar=filterReactiveVar}}
+                                {{/PartupExpander}}
+                            {{/if}}
+                        </div>
                     </div>
                 </div>
-            </div>
+            {{/unless}}
         </header>
 
         <!-- Loading/rendering state -->
         {{# if activitiesLoading }}
             {{> Loader ALIGNMENT='center' }}
         {{ else }}
+            {{#if boardViewEnabled}}
+                {{> BoardView partupId=partupId activities=allActivities onAdd=onAddHook }}
+            {{ else}}
+                {{# each activities }}
+                    {{> Activity activity=. EXPANDABLE=true COMMENTS_LINK=true isUpper=isUpper }}
+                {{/ each }}
 
-            {{# each activities }}
-                {{> Activity activity=. EXPANDABLE=true COMMENTS_LINK=true isUpper=isUpper }}
-            {{/ each }}
+                {{# if archivedActivities }}
+                    <p class="pu-textline">
+                        <span>
+                            {{_ "pages-app-partup-activities-archivedactivities_heading" }}
+                            <span class="picon-arrow-down"></span>
+                        </span>
+                    </p>
+                {{/ if }}
 
-            {{# if archivedActivities }}
-                <p class="pu-textline">
-                    <span>
-                        {{_ "pages-app-partup-activities-archivedactivities_heading" }}
-                        <span class="picon-arrow-down"></span>
-                    </span>
-                </p>
-            {{/ if }}
+                {{# each archivedActivities }}
+                    {{> Activity activity=. EXPANDABLE=true isUpper=isUpper }}
+                {{/ each }}
 
-            {{# each archivedActivities }}
-                {{> Activity activity=. EXPANDABLE=true isUpper=isUpper }}
-            {{/ each }}
-
-            {{#unless activities }}
-                {{#unless archivedActivities }}
-                    <section class="pu-update pu-update-placeholder">
-                        <section>
-                            <p>{{_ 'pages-app-partup-activities-no_activities'}}</p>
+                {{#unless activities }}
+                    {{#unless archivedActivities }}
+                        <section class="pu-update pu-update-placeholder">
+                            <section>
+                                <p>{{_ 'pages-app-partup-activities-no_activities'}}</p>
+                            </section>
                         </section>
-                    </section>
+                    {{/unless }}
                 {{/unless }}
-            {{/unless }}
+            {{/if}}
+
 
         {{/ if }}
 

@@ -1,14 +1,9 @@
-var Subs = new SubsManager({
-    cacheLimit: 1,
-    expireIn: 10
-});
-
 Template.app_partup_activities.onCreated(function() {
-    var tpl = this;
+    var template = this;
 
-    tpl.partup = Partups.findOne(tpl.data.partupId);
+    template.partup = Partups.findOne(template.data.partupId);
 
-    tpl.activities = {
+    template.activities = {
 
         // States
         loading: new ReactiveVar(false),
@@ -20,10 +15,10 @@ Template.app_partup_activities.onCreated(function() {
         all: function(options) {
             var options = options || {};
 
-            var filter = tpl.activities.filter.get();
+            var filter = template.activities.filter.get();
 
             var activities = Activities
-                .findForPartup(tpl.partup, {}, {archived: !!options.archived})
+                .findForPartup(template.partup, {}, {archived: !!options.archived})
                 .fetch()
                 .filter(function(activity, idx) {
                     if (filter === 'my-activities')
@@ -42,17 +37,40 @@ Template.app_partup_activities.onCreated(function() {
     };
 
     // Partup findOne and activities subscription
-    tpl.activities.loading.set(true);
-    var sub = tpl.subscribe('activities.from_partup', tpl.partup._id, {
+    template.activities.loading.set(true);
+    template.subscribe('activities.from_partup', template.data.partupId, {
         onReady: function() {
-            tpl.activities.loading.set(false);
+            template.activities.loading.set(false);
         }
     });
+
+    template.createNewActivity = function(laneId) {
+        var userId = Meteor.userId();
+        var proceed = function() {
+            Partup.client.popup.open({
+                id: 'new-activity',
+                parameters: {
+                    laneId: laneId
+                }
+            });
+        };
+
+        if (!userId) {
+            Intent.go({route: 'login'}, function(user) {
+                if (user) proceed();
+            });
+        } else {
+            proceed();
+        }
+    };
 });
 
 Template.app_partup_activities.helpers({
     activities: function() {
         return Template.instance().activities.all({archived: false});
+    },
+    allActivities: function() {
+        return Template.instance().activities.all();
     },
     archivedActivities: function() {
         return Template.instance().activities.all({archived: true});
@@ -89,27 +107,25 @@ Template.app_partup_activities.helpers({
 
             });
         };
+    },
+    boardViewEnabled: function() {
+        var template = Template.instance();
+        var partup = Partups.findOne(template.data.partupId);
+        if (!partup) return false;
+        return partup.board_view;
+    },
+    partupId: function() {
+        return Template.instance().data.partupId;
+    },
+    onAddHook: function() {
+        return Template.instance().createNewActivity;
     }
-
 });
 
 Template.app_partup_activities.events({
     'click [data-new-activity]': function(event, template) {
         event.preventDefault();
 
-        var userId = Meteor.userId();
-        var proceed = function() {
-            Partup.client.popup.open({
-                id: 'new-activity'
-            });
-        };
-
-        if (!userId) {
-            Intent.go({route: 'login'}, function(user) {
-                if (user) proceed();
-            });
-        } else {
-            proceed();
-        }
+        template.createNewActivity();
     }
 });

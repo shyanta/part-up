@@ -62,7 +62,9 @@ Partup.server.services.matching = {
         var partup = Partups.findOneOrFail(partupId);
         var tags = partup.tags || [];
         var uppers = partup.uppers || [];
-        return this.findMatchingUppers(searchOptions, tags, uppers);
+        var supporters = partup.supporters || [];
+
+        return this.findMatchingUppers(searchOptions, tags, uppers.concat(supporters));
     },
 
     /**

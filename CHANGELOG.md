@@ -1,3 +1,168 @@
+<a name="2.5.5"></a>
+## [2.5.5](https://github.com/part-up/part-up/compare/2.5.4...2.5.5) (2017-02-08)
+
+
+### Bug Fixes
+
+* **homepage:** Fixed social links and small home visual ([5284c6c](https://github.com/part-up/part-up/commit/5284c6c))
+
+
+
+<a name="2.5.4"></a>
+## [2.5.4](https://github.com/part-up/part-up/compare/2.5.3...2.5.4) (2017-02-08)
+
+
+
+<a name="2.5.3"></a>
+## [2.5.3](https://github.com/part-up/part-up/compare/2.5.2...2.5.3) (2017-02-08)
+
+
+
+<a name="2.5.2"></a>
+## [2.5.2](https://github.com/part-up/part-up/compare/2.5.1...2.5.2) (2017-02-08)
+
+
+### Bug Fixes
+
+* **performance:** Cache headers improved for images ([c125c42](https://github.com/part-up/part-up/commit/c125c42))
+
+
+
+<a name="2.5.1"></a>
+## [2.5.1](https://github.com/part-up/part-up/compare/2.5.0...2.5.1) (2017-02-08)
+
+
+
+<a name="2.5.0"></a>
+# [2.5.0](https://github.com/part-up/part-up/compare/2.4.0...2.5.0) (2017-02-08)
+
+
+### Bug Fixes
+
+* **activities:** fixes activity title vertical display problem for safari (fix [#855](https://github.com/part-up/part-up/issues/855) 1/2) ([6373e3f](https://github.com/part-up/part-up/commit/6373e3f))
+* **homepage:** added footer social links and target=blank to segments start button url ([e27e996](https://github.com/part-up/part-up/commit/e27e996))
+* **performance:** Cache headers improved for static resources ([a489603](https://github.com/part-up/part-up/commit/a489603))
+
+
+### Features
+
+* **about:** Changed about visual ([1b6274e](https://github.com/part-up/part-up/commit/1b6274e))
+
+
+
+<a name="2.4.0"></a>
+# [2.4.0](https://github.com/part-up/part-up/compare/2.3.1...2.4.0) (2017-02-07)
+
+
+### Bug Fixes
+
+* **activity:** button returns to activities ([49dfb66](https://github.com/part-up/part-up/commit/49dfb66))
+* **activity:** edit button clickable again ([0090764](https://github.com/part-up/part-up/commit/0090764))
+* **board:** add lane on blur, not return ([e5bdbd1](https://github.com/part-up/part-up/commit/e5bdbd1))
+* **board:** added translation files ([f2720a3](https://github.com/part-up/part-up/commit/f2720a3))
+* **board:** fixed loading issues after saving board view ([481d8f1](https://github.com/part-up/part-up/commit/481d8f1))
+* **board:** remove duplicate activites from board ([920d5cb](https://github.com/part-up/part-up/commit/920d5cb))
+* **board:** restrict adding lanes ([9886c7f](https://github.com/part-up/part-up/commit/9886c7f))
+* **board:** started work on the compact (boardview) activity card ([c45cb14](https://github.com/part-up/part-up/commit/c45cb14))
+* **board:** stopped flickering (as much as possible) ([6087b5e](https://github.com/part-up/part-up/commit/6087b5e))
+* **board:** temporary fix of avatars ([87d3700](https://github.com/part-up/part-up/commit/87d3700))
+* **board:** updated translation file ([dcd1d8f](https://github.com/part-up/part-up/commit/dcd1d8f))
+* **board-card:** added lane tag to activity detail ([430c2c3](https://github.com/part-up/part-up/commit/430c2c3))
+* **boards:** when updating a lane, remove duplicate activity ids ([b1f7cdd](https://github.com/part-up/part-up/commit/b1f7cdd))
+* **boardview:** added dropdown ([7a2b02d](https://github.com/part-up/part-up/commit/7a2b02d))
+* **boardview:** cant edit name if you are no upper ([dfb5fd6](https://github.com/part-up/part-up/commit/dfb5fd6))
+* **boardview:** mobile fixes ([1588a63](https://github.com/part-up/part-up/commit/1588a63))
+* **email:** make primary buttons visible on bomile ([052c220](https://github.com/part-up/part-up/commit/052c220))
+* **email:** marked unverified emails ([225a420](https://github.com/part-up/part-up/commit/225a420))
+* **emails-copy:** set Team Part-up as sender and small copy updates ([86119af](https://github.com/part-up/part-up/commit/86119af))
+* **footer:** terms of use and pricavy ([b201547](https://github.com/part-up/part-up/commit/b201547))
+* **home:** added intercom handler on ‘help’ link ([b9848dc](https://github.com/part-up/part-up/commit/b9848dc))
+* **home:** added padding to video ([d3b49c4](https://github.com/part-up/part-up/commit/d3b49c4))
+* **home:** added some transitions ([122d5d9](https://github.com/part-up/part-up/commit/122d5d9))
+* **home:** chat image ([d30de35](https://github.com/part-up/part-up/commit/d30de35))
+* **home:** commented out the form until implementation ([2b26665](https://github.com/part-up/part-up/commit/2b26665))
+* **home:** fixed some feedback [#724](https://github.com/part-up/part-up/issues/724) ([3bb1095](https://github.com/part-up/part-up/commit/3bb1095))
+* **home:** header cover image ([b92826e](https://github.com/part-up/part-up/commit/b92826e))
+* **home:** header loggedin state badge and avatar are now borderless ([cdc4c1f](https://github.com/part-up/part-up/commit/cdc4c1f))
+* **home:** responsive fixes and call to action prefills the register page ([aa3dbd9](https://github.com/part-up/part-up/commit/aa3dbd9))
+* **lanes:** added activity cleanup after lane update ([158b2dc](https://github.com/part-up/part-up/commit/158b2dc))
+* **language selector:** added language (WIP) selector and did some tweaking ([bc21178](https://github.com/part-up/part-up/commit/bc21178))
+* **local:** migrate added to start script ([cb0f290](https://github.com/part-up/part-up/commit/cb0f290))
+* **migration:** added multi update parameter ([01cc826](https://github.com/part-up/part-up/commit/01cc826))
+* **notifications:** dont crash when user cant be found ([e91e581](https://github.com/part-up/part-up/commit/e91e581))
+* **partupsettings:** added loader to wait for partup subscription ([20b1ae1](https://github.com/part-up/part-up/commit/20b1ae1))
+* **partupsettings:** form prefill for board_view fixed ([97d2ffc](https://github.com/part-up/part-up/commit/97d2ffc))
+* **segemnts:** fixed large screen button ([9aae9b6](https://github.com/part-up/part-up/commit/9aae9b6))
+* **segments:** added more pagging to the segemntation butons ([4e1c6ca](https://github.com/part-up/part-up/commit/4e1c6ca))
+* **staging:** error logging ([8748c92](https://github.com/part-up/part-up/commit/8748c92))
+* **staging:** log error ([a8ffb5b](https://github.com/part-up/part-up/commit/a8ffb5b))
+* **staging:** reverse logs ([3961480](https://github.com/part-up/part-up/commit/3961480))
+* **translations:** added terms and privacy translation keys ([2155ae6](https://github.com/part-up/part-up/commit/2155ae6))
+* **translations:** added translations listed in issue [#832](https://github.com/part-up/part-up/issues/832) ([a17d568](https://github.com/part-up/part-up/commit/a17d568))
+* **tribe:** added infinitescroll to members tab in tribe admin ([48c4dd9](https://github.com/part-up/part-up/commit/48c4dd9))
+
+
+### Features
+
+* **activities:** add lane_id to activity ([57abbf4](https://github.com/part-up/part-up/commit/57abbf4))
+* **activities:** lane sorting, renaming, removing and adding ([4039e43](https://github.com/part-up/part-up/commit/4039e43))
+* **activity:** New activity styles ([9f2253b](https://github.com/part-up/part-up/commit/9f2253b))
+* **board:** fixed dragging issues and finishes styling board layout ([ee1e371](https://github.com/part-up/part-up/commit/ee1e371))
+* **board:** open activity detail on title click, also restricht board editing to authorized users only ([08a8762](https://github.com/part-up/part-up/commit/08a8762))
+* **board-view:** add activity to lane on creation ([1e41da8](https://github.com/part-up/part-up/commit/1e41da8))
+* **board-view:** added board collection and schema ([5c92b2c](https://github.com/part-up/part-up/commit/5c92b2c))
+* **board-view:** added board insert and update methods ([a4049eb](https://github.com/part-up/part-up/commit/a4049eb))
+* **board-view:** added lane insert and remove methods ([e8826c7](https://github.com/part-up/part-up/commit/e8826c7))
+* **board-view:** added lane update method ([a83b63d](https://github.com/part-up/part-up/commit/a83b63d))
+* **board-view:** added lanes collection and schema ([1f3574d](https://github.com/part-up/part-up/commit/1f3574d))
+* **board-view:** added migration that creates a board and the default lanes for all partups and puts all the current activities on the Backlog lane ([925bf22](https://github.com/part-up/part-up/commit/925bf22))
+* **board-view:** added publication for boards with embedded lanes ([2f5ab6a](https://github.com/part-up/part-up/commit/2f5ab6a))
+* **board-view:** append old activities array to new one ([51a2a7c](https://github.com/part-up/part-up/commit/51a2a7c))
+* **board-view:** create board and default set of lanes when creating a partup ([57fbc16](https://github.com/part-up/part-up/commit/57fbc16))
+* **board-view:** dont set view to false when it's already set in the form ([bf4c31a](https://github.com/part-up/part-up/commit/bf4c31a))
+* **board-view:** only create 1 backlog lane at board creation ([eeb5ca7](https://github.com/part-up/part-up/commit/eeb5ca7))
+* **board-view:** remove an activity from a lane when the activity is being removed ([3d6b4ef](https://github.com/part-up/part-up/commit/3d6b4ef))
+* **board-view:** remove lane lane from board on removal ([7c8df12](https://github.com/part-up/part-up/commit/7c8df12))
+* **board-view:** set activities to backlog lane when removing a lane ([2b03b32](https://github.com/part-up/part-up/commit/2b03b32))
+* **board-view:** set the default board_view of the current partups to false (classic view) ([b359028](https://github.com/part-up/part-up/commit/b359028))
+* **board-view:** set the remaining activities of the removed lane to the first lane ([4b959da](https://github.com/part-up/part-up/commit/4b959da))
+* **board-view:** update board on lane insert ([97ad567](https://github.com/part-up/part-up/commit/97ad567))
+* **board-view:** updated partup and activity schemas ([54006f2](https://github.com/part-up/part-up/commit/54006f2))
+* **boardview:** start of the activities boardview ([dae122c](https://github.com/part-up/part-up/commit/dae122c))
+* **chat:** temporarily disabled url scraper for personal chats [#818](https://github.com/part-up/part-up/issues/818) ([eba0d5e](https://github.com/part-up/part-up/commit/eba0d5e))
+* **email:** frontend implementation for [@285](https://github.com/285) ([4f53c85](https://github.com/part-up/part-up/commit/4f53c85))
+* **emails:** add email to user method, includes verification ([309d25f](https://github.com/part-up/part-up/commit/309d25f))
+* **emails:** remove email method ([048ec95](https://github.com/part-up/part-up/commit/048ec95))
+* **emails:** set primary email method ([18a0b77](https://github.com/part-up/part-up/commit/18a0b77))
+* **form:** get data from form ([36867a1](https://github.com/part-up/part-up/commit/36867a1))
+* **home:** added appstore buttons, also the “start” button now has an URL translation key ([09fb677](https://github.com/part-up/part-up/commit/09fb677))
+* **home:** all translation keys implemented ([0b93df3](https://github.com/part-up/part-up/commit/0b93df3))
+* **home:** carousel ([e8a997d](https://github.com/part-up/part-up/commit/e8a997d))
+* **home:** carousel slides autimatically, responsive according to design ([22cde2f](https://github.com/part-up/part-up/commit/22cde2f))
+* **home:** components ([e7efbad](https://github.com/part-up/part-up/commit/e7efbad))
+* **home:** footer ([f78022d](https://github.com/part-up/part-up/commit/f78022d))
+* **home:** form ([363ab40](https://github.com/part-up/part-up/commit/363ab40))
+* **home:** header ([3b6b340](https://github.com/part-up/part-up/commit/3b6b340))
+* **home:** products ([72fc762](https://github.com/part-up/part-up/commit/72fc762))
+* **home:** removed all featured networks/partups code references [#724](https://github.com/part-up/part-up/issues/724) ([aa055c2](https://github.com/part-up/part-up/commit/aa055c2))
+* **home:** segments ([f0f3854](https://github.com/part-up/part-up/commit/f0f3854))
+* **invites:** pending invites won't show existing partners and supporters anymore. also removed supporters from invite suggestion list [#738](https://github.com/part-up/part-up/issues/738) ([63b881b](https://github.com/part-up/part-up/commit/63b881b))
+* **language:** added language selector ([d982a3d](https://github.com/part-up/part-up/commit/d982a3d))
+* **notifications:** don't send upper left network notification when removed by admin [#758](https://github.com/part-up/part-up/issues/758) ([37b6db7](https://github.com/part-up/part-up/commit/37b6db7))
+* **partup:** added sortablejs library and implemented it in the frontend (WIP) ([e971ad5](https://github.com/part-up/part-up/commit/e971ad5))
+
+
+
+<a name="2.3.1"></a>
+## [2.3.1](https://github.com/part-up/part-up/compare/2.3.0...2.3.1) (2017-01-30)
+
+
+### Bug Fixes
+
+* **dropbox-chooser:** save directLink even when settings is already set ([5799490](https://github.com/part-up/part-up/commit/5799490))
+
+
+
 <a name="2.3.0"></a>
 # [2.3.0](https://github.com/part-up/part-up/compare/2.2.1...2.3.0) (2017-01-30)
 

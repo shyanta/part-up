@@ -109,6 +109,7 @@ Package.onUse(function (api) {
         'helpers/RenderBlock/RenderBlock.js',
         'helpers/IE.js',
         'helpers/screenSize.js',
+        'helpers/route.js',
 
         'views/CenterView.html',
 

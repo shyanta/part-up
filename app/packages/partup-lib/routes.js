@@ -225,6 +225,21 @@ Router.route('/profile/:_id/settings/email', {
     }
 });
 
+Router.route('/profile/:_id/settings/notifications', {
+    name: 'profile-settings-notifications',
+    where: 'client',
+    yieldRegions: {
+        'modal':              {to: 'main'},
+        'modal_profile_settings': {to: 'modal'},
+        'modal_profile_settings_notifications': {to: 'modal_profile_settings'}
+    },
+    data: function() {
+        return {
+            profileId: this.params._id
+        };
+    }
+});
+
 /*************************************************************/
 /* Login flow */
 /*************************************************************/
@@ -340,6 +355,11 @@ Router.route('/register', {
         'modal':                 {to: 'main'},
         'modal_register':        {to: 'modal'},
         'modal_register_signup': {to: 'modal_register'}
+    },
+    data: function() {
+        return {
+            prefillEmail: this.params.query.email
+        };
     },
     onBeforeAction: function() {
         Partup.client.windowTitle.setContextName("Register");
@@ -515,16 +535,6 @@ Router.route('/admin/partups', {
     }
 });
 
-Router.route('/admin/featured-partups', {
-    name: 'admin-featured-partups',
-    where: 'client',
-    yieldRegions: {
-        'modal':                            {to: 'main'},
-        'modal_admin':                      {to: 'modal'},
-        'modal_admin_featured_partups':     {to: 'modal_admin'}
-    }
-});
-
 Router.route('/admin/tribes', {
     name: 'admin-createtribe',
     where: 'client',
@@ -532,16 +542,6 @@ Router.route('/admin/tribes', {
         'modal':                   {to: 'main'},
         'modal_admin':             {to: 'modal'},
         'modal_create_tribe':      {to: 'modal_admin'}
-    }
-});
-
-Router.route('/admin/featured-tribes', {
-    name: 'admin-featured-networks',
-    where: 'client',
-    yieldRegions: {
-        'modal':                            {to: 'main'},
-        'modal_admin':                      {to: 'modal'},
-        'modal_admin_featured_networks':    {to: 'modal_admin'}
     }
 });
 

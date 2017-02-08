@@ -74,29 +74,5 @@ Template.AdminPartups.events({
             template.partups.set(newPartupsList);
             template.page++;
         });
-    },
-});
-
-/*************************************************************/
-/* Widget form hooks */
-/*************************************************************/
-AutoForm.addHooks('featurePartupForm', {
-    onSubmit: function(doc) {
-        var self = this;
-        self.event.preventDefault();
-
-        var template = self.template.parent();
-        template.submitting.set(true);
-        var partupId = template.partupSelection.curValue._id;
-
-        Meteor.call('partups.feature', partupId, doc, function(error) {
-            if (error) return console.error(error);
-            template.submitting.set(false);
-            AutoForm.resetForm(self.formId);
-
-            self.done();
-        });
-
-        return false;
     }
 });

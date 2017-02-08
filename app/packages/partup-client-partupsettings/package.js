@@ -16,6 +16,9 @@ Package.onUse(function(api) {
 
     api.addFiles([
 
+        'BoardSwitch.html',
+        'BoardSwitch.js',
+
         'Partupsettings.html',
         'Partupsettings.js'
 

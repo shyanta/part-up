@@ -15,8 +15,11 @@
                     <h2 class="pu-title pu-title-modal">{{_ 'pages-modal-partup_settings-title' }}</h2>
                     <p>{{_ 'pages-modal-partup_settings-explanation' }}</p>
 
-                    {{> Partupsettings FORM_ID='editPartupForm' currentPartup=partup }}
-
+                    {{#if partupLoaded}}
+                        {{> Partupsettings FORM_ID='editPartupForm' currentPartup=partup }}
+                    {{else}}
+                        {{> Spinner }}
+                    {{/if}}
                     {{#contentFor "PartupsettingsFooter"}}
 
                         <!-- Submit button -->

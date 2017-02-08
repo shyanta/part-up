@@ -552,9 +552,6 @@ Network.prototype.createPartupName = function(partupId, partupName) {
  * @memberOf Networks
  */
 Network.prototype.updatePartupName = function(partupId, partupName) {
-    Log.debug(partupId);
-    Log.debug(partupName);
-
     Networks.update({
         _id: this._id,
         'partup_names._id': partupId
@@ -823,21 +820,6 @@ Networks.guardedFind = function(userId, selector, options) {
     var finalSelector = {'$and': [guardingSelector, selector]};
 
     return this.find(finalSelector, options);
-};
-
-/**
- * Find featured networks
- *
- * @memberOf Networks
- * @param {String} language
- * @return {Mongo.Cursor}
- */
-Networks.findFeatured = function(language) {
-    var selector = {'featured.active': true};
-    if (language) {
-        selector.language = language;
-    }
-    return Networks.find(selector);
 };
 
 /**

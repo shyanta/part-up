@@ -305,30 +305,6 @@ Meteor.publishComposite('networks.one.chat', function(networkSlug, parameters) {
 });
 
 /**
- * Publish all featured partups
- */
-Meteor.publishComposite('networks.featured_all', function(language) {
-    check(language, Match.Optional(String));
-
-    if (this.unblock) this.unblock();
-
-    return {
-        find: function() {
-            return Networks.findFeatured(language);
-        },
-        children: [
-            {find: Images.findForNetwork},
-            {find: function(network) {
-                if (!get(network, 'featured.active')) return;
-                return Meteor.users.findSinglePublicProfile(network.featured.by_upper._id);
-            }, children: [
-                {find: Images.findForUser}
-            ]},
-        ]
-    };
-}, {url: '/networks/featured/:0'});
-
-/**
  * Publish all networks for admin panel
  */
 Meteor.publishComposite('networks.admin_all', function() {
