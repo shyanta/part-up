@@ -1,3 +1,8 @@
+<a name="2.5.1"></a>
+## [2.5.1](https://github.com/part-up/part-up/compare/2.5.0...2.5.1) (2017-02-08)
+
+
+
 <a name="2.5.0"></a>
 # [2.5.0](https://github.com/part-up/part-up/compare/2.4.0...2.5.0) (2017-02-08)
 
