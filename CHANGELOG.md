@@ -1,3 +1,13 @@
+<a name="2.5.5"></a>
+## [2.5.5](https://github.com/part-up/part-up/compare/2.5.4...2.5.5) (2017-02-08)
+
+
+### Bug Fixes
+
+* **homepage:** Fixed social links and small home visual ([5284c6c](https://github.com/part-up/part-up/commit/5284c6c))
+
+
+
 <a name="2.5.4"></a>
 ## [2.5.4](https://github.com/part-up/part-up/compare/2.5.3...2.5.4) (2017-02-08)
 
