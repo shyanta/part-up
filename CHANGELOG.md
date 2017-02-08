@@ -1,3 +1,18 @@
+<a name="2.5.0"></a>
+# [2.5.0](https://github.com/part-up/part-up/compare/2.4.0...2.5.0) (2017-02-08)
+
+
+### Bug Fixes
+
+* **performance:** Cache headers improved for static resources ([a489603](https://github.com/part-up/part-up/commit/a489603))
+
+
+### Features
+
+* **about:** Changed about visual ([1b6274e](https://github.com/part-up/part-up/commit/1b6274e))
+
+
+
 <a name="2.4.0"></a>
 # [2.4.0](https://github.com/part-up/part-up/compare/2.3.1...2.4.0) (2017-02-07)
 
