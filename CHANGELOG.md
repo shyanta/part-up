@@ -1,3 +1,13 @@
+<a name="2.5.6"></a>
+## [2.5.6](https://github.com/part-up/part-up/compare/2.5.5...2.5.6) (2017-02-08)
+
+
+### Bug Fixes
+
+* **homepage:** Fixed three social links ([52cd05a](https://github.com/part-up/part-up/commit/52cd05a))
+
+
+
 <a name="2.5.5"></a>
 ## [2.5.5](https://github.com/part-up/part-up/compare/2.5.4...2.5.5) (2017-02-08)
 
@@ -10,6 +20,11 @@
 
 <a name="2.5.4"></a>
 ## [2.5.4](https://github.com/part-up/part-up/compare/2.5.3...2.5.4) (2017-02-08)
+
+
+### Bug Fixes
+
+* **homepage:** ran imageoptim on png files (saves about 20% homepage images load size) ([643f6c7](https://github.com/part-up/part-up/commit/643f6c7))
 
 
 
