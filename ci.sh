@@ -11,8 +11,11 @@ image_name="partup/partup:${image_tag}"
 echo "{\"version\": \"`git describe`\", \"deploydate\": \"`date +\"%Y-%m-%dT%H:%M:%SZ\"`\"}" > app/public/VERSION
 
 mkdir -p app-build
+
+cd app
 meteor npm install --production
-meteor build app-build
+meteor build ../app-build
+cd -
 
 echo "Building the final image.."
 docker build --pull -t ${image_name} .
