@@ -202,7 +202,6 @@ spacebars-compiler@1.0.12
 srp@1.0.9
 standard-minifier-css@1.0.8
 standard-minifier-js@1.0.8
-standard-minifiers@1.0.6
 stevezhu:lodash@3.10.1
 tap:i18n@1.8.2
 templating@1.1.14
