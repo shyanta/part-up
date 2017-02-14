@@ -5,6 +5,7 @@ Template.BoardSwitch.onRendered(function() {
         template.$('[data-board-input]').val(true);
         template.$('[data-enable] input').attr('checked', 'checked');
     } else {
+        template.$('[data-board-input]').val(false);
         template.$('[data-disable] input').attr('checked', 'checked');
     }
 });
