@@ -63,7 +63,7 @@ RUN \
     rm -R /home/meteor/.meteor && \
     rm -R /home/meteor/app && \
     rm -R /home/meteor/app_build && \
-    rm -R /tmp/app && \
+    rm -R /tmp/* && \
     rm /home/meteor/install_meteor.sh
 
 VOLUME /tmp /var/tmp
