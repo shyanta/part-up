@@ -10,7 +10,14 @@ image_name="partup/partup:${image_tag}"
 
 echo "{\"version\": \"`git describe`\", \"deploydate\": \"`date +\"%Y-%m-%dT%H:%M:%SZ\"`\"}" > app/public/VERSION
 
-docker build --pull -t ${image_name} .
+docker_opts=""
+
+if [ $(docker version -f '{{.Server.Experimental}}') == "true" ]; then
+  echo "Docker experimental found, let's squash for smaller image!'"
+  docker_opts="${docker_opts} --squash=true"
+fi
+
+docker build ${docker_opts} --pull -t ${image_name} .
 
 tag=$(git describe --exact-match 2>/dev/null || echo "")
 if [ $tag ]; then
