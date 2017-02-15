@@ -10,12 +10,6 @@ image_name="partup/partup:${image_tag}"
 
 echo "{\"version\": \"`git describe`\", \"deploydate\": \"`date +\"%Y-%m-%dT%H:%M:%SZ\"`\"}" > app/public/VERSION
 
-mkdir -p app-build
-echo "Running the meteor builder.."
-docker pull partup/meteor-builder:1.3.2
-docker run --rm -v "$(pwd)/app":/code -v "$(pwd)/app-build":/out partup/meteor-builder:1.3.2
-
-echo "Building the final image.."
 docker build --pull -t ${image_name} .
 
 tag=$(git describe --exact-match 2>/dev/null || echo "")

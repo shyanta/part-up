@@ -2,7 +2,10 @@ FROM node:0.10-slim
 
 EXPOSE 3000
 
-VOLUME /tmp /var/tmp
+CMD node /app/main.js
+
+ENV BUILD_DEPS="wget curl bzip2 build-essential python git ca-certificates"
+ENV GOSU_VERSION=1.10
 
 RUN apt-get update && \
     apt-get install -y imagemagick --no-install-recommends && \
@@ -12,6 +15,57 @@ RUN apt-get update && \
 
 COPY imagemagick-policy.xml /etc/ImageMagick-6/policy.xml
 
-ADD app-build/meteor-app.tgz /app
+COPY ./app /tmp/app
 
-CMD node /app/main.js
+RUN \
+    # Add non-root user meteor
+    useradd --user-group --system --home-dir /home/meteor meteor && \
+    \
+    # OS dependencies
+    apt-get update -y && apt-get install -y --no-install-recommends ${BUILD_DEPS} && \
+    \
+    # Gosu installation
+    GOSU_ARCHITECTURE="$(dpkg --print-architecture | awk -F- '{ print $NF }')" && \
+    wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/${GOSU_VERSION}/gosu-${GOSU_ARCHITECTURE}" && \
+    wget -O /usr/local/bin/gosu.asc "https://github.com/tianon/gosu/releases/download/${GOSU_VERSION}/gosu-${GOSU_ARCHITECTURE}.asc" && \
+    export GNUPGHOME="$(mktemp -d)" && \
+    gpg --keyserver ha.pool.sks-keyservers.net --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4 && \
+    gpg --batch --verify /usr/local/bin/gosu.asc /usr/local/bin/gosu && \
+    rm -R "$GNUPGHOME" /usr/local/bin/gosu.asc && \
+    chmod +x /usr/local/bin/gosu && \
+    \
+    # Install Node dependencies
+    npm install -g node-gyp && \
+    npm install -g fibers && \
+    \
+    # Change user to meteor and install meteor
+    mkdir -p /home/meteor/app && \
+    cd /home/meteor/ && \
+    chown meteor:meteor --recursive /home/meteor && \
+    curl https://install.meteor.com -o ./install_meteor.sh && \
+    echo "Starting meteor installation...   \n" && \
+    chown meteor:meteor ./install_meteor.sh && \
+    gosu meteor:meteor sh ./install_meteor.sh && \
+    \
+    # Build app
+    cd /home/meteor/app && \
+    cp -R /tmp/app /home/meteor && \
+    chown meteor:meteor --recursive . && \
+    gosu meteor /home/meteor/.meteor/meteor build --directory /home/meteor/app_build && \
+    cd /home/meteor/app_build/bundle/programs/server/ && \
+    gosu meteor npm install && \
+    mv /home/meteor/app_build/bundle /app && \
+    \
+    # Cleanup
+    apt-get remove --purge -y ${BUILD_DEPS} && \
+    apt-get autoremove -y && \
+    rm -R /var/lib/apt/lists/* && \
+    rm -R /home/meteor/.meteor && \
+    rm -R /home/meteor/app && \
+    rm -R /home/meteor/app_build && \
+    rm -R /tmp/app && \
+    rm /home/meteor/install_meteor.sh
+
+VOLUME /tmp /var/tmp
+
+USER meteor

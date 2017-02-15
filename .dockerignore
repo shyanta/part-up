@@ -1,3 +1,7 @@
-*
-!app-build/meteor-app.tgz
-!imagemagick-policy.xml
+app/.meteor/local
+devops
+config
+gulp
+node_modules
+phraseapp
+styleguide
