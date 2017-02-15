@@ -1,3 +1,19 @@
+<a name="2.6.0"></a>
+# [2.6.0](https://github.com/part-up/part-up/compare/2.5.6...2.6.0) (2017-02-15)
+
+
+### Bug Fixes
+
+* **js:** Make some javascript async for faster loading ([ae1666d](https://github.com/part-up/part-up/commit/ae1666d))
+* **partupsettings:** Set default value for board_view to false if no value is known, fixing [#862](https://github.com/part-up/part-up/issues/862) ([c3ad99e](https://github.com/part-up/part-up/commit/c3ad99e))
+
+
+### Features
+
+* **client-base-strings:** add _blank for external links ([d719b39](https://github.com/part-up/part-up/commit/d719b39))
+
+
+
 <a name="2.5.6"></a>
 ## [2.5.6](https://github.com/part-up/part-up/compare/2.5.5...2.5.6) (2017-02-08)
 
