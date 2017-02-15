@@ -8,6 +8,7 @@ Package.onUse(function (api) {
 
     api.use([
         'ecmascript',
+        'modules',
         'partup-lib',
         'momentjs:moment',
         'chrismbeckett:toastr',

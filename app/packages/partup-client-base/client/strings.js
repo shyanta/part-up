@@ -1,5 +1,6 @@
 import partupAutolinker from '../helpers/autolink';
 import * as Autolinker from '../helpers/Autolinkjs';
+import marked from 'marked';
 
 Partup.client.strings = {
 
@@ -97,7 +98,6 @@ Partup.client.strings = {
         return strings;
     },
     renderToMarkdownWithEmoji(rawNewValue, _extraCssClass) {
-        const marked = require('marked');
         let renderer = new marked.Renderer();
         marked.setOptions({
             renderer: renderer,
