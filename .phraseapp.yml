@@ -1,0 +1,5 @@
+file_format: simple_json
+push:
+  sources: pushSources
+pull:
+  targets: pullTargets
