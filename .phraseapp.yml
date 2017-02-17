@@ -1,7 +1,8 @@
-file_format: simple_json
-push:
-  sources:
-  - file: "./app/i18n/phraseapp.en.i18n.json"
-pull:
-  targets:
-  - file: "./app/i18n/phraseapp.en.i18n.json"
+phraseapp:
+  file_format: simple_json
+  push:
+    sources:
+    - file: "./app/i18n/phraseapp.en.i18n.json"
+  pull:
+    targets:
+    - file: "./app/i18n/phraseapp.en.i18n.json"
