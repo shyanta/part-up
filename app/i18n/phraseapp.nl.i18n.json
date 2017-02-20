@@ -403,7 +403,7 @@
   "invite-to-partup-popup-input-email": "E-mailadres",
   "invite-to-partup-popup-input-message": "Persoonlijke uitnodiging",
   "invite-to-partup-popup-input-name": "Naam",
-  "invite-to-partup-popup-message-prefill": "Hi,\n\nIk nodig je graag uit voor de part-up: \"__partupName__\". Volgens mij pas jij goed bij het team! Je kunt via deze link de part-up bekijken en jezelf voorstellen aan het team: [url]\n\nDeze e-mail is verstuurd vanaf part-up.com. Reacties op deze e-mail worden niet gelezen. Klik de bovenstaande link om je reactie te delen op de part-up.\n\nIs Part-up nieuw voor je? Het is het nieuwe platform voor teamwork. Part-up laat je jouw talent verbinden met dat van je collega's of community leden en vele anderen. Ontdek de kracht van social organizing op part-up.com.\n\nLet's part-up!\n\nGroeten,\n__inviterName__",
+  "invite-to-partup-popup-message-prefill": "Hi [name],\n\nIk nodig je graag uit voor de part-up: \"__partupName__\". Volgens mij pas jij goed bij het team! Je kunt via deze link de part-up bekijken en jezelf voorstellen aan het team: [url]\n\nDeze e-mail is verstuurd vanaf part-up.com. Reacties op deze e-mail worden niet gelezen. Klik de bovenstaande link om je reactie te delen op de part-up.\n\nIs Part-up nieuw voor je? Het is het nieuwe platform voor teamwork. Part-up laat je jouw talent verbinden met dat van je collega's of community leden en vele anderen. Ontdek de kracht van social organizing op part-up.com.\n\nLet's part-up!\n\nGroeten,\n__inviterName__",
   "invite-to-partup-popup-success": "E-mail uitnodiging verzonden",
   "invite-to-partup-popup-title": "Nodig iemand uit voor deze part-up",
   "invitetile-button-re-invite-sent": "Opnieuw uitnodigd",
