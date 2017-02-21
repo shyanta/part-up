@@ -1,3 +1,13 @@
+<a name="2.6.3"></a>
+## [2.6.3](https://github.com/part-up/part-up/compare/2.6.2...2.6.3) (2017-02-21)
+
+
+### Bug Fixes
+
+* **network:** set language to english if network language is not dutch on tribe start, fixes [#889](https://github.com/part-up/part-up/issues/889) ([1bb2faa](https://github.com/part-up/part-up/commit/1bb2faa))
+
+
+
 <a name="2.6.2"></a>
 ## [2.6.2](https://github.com/part-up/part-up/compare/2.6.1...2.6.2) (2017-02-20)
 
