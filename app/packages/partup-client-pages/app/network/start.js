@@ -7,6 +7,15 @@ Template.app_network_start.onCreated(function() {
             var network = Networks.findOne({slug: networkSlug});
             if (!network) Router.pageNotFound('network');
             template.loaded.set(true);
+
+            var user = Meteor.user();
+            if (!user) {
+                if (network.language !== 'nl') {
+                    Partup.client.language.change('en');
+                } else {
+                    Partup.client.language.change('nl');
+                }
+            }
         }
     });
     template.subscribe('networks.one.partups', {slug: networkSlug});
