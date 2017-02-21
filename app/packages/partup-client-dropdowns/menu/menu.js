@@ -19,17 +19,30 @@ Template.DropdownMenu.onDestroyed(function() {
 Template.DropdownMenu.events({
     'DOMMouseScroll [data-preventscroll], mousewheel [data-preventscroll]': Partup.client.scroll.preventScrollPropagation,
     'click [data-toggle-menu]': ClientDropdowns.dropdownClickHandler.bind(null, 'top-level'),
-    'click [data-feedback]': function(event, template) {
+    
+    //For now this is pasted from the 'Home_Footer.js' file.
+    'click [data-help-intercom]': function(event, template) {
         event.preventDefault();
-        var $intercom = $('#intercom-launcher');
-        if ($intercom.length > 0) {
-            if(Intercom) {
-                Intercom('showNewMessage');
-            }
+
+        if (Intercom) {
+            Intercom('showNewMessage', 'Stel je vraag/Ask a question:');
         } else {
-            window.location.href = 'mailto:' + TAPi18n.__('footer-feedback-button-mailto') + '?subject=' + TAPi18n.__('footer-feedback-button-mailto-subject');
+            console.log('Intercom not available.');
         }
     }
+
+    //Commented for later use.
+    // 'click [data-feedback]': function(event, template) {
+    //     event.preventDefault();
+    //     var $intercom = $('#intercom-launcher');
+    //     if ($intercom.length > 0) {
+    //         if(Intercom) {
+    //             Intercom('showNewMessage');
+    //         }
+    //     } else {
+    //         window.location.href = 'mailto:' + TAPi18n.__('footer-feedback-button-mailto') + '?subject=' + TAPi18n.__('footer-feedback-button-mailto-subject');
+    //     }
+    // }
 });
 
 Template.DropdownMenu.helpers({
