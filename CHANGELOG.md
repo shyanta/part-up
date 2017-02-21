@@ -1,3 +1,13 @@
+<a name="2.6.2"></a>
+## [2.6.2](https://github.com/part-up/part-up/compare/2.6.1...2.6.2) (2017-02-20)
+
+
+### Bug Fixes
+
+* **network:** when a user is not loggedin and a tribe page is opened, the partup language will change to the tribe language ([88396c4](https://github.com/part-up/part-up/commit/88396c4))
+
+
+
 <a name="2.6.1"></a>
 ## [2.6.1](https://github.com/part-up/part-up/compare/2.6.0...2.6.1) (2017-02-15)
 
