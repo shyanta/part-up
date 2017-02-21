@@ -128,6 +128,11 @@ Partup.client.strings = {
                 : `<a href="${href}" title="${title}">${text}</a>`;
         };
 
+        renderer.list = function(body, ordered) {
+            var tag = ordered ? 'ol' : 'ul';
+            return `<${tag} class="pu-list-comment">${body}</${tag}>` + '\n';
+        };
+
         return Partup.helpers.mentions.decode(
             partupAutolinker(
                 marked(
