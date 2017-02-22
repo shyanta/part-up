@@ -6,9 +6,9 @@ ServiceConfiguration.configurations.upsert({
     service: 'facebook'
 }, {
     $set: {
-        appId: process.env['FACEBOOK_APP_ID'],
+        appId: process.env.FACEBOOK_APP_ID,
         loginStyle: 'popup',
-        secret: process.env['FACEBOOK_APP_SECRET']
+        secret: process.env.FACEBOOK_APP_SECRET
     }
 });
 
@@ -16,9 +16,9 @@ ServiceConfiguration.configurations.upsert({
     service: 'linkedin'
 }, {
     $set: {
-        clientId: process.env['LINKEDIN_API_KEY'],
+        clientId: process.env.LINKEDIN_API_KEY,
         loginStyle: 'popup',
-        secret: process.env['LINKEDIN_SECRET_KEY']
+        secret: process.env.LINKEDIN_SECRET_KEY
     }
 });
 
