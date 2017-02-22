@@ -45,6 +45,8 @@ Meteor.startup(function() {
     // Content allows
     BrowserPolicy.content.allowEval();
     BrowserPolicy.content.allowOriginForAll('*');
+    BrowserPolicy.content.allowConnectOrigin("ws://localhost:*");
+    BrowserPolicy.content.allowConnectOrigin("wss://*");
 
     // Disallow being framed by other sites
     BrowserPolicy.framing.disallow();
