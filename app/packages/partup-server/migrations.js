@@ -1,3 +1,7 @@
+Migrations.config({
+    logger: LogFunc
+});
+
 Migrations.add({
     version: 1,
     name: 'Copy all inserted user and partup tags to Tags collection.',
@@ -30,8 +34,8 @@ Migrations.add({
         // Now insert all collected tags into the database
         uniqueTags.forEach(function(tag) {
             var trimmedTag = tag.trim(); // Some tags had leading or trailing spaces
-            if (!Tags.findOne({_id: trimmedTag})) {
-                Tags.insert({_id: trimmedTag});
+            if (!Tags.findOne({ _id: trimmedTag })) {
+                Tags.insert({ _id: trimmedTag });
             }
         });
 
@@ -62,23 +66,22 @@ Migrations.add({
             }
         });
     },
-    down: function() {
-    }
+    down: function() {}
 });
 
 Migrations.add({
     version: 3,
     name: 'Add a slug to the existing Partups',
     up: function() {
-        var partups = Partups.find({slug: {$exists: false}});
+        var partups = Partups.find({ slug: { $exists: false } });
 
         partups.forEach(function(partup) {
             var slug = Partup.server.services.slugify.slugifyDocument(partup, 'name');
-            Partups.update({_id:partup._id}, {$set: {slug: slug}});
+            Partups.update({ _id: partup._id }, { $set: { slug: slug } });
         });
     },
     down: function() {
-        Partups.update({slug: {$exists: true}}, {$unset: {slug: ''}}, {multi: true});
+        Partups.update({ slug: { $exists: true } }, { $unset: { slug: '' } }, { multi: true });
     }
 });
 
@@ -86,15 +89,15 @@ Migrations.add({
     version: 4,
     name: 'Add a slug to the existing Networks',
     up: function() {
-        var networks = Networks.find({slug: {$exists: false}});
+        var networks = Networks.find({ slug: { $exists: false } });
 
         networks.forEach(function(network) {
             var slug = Partup.server.services.slugify.slugify(network.name);
-            Networks.update({_id:network._id}, {$set: {slug: slug}});
+            Networks.update({ _id: network._id }, { $set: { slug: slug } });
         });
     },
     down: function() {
-        Networks.update({slug: {$exists: true}}, {$unset: {slug: ''}}, {multi: true});
+        Networks.update({ slug: { $exists: true } }, { $unset: { slug: '' } }, { multi: true });
     }
 });
 
@@ -125,7 +128,7 @@ Migrations.add({
                 delete user.profile.linkedin_id;
             }
 
-            Meteor.users.update({_id: user._id}, {$set: {'profile': user.profile}});
+            Meteor.users.update({ _id: user._id }, { $set: { 'profile': user.profile } });
         });
     },
     down: function() {
@@ -148,7 +151,7 @@ Migrations.add({
                 delete user.profile.linkedin_url;
             }
 
-            Meteor.users.update({_id: user._id}, {$set: {'profile': user.profile}});
+            Meteor.users.update({ _id: user._id }, { $set: { 'profile': user.profile } });
         });
     }
 });
@@ -159,13 +162,13 @@ Migrations.add({
     up: function() {
         // TODO: Smarter way to do this, most likely not everyone
         // needs a Part-up participation score calculation
-        Meteor.users.find({participation_score: {$exists: false}}).forEach(function(user) {
+        Meteor.users.find({ participation_score: { $exists: false } }).forEach(function(user) {
             var score = Partup.server.services.participation_calculator.calculateParticipationScoreForUpper(user._id);
-            Meteor.users.update(user._id, {$set: {participation_score: score}});
+            Meteor.users.update(user._id, { $set: { participation_score: score } });
         });
     },
     down: function() {
-        Meteor.users.update({participation_score: {$exists: true}}, {$unset: {participation_score: ''}}, {multi: true});
+        Meteor.users.update({ participation_score: { $exists: true } }, { $unset: { participation_score: '' } }, { multi: true });
     }
 });
 
@@ -175,13 +178,13 @@ Migrations.add({
     up: function() {
         // TODO: Smarter way to do this, most likely not all
         // partups need a progress score calculation
-        Partups.find({progress: {$exists: false}}).forEach(function(partup) {
+        Partups.find({ progress: { $exists: false } }).forEach(function(partup) {
             var score = Partup.server.services.partup_progress_calculator.calculatePartupProgressScore(partup._id);
-            Partups.update(partup._id, {'$set': {progress: score}});
+            Partups.update(partup._id, { '$set': { progress: score } });
         });
     },
     down: function() {
-        Partups.update({progress: {$exists: true}}, {$unset: {progress: ''}}, {multi: true});
+        Partups.update({ progress: { $exists: true } }, { $unset: { progress: '' } }, { multi: true });
     }
 });
 
@@ -207,9 +210,9 @@ Migrations.add({
             arrayLists.forEach(function(arrayList) {
                 if (user[arrayList]) {
                     var uniqueValues = lodash.unique(user[arrayList]);
-                    var setModifier = {$set: {}};
+                    var setModifier = { $set: {} };
                     setModifier.$set[arrayList] = uniqueValues;
-                    Meteor.users.update({_id: user._id}, setModifier);
+                    Meteor.users.update({ _id: user._id }, setModifier);
                 }
             });
         });
@@ -220,9 +223,9 @@ Migrations.add({
             arrayLists.forEach(function(arrayList) {
                 if (partup[arrayList]) {
                     var uniqueValues = lodash.unique(partup[arrayList]);
-                    var setModifier = {$set: {}};
+                    var setModifier = { $set: {} };
                     setModifier.$set[arrayList] = uniqueValues;
-                    Partups.update({_id: partup._id}, setModifier);
+                    Partups.update({ _id: partup._id }, setModifier);
                 }
             });
         });
@@ -232,9 +235,9 @@ Migrations.add({
             arrayLists.forEach(function(arrayList) {
                 if (network[arrayList]) {
                     var uniqueValues = lodash.unique(network[arrayList]);
-                    var setModifier = {$set: {}};
+                    var setModifier = { $set: {} };
                     setModifier.$set[arrayList] = uniqueValues;
-                    Networks.update({_id: network._id}, setModifier);
+                    Networks.update({ _id: network._id }, setModifier);
                 }
             });
         });
@@ -253,7 +256,7 @@ Migrations.add({
                 'flags.dailyDigestEmailHasBeenSent': false,
                 'profile.settings.email.dailydigest': true
             }
-        }, {multi:true});
+        }, { multi: true });
     },
     down: function() {
         //
@@ -268,14 +271,14 @@ Migrations.add({
             if (!partup.language) {
                 var language = Partup.server.services.google.detectLanguage(partup.description);
                 Log.debug('Setting language *' + language + '* for Partup "' + partup.name + '"');
-                Partups.update({_id: partup._id}, {$set: {language: language}});
+                Partups.update({ _id: partup._id }, { $set: { language: language } });
             }
         });
         Networks.find().fetch().forEach(function(network) {
             if (!network.language) {
                 var language = Partup.server.services.google.detectLanguage(network.description);
                 Log.debug('Setting language *' + language + '* for Network "' + network.name + '"');
-                Networks.update({_id: network._id}, {$set: {language: language}});
+                Networks.update({ _id: network._id }, { $set: { language: language } });
             }
         });
     },
@@ -290,7 +293,7 @@ Migrations.add({
     up: function() {
         Meteor.users.find().forEach(function(user) {
             var token = Random.secret();
-            Meteor.users.update(user._id, {$set: {'profile.settings.unsubscribe_email_token': token}});
+            Meteor.users.update(user._id, { $set: { 'profile.settings.unsubscribe_email_token': token } });
         });
     },
     down: function() {
@@ -303,12 +306,14 @@ Migrations.add({
     name: 'Set default email notification setting',
     up: function() {
         Meteor.users.find().forEach(function(user) {
-            Meteor.users.update(user._id, {$set: {
-                'profile.settings.email.upper_mentioned_in_partup': true,
-                'profile.settings.email.invite_upper_to_partup_activity': true,
-                'profile.settings.email.invite_upper_to_network': true,
-                'profile.settings.email.partup_created_in_network': true
-            }});
+            Meteor.users.update(user._id, {
+                $set: {
+                    'profile.settings.email.upper_mentioned_in_partup': true,
+                    'profile.settings.email.invite_upper_to_partup_activity': true,
+                    'profile.settings.email.invite_upper_to_network': true,
+                    'profile.settings.email.partup_created_in_network': true
+                }
+            });
         });
     },
     down: function() {
@@ -321,21 +326,21 @@ Migrations.add({
     name: 'Download profile pictures for facebook and linkedin users',
     up: function() {
         var setRandomUserImage = function(user) {
-            var images = Images.find({'meta.default_profile_picture': true}).fetch();
+            var images = Images.find({ 'meta.default_profile_picture': true }).fetch();
             image = mout.random.choice(images);
-            Meteor.users.update(user._id, {$set:{'profile.image': image._id}});
+            Meteor.users.update(user._id, { $set: { 'profile.image': image._id } });
         };
 
         var downloadAndSetUserImage = function(user, imageUrl) {
             if (!imageUrl) return setRandomUserImage(user);
 
             try {
-                var result = HTTP.get(imageUrl, {'npmRequestOptions': {'encoding': null}});
+                var result = HTTP.get(imageUrl, { 'npmRequestOptions': { 'encoding': null } });
                 var body = new Buffer(result.content, 'binary');
 
                 var image = Partup.server.services.images.upload(user._id + '.jpg', body, 'image/jpeg');
 
-                return Meteor.users.update(user._id, {$set:{'profile.image': image._id}});
+                return Meteor.users.update(user._id, { $set: { 'profile.image': image._id } });
             } catch (error) {
                 console.log(error);
                 setRandomUserImage(user);
@@ -343,18 +348,18 @@ Migrations.add({
         };
 
         // Username + password users
-        Meteor.users.find({'services.password': {$exists: true}}).forEach(function(user) {
+        Meteor.users.find({ 'services.password': { $exists: true } }).forEach(function(user) {
             setRandomUserImage(user);
         });
 
         // Facebook users
-        Meteor.users.find({'services.facebook': {$exists: true}}).forEach(function(user) {
+        Meteor.users.find({ 'services.facebook': { $exists: true } }).forEach(function(user) {
             var url = 'https://graph.facebook.com/' + user.services.facebook.id + '/picture?width=750';
             downloadAndSetUserImage(user, url);
         });
 
         // LinkedIn users
-        Meteor.users.find({'services.linkedin': {$exists: true}}).forEach(function(user) {
+        Meteor.users.find({ 'services.linkedin': { $exists: true } }).forEach(function(user) {
             var url = user.services.linkedin.pictureUrl;
             downloadAndSetUserImage(user, url);
         });
@@ -369,9 +374,9 @@ Migrations.add({
     name: 'Set default partup picture on all partups',
     up: function() {
         Partups.find({}).forEach(function(partup) {
-            var images = Images.find({'meta.default_partup_picture': true}).fetch();
+            var images = Images.find({ 'meta.default_partup_picture': true }).fetch();
             image = mout.random.choice(images);
-            Partups.update(partup._id, {$set:{'image': image._id}});
+            Partups.update(partup._id, { $set: { 'image': image._id } });
         });
     },
     down: function() {
@@ -385,20 +390,20 @@ Migrations.add({
     up: function() {
         // Fix the indices
         Partups._dropIndex('name_text_description_text');
-        Partups._ensureIndex({'name': 'text', 'description': 'text'}, {language_override: 'idioma'});
+        Partups._ensureIndex({ 'name': 'text', 'description': 'text' }, { language_override: 'idioma' });
 
         Partups.find().fetch().forEach(function(partup) {
             if (!partup.language) {
                 var language = Partup.server.services.google.detectLanguage(partup.description);
                 Log.debug('Setting language *' + language + '* for Partup "' + partup.name + '"');
-                Partups.update({_id: partup._id}, {$set: {language: language}});
+                Partups.update({ _id: partup._id }, { $set: { language: language } });
             }
         });
         Networks.find().fetch().forEach(function(network) {
             if (!network.language) {
                 var language = Partup.server.services.google.detectLanguage(network.description);
                 Log.debug('Setting language *' + language + '* for Network "' + network.name + '"');
-                Networks.update({_id: network._id}, {$set: {language: language}});
+                Networks.update({ _id: network._id }, { $set: { language: language } });
             }
         });
     },
@@ -412,10 +417,12 @@ Migrations.add({
     name: 'Set new email notification setting',
     up: function() {
         Meteor.users.find().forEach(function(user) {
-            Meteor.users.update(user._id, {$set: {
-                'profile.settings.email.partups_networks_new_pending_upper': true,
-                'profile.settings.email.partups_networks_accepted': true
-            }});
+            Meteor.users.update(user._id, {
+                $set: {
+                    'profile.settings.email.partups_networks_new_pending_upper': true,
+                    'profile.settings.email.partups_networks_accepted': true
+                }
+            });
         });
     },
     down: function() {
@@ -434,7 +441,7 @@ Migrations.add({
 
             // Creator
             if (notification.type_data.creator) {
-                var creator = Meteor.users.findOne({_id: notification.type_data.creator._id});
+                var creator = Meteor.users.findOne({ _id: notification.type_data.creator._id });
                 if (creator) {
                     set['type_data.creator.image'] = creator.profile.image;
                 }
@@ -442,7 +449,7 @@ Migrations.add({
 
             // Inviter
             if (notification.type_data.inviter) {
-                var inviter = Meteor.users.findOne({_id: notification.type_data.inviter._id});
+                var inviter = Meteor.users.findOne({ _id: notification.type_data.inviter._id });
                 if (inviter) {
                     set['type_data.inviter.image'] = inviter.profile.image;
                 }
@@ -450,7 +457,7 @@ Migrations.add({
 
             // Accepter
             if (notification.type_data.accepter) {
-                var accepter = Meteor.users.findOne({_id: notification.type_data.accepter._id});
+                var accepter = Meteor.users.findOne({ _id: notification.type_data.accepter._id });
                 if (accepter) {
                     set['type_data.accepter.image'] = accepter.profile.image;
                 }
@@ -458,7 +465,7 @@ Migrations.add({
 
             // Rejecter
             if (notification.type_data.rejecter) {
-                var rejecter = Meteor.users.findOne({_id: notification.type_data.rejecter._id});
+                var rejecter = Meteor.users.findOne({ _id: notification.type_data.rejecter._id });
                 if (rejecter) {
                     set['type_data.rejecter.image'] = rejecter.profile.image;
                 }
@@ -466,7 +473,7 @@ Migrations.add({
 
             // Supporter
             if (notification.type_data.supporter) {
-                var supporter = Meteor.users.findOne({_id: notification.type_data.supporter._id});
+                var supporter = Meteor.users.findOne({ _id: notification.type_data.supporter._id });
                 if (supporter) {
                     set['type_data.supporter.image'] = supporter.profile.image;
                 }
@@ -474,7 +481,7 @@ Migrations.add({
 
             // Pending upper
             if (notification.type_data.pending_upper) {
-                var pending_upper = Meteor.users.findOne({_id: notification.type_data.pending_upper._id});
+                var pending_upper = Meteor.users.findOne({ _id: notification.type_data.pending_upper._id });
                 if (pending_upper) {
                     set['type_data.pending_upper.image'] = pending_upper.profile.image;
                 }
@@ -482,7 +489,7 @@ Migrations.add({
 
             // Rater
             if (notification.type_data.rater) {
-                var rater = Meteor.users.findOne({_id: notification.type_data.rater._id});
+                var rater = Meteor.users.findOne({ _id: notification.type_data.rater._id });
                 if (rater) {
                     set['type_data.rater.image'] = rater.profile.image;
                 }
@@ -490,7 +497,7 @@ Migrations.add({
 
             // Commenter
             if (notification.type_data.commenter) {
-                var commenter = Meteor.users.findOne({_id: notification.type_data.commenter._id});
+                var commenter = Meteor.users.findOne({ _id: notification.type_data.commenter._id });
                 if (commenter) {
                     set['type_data.commenter.image'] = commenter.profile.image;
                 }
@@ -498,7 +505,7 @@ Migrations.add({
 
             // Mentioning upper
             if (notification.type_data.mentioning_upper) {
-                var mentioning_upper = Meteor.users.findOne({_id: notification.type_data.mentioning_upper._id});
+                var mentioning_upper = Meteor.users.findOne({ _id: notification.type_data.mentioning_upper._id });
                 if (mentioning_upper) {
                     set['type_data.mentioning_upper.image'] = mentioning_upper.profile.image;
                 }
@@ -506,7 +513,7 @@ Migrations.add({
 
             // Partup
             if (notification.type_data.partup) {
-                var partup = Partups.findOne({_id: notification.type_data.partup._id});
+                var partup = Partups.findOne({ _id: notification.type_data.partup._id });
                 if (partup) {
                     set['type_data.partup.image'] = partup.image;
                 }
@@ -514,14 +521,14 @@ Migrations.add({
 
             // Network
             if (notification.type_data.network) {
-                var network = Networks.findOne({_id: notification.type_data.network._id});
+                var network = Networks.findOne({ _id: notification.type_data.network._id });
                 if (network) {
                     set['type_data.network.image'] = network.image;
                 }
             }
 
             if (Object.keys(set).length > 0) {
-                Notifications.update(notification._id, {$set: set});
+                Notifications.update(notification._id, { $set: set });
             }
 
         });
@@ -536,9 +543,11 @@ Migrations.add({
     name: 'Set a normalized name for each user to also show accented names in search query',
     up: function() {
         Meteor.users.find().forEach(function(user) {
-            Meteor.users.update(user._id, {$set: {
-                'profile.normalized_name': Partup.helpers.normalize(user.profile.name)
-            }});
+            Meteor.users.update(user._id, {
+                $set: {
+                    'profile.normalized_name': Partup.helpers.normalize(user.profile.name)
+                }
+            });
         });
     },
     down: function() {
@@ -568,35 +577,44 @@ Migrations.add({
     up: function() {
         Partups.find({}).forEach(function(partup) {
             if (partup.budget_type && partup.budget_type === 'money') {
-                Partups.update({_id: partup._id}, {$set: {
-                    type: Partups.TYPE.COMMERCIAL,
-                    type_commercial_budget: partup.budget_money,
-                    type_organization_budget: null
-                }, $unset: {
-                    budget_type: '',
-                    budget_money: '',
-                    budget_hours: ''
-                }});
+                Partups.update({ _id: partup._id }, {
+                    $set: {
+                        type: Partups.TYPE.COMMERCIAL,
+                        type_commercial_budget: partup.budget_money,
+                        type_organization_budget: null
+                    },
+                    $unset: {
+                        budget_type: '',
+                        budget_money: '',
+                        budget_hours: ''
+                    }
+                });
             } else if (partup.budget_type && partup.budget_type === 'hours') {
-                Partups.update({_id: partup._id}, {$set: {
-                    type: Partups.TYPE.ORGANIZATION,
-                    type_commercial_budget: null,
-                    type_organization_budget: partup.budget_hours
-                }, $unset: {
-                    budget_type: '',
-                    budget_money: '',
-                    budget_hours: ''
-                }});
+                Partups.update({ _id: partup._id }, {
+                    $set: {
+                        type: Partups.TYPE.ORGANIZATION,
+                        type_commercial_budget: null,
+                        type_organization_budget: partup.budget_hours
+                    },
+                    $unset: {
+                        budget_type: '',
+                        budget_money: '',
+                        budget_hours: ''
+                    }
+                });
             } else if (partup.budget_type === null) {
-                Partups.update({_id: partup._id}, {$set: {
-                    type: Partups.TYPE.CHARITY,
-                    type_commercial_budget: null,
-                    type_organization_budget: null
-                }, $unset: {
-                    budget_type: '',
-                    budget_money: '',
-                    budget_hours: ''
-                }});
+                Partups.update({ _id: partup._id }, {
+                    $set: {
+                        type: Partups.TYPE.CHARITY,
+                        type_commercial_budget: null,
+                        type_organization_budget: null
+                    },
+                    $unset: {
+                        budget_type: '',
+                        budget_money: '',
+                        budget_hours: ''
+                    }
+                });
             }
         });
     },
@@ -613,7 +631,7 @@ Migrations.add({
             '$set': {
                 'profile.settings.email.invite_upper_to_partup': true
             }
-        }, {multi:true});
+        }, { multi: true });
     },
     down: function() {
         //
@@ -628,7 +646,7 @@ Migrations.add({
             $set: {
                 refreshed_at: new Date()
             }
-        }, {multi:true});
+        }, { multi: true });
     },
     down: function() {
         //
@@ -658,11 +676,11 @@ Migrations.add({
     version: 25,
     name: 'Default all contributions and commercial partups to EUR currency',
     up: function() {
-        Partups.find({type: Partups.TYPE.COMMERCIAL, currency: {$exists: false}}).forEach(function(partup) {
-            Partups.update({_id: partup._id}, {$set: {currency: 'EUR'}});
+        Partups.find({ type: Partups.TYPE.COMMERCIAL, currency: { $exists: false } }).forEach(function(partup) {
+            Partups.update({ _id: partup._id }, { $set: { currency: 'EUR' } });
         });
-        Contributions.find({rate: {$ne: null}}, {currency: {$exists: false}}).forEach(function(contribution) {
-            Contributions.update({_id: contribution._id}, {$set: {currency: 'EUR'}});
+        Contributions.find({ rate: { $ne: null } }, { currency: { $exists: false } }).forEach(function(contribution) {
+            Contributions.update({ _id: contribution._id }, { $set: { currency: 'EUR' } });
         });
     },
     down: function() {
@@ -695,7 +713,7 @@ Migrations.add({
             if (!tiles) return;
 
             // Update user
-            Meteor.users.update(user._id, {$unset: {tiles: ''}, $set: {'profile.tiles': tiles}});
+            Meteor.users.update(user._id, { $unset: { tiles: '' }, $set: { 'profile.tiles': tiles } });
         });
     },
     down: function() {
@@ -725,11 +743,13 @@ Migrations.add({
     name: 'Set new email notification setting',
     up: function() {
         Meteor.users.find().forEach(function(user) {
-            Meteor.users.update(user._id, {$set: {
-                'profile.settings.email.partups_new_comment_in_involved_conversation': true,
-                'profile.settings.email.partups_networks_new_upper': true,
-                'profile.settings.email.partups_networks_upper_left': true
-            }});
+            Meteor.users.update(user._id, {
+                $set: {
+                    'profile.settings.email.partups_new_comment_in_involved_conversation': true,
+                    'profile.settings.email.partups_networks_new_upper': true,
+                    'profile.settings.email.partups_networks_upper_left': true
+                }
+            });
         });
     },
     down: function() {
@@ -796,8 +816,8 @@ Migrations.add({
             }
         }).forEach(function(network) {
             var chatId = Chats.insert({
-                'created_at' : new Date(),
-                'updated_at' : new Date(),
+                'created_at': new Date(),
+                'updated_at': new Date(),
                 started_typing: [],
                 counter: network.uppers.map(function(userId) {
                     return {
@@ -826,9 +846,11 @@ Migrations.add({
     name: 'Add network mentions to default email notification setting',
     up: function() {
         Meteor.users.find().forEach(function(user) {
-            Meteor.users.update(user._id, {$set: {
-                'profile.settings.email.upper_mentioned_in_network_chat': true
-            }});
+            Meteor.users.update(user._id, {
+                $set: {
+                    'profile.settings.email.upper_mentioned_in_network_chat': true
+                }
+            });
         });
     },
     down: function() {
@@ -841,9 +863,11 @@ Migrations.add({
     name: 'Add new email notification setting',
     up: function() {
         Meteor.users.find().forEach(function(user) {
-            Meteor.users.update(user._id, {$set: {
-                'profile.settings.email.partups_partner_request': true
-            }});
+            Meteor.users.update(user._id, {
+                $set: {
+                    'profile.settings.email.partups_partner_request': true
+                }
+            });
         });
     },
     down: function() {
@@ -883,7 +907,7 @@ Migrations.add({
     name: 'Set partup_names property on all networks',
     up: function() {
         Networks.find().fetch().forEach(function(network) {
-            var partupNames = Partups.find({network_id: network._id, deleted_at: {$exists: false}, archived_at: {$exists: false}}, {_id: 1, name: 1}).map(function(partup) {
+            var partupNames = Partups.find({ network_id: network._id, deleted_at: { $exists: false }, archived_at: { $exists: false } }, { _id: 1, name: 1 }).map(function(partup) {
                 return {
                     _id: partup._id,
                     name: partup.name
@@ -910,7 +934,7 @@ Migrations.add({
             var invited_partners = lodash.intersection(partup.invites, partup.uppers);
             if (invited_partners.length > 0) {
                 Log.debug('Partner IDs found in invite list in partup ' + partup.name);
-                Partups.update(partup._id, {$pull: {invites: {$in: invited_partners}}});
+                Partups.update(partup._id, { $pull: { invites: { $in: invited_partners } } });
             }
         });
     },
@@ -924,7 +948,7 @@ Migrations.add({
     name: 'Remove partup invites for uppers that are already partner or supporter',
     up: function() {
         Partups.find().fetch().forEach(function(partup) {
-            Invites.remove({partup_id: partup._id, invitee_id: {$in: partup.uppers.concat(partup.supporters)}});
+            Invites.remove({ partup_id: partup._id, invitee_id: { $in: partup.uppers.concat(partup.supporters) } });
 
         });
     },
@@ -957,16 +981,16 @@ Migrations.add({
             // Put all existing activities in Backlog
             board = Boards.findOneOrFail(boardId);
             var backlogLaneId = board.lanes[0];
-            var activityIds = Activities.find({partup_id: partup._id}, {_id: 1}).map(function(activity) {
+            var activityIds = Activities.find({ partup_id: partup._id }, { _id: 1 }).map(function(activity) {
                 return activity._id;
             });
 
             // Set Backlog lane ID to activities
-            Activities.update({_id: {$in: activityIds}}, {$set: {lane_id: backlogLaneId}}, {multi: true});
+            Activities.update({ _id: { $in: activityIds } }, { $set: { lane_id: backlogLaneId } }, { multi: true });
             // Set activities in lane
-            Lanes.update(backlogLaneId, {$set: {activities: activityIds}});
+            Lanes.update(backlogLaneId, { $set: { activities: activityIds } });
             // And lastly, connect board to partup and set the default view mode to false (classic view)
-            Partups.update(partup._id, {$set: {board_id: boardId, board_view: false}});
+            Partups.update(partup._id, { $set: { board_id: boardId, board_view: false } });
 
         });
     },

@@ -24,10 +24,7 @@ ServiceConfiguration.configurations.upsert({
 
 Router.route('/ping', function() {
     this.response.end('partupok');
-}, {where: 'server'});
-
-// Kick off the cronjobs
-SyncedCron.start();
+}, { where: 'server' });
 
 // Configure AWS
 AWS.config.accessKeyId = process.env.AWS_ACCESS_KEY_ID;
@@ -41,6 +38,13 @@ if (!process.env.EVENT_ENDPOINT_URL && !process.env.EVENT_ENDPOINT_AUTHORIZATION
 
 // Browser Policy
 Meteor.startup(function() {
+
+    // Kick off the cronjobs
+    SyncedCron.config({
+        logger: LogFunc,
+        utc: true
+    });
+    SyncedCron.start();
 
     // Content allows
     BrowserPolicy.content.allowEval();
@@ -67,4 +71,6 @@ Meteor.startup(function() {
         res.setHeader('X-XSS-Protection', '1; mode=block');
         next();
     });
+
+
 });

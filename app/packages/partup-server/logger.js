@@ -1,20 +1,36 @@
 var winston = Npm.require('winston');
 
-var transports = [];
+var options = {};
+
+if (process.env.NODE_ENV === 'development') {
+    options.prettyPrint = true;
+    options.colorize = true;
+    options.debugStdout = true;
+} else {
+    options.json = false;
+}
 
 if (process.env.NODE_ENV.match(/development|staging|acceptance/)) {
-    transports.push(new (winston.transports.Console)({level: 'debug', prettyPrint: true, colorize: true, debugStdout: true}));
+    options.level = 'debug';
 }
 
 if (process.env.NODE_ENV === 'production') {
-    transports.push(new (winston.transports.Console)({level: 'warn'}));
+    options.level = 'warn';
 }
 
-Log = new (winston.Logger)({transports: transports});
+Log = new(winston.Logger)({ transports: [new(winston.transports.Console)(options)] });
 
 Debug = function(namespace) {
     var debug = Npm.require('debug')('partup:' + namespace);
     debug.log = console.info.bind(console);
     debug.useColors = true;
     return debug;
+};
+
+LogFunc = function(opts) {
+    message = opts.message;
+    if (opts.tag) {
+        message = opts.tag + ": " + message;
+    }
+    Log.log(opts.level, message);
 };
