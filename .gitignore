@@ -4,8 +4,9 @@ docker-compose.yml~
 # NPM
 app/packages/*/.npm
 
-# JetBrains Editors
+# Editors
 .idea/
+.vscode/
 
 # Generated Docs
 docs/jsdocs
