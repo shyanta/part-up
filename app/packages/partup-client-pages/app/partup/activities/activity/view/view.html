@@ -109,10 +109,14 @@
                     {{# if showInviteButton }}
                         <p class="pu-sub-contribute">
                             {{# if showContributeButton }}
-                                <button href="#" class="pu-button" data-contribute>Doe mee</button>
+                                <button href="#" class="pu-button" data-contribute>
+                                    {{_ 'activity-contribute'}}
+                                </button>
                                 <!-- <span class="pu-sub-or">{{_ 'activity-or'}}</span> -->
                             {{/ if }}
-                            <button href="#" class="pu-button" data-invite>Uitnodigen</button>
+                            <button href="#" class="pu-button" data-invite>
+                                {{_ 'activity-invite'}}
+                            </button>
                         </p>
                     {{/ if }}
                     {{/if}}{{/unless}}{{/unless}}
