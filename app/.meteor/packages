@@ -117,7 +117,6 @@ service-configuration
 session
 simple:rest
 spacebars
-standard-minifiers
 stevezhu:lodash@3.10.1
 tap:i18n
 tmeasday:publish-counts@0.7.1
@@ -130,3 +129,5 @@ partup-client-tabview
 partup-client-network-settings-partups
 partup-client-admin-sectors
 partup-client-boardview
+standard-minifier-css
+standard-minifier-js
