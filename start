@@ -77,7 +77,9 @@ start() {
       export MIGRATE=latest
     fi
     cd "$APP"
-    echo "Starting your app in $NODE_ENV."
+    echo "Running npm install..."
+    meteor npm install
+    echo "Starting your app in $NODE_ENV..."
     local CMD="$METEOR --settings ../$settings_file"
     echo "$CMD"
     eval $CMD
