@@ -28,6 +28,7 @@ Meteor.methods({
                 var board = Boards.findOneOrFail(partup.board_id);
                 var backlogLane = Lanes.findOneOrFail(board.lanes[0]);
                 backlogLane.addActivity(activity._id);
+                Activities.update(activity._id, {$set: {lane_id: backlogLane._id}});
             }
 
             // Update the activity count of the Partup

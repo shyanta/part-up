@@ -23,9 +23,10 @@ Lane.prototype.addActivity = function(activityId) {
  */
 Lane.prototype.removeActivity = function(activityId) {
     var activities = this.activities || [];
+
     var activityIndex = activities.indexOf(activityId);
     if (activityIndex > -1) {
-        activities = activities.splice(activityIndex, 1);
+        activities.splice(activityIndex, 1);
     }
 
     // Store the updated activities
