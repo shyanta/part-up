@@ -22,15 +22,7 @@ Lane.prototype.addActivity = function(activityId) {
  * @memberOf Lanes
  */
 Lane.prototype.removeActivity = function(activityId) {
-    var activities = this.activities || [];
-
-    var activityIndex = activities.indexOf(activityId);
-    if (activityIndex > -1) {
-        activities.splice(activityIndex, 1);
-    }
-
-    // Store the updated activities
-    Lanes.update(this._id, {$set: {activities: activities}});
+    Lanes.update(this._id, {$pull: {activities: activityId}});
 };
 
 /**
