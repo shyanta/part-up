@@ -48,5 +48,9 @@ Template.modal_create.events({
                 Router.go('partup', {slug: partup.slug});
                 break;
         }
-    }
+    },
+    'click [data-closepage]': function(event, template) {
+        event.preventDefault();
+        Router.go('network', {slug:template.data.networkSlug}, {query: {show:false}});
+    }        
 });

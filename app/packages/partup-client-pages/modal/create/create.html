@@ -1,7 +1,14 @@
 <template name="modal_create">
 
     {{#if networkLoaded }}
+        
         <nav class="pu-header pu-header-modal pu-header-progress">
+        
+            <a class="pu-button pu-button-header pu-button-header-modal" data-closepage href="#">
+                <i class="picon-times"></i>
+                {{_ 'modal-profilesettings-close-button'}}
+            </a>
+
             <ul class="pu-list pu-list-horizontal pu-progresspager">
                 <li class="pu-progresspager__item{{#if isActiveRoute regex='create-details$'}} pu-progresspager__item--is-active{{/if}}">
                     {{#if partupId}}
