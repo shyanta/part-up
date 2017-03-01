@@ -998,3 +998,51 @@ Migrations.add({
         //
     }
 });
+
+Migrations.add({
+    version: 40,
+    name: 'Correct the lanes that contain wrong activities',
+    up: function() {
+        Activities.find().fetch().forEach(function(activity) {
+            // Set the Backlog lane if there is no lane attached
+            if (!activity.lane_id) {
+                var partup = Partups.findOne(activity.partup_id);
+                if (!partup) return;
+                var board = Boards.findOneOrFail(partup.board_id);
+                Activities.update({_id: activity._id}, {$set: {lane_id: board.lanes[0]}});
+
+                // Only add to the lane if its not removed
+                if (!activity.isRemoved()) Lanes.update({_id: board.lanes[0]}, {$addToSet: {activities: activity._id}});
+
+                // That's enough for this activity
+                return;
+            }
+
+            // No further actions needed for removed activities
+            if (activity.isRemoved()) return;
+
+            // Get lane from activity
+            var lane = Lanes.findOneOrFail(activity.lane_id);
+            // Check if activity exists in lane
+            if (lane.activities.indexOf(activity._id) > -1) return;
+
+            // At this point, the lane is not in sync with the activity. We need to get to work...
+            // Get all activities the lane holds
+            var laneActivities = lane.activities || [];
+            // If the containing activities are actually marked as deleted, remove from lane
+            laneActivities.forEach(function(activityId) {
+                var laneActivity = Activities.findOneOrFail(activityId);
+                if (laneActivity.isRemoved()) lane.removeActivity(laneActivity._id);
+            });
+            // No more deleted activities in this lane. Add current activity to lane
+            lane.addActivity(activity._id);
+        });
+    },
+    down: function() {
+        //
+    }
+});
+
+Meteor.startup(function() {
+    Migrations.migrateTo(40);
+});
