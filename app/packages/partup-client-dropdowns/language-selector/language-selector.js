@@ -4,7 +4,7 @@ Template.DropdownLanguageSelector.onCreated(function() {
 });
 Template.DropdownLanguageSelector.onRendered(function() {
     var template = this;
-    ClientDropdowns.addOutsideDropdownClickHandler(template, '[data-clickoutside-close]', '[data-toggle-menu=menu]', function() {ClientDropdowns.partupNavigationSubmenuActive.set(false);});
+    ClientDropdowns.addOutsideDropdownClickHandler(template, '[data-toggle-menu=menu]', function() {ClientDropdowns.partupNavigationSubmenuActive.set(false);});
     Router.onBeforeAction(function(req, res, next) {
         template.dropdownOpen.set(false);
         next();
