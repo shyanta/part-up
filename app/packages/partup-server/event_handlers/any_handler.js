@@ -10,17 +10,14 @@ Event.onAny(function() {
         Log.debug('Event fired: '.white + this.event.magenta, arguments);
     }
 
-    if (process.env.EVENT_ENDPOINT_URL && process.env.EVENT_ENDPOINT_AUTHORIZATION) {
+    if (Api.available) {
         var data = {
             'timestamp': new Date().toISOString(),
             'eventname': this.event,
             'payload': arguments
         };
-        HTTP.call('POST', process.env.EVENT_ENDPOINT_URL, {
+        Api.post('events', {
             data: data,
-            headers: {
-                'Authorization': 'Bearer ' + process.env.EVENT_ENDPOINT_AUTHORIZATION
-            },
             npmRequestOptions: {
                 rejectUnauthorized: false
             }
@@ -33,8 +30,5 @@ Event.onAny(function() {
                 //silently ignore success of posting to eventstore
             }
         });
-    } else {
-        //Log.debug('Event store endpoint is not configured.');
     }
 });
-

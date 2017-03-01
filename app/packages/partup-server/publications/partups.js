@@ -10,7 +10,7 @@
  * @param {number} parameters.skip
  * @param {string} parameters.language
  */
-Meteor.routeComposite('/partups/discover', function (request, parameters) {
+Meteor.routeComposite('/partups/discover', function(request, parameters) {
     check(parameters.query, {
         networkId: Match.Optional(String),
         locationId: Match.Optional(String),
@@ -38,54 +38,32 @@ Meteor.routeComposite('/partups/discover', function (request, parameters) {
     if (parameters.skip) options.skip = parseInt(parameters.skip);
 
     return {
-        find: function () {
+        find: function() {
             return Partups.findForDiscover(this.userId, options, parameters);
         },
         children: [
-            {find: Images.findForPartup},
+            { find: Images.findForPartup },
             {
-                find: Meteor.users.findUppersForPartup, children: [
-                {find: Images.findForUser}
-            ]
+                find: Meteor.users.findUppersForPartup,
+                children: [
+                    { find: Images.findForUser }
+                ]
             },
             {
-                find: function (partup) {
+                find: function(partup) {
                     return Networks.findForPartup(partup, this.userId);
-                }, children: [
-                {find: Images.findForNetwork}
-            ]
+                },
+                children: [
+                    { find: Images.findForNetwork }
+                ]
             }
         ]
     };
 });
 
-
-/**
- * Publish multiple partups for recommendations
- */
-
-function getRecommendedIds(encryptionKey, apiRoot) {
-    var url = Npm.require('url');
-    var recommendationApiUrl = url.resolve(apiRoot, '/partups/recommended/for/user/' + encryptionKey);
-    var result = HTTP.get(recommendationApiUrl, {});
-    return result.data.partUpIds;
-}
-
-function createEncryptionKey(userId, apiKey) {
-    var crypto = Npm.require('crypto');
-    var hash = crypto.createHash('md5');
-    hash.update(apiKey);
-    var key = hash.digest('hex');
-    var cipher = crypto.createCipheriv('aes-128-ecb', new Buffer(key, 'hex'), new Buffer(0));
-    var encrypted = cipher.update(userId, 'utf-8', 'base64') + cipher.final('base64');
-    return encrypted.replace(/\+/g, '-').replace(/\//g, '_');
-}
-
-Meteor.routeComposite('/partups/recommendations', function (request, parameters) {
+Meteor.routeComposite('/partups/recommendations', function(request, parameters) {
 
     var userId = parameters.query.userId;
-    var apiKey = process.env.EVENT_ENDPOINT_AUTHORIZATION;
-    var apiRoot = process.env.API_ROOT_URL;
     var partupIds = [];
     var encryptedUpperId;
 
@@ -103,33 +81,33 @@ Meteor.routeComposite('/partups/recommendations', function (request, parameters)
         ]
     };
 
-    if(!apiRoot || !apiKey) {
-        console.log('WARNING: API_ROOT_URL or EVENT_ENDPOINT_AUTHORIZATION not set. ' +
-            'For now returning dummy local recommendation "partupIds"');
-
+    if (!Api.available) {
+        console.log('WARNING: Api connection not available. For now returning dummy local recommendations');
         partupIds = dummyLocalData.partupIds;
     } else {
-        encryptedUpperId = createEncryptionKey(userId, apiKey);
-        partupIds = getRecommendedIds(encryptedUpperId, apiRoot);
+        var result = Api.get('/partups/recommended/for/user/' + userId);
+        partupIds = result.data.partUpIds;
     }
 
     return {
-        find: function () {
-            return Partups.guardedFind(this.userId, {_id: {$in: partupIds}});
+        find: function() {
+            return Partups.guardedFind(this.userId, { _id: { $in: partupIds } });
         },
         children: [
-            {find: Images.findForPartup},
+            { find: Images.findForPartup },
             {
-                find: Meteor.users.findUppersForPartup, children: [
-                {find: Images.findForUser}
-            ]
+                find: Meteor.users.findUppersForPartup,
+                children: [
+                    { find: Images.findForUser }
+                ]
             },
             {
-                find: function (partup) {
+                find: function(partup) {
                     return Networks.findForPartup(partup, this.userId);
-                }, children: [
-                {find: Images.findForNetwork}
-            ]
+                },
+                children: [
+                    { find: Images.findForNetwork }
+                ]
             }
         ]
     };
@@ -142,7 +120,7 @@ Meteor.routeComposite('/partups/recommendations', function (request, parameters)
  *
  * @param {[String]} partupIds
  */
-Meteor.publishComposite('partups.by_ids', function (partupIds) {
+Meteor.publishComposite('partups.by_ids', function(partupIds) {
     if (_.isString(partupIds)) partupIds = _.uniq(partupIds.split(','));
 
     check(partupIds, [String]);
@@ -150,33 +128,35 @@ Meteor.publishComposite('partups.by_ids', function (partupIds) {
     if (this.unblock) this.unblock();
 
     return {
-        find: function () {
-            return Partups.guardedFind(this.userId, {_id: {$in: partupIds}});
+        find: function() {
+            return Partups.guardedFind(this.userId, { _id: { $in: partupIds } });
         },
         children: [
-            {find: Images.findForPartup},
+            { find: Images.findForPartup },
             {
-                find: Meteor.users.findUppersForPartup, children: [
-                {find: Images.findForUser}
-            ]
+                find: Meteor.users.findUppersForPartup,
+                children: [
+                    { find: Images.findForUser }
+                ]
             },
             {
-                find: function (partup) {
+                find: function(partup) {
                     return Networks.findForPartup(partup, this.userId);
-                }, children: [
-                {find: Images.findForNetwork}
-            ]
+                },
+                children: [
+                    { find: Images.findForNetwork }
+                ]
             }
         ]
     };
-}, {url: 'partups/by_ids/:0'});
+}, { url: 'partups/by_ids/:0' });
 
 /**
  * Publish multiple partups by ids
  *
  * @param {[String]} networkSlug
  */
-Meteor.publishComposite('partups.by_network_id', function (networkId, options) {
+Meteor.publishComposite('partups.by_network_id', function(networkId, options) {
     check(networkId, String);
 
     var parameters = {};
@@ -185,22 +165,24 @@ Meteor.publishComposite('partups.by_network_id', function (networkId, options) {
     if (this.unblock) this.unblock();
 
     return {
-        find: function () {
-            return Partups.guardedFind(this.userId, {network_id: networkId}, parameters);
+        find: function() {
+            return Partups.guardedFind(this.userId, { network_id: networkId }, parameters);
         },
         children: [
-            {find: Images.findForPartup},
+            { find: Images.findForPartup },
             {
-                find: Meteor.users.findUppersForPartup, children: [
-                {find: Images.findForUser}
-            ]
+                find: Meteor.users.findUppersForPartup,
+                children: [
+                    { find: Images.findForUser }
+                ]
             },
             {
-                find: function (partup) {
+                find: function(partup) {
                     return Networks.findForPartup(partup, this.userId);
-                }, children: [
-                {find: Images.findForNetwork}
-            ]
+                },
+                children: [
+                    { find: Images.findForNetwork }
+                ]
             }
         ]
     };
@@ -209,39 +191,41 @@ Meteor.publishComposite('partups.by_network_id', function (networkId, options) {
 /**
  * Publish a list of partups
  */
-Meteor.publish('partups.list', function () {
+Meteor.publish('partups.list', function() {
     this.unblock();
 
-    return Partups.guardedFind(this.userId, {}, {_id: 1, name: 1});
+    return Partups.guardedFind(this.userId, {}, { _id: 1, name: 1 });
 });
 
 /**
  * Publish partups for the homepage
  */
-Meteor.publishComposite('partups.home', function (language) {
+Meteor.publishComposite('partups.home', function(language) {
     if (this.unblock) this.unblock();
 
     return {
-        find: function () {
-            return Partups.findForDiscover(this.userId, {limit: 4}, {sort: 'popular'});
+        find: function() {
+            return Partups.findForDiscover(this.userId, { limit: 4 }, { sort: 'popular' });
         },
         children: [
-            {find: Images.findForPartup},
+            { find: Images.findForPartup },
             {
-                find: Meteor.users.findUppersForPartup, children: [
-                {find: Images.findForUser}
-            ]
+                find: Meteor.users.findUppersForPartup,
+                children: [
+                    { find: Images.findForUser }
+                ]
             },
             {
-                find: function (partup) {
+                find: function(partup) {
                     return Networks.findForPartup(partup, this.userId);
-                }, children: [
-                {find: Images.findForNetwork}
-            ]
+                },
+                children: [
+                    { find: Images.findForNetwork }
+                ]
             }
         ]
     };
-}, {url: 'partups/home/:0'});
+}, { url: 'partups/home/:0' });
 
 /**
  * Publish a single partup
@@ -249,42 +233,43 @@ Meteor.publishComposite('partups.home', function (language) {
  * @param {String} partupId
  * @param {String} accessToken
  */
-Meteor.publishComposite('partups.one', function (partupId, accessToken) {
+Meteor.publishComposite('partups.one', function(partupId, accessToken) {
     check(partupId, String);
     if (accessToken) check(accessToken, String);
 
     this.unblock();
 
     return {
-        find: function () {
-            return Partups.guardedMetaFind({_id: partupId}, {limit: 1});
+        find: function() {
+            return Partups.guardedMetaFind({ _id: partupId }, { limit: 1 });
         },
-        children: [
-            {
-                find: function () {
-                    return Partups.guardedFind(this.userId, {_id: partupId}, {limit: 1}, accessToken);
+        children: [{
+            find: function() {
+                return Partups.guardedFind(this.userId, { _id: partupId }, { limit: 1 }, accessToken);
+            },
+            children: [
+                { find: Images.findForPartup },
+                {
+                    find: function(partup) {
+                        return Networks.findForPartup(partup, this.userId);
+                    },
+                    children: [
+                        { find: Images.findForNetwork }
+                    ]
                 },
-                children: [
-                    {find: Images.findForPartup},
-                    {
-                        find: function (partup) {
-                            return Networks.findForPartup(partup, this.userId);
-                        }, children: [
-                        {find: Images.findForNetwork}
+                {
+                    find: Meteor.users.findUppersForPartup,
+                    children: [
+                        { find: Images.findForUser }
                     ]
-                    },
-                    {
-                        find: Meteor.users.findUppersForPartup, children: [
-                        {find: Images.findForUser}
+                },
+                {
+                    find: Meteor.users.findSupportersForPartup,
+                    children: [
+                        { find: Images.findForUser }
                     ]
-                    },
-                    {
-                        find: Meteor.users.findSupportersForPartup, children: [
-                        {find: Images.findForUser}
-                    ]
-                    }
-                ]
-            }
-        ]
+                }
+            ]
+        }]
     };
 });

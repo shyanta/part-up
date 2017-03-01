@@ -83,10 +83,11 @@ Package.onUse(function(api) {
         'private/templates/seo/network_about.html',
         'private/templates/seo/swarm.html',
         'private/templates/seo/home.html'
-    ], ['server'], {isAsset: true});
+    ], ['server'], { isAsset: true });
 
     api.addFiles([
         'logger.js',
+        'api.js',
         'namespace.js',
         'constants.js',
         'bootstrap.js',
@@ -224,7 +225,7 @@ Package.onUse(function(api) {
         'package-tap.i18n'
     ], ['server']);
 
-    api.export('Log', ['server']);
+    api.export(['Log', 'Api'], 'server');
 });
 
 Npm.depends({
