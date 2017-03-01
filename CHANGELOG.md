@@ -1,3 +1,18 @@
+<a name="2.6.6"></a>
+## [2.6.6](https://github.com/part-up/part-up/compare/2.6.5...2.6.6) (2017-03-01)
+
+
+### Bug Fixes
+
+* Rollback new keys for untranslated buttons, we already had one for that ([1b340b1](https://github.com/part-up/part-up/commit/1b340b1))
+* **boardview:** fixed broken lane update after activity removal, fixing [#907](https://github.com/part-up/part-up/issues/907) ([12d0aed](https://github.com/part-up/part-up/commit/12d0aed))
+* The [data-clickoutside-close] had not sense on this type of dropdown ([#910](https://github.com/part-up/part-up/issues/910)) ([048820c](https://github.com/part-up/part-up/commit/048820c)), closes [#872](https://github.com/part-up/part-up/issues/872)
+* **footer:** change link targets ([#929](https://github.com/part-up/part-up/issues/929)) ([95e9934](https://github.com/part-up/part-up/commit/95e9934))
+* **swarm:** add image for video ([247cb46](https://github.com/part-up/part-up/commit/247cb46))
+* **swarm:** change second video url ([a1591c9](https://github.com/part-up/part-up/commit/a1591c9))
+
+
+
 <a name="2.6.5"></a>
 ## [2.6.5](https://github.com/part-up/part-up/compare/2.6.4...2.6.5) (2017-02-24)
 
