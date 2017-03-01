@@ -1,3 +1,13 @@
+<a name="2.8.0"></a>
+# [2.8.0](https://github.com/part-up/part-up/compare/2.7.0...2.8.0) (2017-03-01)
+
+
+### Features
+
+* **boards:** updated the migration to deal with deleted lanes [#916](https://github.com/part-up/part-up/issues/916) ([940d789](https://github.com/part-up/part-up/commit/940d789))
+
+
+
 <a name="2.7.0"></a>
 # [2.7.0](https://github.com/part-up/part-up/compare/2.6.6...2.7.0) (2017-03-01)
 
