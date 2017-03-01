@@ -1004,11 +1004,14 @@ Migrations.add({
     name: 'Correct the lanes that contain wrong activities',
     up: function() {
         Activities.find().fetch().forEach(function(activity) {
+            var partup = null;
+            var board = null;
+
             // Set the Backlog lane if there is no lane attached
             if (!activity.lane_id) {
-                var partup = Partups.findOne(activity.partup_id);
+                partup = Partups.findOne(activity.partup_id);
                 if (!partup) return;
-                var board = Boards.findOneOrFail(partup.board_id);
+                board = Boards.findOneOrFail(partup.board_id);
                 Activities.update({_id: activity._id}, {$set: {lane_id: board.lanes[0]}});
 
                 // Only add to the lane if its not removed
@@ -1022,7 +1025,18 @@ Migrations.add({
             if (activity.isRemoved()) return;
 
             // Get lane from activity
-            var lane = Lanes.findOneOrFail(activity.lane_id);
+            var lane = Lanes.findOne(activity.lane_id);
+            // Lane has already been removed, add to Backlog lane
+            if (!lane) {
+                partup = Partups.findOne(activity.partup_id);
+                if (!partup) return;
+                board = Boards.findOneOrFail(partup.board_id);
+                Activities.update({_id: activity._id}, {$set: {lane_id: board.lanes[0]}});
+                Lanes.update({_id: board.lanes[0]}, {$addToSet: {activities: activity._id}});
+
+                // That's enough for this activity
+                return;
+            }
             // Check if activity exists in lane
             if (lane.activities.indexOf(activity._id) > -1) return;
 
