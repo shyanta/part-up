@@ -1,3 +1,14 @@
+<a name="2.7.0"></a>
+# [2.7.0](https://github.com/part-up/part-up/compare/2.6.6...2.7.0) (2017-03-01)
+
+
+### Features
+
+* **boards:** added migration that fixes activities not being showed in lanes anymore [#907](https://github.com/part-up/part-up/issues/907) [#916](https://github.com/part-up/part-up/issues/916) ([0830c57](https://github.com/part-up/part-up/commit/0830c57))
+* **boards:** improved way of removing activities from lanes [#907](https://github.com/part-up/part-up/issues/907) ([76492b3](https://github.com/part-up/part-up/commit/76492b3))
+
+
+
 <a name="2.6.6"></a>
 ## [2.6.6](https://github.com/part-up/part-up/compare/2.6.5...2.6.6) (2017-03-01)
 
