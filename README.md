@@ -139,27 +139,13 @@ GOOGLE_API_KEY
 `cd config/development && ansible-vault edit env.sh-encrypted`
 
 ## Phraseapp translation
-```install Phraseapp CLI https://phraseapp.com/docs/developers/cli/installation/```
+Add new keys using the i18n convention to the main locale [/part-up/app/i18n/phraseapp.en.i18n.json](https://github.com/part-up/part-up/blob/develop/app/i18n/phraseapp.en.i18n.json) and commit them to your branch. 
 
-```npm install```
-
-After all the node_modules deps are installed 
-run 
-
-``` npm run-script pull-translation ```
-
-or 
-
-
-``` npm run-script push-translation ```
-
-and follow the prompt instruction
-
-**ask [tlimpanont](http://github.com/tlimpanont) for the push & pull access_token** 
+After merging the PR for your branch, [Ralph Boeije](https://github.com/ralphboeije) will import the new keys to [Phraseapp](https://phraseapp.com/accounts/part-up-com/projects/part-up-webapp/locales) and add the translations to the other locales.
 
 # License
 
-Copyright (C) 2016 Part-up
+Copyright (C) 2017 Part-up
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as
@@ -172,13 +158,4 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU Affero General Public License for more details.
 
 You should have received a copy of the GNU Affero General Public License
-along with this program. If not, see <http://www.gnu.org/licenses/>.
-
-An interactive user interface displays "Appropriate Legal Notices" to the
-extent that it includes a convenient and prominently visible feature
-that (1) displays an appropriate copyright notice, and (2) tells the user
-that there is no warranty for the work (except to the extent that warranties
-are provided), that licensees may convey the work under this License, and
-how to view a copy of this License. If the interface presents a list of user
-commands or options, such as a menu, a prominent item in the list meets this
-criterion.
+along with this program. You can find it at [/part-up/LICENSE](https://github.com/part-up/part-up/blob/develop/LICENSE) and the supplement at [/part-up/License supplement](https://github.com/part-up/part-up/blob/develop/License%20supplement)
