@@ -38,6 +38,3 @@ app/public/uploads
 
 node_modules
 npm-debug.log
-
-# file that may contain credentials
-config/development/env
