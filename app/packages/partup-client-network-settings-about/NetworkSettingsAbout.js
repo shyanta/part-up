@@ -63,9 +63,10 @@ Template.NetworkSettingsAbout.onCreated(function() {
 
     template.removeBlock = function(blockId) {
         Partup.client.prompt.confirm({
-            title: 'Weet je het zeker?',
-            message: 'Deze actie kan niet ongedaan gemaakt worden',
-            confirmButton: 'Verwijderen',
+            title: TAPi18n.__('networksettings-partups-about-change-confirm-title'),
+            message: TAPi18n.__('networksettings-partups-about-change-confirm-message'),
+            confirmButton: TAPi18n.__('networksettings-partups-about-change-confirm-button-confirm'),
+            cancelButton: TAPi18n.__('networksettings-partups-about-change-confirm-button-cancel'),
             onConfirm: function() {
                 Meteor.call('networks.contentblock_remove', networkSlug, blockId);
             }
