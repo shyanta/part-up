@@ -11,9 +11,6 @@ Template.DropdownChatNotifications.onCreated(function () {
 });
 Template.DropdownChatNotifications.onRendered(function () {
     var template = this;
-
-    
-
     ClientDropdowns.addOutsideDropdownClickHandler(template, '[data-clickoutside-close]', '[data-toggle-menu=chat-notifications]', function () { ClientDropdowns.partupNavigationSubmenuActive.set(false); });
     Router.onBeforeAction(function (req, res, next) {
         template.dropdownOpen.set(false);
@@ -101,37 +98,35 @@ Template.DropdownChatNotifications.helpers({
 
             return chatMessageTime(private) > chatMessageTime(network) ? private : network;
         };
+        var hasNewMessage = (chat, messageTime, unreadMessageCount) => {
+                if (template.newMessage.get() === undefined) {
+                    if (unreadMessageCount) {
+                        template.newMessage.set(true);
+                    }
+                    template.latestMessage.set(messageTime);
+                } else {
+                    if (chat && chat._id === currentActiveChatId) {
+                        template.newMessage.set(false);
+                        template.latestMessage.set(messageTime);
+                    } else {
+                        if (messageTime > template.latestMessage.get()) {
+                            template.newMessage.set(true);
+                            template.latestMessage.set(messageTime);
+                        }
+                    }
+                }
+                return template.newMessage.get();
+        };
 
         return {
             chats: template.isPrivateChat.get() ? privateChats : networkChats,
             totalPrivateMessages: totalChatMessages(privateChats),
             totalNetworkMessages: totalChatMessages(networkChats),
             hasNewMessages: function () {
-                var latest = latestChat();
-                var latestMessageTime = chatMessageTime(latest);
-
-                console.log(JSON.stringify(latest));
-                console.log(latestMessageTime);
-                console.log(template.latestMessage.get());
-                if (template.newMessage.get() == undefined) {
-                    if (this.totalPrivateMessages || this.totalNetworkMessages) {
-                        template.newMessage.set(true);
-                        template.latestMessage.set(latestMessageTime);
-                    }
-                } else {
-                    if (latest && latest._id == currentActiveChatId) {
-                        template.newMessage.set(false);
-                        template.latestMessage.set(latestMessageTime);
-                    } else {
-                        if (latestMessageTime > template.latestMessage.get()) {
-                            template.newMessage.set(true);
-                            template.latestMessage.set(latestMessageTime);
-                        }
-                    }
-                }
-                
-                console.log(template.newMessage.get());
-                return template.newMessage.get();
+                var chat = latestChat();
+                var messageTime = chatMessageTime(chat);
+                var unreadMessageCount = this.totalPrivateMessages || this.totalNetworkMessages;
+                return hasNewMessage(chat, messageTime, unreadMessageCount);
             }
         }
     },

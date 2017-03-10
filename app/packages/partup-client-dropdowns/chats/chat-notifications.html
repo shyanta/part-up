@@ -7,8 +7,8 @@
         <div class="pu-dropdown pu-dropdown-notifications pu-dropdown-notifications-chats {{#if dropdownOpen}}pu-dropdown-active{{/if}} pu-dropdown-notifications-nobutton pu-dropdown-notifications-header" data-clickoutside-close>
             <header>
                 <div class="pu-toggle">
-                    <button class="{{#if isPrivateChat}}pu-state-active{{/if}}" data-private>{{_ 'dropdowns-chat-notifications-toggle-one-on-one'}}{{#with chatData.totalPersonalMessages }} ({{ . }}){{/with}}</button>
-                    <button class="{{#unless isPrivateChat}}pu-state-active{{/unless}}" data-network>{{_ 'dropdowns-chat-notifications-toggle-network'}}{{#with chatData.totalTribeMessages }} ({{ . }}){{/with}}</button>
+                    <button class="{{#if isPrivateChat}}pu-state-active{{/if}}" data-private>{{_ 'dropdowns-chat-notifications-toggle-one-on-one'}}{{#with chatData.totalPrivateMessages }} ({{ . }}){{/with}}</button>
+                    <button class="{{#unless isPrivateChat}}pu-state-active{{/unless}}" data-network>{{_ 'dropdowns-chat-notifications-toggle-network'}}{{#with chatData.totalNetworkMessages }} ({{ . }}){{/with}}</button>
                 </div>
             </header>
             <ul data-preventscroll>
