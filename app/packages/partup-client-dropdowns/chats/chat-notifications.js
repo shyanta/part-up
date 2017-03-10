@@ -83,22 +83,24 @@ Template.DropdownChatNotifications.helpers({
                     return prev + curr;
                 }, 0);
         };
-        var chatMessageTime = (chat) => {
+        var chatMessageTime = function (chat) {
             return chat.message ? Date.parse(chat.message.created_at) : 0;
         };
-        var latestChat = () => {
-            var getLatest = (chatCollection) => {
+        var latestChat = function () {
+            var getLatest = function (chatCollection) {
                 return _.max(
                     _.filter(chatCollection, (chat) => {
                         return (chat.message && chat.message.creator_id !== userId);
-                    }), (chat) => chatMessageTime(chat));
+                    }), (chat) => {
+                        return chatMessageTime(chat);
+                    });
             };
             var private = getLatest(privateChats);
             var network = getLatest(networkChats);
 
             return chatMessageTime(private) > chatMessageTime(network) ? private : network;
         };
-        var hasNewMessage = (chat, messageTime, unreadMessageCount) => {
+        var hasNewMessage = function (chat, messageTime, unreadMessageCount) {
                 if (template.newMessage.get() === undefined) {
                     if (unreadMessageCount) {
                         template.newMessage.set(true);
