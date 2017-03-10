@@ -77,9 +77,9 @@ Template.DropdownChatNotifications.helpers({
 
         var totalChatMessages = function (chatCollection) {
             return chatCollection
-                .map((chat) => {
+                .map(function (chat) {
                     return chat._id === currentActiveChatId ? 0 : chat.unreadCount();
-                }).reduce((prev, curr) => {
+                }).reduce(function (prev, curr) {
                     return prev + curr;
                 }, 0);
         };
@@ -89,9 +89,9 @@ Template.DropdownChatNotifications.helpers({
         var latestChat = function () {
             var getLatest = function (chatCollection) {
                 return _.max(
-                    _.filter(chatCollection, (chat) => {
+                    _.filter(chatCollection, function (chat) {
                         return (chat.message && chat.message.creator_id !== userId);
-                    }), (chat) => {
+                    }), function (chat) {
                         return chatMessageTime(chat);
                     });
             };
