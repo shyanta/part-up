@@ -540,7 +540,7 @@ Template.Partupsettings.events({
         template.selectedPrivacyType.set(input.value);
     },
     'click .pu-tooltip': function(event) {
-        event.preventDefault();
+        event.stopPropagation();
     },
     'click [data-focus-tagsinput]': function(event, template) {
         var target = event.currentTarget;
