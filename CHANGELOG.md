@@ -1,3 +1,13 @@
+<a name="2.9.3"></a>
+## [2.9.3](https://github.com/part-up/part-up/compare/2.9.2...2.9.3) (2017-03-14)
+
+
+### Bug Fixes
+
+* **migrations:** Removed migrateTo() command from migrations.js ([181da03](https://github.com/part-up/part-up/commit/181da03))
+
+
+
 <a name="2.9.2"></a>
 ## [2.9.2](https://github.com/part-up/part-up/compare/2.9.1...2.9.2) (2017-03-14)
 
