@@ -1,3 +1,14 @@
+<a name="2.9.2"></a>
+## [2.9.2](https://github.com/part-up/part-up/compare/2.9.1...2.9.2) (2017-03-14)
+
+
+### Bug Fixes
+
+* **hotfix:** dropdown & scroll ([f3c6977](https://github.com/part-up/part-up/commit/f3c6977))
+* **hotfix:** dropdown & scroll ([0f9be0f](https://github.com/part-up/part-up/commit/0f9be0f))
+
+
+
 <a name="2.9.1"></a>
 ## [2.9.1](https://github.com/part-up/part-up/compare/2.9.0...2.9.1) (2017-03-14)
 
