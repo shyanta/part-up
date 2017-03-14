@@ -61,9 +61,8 @@ Template.Home_Header.onCreated(function () {
 });
 
 Template.Home_Header.onDestroyed(function () {
-    template.scrollHandler.setPrevent(false);
+    $('body').removeClass('pu-prevent-scrolling');
 });
-
 
 Template.Home_Header.helpers({
     greeting: function () {
@@ -91,7 +90,6 @@ Template.Home_Header.events({
         if (handler.reactiveHeader()) {
             return;
         }
-
         handler.setState('scrolled');
     }
 });
