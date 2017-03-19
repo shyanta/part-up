@@ -15,7 +15,6 @@ Package.onUse(function(api) {
 
     api.addFiles([
 
-        'google-api.min.js',
         'GoogleDrivePicker.html',
         'GoogleDrivePicker.ctrl.js'
 
