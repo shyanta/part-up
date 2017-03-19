@@ -1,3 +1,14 @@
+<a name="2.9.4"></a>
+## [2.9.4](https://github.com/part-up/part-up/compare/2.9.3...2.9.4) (2017-03-14)
+
+
+### Bug Fixes
+
+* **dropbox:** loading github and dropbox stuff in head after render ([125657a](https://github.com/part-up/part-up/commit/125657a))
+* **dropbox-chooser:** no async attr on script tag ([6b5d0b6](https://github.com/part-up/part-up/commit/6b5d0b6))
+
+
+
 <a name="2.9.3"></a>
 ## [2.9.3](https://github.com/part-up/part-up/compare/2.9.2...2.9.3) (2017-03-14)
 
