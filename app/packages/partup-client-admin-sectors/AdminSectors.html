@@ -1,25 +1,33 @@
 <template name="AdminSectors">
 
     <h2>Create Sector</h2>
-    {{#autoForm schema=Partup.schemas.forms.sector id="createSectorForm" class="pu-form pu-block pu-block-highlighted" validation="submitThenBlur" }}
-        <!-- Name -->
-        <label class="pu-formfield">
-            <span class="pu-label">
-                Name
-            </span>
+    {{#autoForm schema=Partup.schemas.forms.sector id="createSectorForm" class="pu-form pu-block pu-block-highlighted" validation="submitThenBlur"
+    }}
+    <!-- Name -->
+    <label class="pu-formfield">
+            <span class="pu-label">Name</span>
 
-            <div class="pu-sub-validations {{#if afFieldIsInvalid name='_id' }}pu-state-invalid{{/if}}">
-                <span class="pu-sub-input">{{> afFieldInput name='_id' placeholder=placeholders.name class="pu-input"}}</span>
-                <span class="pu-sub-error">{{ afFieldMessage name='_id' }}</span>
+            <div class="pu-sub-validations {{#if afFieldIsInvalid name='name' }}pu-state-invalid{{/if}}">
+                <span class="pu-sub-input">{{> afFieldInput name='name' placeholder=placeholders.name class="pu-input"}}</span>
+                <span class="pu-sub-error">{{ afFieldMessage name='name' }}</span>
             </div>
         </label>
 
-        <!-- Submit button -->
-        <footer class="pu-sub-modalfooter">
-            <div class="pu-sub-footer-container">
-                <button type="submit" class="pu-button">Create</button>
+    <label class="pu-formfield">
+            <span class="pu-label">PhraseApp Key</span>
+
+            <div class="pu-sub-validations {{#if afFieldIsInvalid name='phrase_key' }}pu-state-invalid{{/if}}">
+                <span class="pu-sub-input">{{> afFieldInput name='phrase_key' placeholder=placeholders.name class="pu-input" }}</span>
+                <span class="pu-sub-error">{{ afFieldMessage name='phrase_key' }}</span>
             </div>
-        </footer>
+        </label>
+
+    <!-- Submit button -->
+    <footer class="pu-sub-modalfooter">
+        <div class="pu-sub-footer-container">
+            <button type="submit" class="pu-button">Create</button>
+        </div>
+    </footer>
     {{/autoForm}}
 
     <h2>Sectors</h2>
@@ -28,21 +36,38 @@
             <p class="pu-sub-info pu-sub-info-header">
                 <span class="pu-sub-name">Name</span>
             </p>
+            <p class="pu-sub-info pu-sub-info-header">
+                <span class="pu-sub-name">PhraseApp Key</span>
+            </p>
         </li>
         {{# each sectors }}
-            <li>
-                <p class="pu-sub-info"><span class="pu-sub-name">{{ _id }}</span></p>
-                <button type="button" class="pu-sub-settings pu-button pu-button-checkmark" data-toggle><i class="picon-cog"></i></button>
-                <div class="pu-uppersettings" data-toggle-target>
-                    <ul class="pu-list">
-                        <li class="pu-dropdownitem pu-dropdownitem-small pu-sub-delete">
-                            <button data-sector-remove="{{ _id }}">remove</button>
-                        </li>
-                    </ul>
-                </div>
-            </li>
+        <li>
+            <p class="pu-sub-info">
+                <span class="pu-sub-name">{{ name }}</span>
+                <span class="pu-sub-name">{{ phrase_key }}</span>
+                <!--<input class="pu-sub-name">{{ name }}</input>
+                    <input class="pu-sub-name">{{ phrase_key }}</input>-->
+            </p>
+            <button type="button" class="pu-sub-settings pu-button pu-button-checkmark" data-toggle><i class="picon-cog"></i></button>
+            <div class="pu-uppersettings" data-toggle-target>
+                <ul class="pu-list">
+                    <li class="pu-dropdownitem pu-dropdownitem-small pu-sub-edit">
+                        <button data-sector-edit="{{ _id }}">edit</button>
+                    </li>
+                    <li class="pu-dropdownitem pu-dropdownitem-small pu-sub-delete">
+                        <button data-sector-remove="{{ _id }}">remove</button>
+                    </li>
+                </ul>
+            </div>
+        </li>
+        {{#if partupIsPopupActive 'popup.sector-edit' }} 
+            {{#contentFor region="PopupContent" data=. }} 
+                {{> _EditSector sectorId=currentSector success=toggleMenu }} 
+            {{/contentFor}}
+        {{/if}} 
 
-        {{/ each }}
+    {{/ each }}
     </ul>
+
 
 </template>
