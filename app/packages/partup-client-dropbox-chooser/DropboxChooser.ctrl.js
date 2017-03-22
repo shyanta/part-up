@@ -93,8 +93,8 @@ if (Meteor.isClient) {
                             data: JSON.stringify({
                                 path: '/' + decodeURI(path[2]),
                                 settings: {
-                                    "requested_visibility": "public",
-                                    "expires": "2045-05-12T15:50:38Z"
+                                    "requested_visibility": "public"
+                                    // "expires": "2045-05-12T15:50:38Z" --> This is only allowed for paying dropbox users.
                                 }
                             }),
                         })
