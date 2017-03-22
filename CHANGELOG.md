@@ -1,3 +1,63 @@
+<a name="2.9.4"></a>
+## [2.9.4](https://github.com/part-up/part-up/compare/2.9.3...2.9.4) (2017-03-14)
+
+
+### Bug Fixes
+
+* **dropbox:** loading github and dropbox stuff in head after render ([125657a](https://github.com/part-up/part-up/commit/125657a))
+* **dropbox-chooser:** no async attr on script tag ([6b5d0b6](https://github.com/part-up/part-up/commit/6b5d0b6))
+
+
+
+<a name="2.9.3"></a>
+## [2.9.3](https://github.com/part-up/part-up/compare/2.9.2...2.9.3) (2017-03-14)
+
+
+### Bug Fixes
+
+* **migrations:** Removed migrateTo() command from migrations.js ([181da03](https://github.com/part-up/part-up/commit/181da03))
+
+
+
+<a name="2.9.2"></a>
+## [2.9.2](https://github.com/part-up/part-up/compare/2.9.1...2.9.2) (2017-03-14)
+
+
+### Bug Fixes
+
+* **hotfix:** dropdown & scroll ([f3c6977](https://github.com/part-up/part-up/commit/f3c6977))
+* **hotfix:** dropdown & scroll ([0f9be0f](https://github.com/part-up/part-up/commit/0f9be0f))
+
+
+
+<a name="2.9.1"></a>
+## [2.9.1](https://github.com/part-up/part-up/compare/2.9.0...2.9.1) (2017-03-14)
+
+
+### Bug Fixes
+
+* Fixing on the max-width value ([#938](https://github.com/part-up/part-up/issues/938)) ([acec4fd](https://github.com/part-up/part-up/commit/acec4fd)), closes [#931](https://github.com/part-up/part-up/issues/931)
+* **apostrophe:** Apostrophe now working in tags ([fc69a39](https://github.com/part-up/part-up/commit/fc69a39)), closes [#899](https://github.com/part-up/part-up/issues/899)
+* **buttons:** Keys instead of hardcode buttons on tribe about page editing ([31d036d](https://github.com/part-up/part-up/commit/31d036d)), closes [#941](https://github.com/part-up/part-up/issues/941)
+* **dropdown:** Close contribution detail on click ([#942](https://github.com/part-up/part-up/issues/942)) ([bc0506f](https://github.com/part-up/part-up/commit/bc0506f)), closes [#937](https://github.com/part-up/part-up/issues/937)
+* **language:** set language based on browser default by default, if the user is logged in the language will be set to the user preference ([8b27283](https://github.com/part-up/part-up/commit/8b27283))
+* **notification:** Bulb hides after click. ([6a28e35](https://github.com/part-up/part-up/commit/6a28e35))
+* **notification:** Bulb now hides when clicked. ([60c9f5d](https://github.com/part-up/part-up/commit/60c9f5d))
+* **notification:** change arrow to normal function ([a40950c](https://github.com/part-up/part-up/commit/a40950c))
+* **scroll:** allow scroll beyond header ([e60c058](https://github.com/part-up/part-up/commit/e60c058)), closes [#924](https://github.com/part-up/part-up/issues/924)
+
+
+
+<a name="2.9.0"></a>
+# [2.9.0](https://github.com/part-up/part-up/compare/2.8.0...2.9.0) (2017-03-01)
+
+
+### Features
+
+* **api:** Integration with Api Gateway added. ([#935](https://github.com/part-up/part-up/issues/935)) ([d59bef2](https://github.com/part-up/part-up/commit/d59bef2))
+
+
+
 <a name="2.8.0"></a>
 # [2.8.0](https://github.com/part-up/part-up/compare/2.7.0...2.8.0) (2017-03-01)
 

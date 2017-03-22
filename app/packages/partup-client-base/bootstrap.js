@@ -45,10 +45,22 @@ Meteor.startup(function() {
     // logs in or out
     Meteor.autorun(function(computation) {
         var user = Meteor.user();
-        // some of these methods have reactive vars
-        // we dont't want unnessesary language changes
+        var language = 'en';
+
+        if (user) {
+            // if the user is logged in, find the user language settings
+            var userLanguage = lodash.get(user, 'profile.settings.locale', 'en');
+            language = userLanguage;
+        } else {
+            // if the user is not logged in, get the browser language
+            var browserLanguage = Partup.client.language.getBrowserDefaultLocale();
+            language = browserLanguage;
+        }
+
+        // make nonreactive to prevent template-rerender-flickering
         Tracker.nonreactive(function() {
-            Partup.client.language.setDefault(user);
+            // finally set the language of the partup interface
+            Partup.client.language.change(language);
         });
     });
 

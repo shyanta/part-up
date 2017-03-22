@@ -1012,10 +1012,10 @@ Migrations.add({
                 partup = Partups.findOne(activity.partup_id);
                 if (!partup) return;
                 board = Boards.findOneOrFail(partup.board_id);
-                Activities.update({_id: activity._id}, {$set: {lane_id: board.lanes[0]}});
+                Activities.update({ _id: activity._id }, { $set: { lane_id: board.lanes[0] } });
 
                 // Only add to the lane if its not removed
-                if (!activity.isRemoved()) Lanes.update({_id: board.lanes[0]}, {$addToSet: {activities: activity._id}});
+                if (!activity.isRemoved()) Lanes.update({ _id: board.lanes[0] }, { $addToSet: { activities: activity._id } });
 
                 // That's enough for this activity
                 return;
@@ -1031,8 +1031,8 @@ Migrations.add({
                 partup = Partups.findOne(activity.partup_id);
                 if (!partup) return;
                 board = Boards.findOneOrFail(partup.board_id);
-                Activities.update({_id: activity._id}, {$set: {lane_id: board.lanes[0]}});
-                Lanes.update({_id: board.lanes[0]}, {$addToSet: {activities: activity._id}});
+                Activities.update({ _id: activity._id }, { $set: { lane_id: board.lanes[0] } });
+                Lanes.update({ _id: board.lanes[0] }, { $addToSet: { activities: activity._id } });
 
                 // That's enough for this activity
                 return;
@@ -1057,6 +1057,4 @@ Migrations.add({
     }
 });
 
-Meteor.startup(function() {
-    Migrations.migrateTo(40);
-});
+// DO NOT ADD Migrations.migrateTo() here!!! This is controlled by the ENV_VAR 'MIGRATE'

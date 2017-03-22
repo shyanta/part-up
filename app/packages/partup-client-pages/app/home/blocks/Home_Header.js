@@ -1,13 +1,71 @@
-Template.Home_Header.onCreated(function() {
-    $('body').addClass('pu-prevent-scrolling');
+Template.Home_Header.onCreated(function () {
+    var template = this;
+
+    template.scrollHandler = {
+        body: $('body'),
+        prevent: 'pu-prevent-scrolling',
+        hasPrevent: function () {
+            return this.body.hasClass(this.prevent);
+        },
+        setPrevent: function (bool) {
+            if (bool) {
+                $('body').addClass(this.prevent);
+            } else {
+                $('body').removeClass(this.prevent);
+            }
+        },
+        scrollPosition: function () {
+            return Partup.client.scroll.pos.get();
+        },
+        reactiveHeader: function () {
+            return template.data.reactiveHeaderExpanded.curValue;
+        },
+        setReactiveHeader: function (bool) {
+            template.data.reactiveHeaderExpanded.set(bool);
+        },
+        setHomeClicked: function (bool) {
+            if (bool) {
+                $('[data-what-is-partup]').addClass('pu-home-header__button--is-clicked');
+            } else {
+                $('[data-what-is-partup]').removeClass('pu-home-header__button--is-clicked');
+            }
+        },
+        setHeaderCollapsed: function (bool) {
+            if (bool) {
+                $('[data-header]').addClass('pu-home-header--is-collapsed');
+            } else {
+                $('[data-header]').removeClass('pu-home-header--is-collapsed');
+            }
+        },
+        setState: function (state) {
+            if (state === 'top') {
+                this.setPrevent(true);
+                this.setReactiveHeader(false);
+                this.setHomeClicked(false);
+                this.setHeaderCollapsed(false);
+            } else {
+                this.setPrevent(false);
+                this.setReactiveHeader(true);
+                this.setHomeClicked(true);
+                this.setHeaderCollapsed(true);
+            }
+        }
+    }
+    this.autorun(function () {
+        var handler = template.scrollHandler;
+        if (handler.scrollPosition() > 0 && handler.hasPrevent()) {
+            handler.setState('scrolled');
+        }
+    });
+    template.scrollHandler.setPrevent(true);
 });
 
-Template.Home_Header.onDestroyed(function() {
+Template.Home_Header.onDestroyed(function () {
     $('body').removeClass('pu-prevent-scrolling');
 });
 
 Template.Home_Header.helpers({
-    greeting: function() {
+    greeting: function () {
         var daypart;
         var hour = moment().hours();
 
@@ -19,35 +77,32 @@ Template.Home_Header.helpers({
 
         return TAPi18n.__('pages-app-home-loggedin-greeting-' + daypart);
     },
-    firstName: function() {
+    firstName: function () {
         return User(Meteor.user()).getFirstname();
     }
 });
 
 Template.Home_Header.events({
-    'click [data-what-is-partup], mousewheel [data-header]': function(event, template) {
+    'click [data-what-is-partup], mousewheel [data-header]': function (event, template) {
         // event.preventDefault();
-        if (template.data.reactiveHeaderExpanded.curValue) return;
 
-        template.data.reactiveHeaderExpanded.set(true);
-
-        $('[data-what-is-partup]').addClass('pu-home-header__button--is-clicked');
-
-        $('body').removeClass('pu-prevent-scrolling');
-
-        $('[data-header]').addClass('pu-home-header--is-collapsed');
+        var handler = template.scrollHandler;
+        if (handler.reactiveHeader()) {
+            return;
+        }
+        handler.setState('scrolled');
     }
 });
 
 Template.Home_Header_CallToAction.events({
-    'input [data-register-email]': function(event, template) {
+    'input [data-register-email]': function (event, template) {
         template.email = $('[data-register-email]').val();
     },
-    'click [data-register-button]': function(event, template) {
-        Router.go('register', {}, {query: 'email=' + template.email});
+    'click [data-register-button]': function (event, template) {
+        Router.go('register', {}, { query: 'email=' + template.email });
     },
-    'submit [data-register-form]': function(event, template) {
+    'submit [data-register-form]': function (event, template) {
         event.preventDefault();
-        Router.go('register', {}, {query: 'email=' + template.email});
+        Router.go('register', {}, { query: 'email=' + template.email });
     }
 });

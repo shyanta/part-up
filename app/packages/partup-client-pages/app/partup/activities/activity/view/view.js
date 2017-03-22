@@ -202,6 +202,8 @@ Template.ActivityView.events({
                 contribute();
             });
         }
+
+        template.activityDropdownOpen.set(false);
     },
     'click [data-invite]': function(event, template) {
         event.preventDefault();
