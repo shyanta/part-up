@@ -31,9 +31,3 @@ Template.ReloadBar.events({
         location.reload(true);
     }
 });
-
-Template.ReloadBar.helpers({
-    'showBar': function() {
-        return Session.get('puWantsToReload');
-    }
-});
