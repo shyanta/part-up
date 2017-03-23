@@ -1,7 +1,15 @@
 var provisionKey = process.env.API_PROVISION_KEY;
+var kongAdminUrl = process.env.KONG_ADMIN_URL;
 
-if (!provisionKey) {
+if (!provisionKey && (!process.env.NODE_ENV.match(/development|staging/) || !kongAdminUrl)) {
     console.error('No OAuth Provision Key set, please set API_PROVISION_KEY...');
+}
+
+function obtainProvisionKeyFromKongAdminApi() {
+    var url = Npm.require('url');
+    var response = HTTP.get(url.resolve(kongAdminUrl, '/apis/root_api/plugins'));
+    var plugins = response.data.data;
+    provisionKey = _.find(plugins, { name: 'oauth2' }).config.provision_key;
 }
 
 Meteor.methods({
@@ -23,6 +31,11 @@ Meteor.methods({
         }
     },
     'oauth.grant': function(clientId) {
+        if (!provisionKey && process.env.NODE_ENV.match(/development|staging/) && kongAdminUrl) {
+            this.unblock();
+            Log.info('Provision key not set, attempting to obtain from Kong Admin API...');
+            obtainProvisionKeyFromKongAdminApi();
+        }
         var userId = Meteor.userId();
         if (userId) {
             var payload = {
