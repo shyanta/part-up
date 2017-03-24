@@ -3,6 +3,41 @@ Meteor.startup(function () {
 
         if (!Lanes.find().count()) {
 
+            /* Default Lanes */
+            /* Meteor Board */
+            Lanes.insert({
+                '_id': 'WFcjbTeEDeiY5XC9N',
+                'board_id': '9TEcgO45TkVBizotA',
+                'activities': [],
+                'created_at': new Date(),
+                'updated_at': new Date()                
+            })
+            /* Incubator Board */
+            Lanes.insert({
+                '_id': 'srPWJgxWcLhIlAuxA',
+                'board_id': 'Gzmun04TtYiP8llQ1',
+                'activities': [],
+                'created_at': new Date(),
+                'updated_at': new Date()                
+            })
+            /* ING CrowdFunding */
+            Lanes.insert({
+                '_id': 'hUGKnG6VRqFfuXtch',
+                'board_id': 'VItDJ3O3MpzeiPU5J',
+                'activities': [],
+                'created_at': new Date(),
+                'updated_at': new Date()                
+            })
+            /* ING Super Secret */
+            Lanes.insert({
+                '_id': 'U6MgEtdp8uBESETTb',
+                'board_id': 'sGrp9AkRSDVwXNZnn',
+                'activities': [],
+                'created_at': new Date(),
+                'updated_at': new Date()                
+            })
+
+
             /* ING - Semi Secret */
             /* 1) Backlog */
             Lanes.insert({
