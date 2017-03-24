@@ -1685,6 +1685,8 @@
     "ratings-none": "no ratings yet",
     "reload-button-caption": "Reload Part-Up",
     "reload-bar-text": "There is a new version of Part-up available, reload the app to use the new version...",
+    "reload-info-link": "https:/blog.part-up.com/",
+    "reload-info-link-text": "for more info click here",
     "resetpassword-form-confirmPassword-placeholder": "And repeat it once please",
     "resetpassword-form-password-label": "New password",
     "resetpassword-form-password-placeholder": "Use at least 8 characters, 1 number and 1 capital",
