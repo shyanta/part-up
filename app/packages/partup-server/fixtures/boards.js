@@ -25,7 +25,12 @@ Meteor.startup(function () {
                 'partup_id': '1csyxDMvVcBjb8tFM',
                 'created_at': new Date(),
                 'updated_at': new Date(),
-                'lanes': []
+                'lanes': [
+                    'M8yEL4e3zY7Ar4zwq',
+                    'B17gCkMaSWtnKK4JZ',
+                    'J023aUccH2gmRFWQn',
+                    '7tjMjDjMMSOS40zhu'
+                ]
             });
 
             /* ING Crowd funding */
@@ -46,13 +51,18 @@ Meteor.startup(function () {
                 'lanes': []
             });
 
-            /* ING Super Secret */
+            /* ING Semi Secret */
             Boards.insert({
                 '_id': 'jMU371tasWnf0RYUh',
                 'partup_id': 'ASfRYBAzo2ayYk5si',
                 'created_at': new Date(),
                 'updated_at': new Date(),
-                'lanes': []
+                'lanes': [
+                    'OhElHekpR1I3PxUBt',
+                    '7I8qkr9jKLISr7GQC',
+                    '1c18TM9EhTUbIMGCy',
+                    'MURSLchoBESuQJVpn'
+                ]
             });
         }
     }
