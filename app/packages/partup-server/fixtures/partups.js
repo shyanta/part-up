@@ -256,7 +256,7 @@ Meteor.startup(function() {
                 ]
             });
 
-            /* 2 :: Incubator - public */
+            /* 2 :: Incubator - public, lanes */
             Partups.insert({
                 '_id' : 'IGhBN2Z3mrA90j3g7',
                 'network_id' : 'ibn27M3ePaXhmKzWq',
@@ -289,7 +289,9 @@ Meteor.startup(function() {
                     'country' : 'Netherlands'
                 },
                 'uppers' : [
-                    'K5c5M4Pbdg3B82wQH'
+                    'K5c5M4Pbdg3B82wQH', //Default - creator
+                    'K5c5M4Pbdg3B82wQI', //John
+                    'q63Kii9wwJX3Q6rHS'  //Admin
                 ],
                 'analytics' : {
                     'clicks_total' : 1,
@@ -301,11 +303,19 @@ Meteor.startup(function() {
                     {
                         '_id' : 'K5c5M4Pbdg3B82wQH',
                         'new_updates' : []
+                    },
+                    {
+                        '_id' : 'K5c5M4Pbdg3B82wQI',
+                        'new_updates' : []
+                    },
+                    {
+                        '_id' : 'q63Kii9wwJX3Q6rHS',
+                        'new_updates' : []
                     }
                 ]
             });
 
-            /* 3 :: Partup Dev - invite */
+            /* 3 :: Partup Dev - invite, board */
             Partups.insert({
                 '_id' : '1csyxDMvVcBjb8tFM',
                 'network_id' : 'ibn27M3ePaXhmKzWq',
@@ -314,11 +324,11 @@ Meteor.startup(function() {
                 'description' : 'Developement of the Part-up platform',
                 'language' : 'en',
                 'type' : Partups.TYPE.CHARITY,
-                'privacy_type' : 3,
+                'privacy_type' : 2,
                 'currency' : null,
                 'type_commercial_budget' : null,
                 'type_organization_budget' : null,
-                'creator_id' : 'K5c5M4Pbdg3B82wQH',
+                'creator_id' : 'K5c5M4Pbdg3B82wQI',
                 'created_at' : new Date('2015-07-28T15:26:34.086Z'),
                 'end_date' : new Date('2020-05-31T00:00:00.000Z'),
                 'phase' : null,
@@ -338,7 +348,9 @@ Meteor.startup(function() {
                     'country' : 'Netherlands'
                 },
                 'uppers' : [
-                    'K5c5M4Pbdg3B82wQH'
+                    'q63Kii9wwJX3Q6rHS', //Admin
+                    'K5c5M4Pbdg3B82wQH', //Default
+                    'a7qcp5RHnh5rfaeW9'  //Judy
                 ],
                 'analytics' : {
                     'clicks_total' : 1,
@@ -348,7 +360,15 @@ Meteor.startup(function() {
                 },
                 'upper_data' : [
                     {
+                        '_id' : 'q63Kii9wwJX3Q6rHS',
+                        'new_updates' : []
+                    },
+                    {
                         '_id' : 'K5c5M4Pbdg3B82wQH',
+                        'new_updates' : []
+                    },
+                    {
+                        '_id' : 'a7qcp5RHnh5rfaeW9',
                         'new_updates' : []
                     }
                 ]
