@@ -18,7 +18,7 @@ RUN \
     chmod +x /usr/local/bin/gosu
 
 RUN apt-get update && \
-    apt-get install -y imagemagick --no-install-recommends && \
+    apt-get install -y imagemagick unicode-data --no-install-recommends && \
     rm -rf /var/lib/apt/lists/* && \
     apt-get autoclean && \
     apt-get clean
@@ -27,7 +27,7 @@ COPY imagemagick-policy.xml /etc/ImageMagick-6/policy.xml
 
 COPY ./app/.meteor/release /meteor-release
 
-ENV BUILD_DEPS="wget curl bzip2 build-essential python git ca-certificates"
+ENV BUILD_DEPS="bzip2 build-essential python git ca-certificates"
 
 RUN \
     # Add non-root user meteor
