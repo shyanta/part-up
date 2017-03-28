@@ -31,7 +31,7 @@ if (Meteor.isClient) {
                     success: function (files) {
                         onFileChange.apply(Dropbox, [files, dropboxClient]);
                     },
-                    linkType: "direct", // or "preview"
+                    linkType: "preview", // or "direct"
                     multiselect: true, // or true
                     extensions: getExtensions()
                 });
