@@ -13,6 +13,13 @@ Template.AdminSectors.helpers({
     sectors: function() {
         return Sectors.find();
     },
+    newSector: function () {
+        return {
+            _id: undefined,
+            name: '',
+            phrase_key: 'network-settings-sector-'
+        }
+    },
     currentSector: function () {
         return Template.instance().currentSectorId.get()
     },

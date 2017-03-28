@@ -1,8 +1,9 @@
 Template.DiscoverTribesSectorSelector.onCreated(function() {
     var template = this;
     var options = [{
-        name: TAPi18n.__('pages-app-discover-tribes-filter-sector-all'),
-        value: undefined
+        _id: undefined,
+        name: undefined,
+        phrase_key: TAPi18n.__('pages-app-discover-tribes-filter-sector-all'),
     }];
     template.options = new ReactiveVar(options);
     template.subscribe('sectors.all', {
@@ -11,8 +12,9 @@ Template.DiscoverTribesSectorSelector.onCreated(function() {
 
             var selectableSectors = (sectors || []).map(function(sector, index) {
                 return {
-                    name: sector._id,
-                    value: sector._id
+                    _id: sector._id,
+                    name: sector.name,
+                    phrase_key: sector.phrase_key
                 };
             });
 
@@ -46,6 +48,7 @@ Template.DiscoverTribesSectorSelector.events({
     'click [data-select-option]': function eventSelectOption(event, template) {
         event.preventDefault();
         template.selectedOption.set(this);
+
         template.find('[data-container]').scrollTop = 0;
     }
 });
