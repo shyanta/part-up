@@ -17,7 +17,7 @@ if [ $(docker version -f '{{.Server.Experimental}}') == "true" ]; then
   docker_opts="${docker_opts} --squash=true"
 fi
 
-docker build ${docker_opts} --no-cache --pull -t ${image_name} .
+docker build ${docker_opts} --pull -t ${image_name} .
 
 tag=$(git describe --exact-match 2>/dev/null || echo "")
 if [ $tag ]; then
