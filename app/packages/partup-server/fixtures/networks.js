@@ -6,7 +6,8 @@ Meteor.startup(function() {
             /* 1 */
             Networks.insert({
                 '_id' : 'nqBnE8nSLasaapXXS',
-                'sector_id' : 'FhapMhLSOHcCCbPfO',
+                'sector': 'Finance',
+                // 'sector_id' : 'FhapMhLSOHcCCbPfO',
                 'name' : 'ING (public)',
                 'slug' : 'ing-public',
                 'description': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus veniam illo inventore excepturi architecto ut, numquam enim est assumenda ex doloremque quos ratione. Repellendus blanditiis, tempora fugit velit est deleniti.',
@@ -27,7 +28,8 @@ Meteor.startup(function() {
             /* 2 */
             Networks.insert({
                 '_id' : 'kRCjWDBkKru3KfsjW',
-                'sector_id' : 'FhapMhLSOHcCCbPfO',
+                'sector': 'Finance',
+                // 'sector_id' : 'FhapMhLSOHcCCbPfO',
                 'name' : 'ING (invite)',
                 'slug' : 'ing-invite',
                 'privacy_type' : 2,
@@ -55,7 +57,8 @@ Meteor.startup(function() {
             /* 3 */
             Networks.insert({
                 '_id' : 'wfCv4ZdPe5WNT4xfg',
-                'sector_id' : 'FhapMhLSOHcCCbPfO',
+                'sector': 'Finance',
+                // 'sector_id' : 'FhapMhLSOHcCCbPfO',
                 'name' : 'ING (closed)',
                 'slug' : 'ing-closed',
                 'privacy_type' : 3,
@@ -92,7 +95,8 @@ Meteor.startup(function() {
             /* 4 */
             Networks.insert({
                 '_id' : 'ibn27M3ePaXhmKzWq',
-                'sector_id' : 'xPqmVC0HXZSonoTXB',
+                'sector': 'IT',
+                // 'sector_id' : 'xPqmVC0HXZSonoTXB',
                 'name' : 'Lifely (open)',
                 'slug' : 'lifely-open',
                 'description': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur, delectus.',
@@ -114,17 +118,17 @@ Meteor.startup(function() {
 
             // Networks.insert({
             //     '_id' : '...',
-            //     'name' : 'OpenSource development (open)',
-            //     'slug' : 'opensource-developement',
+            //     'name' : '',
+            //     'slug' : '',
             //     'sector_id' : '...',
             //     'privacy_type' : 1,
             //     'image': 'raaNx9aqA6okiqaS4',
             //     'icon': 'SEswZsYiTTKTTdnN5',
             //     'description': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur, delectus.',
             //     'tags' : [
-            //         'software',
-            //         'opensource',
-            //         'developement'
+            //         '',
+            //         '',
+            //         ''
             //     ],
             //     'uppers' : [
             //         'q63Kii9wwJX3Q6rHS',
@@ -144,7 +148,7 @@ Meteor.startup(function() {
             //         'place_id': 'ChIJcb2YQi-3xUcREGwejVreAAQ', 
             //         'city': 'The Hague'
             //     },
-            //     'chat_id': 'wioZDD9bTkT2eDF4c'
+            //     'chat_id': ''
             // });
         }
     }
