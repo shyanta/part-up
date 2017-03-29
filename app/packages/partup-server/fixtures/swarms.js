@@ -22,9 +22,9 @@ Meteor.startup(function () {
                     "linkedin": 0,
                     "email": 0
                 },
-                "created_at": ISODate("2017-03-27T14:40:06.254Z"),
-                "updated_at": ISODate("2017-03-27T14:40:06.254Z"),
-                "refreshed_at": ISODate("2017-03-27T14:40:06.254Z")
+                "created_at": new Date('2015-07-21T15:51:56.562Z'),
+                "updated_at": new Date('2015-07-21T15:51:56.562Z'),
+                "refreshed_at": new Date('2015-07-21T15:51:56.562Z')
             });
         }
     }
