@@ -13,12 +13,12 @@ please [join the conversation of the Platform Development tribe on Part-up](http
 
 - Always create a feature branch with a descriptive name (e.g., `git checkout -b feat-notifications`) when developing  
   features. Push new commits to your branch only.
-- Keep your branch up to date with the latest commits on the dev branch by occassionally merging in changes
-  `git merge dev`.
-- When you are finished with your functionality, rebase the branch onto the latest commit of `develop` using the command
-  `git rebase origin/develop` and create a pull request.
+- Keep your branch up to date with the latest commits on the master branch by occassionally merging in changes
+  `git merge master`.
+- When you are finished with your functionality, rebase the branch onto the latest commit of `master` using the command
+  `git rebase origin/master` and create a pull request.
 - When an integrator is satisfied with the branch and all feedback is processed, the integrator merges the feature
-  branch into `develop` using `git merge --no-ff feat-notifications`.
+  branch into `master` using `git merge --no-ff feat-notifications`.
 
 ## <a name="commit"></a> Git Commit Guidelines
 
