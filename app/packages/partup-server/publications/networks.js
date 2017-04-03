@@ -5,11 +5,17 @@
  * @param {string} parameters.textSearch
  * @param {string} parameters.locationId
  * @param {string} parameters.language
+ * @param {string} parameters.type
+ * @param {string} parameters.sector_id
  * @param {string} parameters.sort
  * @param {number} parameters.limit
  * @param {number} parameters.skip
+ * @param {string} parameters.userId
  */
-Meteor.routeComposite('/networks/discover', function(request, parameters) {
+Meteor.routeComposite('/networks/discover', function(
+    /** what kind of request? */ request, 
+    /** The query as object */ parameters) {
+
     check(parameters.query, {
         textSearch: Match.Optional(String),
         locationId: Match.Optional(String),
@@ -35,7 +41,6 @@ Meteor.routeComposite('/networks/discover', function(request, parameters) {
     };
 
     var options = {};
-
     if (parameters.limit) options.limit = parseInt(parameters.limit);
     if (parameters.skip) options.skip = parseInt(parameters.skip);
 
@@ -44,11 +49,12 @@ Meteor.routeComposite('/networks/discover', function(request, parameters) {
             return Networks.findForDiscover(this.userId, options, parameters);
         },
         children: [
-            {find: Images.findForNetwork},
+            { find: Images.findForNetwork },
             {
-                find: Meteor.users.findUppersForNetworkDiscover, children: [
-                {find: Images.findForUser}
-            ]
+                find: Meteor.users.findUppersForNetworkDiscover, 
+                children: [
+                    { find: Images.findForUser }
+                ]
             }
         ]
     };

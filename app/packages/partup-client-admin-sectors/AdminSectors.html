@@ -16,7 +16,7 @@
             <span class="pu-label">PhraseApp Key</span>
 
             <div class="pu-sub-validations {{#if afFieldIsInvalid name='phrase_key' }}pu-state-invalid{{/if}}">
-                <span class="pu-sub-input">{{> afFieldInput name='phrase_key' defaultValue='network-settings-' placeholder='network-settings-' class="pu-input" }}</span>
+                <span class="pu-sub-input">{{> afFieldInput name='phrase_key' placeholder='placeholders.name' class="pu-input" }}</span>
                 <span class="pu-sub-error">{{ afFieldMessage name='phrase_key' }}</span>
             </div>
         </label>
@@ -40,33 +40,30 @@
             </p>
         </li>
         {{# each sectors }}
-        <li>
-            <p class="pu-sub-info inline">
-                <span class="pu-sub-name">{{ name }}</span>
-            </p>
-            <p class="pu-sub-info inline">
-               <span class="pu-sub-name">{{ phrase_key }}</span>
-            </p>
-            <button type="button" class="pu-sub-settings pu-button pu-button-checkmark" data-toggle><i class="picon-cog"></i></button>
-            <div class="pu-uppersettings" data-toggle-target>
-                <ul class="pu-list">
-                    <li class="pu-dropdownitem pu-dropdownitem-small pu-sub-edit">
-                        <button data-sector-edit="{{ _id }}">edit</button>
-                    </li>
-                    <li class="pu-dropdownitem pu-dropdownitem-small pu-sub-delete">
-                        <button data-sector-remove="{{ _id }}">remove</button>
-                    </li>
-                </ul>
-            </div>
-        </li>
-        {{#if partupIsPopupActive 'popup.sector-edit' }} 
-            {{#contentFor region="PopupContent" data=. }} 
-                {{> _EditSector sectorId=currentSector success=toggleMenu }} 
-            {{/contentFor}}
-        {{/if}} 
-
-    {{/ each }}
+            <li>
+                <p class="pu-sub-info inline">
+                    <span class="pu-sub-name">{{ name }}</span>
+                </p>
+                <p class="pu-sub-info inline">
+                <span class="pu-sub-name">{{ phrase_key }}</span>
+                </p>
+                <button type="button" class="pu-sub-settings pu-button pu-button-checkmark" data-toggle><i class="picon-cog"></i></button>
+                <div class="pu-uppersettings" data-toggle-target>
+                    <ul class="pu-list">
+                        <li class="pu-dropdownitem pu-dropdownitem-small pu-sub-edit">
+                            <button data-sector-edit="{{ _id }}">edit</button>
+                        </li>
+                        <li class="pu-dropdownitem pu-dropdownitem-small pu-sub-delete">
+                            <button data-sector-remove="{{ _id }}">remove</button>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            {{#if partupIsPopupActive 'popup.sector-edit' }} 
+                {{#contentFor region="PopupContent" data=. }} 
+                    {{> _EditSector sectorId=currentSector }} 
+                {{/contentFor}}
+            {{/if}} 
+        {{/ each }}
     </ul>
-
-
 </template>

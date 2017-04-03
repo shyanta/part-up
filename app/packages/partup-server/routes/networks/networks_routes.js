@@ -2,12 +2,14 @@
  * Count route for /networks/discover
  */
 Router.route('/networks/discover/count', {where: 'server'}).get(function() {
+    //@TODO: Why is this route neccesary? Can't the count be obtained from the regular /networks/discover route?
     var request = this.request;
     var response = this.response;
 
     // We are going to respond in JSON format
     response.setHeader('Content-Type', 'application/json');
 
+    var userId = request.user ? request.user._id : null;
     var parameters = {
         textSearch: request.query.textSearch,
         locationId: request.query.locationId,
@@ -20,7 +22,6 @@ Router.route('/networks/discover/count', {where: 'server'}).get(function() {
         notArchived: true
     };
 
-    var userId = request.user ? request.user._id : null;
     var networks = Networks.findForDiscover(userId, {}, parameters);
 
     return response.end(JSON.stringify({error: false, count: networks.count()}));

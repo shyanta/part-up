@@ -48,7 +48,6 @@ Template.app_discover_tribes.onCreated(function() {
 
         template.tribesXMLHttpRequest = null;
         
-        console.log(mout.queryString.encode(query))
         HTTP.get('/networks/discover' + mout.queryString.encode(query), {
             beforeSend: function(_request) {
                 template.tribesXMLHttpRequest = _request;

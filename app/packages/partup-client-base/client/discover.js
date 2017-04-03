@@ -84,7 +84,6 @@ Partup.client.discover = {
 
             queryObj[key] = value;
         }
-
         return queryObj;
     },
 

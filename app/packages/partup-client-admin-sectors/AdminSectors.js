@@ -1,6 +1,6 @@
 Template.AdminSectors.onCreated(function() {
     this.subscribe('sectors.all');
-    this.currentSectorId = new ReactiveVar('')
+    this.currentSectorId = new ReactiveVar(undefined)
     this.currentToggleTarget = new ReactiveVar(undefined)
     this.toggleMenu = function () {
         var target = Template.instance().currentToggleTarget.get()
@@ -16,7 +16,7 @@ Template.AdminSectors.helpers({
     newSector: function () {
         return {
             _id: undefined,
-            name: '',
+            name: undefined,
             phrase_key: 'network-settings-sector-'
         }
     },
@@ -32,12 +32,10 @@ Template.AdminSectors.helpers({
 /* Widget events */
 /*************************************************************/
 Template.AdminSectors.events({
-    'click [data-toggle]': function(event) {
+    'click [data-toggle]': function(event, template) {
         event.preventDefault();
-        Template.instance().currentToggleTarget.set(event.currentTarget)
-        Template.instance().toggleMenu()
-        //$(event.currentTarget).next('[data-toggle-target]').toggleClass('pu-state-active');
-        //$('[data-toggle-target]').not($(event.currentTarget).next('[data-toggle-target]')[0]).removeClass('pu-state-active');
+        template.currentToggleTarget.set(event.currentTarget)
+        template.toggleMenu()
     },
     'click [data-expand]': function(event) {
         $(event.currentTarget).addClass('pu-state-expanded');
@@ -56,11 +54,23 @@ Template.AdminSectors.events({
         Partup.client.popup.open({
             id: 'popup.sector-edit'
         });
+        template.toggleMenu()
     },
     'click [data-sector-remove]': function(event, template) {
+        var sectorId = $(event.currentTarget).data('sector-remove');
+
+        var affectedCount = Networks.find().fetch()
+            .filter(function(network) {
+                return tribe.sector_id === sectorId;
+            })
+            .reduce(function (total, current) {
+                total = total + 1;
+            }, 0);
+
         Partup.client.prompt.confirm({
+            message: `This will affect ${affectedCount} tribes, are you sure?`,
             onConfirm: function() {
-                var sectorId = $(event.currentTarget).data('sector-remove');
+                
                 Meteor.call('sectors.remove', sectorId, function(error) {
                     if (error) {
                         Partup.client.notify.error(TAPi18n.__('pages-modal-admin-createsector-error-' + error.reason));
@@ -70,6 +80,7 @@ Template.AdminSectors.events({
                 });
             }
         });
+        template.toggleMenu()
     }
 });
 

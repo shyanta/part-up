@@ -31,7 +31,6 @@ AutoForm.hooks({
                     return Partup.client.notify.error(TAPi18n.__('base-errors-' + error.reason))
                 }
                 Partup.client.popup.close()
-                parent.data.success()
             })
 
             return false;

@@ -658,7 +658,7 @@ Networks.guardedMetaFind = function(selector, options) {
         'collegues',
         'collegues_custom_a',
         'collegues_custom_b',
-        'sector'
+        'sector_id'
     ];
 
     unguardedFields.forEach(function(unguardedField) {
@@ -674,10 +674,18 @@ Networks.guardedMetaFind = function(selector, options) {
  * @memberOf Networks
  * @param userId
  * @param {Object} options
- * @param parameters
+ * @param {Object} parameters
  * @return {Cursor}
  */
-Networks.findForDiscover = function(userId, options, parameters) {
+Networks.findForDiscover = function(
+    /** Not implemented, will be passed as 'null' */ userId, 
+    /** The query options: limit/skip/sort/fields */ options, 
+    /** Optional query filters, see Partup.client.discover */ parameters) {
+
+    //How the query is built:
+    // - Selector: textSearch, language, location, type, sector_id, archived_at
+    // - Options: limit, skip, sort, fields [ uppers ]
+
     var selector = {};
 
     options = options || {};
@@ -692,7 +700,7 @@ Networks.findForDiscover = function(userId, options, parameters) {
     var locationId = parameters.locationId || undefined;
     var language = parameters.language || undefined;
     var type = parameters.type || undefined;
-    var sector = parameters.sector || undefined;
+    var sector_id = parameters.sector_id || undefined;
     var notArchived = parameters.notArchived || undefined;
 
     if (sort) {
@@ -700,7 +708,6 @@ Networks.findForDiscover = function(userId, options, parameters) {
         if (sort === 'new') {
             options.sort['created_at'] = -1;
         }
-
         // Sort the networks from the most popular to the least popular
         if (sort === 'popular') {
             options.sort['popularity'] = -1;
@@ -728,20 +735,17 @@ Networks.findForDiscover = function(userId, options, parameters) {
     if (language) {
         selector['language'] = language;
     }
-
     // Filter the networks that are in a given location
     if (locationId) {
         selector['location.place_id'] = locationId;
     }
-
     // Filter on type
     if (type) {
         selector['type'] = type;
     }
-
     // Filter the networks on sector
-    if (sector) {
-        selector['sector'] = sector;
+    if (sector_id) {
+        selector['sector_id'] = sector_id;
     }
 
     if (notArchived) {
@@ -751,7 +755,9 @@ Networks.findForDiscover = function(userId, options, parameters) {
     // Limit uppers array to 7 to remove excessive data
     options.fields['uppers'] = {$slice: 7};
 
-    return this.guardedFind(userId, selector, options);
+    // Set user to 'null' because tribes are always visible.
+    // If user is set the guardedFind() will include tribes where user is admin or upper even when not requested to filter on user.
+    return this.guardedFind(null, selector, options);
 };
 
 /**
@@ -796,7 +802,6 @@ Networks.guardedFind = function(userId, selector, options) {
             // Default to all types
             guardedCriterias.push({'privacy_type': {'$in': [Networks.privacy_types.NETWORK_PUBLIC, Networks.privacy_types.NETWORK_INVITE, Networks.privacy_types.NETWORK_CLOSED]}});
         }
-
         // Remove type from selector
         delete selector.type;
     } else {
@@ -815,7 +820,7 @@ Networks.guardedFind = function(userId, selector, options) {
 
     // Guarding selector that needs to be fulfilled
     var guardingSelector = {'$or': guardedCriterias};
-
+    
     // Merge the selectors, so we still use the initial selector provided by the caller
     var finalSelector = {'$and': [guardingSelector, selector]};
 
@@ -870,14 +875,15 @@ Networks.findUnarchivedForUser = function(user, userId, options) {
  * @param {Object} options - mongo query options
  * @return {Mongo.Cursor}
  */
-Networks.findForDiscoverFilter = function(loggedInUserId, options) {
+Networks.findForDiscoverFilter = function(/** Obsolete, is always 'null' even if set */ loggedInUserId, options) {
     options = options || {};
-
     options.sort = options.sort || {};
     //TODO: add sort rule for loggedInUserId existance in network.uppers
     options.sort.upper_count = -1;
 
-    return Networks.guardedFind(loggedInUserId, {}, options);
+    // Set user to 'null' because tribes are always visible.
+    // If user is set the guardedFind() will include tribes where user is admin / upper even when not requested.
+    return Networks.guardedFind(null, {}, options);
 };
 
 /**
