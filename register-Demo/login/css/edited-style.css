@@ -1,0 +1,30 @@
+.pu-button:focus {
+	box-shadow: 0 0 10px #57C0C9;
+}
+input:focus{
+	box-shadow: 0 0 10px #57C0C9;
+	border: initial;
+}
+.picon-times::before,
+.picon-facebook::before,
+.picon-linkedin::before {
+	content: "";
+	display: inline-block;
+	height: 16px;
+	width: 16px;
+	line-height: 20px;
+	background-size: 16px;
+}
+.picon-times:before {
+	width: 10px;
+	height: 10px;
+	background-size: 10px;
+	line-height: 18px;
+	background-image: url(../img/cancel.svg);
+}
+.picon-facebook:before {
+	background-image: url(../img/facebook.svg);
+}
+.picon-linkedin:before {
+	background-image: url(../img/linkedin.svg);
+}
