@@ -91,7 +91,9 @@ good at. The placeholder reads "Please seperate with a c".
 ![placeholder register](readme-img/placeholder.jpg)
 ```
 <div class="autoform-tags-field">
-	<input type="text" class="js-input" data-schema-key="tags_input" style="display: none;"><div class="bootstrap-tagsinput"><input type="text" placeholder="Please separate with a comma" style=""></div>
+	<input type="text" class="js-input" data-schema-key="tags_input" style="display: none;">
+	<div class="bootstrap-tagsinput"><input type="text"
+	placeholder="Please separate with a comma" style=""></div>
 </div>
 ```
 In the code you can see that they want you to separate with a comma, but every user will see this
