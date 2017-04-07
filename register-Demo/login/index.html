@@ -2,9 +2,9 @@
 <html lang="nl">
 	<head>
 		<meta charset="utf-8">
-		<!-- <link rel="stylesheet" href="css/lifely-style.css">
+		<link rel="stylesheet" href="css/lifely-style.css">
 		<link rel="stylesheet" href="css/lifely-meteor-style.css">
-		<link rel="stylesheet" href="css/edited-style.css"> -->
+		<link rel="stylesheet" href="css/edited-style.css">
 		<title>Login Part-up</title>
 	</head>
 	<body class="pu-state-currentlayout-modal">
@@ -12,7 +12,7 @@
 			<div class="pu-modal">
 				<!-- Page -->
 				<nav class="pu-header pu-header-modal">
-					<a class="pu-button pu-button-header pu-button-header-modal" data-closepage="" href="#">
+					<a class="pu-button pu-button-header pu-button-header-modal" data-closepage="" href="#" tabindex="3">
 						<i class="picon-times"></i>
 						Sluiten
 					</a>
@@ -23,10 +23,10 @@
 							<div class="pu-composition pu-composition-defaultmodal pu-composition-login">
 								<h2 class="pu-title pu-title-modal">Log in met je Part-up profiel</h2>
 								<p>Goed dat je weer terug bent! Je kunt met één klik inloggen met Facebook of Linkedin, of gebruik je e-mailadres en wachtwoord.</p>
-								<p class="pu-sub-register">Ben je nieuw hier?&nbsp;<a href="#" data-createaccount="">Maak een Part-up profiel.</a></p>
+								<p class="pu-sub-register">Ben je nieuw hier?&nbsp;<a href="#" data-createaccount="" tabindex="2">Maak een Part-up profiel.</a></p>
 								<ul class="pu-list pu-list-horizontal pu-list-buttons">
 									<li>
-										<a href="#" class="pu-button pu-button-facebook needsclick" data-loginfacebook="">
+										<a href="#" class="pu-button pu-button-facebook needsclick" data-loginfacebook="" tabindex="2">
 											<span>
 												<i class="picon-facebook"></i>
 												Inloggen met Facebook
@@ -34,7 +34,7 @@
 										</a>
 									</li>
 									<li>
-										<a href="#" class="pu-button pu-button-linkedin needsclick" data-loginlinkedin="">
+										<a href="#" class="pu-button pu-button-linkedin needsclick" data-loginlinkedin="" tabindex="2">
 											<span>
 												<i class="picon-linkedin"></i>
 												Inloggen met Linkedin
@@ -45,34 +45,35 @@
 								<p class="pu-textline"><span>of</span></p>
 
 								<form id="loginForm" class="pu-form">
-									<label required class="pu-formfield">
+									<label class="pu-formfield">
 										<span class="pu-label">E-mailadres</span>
 										<div class="pu-sub-validations">
 											<span class="pu-sub-input">
-												<input type="text" name="email" placeholder="Email" class="pu-input form-control" required data-schema-key="email" maxlength="255">
+												<input type="email" name="email" placeholder="example@example.com" class="pu-input form-control" required data-schema-key="email" maxlength="255" tabindex="1">
 											</span>
 											<span class="pu-sub-error"></span>
 										</div>
 									</label>
 
-									<label 	required class="pu-formfield">
+									<label class="pu-formfield">
 										<span class="pu-label">Wachtwoord</span>
 										<div class="pu-sub-validations">
 											<span class="pu-sub-input">
-												<input type="password" name="password" placeholder="Wachtwoord" class="pu-input form-control" required data-schema-key="password" maxlength="255">
+												<input type="password" name="password" placeholder="password" class="pu-input form-control" required data-schema-key="password"
+												minlength="8" maxlength="16" tabindex="1">
 											</span>
 											<span class="pu-sub-error"></span>
 										</div>
 									</label>
 
 									<footer>
-										<input type="submit" class="pu-button" value="Inloggen">
+										<input type="submit" class="pu-button" value="Inloggen" tabindex="1">
 									</footer>
 								</form>
 
 								<p class="pu-paragraph pu-paragraph-subtle">
 									<strong>Help:</strong>
-									<a href="/forgot-password">Ik kan niet inloggen, volgens mij ben ik mijn wachtwoord vergeten.</a>
+									<a href="/forgot-password" tabindex="1">Ik kan niet inloggen, volgens mij ben ik mijn wachtwoord vergeten.</a>
 								</p>
 							</div>
 						</div>

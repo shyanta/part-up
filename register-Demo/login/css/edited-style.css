@@ -1,10 +1,27 @@
+/*Add focus styles that are clearly visible*/
 .pu-button:focus {
-	box-shadow: 0 0 10px #57C0C9;
+	box-shadow: 0 0 15px #00a8ff;
+}
+.pu-button-facebook:focus {
+	box-shadow: 0 0 15px #004fff;
 }
 input:focus{
 	box-shadow: 0 0 10px #57C0C9;
 	border: initial;
 }
+input[type="submit"]:focus {
+	box-shadow: 0 0 10px #ff9800;
+}
+/*Style the valid and invalid states*/
+input[type="password"]:valid,
+input[type="email"]:valid {
+	background-color: #e4ffdd;
+}
+input[type="password"]:invalid,
+input[type="email"]:invalid {
+	background-color: #ffdbdf;
+}
+/*Overwrite icon fonts with svg pics. The icon code didn't work the right way*/
 .picon-times::before,
 .picon-facebook::before,
 .picon-linkedin::before {

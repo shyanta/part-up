@@ -1,0 +1,88 @@
+/*Add focus styles that are clearly visible*/
+.pu-button:focus {
+	box-shadow: 0 0 15px #00a8ff;
+}
+.pu-button-facebook:focus {
+	box-shadow: 0 0 15px #004fff;
+}
+input:focus, textarea:focus{
+	box-shadow: 0 0 10px #57C0C9;
+	border: initial;
+}
+input[type="submit"]:focus {
+	box-shadow: 0 0 10px #ff9800;
+}
+/*Style the valid and invalid states*/
+input[type="email"]:valid {
+	background-color: #e4ffdd;
+}
+input[type="password"]:invalid,
+input[type="email"]:invalid {
+	background-color: #ffdbdf;
+	position: relative;
+}
+a.pu-tooltip:focus {
+	outline: none;
+	box-shadow: 0 0 10px #57C0C9;
+}
+	a.pu-tooltip:focus > .pu-tooltip-wrapper {
+		opacity: 1;
+		visibility: visible;
+	}
+/*Add Label Requirement styles*/
+span.label-required {
+	font-size: .8em;
+	font-weight: normal;
+	color: #555;
+	margin-top: 8px;
+	display: inline-block;
+	width: 90%;
+}
+/*Place Skip button at bottom of the screen*/
+.pu-modal {
+	padding-top: 0;
+}
+.pu-page .pu-sub-pagecontent {
+	padding: 50px 0 100px 0;
+}
+.pu-modal .pu-header {
+    bottom: 0;
+	top: auto;
+}
+
+/*Overwrite icon fonts with svg pics. The icon code didn't work the right way*/
+.picon-times::before,
+.picon-facebook::before,
+.picon-linkedin::before,
+.picon-twitter::before,
+.picon-question::before,
+.picon-instagram::before {
+	content: "";
+	display: inline-block;
+	height: 16px;
+	width: 16px;
+	line-height: 20px;
+	background-size: 16px;
+}
+.picon-times::before {
+	width: 10px;
+	height: 10px;
+	background-size: 10px;
+	line-height: 18px;
+	background-image: url(../img/cancel.svg);
+}
+.picon-facebook::before {
+	background-image: url(../img/facebook.svg);
+}
+.picon-linkedin::before {
+	background-image: url(../img/linkedin.svg);
+}
+.picon-twitter::before {
+	background-image: url(../img/twitter.svg);
+}
+.picon-instagram::before {
+	background-image: url(../img/instagram.svg);
+}
+.picon-question::before {
+	background-image: url(../img/question.svg);
+}

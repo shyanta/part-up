@@ -1,86 +1,204 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="utf-8">
-		<link rel="stylesheet" href="css/lifely-style.css">
-		<link rel="stylesheet" href="css/lifely-meteor-style.css">
-		<link rel="stylesheet" href="css/edited-style.css">
-		<title>Login Part-up</title>
-	</head>
-	<body class="pu-state-currentlayout-modal">
-		<main class="pu-main">
-			<div class="pu-modal">
-				<!-- Page -->
-				<nav class="pu-header pu-header-modal">
-					<a class="pu-button pu-button-header pu-button-header-modal" data-closepage="" href="#">
-						<i class="picon-times"></i>
-						Sluiten
-					</a>
-				</nav>
-				<article class="pu-page">
-					<div class="pu-sub-pagecontent">
-						<div class="pu-wrap pu-wrap-modal">
-							<div class="pu-composition pu-composition-defaultmodal pu-composition-login">
-								<h2 class="pu-title pu-title-modal">Log in met je Part-up profiel</h2>
-								<p>Goed dat je weer terug bent! Je kunt met één klik inloggen met Facebook of Linkedin, of gebruik je e-mailadres en wachtwoord.</p>
-								<p class="pu-sub-register">Ben je nieuw hier?&nbsp;<a href="#" data-createaccount="">Maak een Part-up profiel.</a></p>
-								<ul class="pu-list pu-list-horizontal pu-list-buttons">
-									<li>
-										<a href="#" class="pu-button pu-button-facebook needsclick" data-loginfacebook="">
-											<span>
-												<i class="picon-facebook"></i>
-												Inloggen met Facebook
-											</span>
-										</a>
-									</li>
-									<li>
-										<a href="#" class="pu-button pu-button-linkedin needsclick" data-loginlinkedin="">
-											<span>
-												<i class="picon-linkedin"></i>
-												Inloggen met Linkedin
-											</span>
-										</a>
-									</li>
-								</ul>
-								<p class="pu-textline"><span>of</span></p>
+<html lang="en">
 
-								<form id="loginForm" class="pu-form" novalidate="novalidate">
-									<label class="pu-formfield">
-										<span class="pu-label">E-mailadres</span>
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="css/lifely-style.css">
+	<link rel="stylesheet" href="css/lifely-meteor-style.css">
+	<link rel="stylesheet" href="css/edited-style.css">
+	<title>Register Part-up</title>
+</head>
+
+<body class="pu-state-currentlayout-modal">
+	<main class="pu-main">
+		<div class="pu-modal">
+			<!-- Page -->
+			<article class="pu-page">
+				<div class="pu-sub-pagecontent">
+					<div class="pu-wrap pu-wrap-modal">
+						<div class="pu-composition pu-composition-defaultmodal pu-composition-register">
+							<h2 class="pu-title pu-title-modal">Hi Shyanta Vleugel, can we get to know you?</h2>
+							<p>We already created your account. You are almost ready to part-up. Share some details to make your profile reliable and we can introduce you to matching part-ups.</p>
+							<form id="pagesModalRegisterDetailsForm" class="pu-form" novalidate="novalidate">
+								<input type="hidden" value="Shyanta Vleugel" name="name" placeholder="Your first and lastname" class="pu-input" required="" data-schema-key="name">
+								<!-- User avatar -->
+								<div class="pu-formfield">
+									<span class="pu-label">Give us your smile</span>
+									<div class="pu-upload">
+										<figure style="background-image:url('https://s3-eu-west-1.amazonaws.com/partup-production/1200x520/images/W8YuMhbEu5747QAJ2-Profielfoto1.png')" class="pu-imagepreview pu-imagepreview-profile"></figure>
+										<button type="button" class="pu-button pu-button-secondary" data-browse-photos="">
+												<span>Photo from my computer</span>
+											</button>
+										<input type="file" class="pu-fileinput" data-hidden-fileinput="">
+										<input type="hidden" value="W8YuMhbEu5747QAJ2" name="image" data-schema-key="image">
+									</div>
+								</div>
+								<!-- Bio -->
+								<label class="pu-formfield">
+										<span class="pu-label">
+											Introduce yourself
+											<a class="pu-hint pu-tooltip" tabindex="0">
+												<i class="picon-question"></i>
+												<span class="pu-tooltip-wrapper"><p class="pu-paragraph">Other uppers would like to know who they are working with. What can you tell them about you? Promote yourself by being honest.</p></span>
+											</a>
+										</span>
 										<div class="pu-sub-validations">
 											<span class="pu-sub-input">
-												<input type="text" name="email" placeholder="Waarmee je je aangemeld hebt" class="pu-input form-control" autofocus="" required="" data-schema-key="email" maxlength="255">
+												<textarea name="description" placeholder="Give a short discription of who you are and what you are good at" class="pu-textarea form-control" rows="3" data-schema-key="description" maxlength="650"></textarea>
 											</span>
 											<span class="pu-sub-error"></span>
 										</div>
 									</label>
 
-									<label class="pu-formfield">
-										<span class="pu-label">Wachtwoord</span>
-										<div class="pu-sub-validations">
-											<span class="pu-sub-input">
-												<input type="password" name="password" placeholder="Dezelfde als vorige keer" class="pu-input form-control" required="" data-schema-key="password" maxlength="255">
+								<!-- Tags -->
+								<label class="pu-formfield">
+									<span class="pu-label">
+										What you like to do and are good at in (five) keywords
+										<span class="label-required">Please separate your words with a comma</span>
+										<a class="pu-hint pu-tooltip" tabindex="0">
+											<i class="picon-question"></i>
+											<span class="pu-tooltip-wrapper"><p class="pu-paragraph">We use these words to start matching you with interesting part-ups. So pick words that are about your contribution to part-ups. There is no need for perfection, we will update your profile with your actual contributions to part-ups.</p></span>
+										</a>
+									</span>
+									<div class="pu-sub-validations">
+										<span class="pu-sub-input pu-sub-input-tags">
+											<input type="text" class="pu-input typeahead tt-input" placeholder="word 1, word 2, etc." style="">
+										</span>
+										<span class="pu-sub-error"></span>
+									</div>
+								</label>
+								<!-- Location -->
+								<label class="pu-formfield">
+									<span class="pu-label">
+										Where do you want to join part-ups?
+										<span class="label-required">For example in your home town or region</span>
+										<a class="pu-hint pu-tooltip" tabindex="0">
+											<i class="picon-question"></i>
+											<span class="pu-tooltip-wrapper"><p class="pu-paragraph">We love to introduce you to the most interesting part-ups in your area. And we think of you and the environment, so we rank nearby part-ups highest.</p></span>
+										</a>
+									</span>
+									<div class="pu-sub-validations">
+										<span class="pu-sub-input">
+											<span class="twitter-typeahead" style="position: relative; display: inline-block;">
+												<input type="text" class="pu-input typeahead tt-hint" data-queryinput="DrHw9yXPtSmERRoz4" data-input="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="off" data-min-length="2" data-limit="4" readonly="" tabindex="-1" style="position: absolute; top: 0px; left: 0px; border-color: transparent; box-shadow: none; opacity: 1; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(255, 255, 255);" dir="ltr">
+												<input type="text" placeholder="Amsterdam, Rotterdam etc." class="pu-input typeahead tt-input" data-queryinput="DrHw9yXPtSmERRoz4" data-input="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="off" data-min-length="2" data-limit="4" dir="auto" style="position: relative; vertical-align: top; background-color: transparent;">
+												<pre aria-hidden="true" style="position: absolute; visibility: hidden; white-space: pre; font-family: proxima-nova, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; word-spacing: 0px; letter-spacing: 0px; text-indent: 0px; text-rendering: auto; text-transform: none;"></pre>
+												<div class="tt-menu" style="position: absolute; top: 100%; left: 0px; z-index: 100; display: none;">
+													<div class="tt-dataset tt-dataset-dataset"></div>
+												</div>
 											</span>
-											<span class="pu-sub-error"></span>
-										</div>
+											<input type="hidden" name="location_input" data-schema-key="location_input" maxlength="255" class="form-control">
+										</span>
+										<span class="pu-sub-error"></span>
+									</div>
+								</label>
+								<!-- Socials -->
+								<fieldset class="pu-formfield">
+									<label class="pu-label" for="pu-sub-facebookfield">
+										Can other uppers see your social media profiles?
+										<a class="pu-hint pu-tooltip" tabindex="0">
+											<i class="picon-question"></i>
+											<span class="pu-tooltip-wrapper"><p class="pu-paragraph">Your social media profiles show who you are and what you are good at. If you share them, other uppers already get to know you a little.</p></span>
+										</a>
 									</label>
+									<!-- Facebook -->
+									<div class="pu-sub-validations">
+										<div class="pu-sub-input pu-inputholder pu-inputholder-lefticon">
+											<input type="text" class="pu-input form-control" name="facebook_url" placeholder="The webaddress for your Facebook profile" data-schema-key="facebook_url" maxlength="2000">
+											<span class="pu-icon"><i class="picon-facebook"></i></span>
+										</div>
+										<span class="pu-sub-error"></span>
+									</div>
+									<!-- Twitter -->
+									<div class="pu-sub-validations">
+										<div class="pu-sub-input pu-inputholder pu-inputholder-lefticon">
+											<input type="text" class="pu-input form-control" name="twitter_url" placeholder="The webaddress for your Twitter profile" data-schema-key="twitter_url" maxlength="2000">
+											<span class="pu-icon"><i class="picon-twitter"></i></span>
+										</div>
+										<span class="pu-sub-error"></span>
+									</div>
+									<!-- Instagram -->
+									<div class="pu-sub-validations">
+										<div class="pu-sub-input pu-inputholder pu-inputholder-lefticon">
+											<input type="text" class="pu-input form-control" name="instagram_url" placeholder="The webaddress for your Instagram profile" data-schema-key="instagram_url" maxlength="2000">
+											<span class="pu-icon"><i class="picon-instagram"></i></span>
+										</div>
+										<span class="pu-sub-error"></span>
+									</div>
+									<!-- LinkedIn -->
+									<div class="pu-sub-validations">
+										<div class="pu-sub-input pu-inputholder pu-inputholder-lefticon">
+											<input type="text" class="pu-input form-control" name="linkedin_url" placeholder="The webaddress for your LinkedIn profile" data-schema-key="linkedin_url" maxlength="2000">
+											<span class="pu-icon"><i class="picon-linkedin"></i></span>
+										</div>
+										<span class="pu-sub-error"></span>
+									</div>
+								</fieldset>
+								<!-- Site URL -->
+								<label class="pu-formfield">
+									<span class="pu-label">
+										Do you have a website or blog?
+										<a class="pu-hint pu-tooltip" tabindex="0">
+										<i class="picon-question"></i>
+										<span class="pu-tooltip-wrapper"><p class="pu-paragraph">You can use your website or blog to present yourself to others. Share it here so other uppers are able to get to know you better. If you don't have one, please leave this field empty.</p></span>
+									</a>
+								</span>
+								<div class="pu-sub-validations">
+									<span class="pu-sub-input">
+										<input type="text" name="website" placeholder="www.my-blog-or-website.com" class="pu-input form-control" data-schema-key="website" maxlength="255">
+									</span>
+									<span class="pu-sub-error"></span>
+								</div>
+							</label>
+								<!-- Phone number -->
+								<label class="pu-formfield">
+									<span class="pu-label">
+										Is it okay for other uppers to call (or text) you?
+										<a class="pu-hint pu-tooltip" tabindex="0">
+											<i class="picon-question"></i>
+											<span class="pu-tooltip-wrapper"><p class="pu-paragraph">Availability is important in working together. Privacy as well. That's why we only share your phone number with your partners. They are the uppers you work with.</p></span>
+										</a>
+									</span>
 
-									<footer>
-										<button type="submit" class="pu-button">
-											<span>Inloggen</span>
-										</button>
-									</footer>
-								</form>
-
-								<p class="pu-paragraph pu-paragraph-subtle">
-									<strong>Help:</strong>
-									<a href="/forgot-password">Ik kan niet inloggen, volgens mij ben ik mijn wachtwoord vergeten.</a>
-								</p>
-							</div>
+									<div class="pu-sub-validations">
+										<span class="pu-sub-input">
+											<input type="text" name="phonenumber" placeholder="+31612345678" class="pu-input form-control" data-schema-key="phonenumber" maxlength="255">
+										</span>
+										<span class="pu-sub-error"></span>
+									</div>
+								</label>
+								<!-- Skype username -->
+								<label class="pu-formfield">
+									<span class="pu-label">
+										Do you use Skype?
+										<a class="pu-hint pu-tooltip" tabindex="0">
+											<i class="picon-question"></i>
+											<span class="pu-tooltip-wrapper"><p class="pu-paragraph">Just like your phone number, we only share your Skype name with your partners. They are the uppers you work with.</p></span>
+										</a>
+									</span>
+									<div class="pu-sub-validations">
+										<span class="pu-sub-input">
+											<input type="text" name="skype" placeholder="Your Skype name" class="pu-input form-control" data-schema-key="skype" maxlength="255">
+										</span>
+										<span class="pu-sub-error"></span>
+									</div>
+								</label>
+								<!-- Submit form button -->
+								<footer>
+									<input type="submit" class="pu-button" value="Ready to part-up!">
+								</footer>
+							</form>
 						</div>
 					</div>
-				</article>
-			</div>
-		</main>
-	</body>
+				</div>
+			</article>
+			<nav class="pu-header pu-header-modal">
+				<a class="pu-button pu-button-header pu-button-header-modal" data-closepage="" href="#">
+					<i class="picon-times"></i> Skip
+				</a>
+			</nav>
+		</div>
+	</main>
+</body>
+
 </html>
